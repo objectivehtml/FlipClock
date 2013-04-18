@@ -1,0 +1,22 @@
+/**
+ * Postmaster
+ * 
+ * @package	FlipClock.js
+ * @author	Justin Kimbrell
+ * @copyright	Copyright (c) 2013, Objective HTML, LLC
+ * @link 	http://www.flipclockhs.com/
+ * @version	0.1.1
+ * @build	2013-04-18
+ */
+
+#### 0.1.1
+##### 04/17/2013
+
+- (Bug Fix) Fixed an issue causing multiple clocks on the same page to work incorrectly
+- (Bug Fix) Various API inconsistency fixes
+- (Bug Fix) Fixed some JSHint errors
+
+#### 0.1.0
+##### 04/17/2013
+
+Initial beta release
