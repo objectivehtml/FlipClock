@@ -22,18 +22,7 @@
 		 */
 		 
 		meridiumText: 'AM',
-			
-		/**
-		 * Constructor
-		 *
-		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default	
-		 */
-		 
-		constructor: function(factory, options) {
-			this.base(factory, options);
-		},
-			
+					
 		/**
 		 * Build the clock face
 		 *
@@ -43,7 +32,7 @@
 		build: function(time) {
 			var t        = this;
 			
-			var time     = time ? time : (this.factory.time.time ? this.factory.time.time : this.factory.time.getTime());
+			time = time ? time : (this.factory.time.time ? this.factory.time.time : this.factory.time.getTime());
 			
 			this.base(time);			
 			this.meridiumText = this._isPM() ? 'PM' : 'AM';			
@@ -62,13 +51,11 @@
 		 * Flip the clock face
 		 */
 		 
-		flip: function() {
-			
+		flip: function() {			
 			if(this.meridiumText != this._getMeridium()) {
 				this.meridiumText = this._getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
-			};
-			
+			}
 			this.base(this.factory.time.getTime());	
 		},
 		
@@ -103,7 +90,7 @@
 			for(var x = 6; x < 10; x++) {
 				tenSeconds.$obj.find('li:last-child').remove();
 				tenMinutes.$obj.find('li:last-child').remove();
-			};
+			}
 		}
 				
 	});

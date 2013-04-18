@@ -22,17 +22,17 @@
     list-style: none
 }
 
-.flip-clock-wrapper .clearfix:before,
-.flip-clock-wrapper .clearfix:after {
+.flip-clock-wrapper.clearfix:before,
+.flip-clock-wrapper.clearfix:after {
     content: " ";
     display: table;
 }
 
-.flip-clock-wrapper .clearfix:after {
+.flip-clock-wrapper.clearfix:after {
     clear: both;
 }
 
-.flip-clock-wrapper .clearfix {
+.flip-clock-wrapper.clearfix {
     *zoom: 1;
 }
 

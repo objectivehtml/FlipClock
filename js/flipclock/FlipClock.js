@@ -33,7 +33,7 @@ var FlipClock;
 	 * @param 	object  An object of the default properties
 	 * @param 	object  An object of properties to override the default	
 	 */
-	 	
+
 	FlipClock.Base = Base.extend({
 		
 		/**
@@ -66,7 +66,7 @@ var FlipClock;
 		},
 		
 		/**
-		 * Sets the default options
+		 * Delegates the callback to the defined method
 		 *
 		 * @param	object 	The default options
 		 * @param	object 	The override options
@@ -142,11 +142,11 @@ var FlipClock;
 		 */		
 		
 		setOptions: function(options) {
-  			for(var key in options) {
+			for(var key in options) {
 	  			if(typeof options[key] !== "undefined") {
-	  				this.setOption(key, options[key]);
-	  			}
-	  		}
+		  			this.setOption(key, options[key]);
+		  		}
+		  	}
 		}
 		
 	});
@@ -196,7 +196,7 @@ var FlipClock;
 			label: 'flip-clock-label',
 			flip: 'flip',
 			play: 'play',
-			wrapper: 'flip-clock-wrapper',	
+			wrapper: 'flip-clock-wrapper'
 		},
 		
 		/**
@@ -262,7 +262,7 @@ var FlipClock;
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
 			this.time     = new FlipClock.Time(this, digit ? digit : 0);
 			this.timer    = new FlipClock.Timer(this, options);
-			this.face     = this._loadClockFace(this.clockFace, options);
+			this.face     = this.loadClockFace(this.clockFace, options);
 			
 			if(this.autoStart) {
 				this.start();
@@ -276,7 +276,7 @@ var FlipClock;
 		 * @param	object 	An object override options
 		 */
 		 
-		_loadClockFace: function(name, options) {	
+		loadClockFace: function(name, options) {	
 			var face;
 			
 			name = name.ucfirst()+'Face';
@@ -297,13 +297,17 @@ var FlipClock;
 		 * Starts the clock
 		 */
 		 
-		start: function() {
+		start: function(callback) {
 			var t = this;
 			
 			if(!t.countdown || t.countdown && t.time.time > 0) {
 				t.face.start(t.time);
 				t.timer.start(function() {
-					t.flip();	
+					t.flip();
+					
+					if(typeof callback === "function") {
+						callback();
+					}	
 				});
 			}
 			else {
@@ -315,9 +319,9 @@ var FlipClock;
 		 * Stops the clock
 		 */
 		 
-		stop: function() {
+		stop: function(callback) {
 			this.face.stop();
-			this.timer.stop();
+			this.timer.stop(callback);
 			
 			for(var x in this.lists) {
 				this.lists[x].stop();
@@ -328,8 +332,8 @@ var FlipClock;
 		 * Reset the clock
 		 */
 		 
-		reset: function() {
-			this.timer.reset();
+		reset: function(callback) {
+			this.timer.reset(callback);
 			this.face.reset();
 		},
 		
@@ -339,7 +343,7 @@ var FlipClock;
 		 
 		setTime: function(time) {
 			this.time.time = time;
-			this.face.setTime();		
+			//this.face.setTime(time);		
 		},
 		
 		/**
@@ -421,70 +425,6 @@ var FlipClock;
 		build: function() {},
 		
 		/**
-		 * Triggers when the clock is started
-		 */
-		 
-		start: function() {},
-		
-		/**
-		 * Triggers when the clock is reset
-		 */
-		 
-		reset: function() {},
-		
-		/**
-		 * Triggers when the numbers on the clock flip
-		 */
-		 
-		flip: function(time, doNotAddPlayClass) {
-			var t = this;
-			
-			if(!doNotAddPlayClass) {
-				if(!t.factory.countdown) {
-					t.factory.time.time++;
-				}
-				else {
-					t.factory.time.time--;	
-					
-					if(t.factory.time.time == 0) {
-						t.factory.stop();
-					}
-				}
-			}
-			
-			$.each(time, function(i, digit) {
-				var list = t.factory.lists[i];				
-				var currentDigit = list.digit;
-			
-				if(list) {
-					list.select(digit);
-					
-					if(digit != currentDigit && !doNotAddPlayClass) {
-						list.play();	
-					}
-				}	
-				else {
-					var obj = new FlipClock.List(t, digit, {
-						classes: {
-							active: t.factory.classes.active,
-							before: t.factory.classes.before,
-							flip: t.factory.classes.flip
-						}
-					});
-					
-					t.factory.lists.unshift(obj);
-					t.$wrapper.prepend(obj.$obj);
-				}
-			});
-		},
-		
-		/**
-		 * Triggers when the time on the clock stops
-		 */
-		 
-		stop: function() {},
-				
-		/**
 		 * Creates a jQuery object used for the digit divider
 		 *
 		 * @param	mixed 	The divider label text
@@ -521,20 +461,82 @@ var FlipClock;
 		 */
 		 
 		createList: function(digit, options) {
-			var obj = new FlipClock.List(this.factory, digit, {
-				//countdown: this.factory.countdown,
-				classes: {
-					active: this.factory.classes.active,
-					before: this.factory.classes.before,
-					flip: this.factory.classes.flip
-				}
-			});
+			if(typeof digit === "object") {
+				options = digit;
+				digit = 0;
+			}
+			
+			var obj = new FlipClock.List(this.factory, digit, options);
 
 			this.factory.$wrapper.append(obj.$obj);	
 			
 			return obj;
-		}
+		},
+		
+		/**
+		 * Triggers when the clock is reset
+		 */
+		 
+		reset: function() {},
+		
+		/**
+		 * Triggers when the clock is started
+		 */
+		 
+		start: function() {},
+		
+		/**
+		 * Triggers when the time on the clock stops
+		 */
+		 
+		stop: function() {},
 			
+		/**
+		 * Triggers when the numbers on the clock flip
+		 */
+		 
+		flip: function(time, doNotAddPlayClass) {
+			var t = this;
+			
+			if(!doNotAddPlayClass) {
+				if(!t.factory.countdown) {
+					t.factory.time.time++;
+				}
+				else {
+					t.factory.time.time--;	
+					
+					if(t.factory.time.time === 0) {
+						t.factory.stop();
+					}
+				}
+			}
+			
+			$.each(time, function(i, digit) {
+				var list = t.factory.lists[i];				
+				var currentDigit = list.digit;
+			
+				if(list) {
+					list.select(digit);
+					
+					if(digit != currentDigit && !doNotAddPlayClass) {
+						list.play();	
+					}
+				}	
+				else {
+					var obj = this.createList(digit, {
+						classes: {
+							active: t.factory.classes.active,
+							before: t.factory.classes.before,
+							flip: t.factory.classes.flip
+						}
+					});
+					
+					t.factory.lists.unshift(obj);
+					t.$wrapper.prepend(obj.$obj);
+				}
+			});
+		}
+					
 	});
 		
 	/**
@@ -565,7 +567,11 @@ var FlipClock;
 			before: 'flip-clock-before',
 			flip: 'flip'	
 		},
-		
+				
+		/**
+		 * The parent FlipClock.Factory object
+		 */		
+		 
 		factory: false,
 		
 		/**
@@ -589,10 +595,9 @@ var FlipClock;
 		 */
 		 
 		constructor: function(factory, digit, options) {
-			this.base(options);
 			this.factory = factory;
 			this.digit   = digit;
-			this._createList();
+			this.$obj    = this._createList();
 			
 			if(digit > 0) {
 				this.select(digit);
@@ -685,7 +690,7 @@ var FlipClock;
 				html.append(item);
 			}
 			
-			this.$obj = html;
+			return html;
 		}
 	});
 		
@@ -822,7 +827,7 @@ var FlipClock;
 			var obj = this.digitize([
 				this.getHours(),
 				this.getMinutes(true),
-				this.getSeconds(true),
+				this.getSeconds(true)
 			]);
 			
 			return obj;
@@ -835,13 +840,7 @@ var FlipClock;
 		 */
 		 
 		getHourly: function() {
-			var obj = this.digitize([
-				this.getHours(),
-				this.getMinutes(true),
-				this.getSeconds(true),
-			]);
-			
-			return obj;
+			return this.getHourCounter();
 		},
 		
 		/**
@@ -902,7 +901,7 @@ var FlipClock;
 		getMinuteCounter: function() {
 			var obj = this.digitize([
 				this.getMinutes(true),
-				this.getSeconds(true),
+				this.getSeconds(true)
 			]);
 			
 			return obj;
@@ -941,7 +940,7 @@ var FlipClock;
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
 			var obj   = this.digitize([
-				hours > 12 ? hours - 12 : (hours == 0 ? 12 : hours),
+				hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours),
 				date.getMinutes(),
 				date.getSeconds()				
 			]);
@@ -981,7 +980,7 @@ var FlipClock;
 			
 			$.each(digits, function(i, digit) {
 				if(i < totalDigits) {
-					total += parseInt(digits[i]);
+					total += parseInt(digits[i], 10);
 				}
 				else {
 					newArray.push(digits[i]);
@@ -1001,7 +1000,7 @@ var FlipClock;
 		 
 		toString: function() {
 			return this.time.toString();
-		},
+		}
 		
 		/*
 		getYears: function() {
@@ -1012,6 +1011,13 @@ var FlipClock;
 			return Math.floor(this.getWeeks() / 10);
 		}*/
 	});
+	
+	/**
+	 * The FlipClock.Timer object managers the JS timers
+	 *
+	 * @param	object  The parent FlipClock.Factory object
+	 * @param	object  Override the default options
+	 */
 	
 	FlipClock.Timer = FlipClock.Base.extend({
 		
@@ -1046,13 +1052,7 @@ var FlipClock;
 		 */		
 		 
 		interval: 1000,
-		
-		/**
-		 * The FlickClock.Timer object
-		 */		
-		 
-		timer: false,
-		
+				
 		/**
 		 * Constructor
 		 *
@@ -1089,7 +1089,7 @@ var FlipClock;
 		/**
 		 * This method is resets the timer
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	callback  This method resets the timer back to 0
 		 * @return	void
 		 */		
 		 

@@ -18,32 +18,23 @@
 		dividers: [],
 
 		/**
-		 * Constructor
-		 
-		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default	
-		 */
-		 
-		constructor: function(factory, options) {
-			this.base(factory, options);
-		},
-			
-		/**
 		 * Build the clock face
 		 *
+			time     = time ? time : this.factory.time.getHourCounter();
 		 * @param  object  Pass the time that should be used to display on the clock.	
 		 */
 		 
 		build: function(time) {
 			var t        = this;
-			var time     = time ? time : (this.factory.time.time ? this.factory.time.time : this.factory.time.getMilitaryTime());
 			var children = this.factory.$wrapper.find('ul');
+			
+			time = time ? time : (this.factory.time.time || this.factory.time.getMilitaryTime());
 			
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
 					t.factory.lists.push(t.createList(digit));
 				});
-			};
+			}
 			
 			this.dividers.push(this.createDivider());
 			this.dividers.push(this.createDivider());
@@ -55,7 +46,7 @@
 			
 			if(this.autoStart) {
 				this.start();
-			};
+			}
 		},
 		
 		/**
@@ -78,7 +69,7 @@
 			for(var x = 6; x < 10; x++) {
 				tenSeconds.$obj.find('li:last-child').remove();
 				tenMinutes.$obj.find('li:last-child').remove();
-			};
+			}
 		}
 				
 	});
