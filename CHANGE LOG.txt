@@ -1,10 +1,10 @@
 /**
- * Postmaster
+ * FlipClock.js
  * 
  * @package	FlipClock.js
  * @author	Justin Kimbrell
  * @copyright	Copyright (c) 2013, Objective HTML, LLC
- * @link 	http://www.flipclockhs.com/
+ * @link 	http://www.flipclockjs.com/
  * @version	0.1.1
  * @build	2013-04-18
  */
