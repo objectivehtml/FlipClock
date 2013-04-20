@@ -5,9 +5,16 @@
  * @author	Justin Kimbrell
  * @copyright	Copyright (c) 2013, Objective HTML, LLC
  * @link 	http://www.flipclockjs.com/
- * @version	0.1.1
- * @build	2013-04-18
+ * @version	0.1.2
+ * @build	2013-04-12
  */
+
+#### 0.1.2
+##### 04/20/2013
+
+- (Bug Fix) Fixed an that caused the countdown to break if the clock when from "X digits" to "X - 1 digits". So if the clock went from 7 digits down to 6, it would break.
+- (Bug Fix) Fixed an issue that caused the clock to break if the setTime() method was used and made the clock go from 6 digits to 7. 
+
 
 #### 0.1.1
 ##### 04/17/2013

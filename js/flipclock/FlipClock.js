@@ -46,7 +46,7 @@ var FlipClock;
 		 * Version
 		 */
 		 
-		version: '0.1.0',
+		version: '0.1.2',
 		
 		/**
 		 * Sets the default options
@@ -300,7 +300,7 @@ var FlipClock;
 		start: function(callback) {
 			var t = this;
 			
-			if(!t.countdown || t.countdown && t.time.time > 0) {
+			if(!t.running && (!t.countdown || t.countdown && t.time.time > 0)) {
 				t.face.start(t.time);
 				t.timer.start(function() {
 					t.flip();
@@ -343,7 +343,7 @@ var FlipClock;
 		 
 		setTime: function(time) {
 			this.time.time = time;
-			//this.face.setTime(time);		
+			this.face.setTime(time);		
 		},
 		
 		/**
@@ -511,11 +511,20 @@ var FlipClock;
 				}
 			}
 			
-			$.each(time, function(i, digit) {
-				var list = t.factory.lists[i];				
-				var currentDigit = list.digit;
+			var offset = t.factory.lists.length - time.length;
 			
+			if(offset < 0) {
+				offset = 0;
+			}			
+			
+			$.each(time, function(i, digit) {
+				i += offset;
+				
+				var list = t.factory.lists[i];
+							
 				if(list) {
+					var currentDigit = list.digit;
+			
 					list.select(digit);
 					
 					if(digit != currentDigit && !doNotAddPlayClass) {
@@ -523,7 +532,7 @@ var FlipClock;
 					}
 				}	
 				else {
-					var obj = this.createList(digit, {
+					var obj = t.createList(digit, {
 						classes: {
 							active: t.factory.classes.active,
 							before: t.factory.classes.before,
@@ -535,6 +544,13 @@ var FlipClock;
 					t.$wrapper.prepend(obj.$obj);
 				}
 			});
+			
+			if(offset > 0) {
+				for(var x = 0; x < offset; x++) {
+					t.factory.lists[x].select(0);
+					t.factory.lists[x].play();
+				}
+			}
 		}
 					
 	});
@@ -553,7 +569,7 @@ var FlipClock;
 	FlipClock.List = FlipClock.Base.extend({
 		
 		/**
-		 * The time (in seconds)
+		 * The digit (0-9)
 		 */		
 		 
 		digit: 0,
@@ -597,7 +613,7 @@ var FlipClock;
 		constructor: function(factory, digit, options) {
 			this.factory = factory;
 			this.digit   = digit;
-			this.$obj    = this._createList();
+			this.$obj    = this.createList();
 			
 			if(digit > 0) {
 				this.select(digit);
@@ -611,7 +627,7 @@ var FlipClock;
 		 */
 		 
 		select: function(digit) {
-			if(!digit) {
+			if(typeof digit === "undefined") {
 				digit = this.digit;
 			}
 			else {
@@ -666,7 +682,7 @@ var FlipClock;
 		 * Create the list of digits and appends it to the DOM object 
 		 */
 		 
-		_createList: function() {
+		createList: function() {
 		
 			var html = $('<ul class="'+this.classes.flip+'" />');
 			
