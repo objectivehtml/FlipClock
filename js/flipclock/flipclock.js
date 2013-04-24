@@ -392,10 +392,6 @@ var FlipClock;
 	 
 	FlipClock.Face = FlipClock.Base.extend({
 		
-		// countdown: false,
-		
-		newDigits: 0,
-		
 		/**
 		 * An array of FlipClock.List objects
 		 */		
@@ -503,8 +499,7 @@ var FlipClock;
 			});
 			
 			obj.$obj.insertBefore(this.factory.lists[0].$obj);
-			
-			this.newDigits = obj;				
+							
 			this.factory.lists.unshift(obj);
 		},
 		
