@@ -5,9 +5,13 @@
  * @author	Justin Kimbrell
  * @copyright	Copyright (c) 2013, Objective HTML, LLC
  * @link 	http://www.flipclockjs.com/
- * @version	0.1.2
- * @build	2013-04-12
+ * @version	0.1.3
+ * @build	2013-04-24
  */
+
+#### 0.1.3
+##### 04/24/2013
+- (Bug Fix) Fixed an preventing the hour from decreasing properly.
 
 #### 0.1.2
 ##### 04/20/2013
