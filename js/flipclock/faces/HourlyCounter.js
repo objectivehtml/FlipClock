@@ -59,14 +59,6 @@
 		},
 		
 		/**
-		 * Set the time without an animation triggering
-		 */
-		 
-		setTime: function() {
-			this.flip(true);
-		},
-		
-		/**
 		 * Flip the clock face
 		 */
 		 

@@ -394,6 +394,8 @@ var FlipClock;
 		
 		// countdown: false,
 		
+		newDigits: 0,
+		
 		/**
 		 * An array of FlipClock.List objects
 		 */		
@@ -468,7 +470,7 @@ var FlipClock;
 			
 			var obj = new FlipClock.List(this.factory, digit, options);
 
-			this.factory.$wrapper.append(obj.$obj);	
+			//this.factory.$wrapper.append(obj.$obj);	
 			
 			return obj;
 		},
@@ -478,6 +480,33 @@ var FlipClock;
 		 */
 		 
 		reset: function() {},
+		
+		/**
+		 * Sets the clock time
+		 */
+		 
+		setTime: function(time) {
+			this.flip(time);		
+		},
+		
+		/**
+		 * Sets the clock time
+		 */
+		 
+		addDigit: function(digit) {
+			var obj = this.createList(digit, {
+				classes: {
+					active: this.factory.classes.active,
+					before: this.factory.classes.before,
+					flip: this.factory.classes.flip
+				}
+			});
+			
+			obj.$obj.insertBefore(this.factory.lists[0].$obj);
+			
+			this.newDigits = obj;				
+			this.factory.lists.unshift(obj);
+		},
 		
 		/**
 		 * Triggers when the clock is started
@@ -517,11 +546,14 @@ var FlipClock;
 				offset = 0;
 			}			
 			
+			var totalNew = 0;
+			var reFlip = false;
+			
 			$.each(time, function(i, digit) {
 				i += offset;
 				
 				var list = t.factory.lists[i];
-							
+					
 				if(list) {
 					var currentDigit = list.digit;
 			
@@ -532,23 +564,14 @@ var FlipClock;
 					}
 				}	
 				else {
-					var obj = t.createList(digit, {
-						classes: {
-							active: t.factory.classes.active,
-							before: t.factory.classes.before,
-							flip: t.factory.classes.flip
-						}
-					});
-					
-					t.factory.lists.unshift(obj);
-					t.$wrapper.prepend(obj.$obj);
+					t.addDigit(digit);
+					reFlip = true;
 				}
 			});
 			
-			if(offset > 0) {
-				for(var x = 0; x < offset; x++) {
-					t.factory.lists[x].select(0);
-					t.factory.lists[x].play();
+			for(var x = 0; x < time.length; x++) {
+				if(x >= offset && t.factory.lists[x].digit != time[x]) {
+					t.factory.lists[x].select(time[x]);
 				}
 			}
 		}
@@ -618,6 +641,8 @@ var FlipClock;
 			if(digit > 0) {
 				this.select(digit);
 			}
+			
+			this.factory.$wrapper.append(this.$obj);
 		},
 		
 		/**
@@ -705,7 +730,7 @@ var FlipClock;
 				
 				html.append(item);
 			}
-			
+						
 			return html;
 		}
 	});
@@ -721,6 +746,12 @@ var FlipClock;
 	 */
 	 	
 	FlipClock.Time = FlipClock.Base.extend({
+		
+		/**
+		 * The time (in seconds)
+		 */		
+		 
+		minimumDigits: 0,
 		
 		/**
 		 * The time (in seconds)
@@ -812,6 +843,14 @@ var FlipClock;
 					data.push(value[x]);
 				}				
 			});
+			
+			if(data.length > this.minimumDigits) {
+				this.minimumDigits = data.length;
+			}
+			
+			if(this.minimumDigits > data.length) {
+				data.unshift('0');
+			}
 			
 			return data;
 		},
