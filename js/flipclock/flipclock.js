@@ -527,11 +527,11 @@ var FlipClock;
 					t.factory.time.time++;
 				}
 				else {
-					t.factory.time.time--;	
-					
 					if(t.factory.time.time === 0) {
 						t.factory.stop();
 					}
+					
+					t.factory.time.time--;	
 				}
 			}
 			
