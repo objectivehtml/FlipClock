@@ -527,7 +527,7 @@ var FlipClock;
 					t.factory.time.time++;
 				}
 				else {
-					if(t.factory.time.time === 0) {
+					if(t.factory.time.time <= 0) {
 						t.factory.stop();
 					}
 					
