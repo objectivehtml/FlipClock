@@ -260,7 +260,7 @@ var FlipClock;
 		
 			this.base(options);		
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
-			this.time     = new FlipClock.Time(this, digit ? digit : 0);
+			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0);
 			this.timer    = new FlipClock.Timer(this, options);
 			this.face     = this.loadClockFace(this.clockFace, options);
 			
