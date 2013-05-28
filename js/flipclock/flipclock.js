@@ -851,6 +851,23 @@ var FlipClock;
 		},
 		
 		/**
+		 * Gets a daily breakdown
+		 *
+		 * @return  object  Returns a digitized object
+		 */
+
+		getDayCounter: function() {
+			var obj = this.digitize([
+				this.getDays(),
+				this.getHours(true),
+				this.getMinutes(true),
+				this.getSeconds(true)
+			]);
+
+			return obj;
+		},
+
+		/**
 		 * Gets number of days
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
