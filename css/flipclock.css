@@ -74,6 +74,7 @@
 	line-height: 87px;
 	border-radius: 6px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+	background: #000;
 }
 
 .flip-clock-wrapper ul li {
@@ -96,6 +97,7 @@
 	perspective: 200px;
 	margin: 0 !important;
 	overflow: visible !important;
+	text-decoration: none !important;
 }
 
 .flip-clock-wrapper ul li a div {
@@ -146,7 +148,8 @@
 	text-align: center;
 	background-color: #333;
 	border-radius: 6px;
-	font-size: 100%; /* Must be the same as for ".flip-clock-wrapper ul" to fix changing symbol width bug in Firefox */
+	font-size: 80px;
+	/* font-size: 100%; */
 }
 
 .flip-clock-wrapper ul li a div.up div.inn {
