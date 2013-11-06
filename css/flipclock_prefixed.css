@@ -1,11 +1,17 @@
 /* Get the bourbon mixin from http://bourbon.io */
 /* Reset */
 .flip-clock-wrapper * {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
 
 .flip-clock-wrapper a {
   cursor: pointer;
@@ -36,11 +42,11 @@
   -webkit-user-select: none; }
 
 .flip-clock-meridium {
-  background: none;
+  background: none !important;
   box-shadow: 0 0 0 !important;
-  font-size: 36px !important;
-  color: #313333;
-  bottom: 10px; }
+  font-size: 36px !important; }
+
+.flip-clock-meridium a { color: #313333; }
 
 .flip-clock-wrapper {
   text-align: center;
@@ -156,7 +162,7 @@
   -webkit-animation: asd 0.5s 0.5s linear both;
   -moz-animation: asd 0.5s 0.5s linear both;
   animation: asd 0.5s 0.5s linear both;
-  z-index: 2; }
+  z-index: 5; }
 
 .flip-clock-divider {
   float: left;
@@ -352,7 +358,7 @@
   background: linear, to bottom, black 0%, rgba(0, 0, 0, 0.1) 100%;
   -webkit-animation: hide 0.5s 0.3s linear both;
   -moz-animation: hide 0.5s 0.3s linear both;
-  animation: hide 0.5s 0.3s linear both; }
+  animation: hide 0.5s 0.2s linear both; }
 
 @-webkit-keyframes show {
   0% {
