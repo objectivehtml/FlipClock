@@ -165,7 +165,7 @@
 
 .flip-clock-wrapper ul.play li.flip-clock-active {
     animation: asd .5s .5s linear both;
-    z-index: 2;
+    z-index: 5;
 }
 
 .flip-clock-divider {
