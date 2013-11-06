@@ -40,13 +40,13 @@ var FlipClock;
 		 * Build Date
 		 */
 		 
-		buildDate: '2013-04-16',
+		buildDate: '2013-11-06',
 		
 		/**
 		 * Version
 		 */
 		 
-		version: '0.1.2',
+		version: '0.3.0',
 		
 		/**
 		 * Sets the default options
@@ -262,6 +262,7 @@ var FlipClock;
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
 			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0);
 			this.timer    = new FlipClock.Timer(this, options);
+
 			this.face     = this.loadClockFace(this.clockFace, options);
 			
 			if(this.autoStart) {
@@ -543,7 +544,7 @@ var FlipClock;
 			
 			var totalNew = 0;
 			var reFlip = false;
-			
+
 			$.each(time, function(i, digit) {
 				i += offset;
 				
@@ -653,7 +654,7 @@ var FlipClock;
 			else {
 				this.digit = digit;
 			}
-			
+
 			var target = this.$obj.find('[data-digit="'+digit+'"]');
 			var active = this.$obj.find('.'+this.classes.active).removeClass(this.classes.active);
 			var before = this.$obj.find('.'+this.classes.before).removeClass(this.classes.before);
@@ -967,10 +968,10 @@ var FlipClock;
 		 
 		getMinuteCounter: function() {
 			var obj = this.digitize([
-				this.getMinutes(true),
+				this.getMinutes(),
 				this.getSeconds(true)
 			]);
-			
+
 			return obj;
 		},
 		
