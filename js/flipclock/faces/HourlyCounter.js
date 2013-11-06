@@ -13,7 +13,9 @@
 	 */
 	 
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
-					
+			
+		clearExcessDigits: true,
+
 		/**
 		 * Constructor
 		 *
@@ -51,7 +53,9 @@
 				$(this.createDivider('Hours', true)).insertBefore(this.factory.lists[0].$obj);
 			}
 			
-			this._clearExcessDigits();
+			if(this.clearExcessDigits) {
+				this._clearExcessDigits();
+			}
 			
 			if(this.autoStart) {
 				this.start();
