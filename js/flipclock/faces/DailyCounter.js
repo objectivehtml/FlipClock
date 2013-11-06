@@ -14,6 +14,8 @@
 
 	FlipClock.DailyCounterFace = FlipClock.Face.extend({
 
+		showSeconds: true,
+
 		/**
 		 * Constructor
 		 *
@@ -32,9 +34,10 @@
 		build: function(excludeHours, time) {
 			var t        = this;
 			var children = this.factory.$wrapper.find('ul');
-			var lists = [];
+			var lists    = [];
+			var offset   = 0;
 
-			time     = time ? time : this.factory.time.getDayCounter();
+			time     = time ? time : this.factory.time.getDayCounter(this.showSeconds);
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
@@ -44,9 +47,17 @@
 
 			this.factory.lists = lists;
 
-			$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4].$obj);
-			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6].$obj);
+
+			if(this.showSeconds) {
+				$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
+			}
+			else
+			{
+				offset = 2;
+			}
+
+			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4 + offset].$obj);
+			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6 + offset].$obj);
 			$(this.createDivider('Days', true)).insertBefore(this.factory.lists[0].$obj);
 
 			this._clearExcessDigits();
@@ -62,7 +73,7 @@
 
 		flip: function(doNotAddPlayClass, time) {
 			if(!time) {
-				time = this.factory.time.getDayCounter();
+				time = this.factory.time.getDayCounter(this.showSeconds);
 			}
 			this.base(time, doNotAddPlayClass);
 		},

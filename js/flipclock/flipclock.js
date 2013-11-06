@@ -857,15 +857,18 @@ var FlipClock;
 		 * @return  object  Returns a digitized object
 		 */
 
-		getDayCounter: function() {
-			var obj = this.digitize([
+		getDayCounter: function(includeSeconds) {
+			var digits = [
 				this.getDays(),
 				this.getHours(true),
-				this.getMinutes(true),
-				this.getSeconds(true)
-			]);
+				this.getMinutes(true)
+			];
 
-			return obj;
+			if(includeSeconds) {
+				digits.push(this.getSeconds(true));
+			}
+
+			return this.digitize(digits);
 		},
 
 		/**
