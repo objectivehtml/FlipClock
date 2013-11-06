@@ -46,7 +46,7 @@
 
 			$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
 			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4].$obj);
-			$(this.createDivider('Hours', true)).insertBefore(this.factory.lists[this.factory.lists.length - 6].$obj);
+			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6].$obj);
 			$(this.createDivider('Days', true)).insertBefore(this.factory.lists[0].$obj);
 
 			this._clearExcessDigits();
