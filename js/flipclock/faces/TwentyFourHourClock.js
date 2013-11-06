@@ -18,6 +18,18 @@
 		dividers: [],
 
 		/**
+		 * Constructor
+		 *
+		 * @param  object  The parent FlipClock.Factory object
+		 * @param  object  An object of properties to override the default	
+		 */
+		 
+		constructor: function(factory, options) {
+			factory.countdown = false;
+			this.base(factory, options);
+		},
+
+		/**
 		 * Build the clock face
 		 *
 			time     = time ? time : this.factory.time.getHourCounter();
