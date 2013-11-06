@@ -1,47 +1,47 @@
 /* Reset */
 .flip-clock-wrapper * {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -o-box-sizing: border-box;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .flip-clock-wrapper a {
-    cursor: pointer;
-    text-decoration: none;
-    color: #ccc;
+	cursor: pointer;
+	text-decoration: none;
+	color: #ccc;
 }
 
 .flip-clock-wrapper a:hover {
-    color: #fff;
+	color: #fff;
 }
 
 .flip-clock-wrapper ul {
-    list-style: none
+	list-style: none
 }
 
 .flip-clock-wrapper.clearfix:before,
 .flip-clock-wrapper.clearfix:after {
-    content: " ";
-    display: table;
+	content: " ";
+	display: table;
 }
 
 .flip-clock-wrapper.clearfix:after {
-    clear: both;
+	clear: both;
 }
 
 .flip-clock-wrapper.clearfix {
-    *zoom: 1;
+	*zoom: 1;
 }
 
 /* Main */
 
 .flip-clock-wrapper {
-    min-height: 100%;
-    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
-    -webkit-user-select: none;
+	min-height: 100%;
+	font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
+	-webkit-user-select: none;
 }
 
 .flip-clock-meridium {
@@ -54,118 +54,123 @@
 
 
 .flip-clock-wrapper {
-    text-align: center;
-    position: relative;
-    width: 100%;
-    margin: 1em;
+	text-align: center;
+	position: relative;
+	width: 100%;
+	margin: 1em;
 }
 
 /* Skeleton */
 
 .flip-clock-wrapper ul {
-    position: relative;
-    float: left;
-    margin: 5px;
-    width: 60px;
-    height: 90px;
-    font-size: 80px;
-    font-weight: bold;
-    line-height: 87px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+	position: relative;
+	float: left;
+	margin: 5px !important;
+	padding: 0 !important;
+	width: 60px;
+	height: 90px;
+	font-size: 80px;
+	font-weight: bold;
+	line-height: 87px;
+	border-radius: 6px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+	background: #000;
 }
 
 .flip-clock-wrapper ul li {
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-
+	z-index: 1;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	list-style: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 .flip-clock-wrapper ul li:first-child {
-    z-index: 2;
+	z-index: 2;
 }
 
 .flip-clock-wrapper ul li a {
-    display: block;
-    height: 100%;
-    perspective: 200px;
-    margin: 0 !important;
-    overflow: visible !important;
+	display: block;
+	height: 100%;
+	perspective: 200px;
+	margin: 0 !important;
+	overflow: visible !important;
+	text-decoration: none !important;
 }
 
 .flip-clock-wrapper ul li a div {
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    overflow: hidden;
+	z-index: 1;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 50%;
+	overflow: hidden;
 }
 
 .flip-clock-wrapper ul li a div .shadow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
 }
 
 .flip-clock-wrapper ul li a div.up {
-    transform-origin: 50% 100%;
-    top: 0;
+	transform-origin: 50% 100%;
+	top: 0;
 }
 
 .flip-clock-wrapper ul li a div.up:after {
-  content: "";
-  position:absolute;
-  top:44px;
-  left:0;
-  z-index: 5;
-    width: 100%;
-  height: 3px;
-  background-color: rgba(0,0,0,.4);
+	content: "";
+	position: absolute;
+	top: 44px;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	height: 3px;
+	background-color: rgba(0, 0, 0, .4);
 }
 
 .flip-clock-wrapper ul li a div.down {
-    transform-origin: 50% 0%;
-    bottom: 0;
+	transform-origin: 50% 0%;
+	bottom: 0;
 }
 
 .flip-clock-wrapper ul li a div div.inn {
-    position: absolute;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: 200%;
-    color: #ccc;
-    text-shadow: 0 1px 2px #000;
-    text-align: center;
-    background-color: #333;
-    border-radius: 6px;
-    font-size: 70px;
+	position: absolute;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 200%;
+	color: #ccc;
+	text-shadow: 0 1px 2px #000;
+	text-align: center;
+	background-color: #333;
+	border-radius: 6px;
+	font-size: 80px;
+	/* font-size: 100%; */
 }
 
 .flip-clock-wrapper ul li a div.up div.inn {
-    top: 0;
-
+	top: 0;
 }
 
 .flip-clock-wrapper ul li a div.down div.inn {
-    bottom: 0;
+	bottom: 0;
 }
 
 /* PLAY */
 
 .flip-clock-wrapper ul.play li.flip-clock-before {
-    z-index: 3;
+	z-index: 3;
 }
 
 .flip-clock-wrapper ul.play li.flip-clock-active {
-    animation: asd .5s .5s linear both;
-    z-index: 2;
+	animation: asd .5s .5s linear both;
+	z-index: 2;
 }
 
 .flip-clock-divider {
@@ -178,7 +183,7 @@
 
 .flip-clock-divider:first-child { width: 0; }
 
-.flip-clock-dot { 
+.flip-clock-dot {
 	display: block;
 	background: rgb(50, 52, 52);
 	width: 10px;
@@ -210,43 +215,43 @@
 }
 
 @keyframes asd {
-    0% {
-        z-index: 2;
-    }
-    5% {
-        z-index: 4;
-    }
-    100% {
-        z-index: 4;
-    }
+	0% {
+		z-index: 2;
+	}
+	5% {
+		z-index: 4;
+	}
+	100% {
+		z-index: 4;
+	}
 }
 
 .flip-clock-wrapper ul.play li.flip-clock-active .down {
-    z-index: 2;
-    animation: turn .5s .5s linear both;
+	z-index: 2;
+	animation: turn .5s .5s linear both;
 }
 
 @keyframes turn {
-    0% {
-        transform: rotateX(90deg);
-    }
-    100% {
-        transform: rotateX(0deg);
-    }
+	0% {
+		transform: rotateX(90deg);
+	}
+	100% {
+		transform: rotateX(0deg);
+	}
 }
 
 .flip-clock-wrapper ul.play li.flip-clock-before .up {
-    z-index: 2;
-    animation: turn2 .5s linear both;
+	z-index: 2;
+	animation: turn2 .5s linear both;
 }
 
 @keyframes turn2 {
-    0% {
-        transform: rotateX(0deg);
-    }
-    100% {
-        transform: rotateX(-90deg);
-    }
+	0% {
+		transform: rotateX(0deg);
+	}
+	100% {
+		transform: rotateX(-90deg);
+	}
 }
 
 .flip-clock-wrapper ul li.flip-clock-active { z-index: 3; }
@@ -254,61 +259,61 @@
 /* SHADOW */
 
 .flip-clock-wrapper ul.play li.flip-clock-before .up .shadow {
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
-    background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    animation: show .5s linear both;
+	background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
+	background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	animation: show .5s linear both;
 }
 
 .flip-clock-wrapper ul.play li.flip-clock-active .up .shadow {
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
-    background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    animation: hide .5s .3s linear both;
+	background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
+	background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+	animation: hide .5s .3s linear both;
 }
 
 /*DOWN*/
 
 .flip-clock-wrapper ul.play li.flip-clock-before .down .shadow {
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
-    background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    animation: show .5s linear both;
+	background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
+	background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	animation: show .5s linear both;
 }
 
 .flip-clock-wrapper ul.play li.flip-clock-active .down .shadow {
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
-    background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    animation: hide .5s .3s linear both;
+	background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
+	background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+	animation: hide .5s .3s linear both;
 }
 
 @keyframes show {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 @keyframes hide {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
