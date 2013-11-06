@@ -45,11 +45,11 @@
 }
 
 .flip-clock-meridium {
-	background: none;
-	box-shadow: 0 0 0 !important;
-	font-size: 36px !important;
-	color: rgb(49, 51, 51);
-	bottom: 10px;
+    background: none;
+    box-shadow: 0 0 0 !important;
+    font-size: 36px !important;
+    color: rgb(49, 51, 51);
+    bottom: 10px;
 }
 
 
@@ -169,44 +169,44 @@
 }
 
 .flip-clock-divider {
-	float: left;
-	display: inline-block;
-	position: relative;
-	width: 20px;
-	height: 100px;
+    float: left;
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 100px;
 }
 
 .flip-clock-divider:first-child { width: 0; }
 
-.flip-clock-dot { 
-	display: block;
-	background: rgb(50, 52, 52);
-	width: 10px;
-	height: 10px;
-	position: absolute;
-	border-radius: 1000px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+.flip-clock-dot {
+    display: block;
+    background: rgb(50, 52, 52);
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 1000px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
 }
 
 .flip-clock-divider .flip-clock-label {
-	position: absolute;
-	top: -1.5em;
-	right: -86px;
-	color: black;
-	text-shadow: none;
+    position: absolute;
+    top: -1.5em;
+    right: -86px;
+    color: black;
+    text-shadow: none;
 }
 
 .flip-clock-divider.minutes .flip-clock-label { right: -88px; }
 .flip-clock-divider.seconds .flip-clock-label { right: -91px; }
 
-.flip-clock-dot.top { 
-	top: 30px;
-	left: 5px;
+.flip-clock-dot.top {
+    top: 30px;
+    left: 5px;
 }
 
-.flip-clock-dot.bottom { 
-	bottom: 30px;
-	left: 5px;
+.flip-clock-dot.bottom {
+    bottom: 30px;
+    left: 5px;
 }
 
 @keyframes asd {
@@ -223,7 +223,9 @@
 
 .flip-clock-wrapper ul.play li.flip-clock-active .down {
     z-index: 2;
-    animation: turn .5s .5s linear both;
+    /*animation: turn .5s .5s linear both;*/
+    animation: turn .10s .5s cubic-bezier(0.095, 1.645, 0.655, 0.655) both;
+
 }
 
 @keyframes turn {
@@ -238,6 +240,7 @@
 .flip-clock-wrapper ul.play li.flip-clock-before .up {
     z-index: 2;
     animation: turn2 .5s linear both;
+    animation: turn2 .5s ease-in both;
 }
 
 @keyframes turn2 {
