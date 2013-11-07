@@ -1,20 +1,32 @@
 /**
  * FlipClock.js
  * 
- * @package	FlipClock.js
- * @author	Justin Kimbrell
+ * @package		FlipClock.js
+ * @author		Justin Kimbrell
  * @copyright	Copyright (c) 2013, Objective HTML, LLC
- * @link 	http://www.flipclockjs.com/
- * @version	0.2.0
- * @build	2013-05-28
+ * @link 		http://www.flipclockjs.com/
+ * @version		0.3.0
+ * @build		2013-11-06
  */
+
+#### 0.3.0
+##### 11/06/2013
+
+- (Feature) Added new Counter clock face that acts as a general flip-counter.
+- (Feature) Removed prefixfree.js dependency
+- (Feature) Added a new parameter to the DailyCounter clock face to include the seconds. If includeSeconds is set to false, no seconds will be added to the clock.
+- (Bug Fix) Fixed an issue with the clocks counting down instead of up
+- (Bug Fix) Fixed some IE compatibility issues
+- (Bug Fix) Fixed various CSS issues
 
 #### 0.2.0
 ##### 05/28/2013
+
 - (Feature) Added new DailyCounter. Thanks for Brandon Kelly of Pixel & Tonic for the pull request.
 
 #### 0.1.3
 ##### 04/24/2013
+
 - (Bug Fix) Fixed an preventing the hour from decreasing properly.
 
 #### 0.1.2
