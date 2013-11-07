@@ -12,10 +12,16 @@
 	FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
 
 		/**
-		 * An array of jQuery objects used for the dividers (the colons)
+		 * Constructor
+		 *
+		 * @param  object  The parent FlipClock.Factory object
+		 * @param  object  An object of properties to override the default	
 		 */
 		 
-		dividers: [],
+		constructor: function(factory, options) {
+			factory.countdown = false;
+			this.base(factory, options);
+		},
 
 		/**
 		 * Build the clock face
@@ -27,7 +33,7 @@
 		build: function(time) {
 			var t        = this;
 			var children = this.factory.$wrapper.find('ul');
-			
+
 			time = time ? time : (this.factory.time.time || this.factory.time.getMilitaryTime());
 			
 			if(time.length > children.length) {

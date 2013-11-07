@@ -40,13 +40,13 @@ var FlipClock;
 		 * Build Date
 		 */
 		 
-		buildDate: '2013-04-16',
+		buildDate: '2013-11-06',
 		
 		/**
 		 * Version
 		 */
 		 
-		version: '0.1.2',
+		version: '0.3.0',
 		
 		/**
 		 * Sets the default options
@@ -257,11 +257,14 @@ var FlipClock;
 		 */
 		 
 		constructor: function(obj, digit, options) {
-		
+			
+			this.lists 	  = [];
+			this.running  = false;
 			this.base(options);		
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
 			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0);
 			this.timer    = new FlipClock.Timer(this, options);
+
 			this.face     = this.loadClockFace(this.clockFace, options);
 			
 			if(this.autoStart) {
@@ -299,7 +302,7 @@ var FlipClock;
 		 
 		start: function(callback) {
 			var t = this;
-			
+
 			if(!t.running && (!t.countdown || t.countdown && t.time.time > 0)) {
 				t.face.start(t.time);
 				t.timer.start(function() {
@@ -393,6 +396,12 @@ var FlipClock;
 	FlipClock.Face = FlipClock.Base.extend({
 		
 		/**
+		 * An array of jQuery objects used for the dividers (the colons)
+		 */
+		 
+		dividers: [],
+
+		/**
 		 * An array of FlipClock.List objects
 		 */		
 		 
@@ -413,7 +422,8 @@ var FlipClock;
 		 
 		constructor: function(factory, options) {
 			this.base(options);
-			this.factory = factory;
+			this.factory  = factory;
+			this.dividers = [];
 		},
 		
 		/**
@@ -430,8 +440,13 @@ var FlipClock;
 		 *					If not set, is false.
 		 */
 		 
-		createDivider: function(label, excludeDots) {
+		createDivider: function(label, css, excludeDots) {
 		
+			if(typeof css == "boolean" || !css) {
+				excludeDots = css;
+				css = label;
+			}
+
 			var dots = [
 				'<span class="'+this.factory.classes.dot+' top"></span>',
 				'<span class="'+this.factory.classes.dot+' bottom"></span>'
@@ -440,10 +455,10 @@ var FlipClock;
 			if(excludeDots) {
 				dots = '';	
 			}
-			
+		
 			var html = [
-				'<span class="'+this.factory.classes.divider+' '+(label ? label : '').toLowerCase()+'">',
-					'<span class="'+this.factory.classes.label+'">'+(label ? label : '')+'</span>',
+				'<span class="'+this.factory.classes.divider+' '+(css ? css : '').toLowerCase()+'">',
+					'<span class="'+this.factory.classes.label+'">'+(css ? css : '')+'</span>',
 					dots,
 				'</span>'
 			];	
@@ -543,7 +558,7 @@ var FlipClock;
 			
 			var totalNew = 0;
 			var reFlip = false;
-			
+
 			$.each(time, function(i, digit) {
 				i += offset;
 				
@@ -563,7 +578,7 @@ var FlipClock;
 					reFlip = true;
 				}
 			});
-			
+
 			for(var x = 0; x < time.length; x++) {
 				if(x >= offset && t.factory.lists[x].digit != time[x]) {
 					t.factory.lists[x].select(time[x]);
@@ -653,7 +668,7 @@ var FlipClock;
 			else {
 				this.digit = digit;
 			}
-			
+
 			var target = this.$obj.find('[data-digit="'+digit+'"]');
 			var active = this.$obj.find('.'+this.classes.active).removeClass(this.classes.active);
 			var before = this.$obj.find('.'+this.classes.before).removeClass(this.classes.before);
@@ -679,7 +694,7 @@ var FlipClock;
 		},
 		
 		/**
-		 * Adds the play class to the DOM object 
+		 * Adds the play class to the DOM object
 		 */
 		 		
 		play: function() {
@@ -856,15 +871,18 @@ var FlipClock;
 		 * @return  object  Returns a digitized object
 		 */
 
-		getDayCounter: function() {
-			var obj = this.digitize([
+		getDayCounter: function(includeSeconds) {
+			var digits = [
 				this.getDays(),
 				this.getHours(true),
-				this.getMinutes(true),
-				this.getSeconds(true)
-			]);
+				this.getMinutes(true)
+			];
 
-			return obj;
+			if(includeSeconds) {
+				digits.push(this.getSeconds(true));
+			}
+
+			return this.digitize(digits);
 		},
 
 		/**
@@ -967,10 +985,10 @@ var FlipClock;
 		 
 		getMinuteCounter: function() {
 			var obj = this.digitize([
-				this.getMinutes(true),
+				this.getMinutes(),
 				this.getSeconds(true)
 			]);
-			
+
 			return obj;
 		},
 		

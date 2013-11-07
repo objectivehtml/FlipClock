@@ -13,6 +13,8 @@
 	 
 	FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({
 		
+		clearExcessDigits: false,
+
 		/**
 		 * Constructor
 		 *
@@ -38,8 +40,8 @@
 		 
 		flip: function(doNotAddPlayClass) {
 			this.base(doNotAddPlayClass, this.factory.time.getMinuteCounter());
-		}
-				
+		},
+
 	});
 	
 }(jQuery));

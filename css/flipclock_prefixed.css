@@ -1,11 +1,17 @@
 /* Get the bourbon mixin from http://bourbon.io */
 /* Reset */
 .flip-clock-wrapper * {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
 
 .flip-clock-wrapper a {
   cursor: pointer;
@@ -31,22 +37,31 @@
 
 /* Main */
 .flip-clock-wrapper {
-  min-height: 100%;
   font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
   -webkit-user-select: none; }
 
 .flip-clock-meridium {
-  background: none;
+  background: none !important;
   box-shadow: 0 0 0 !important;
-  font-size: 36px !important;
-  color: #313333;
-  bottom: 10px; }
+  font-size: 36px !important; }
+
+.flip-clock-meridium a { color: #313333; }
 
 .flip-clock-wrapper {
   text-align: center;
   position: relative;
   width: 100%;
-  margin: 1em; }
+  margin: 1em;
+}
+
+.flip-clock-wrapper:before,
+.flip-clock-wrapper:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.flip-clock-wrapper:after {
+    clear: both;
+}
 
 /* Skeleton */
 .flip-clock-wrapper ul {
@@ -58,8 +73,9 @@
   font-size: 80px;
   font-weight: bold;
   line-height: 87px;
-  border-radius: 6px _prefixed;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); }
+  border-radius: 6px;
+  background: #000;
+}
 
 .flip-clock-wrapper ul li {
   z-index: 1;
@@ -67,7 +83,9 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  text-decoration: none !important;
+}
 
 .flip-clock-wrapper ul li:first-child {
   z-index: 2; }
@@ -79,7 +97,8 @@
   -moz-perspective: 200px;
   perspective: 200px;
   margin: 0 !important;
-  overflow: visible !important; }
+  overflow: visible !important;
+  cursor: default !important; }
 
 .flip-clock-wrapper ul li a div {
   z-index: 1;
@@ -87,6 +106,7 @@
   left: 0;
   width: 100%;
   height: 50%;
+  font-size: 80px;
   overflow: hidden; }
 
 .flip-clock-wrapper ul li a div .shadow {
@@ -145,11 +165,13 @@
 .flip-clock-wrapper ul.play li.flip-clock-before {
   z-index: 3; }
 
+.flip-clock-wrapper .flip {   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); }
+
 .flip-clock-wrapper ul.play li.flip-clock-active {
   -webkit-animation: asd 0.5s 0.5s linear both;
   -moz-animation: asd 0.5s 0.5s linear both;
   animation: asd 0.5s 0.5s linear both;
-  z-index: 2; }
+  z-index: 5; }
 
 .flip-clock-divider {
   float: left;
@@ -168,7 +190,8 @@
   height: 10px;
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  left: 5px; }
 
 .flip-clock-divider .flip-clock-label {
   position: absolute;
@@ -344,7 +367,7 @@
   background: linear, to bottom, black 0%, rgba(0, 0, 0, 0.1) 100%;
   -webkit-animation: hide 0.5s 0.3s linear both;
   -moz-animation: hide 0.5s 0.3s linear both;
-  animation: hide 0.5s 0.3s linear both; }
+  animation: hide 0.5s 0.2s linear both; }
 
 @-webkit-keyframes show {
   0% {
