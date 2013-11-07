@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../css/flipclock.css">
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<script src="../js/flipclock/libs/base.js"></script>
+		<script src="../js/flipclock/flipclock.js"></script>
+		<script src="../js/flipclock/faces/counter.js"></script>		
+	</head>
+	<body>
+		<div class="clock" style="margin:2em;"></div>
+
+		<button type="button" style="margin: 25px; font-size: 20px; padding: 15px;">+1</button>
+		
+		<script type="text/javascript">
+			var clock;
+
+			$(document).ready(function() {
+
+				// Instantiate a counter
+				clock = $('.clock').FlipClock(0, {
+					clockFace: 'Counter'
+				});
+
+				// Attach a click event to a button a increment the clock
+				$('button').click(function() {
+					clock.increment();
+
+					// Or you could decrease the clock
+					// clock.decrement();
+
+					// Or set it to a specific value
+					// clock.setValue(x);
+				});
+			});
+		</script>
+		
+	</body>
+</html> 
