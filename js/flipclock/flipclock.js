@@ -46,13 +46,13 @@ var FlipClock;
 		 * Build Date
 		 */
 		 
-		buildDate: '2013-11-06',
+		buildDate: '2013-11-07',
 		
 		/**
 		 * Version
 		 */
 		 
-		version: '0.3.0',
+		version: '0.3.1',
 		
 		/**
 		 * Sets the default options
