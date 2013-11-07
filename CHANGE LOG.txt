@@ -5,9 +5,17 @@
  * @author		Justin Kimbrell
  * @copyright	Copyright (c) 2013, Objective HTML, LLC
  * @link 		http://www.flipclockjs.com/
- * @version		0.3.0
- * @build		2013-11-06
+ * @version		0.3.1
+ * @build		2013-11-07
  */
+
+#### 0.3.1
+##### 11/07/2013
+
+- (Feature) Added new lang API that can be used to translate FlipClock into various languages
+- (Feature) Added English, Spanish, and German language files
+- (Bug Fix) Fixed core libraries to work with the new localizer
+- (Example) Added new example for localizing the clock
 
 #### 0.3.0
 ##### 11/06/2013
