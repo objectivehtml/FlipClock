@@ -1,13 +1,4 @@
-/**
- * FlipClock.js
- * 
- * @package		FlipClock.js
- * @author		Justin Kimbrell
- * @copyright	Copyright (c) 2013, Objective HTML, LLC
- * @link 		http://www.flipclockjs.com/
- * @version		0.3.1
- * @build		2013-11-07
- */
+# FlipClock.js
 
 #### 0.3.1
 ##### 11/07/2013
