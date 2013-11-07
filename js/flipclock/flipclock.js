@@ -25,6 +25,12 @@ var FlipClock;
 	FlipClock = function(obj, digit, options) {
 		return new FlipClock.Factory(obj, digit, options);
 	};
+
+	/**
+	 * The global FlipClock.Lang object
+	 */
+
+	FlipClock.Lang = {};
 	
 	/**
 	 * The Base FlipClock class is used to extend all other FlipFlock
@@ -213,6 +219,24 @@ var FlipClock;
 		defaultClockFace: 'HourlyCounter',
 		 
 		/**
+		 * The default language
+		 */	
+		 
+		defaultLanguage: 'english',
+		 
+		/**
+		 * The language being used to display labels (string)
+		 */	
+		 
+		language: 'english',
+		 
+		/**
+		 * The language object after it has been loaded
+		 */	
+		 
+		lang: false,
+		 
+		/**
 		 * The FlipClock.Face object
 		 */	
 		 
@@ -265,8 +289,9 @@ var FlipClock;
 			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0);
 			this.timer    = new FlipClock.Timer(this, options);
 
+			this.lang     = this.loadLanguage(this.language);
 			this.face     = this.loadClockFace(this.clockFace, options);
-			
+
 			if(this.autoStart) {
 				this.start();
 			}
@@ -280,22 +305,68 @@ var FlipClock;
 		 */
 		 
 		loadClockFace: function(name, options) {	
-			var face;
+			var face, suffix = 'Face';
 			
-			name = name.ucfirst()+'Face';
+			name = name.ucfirst()+suffix;
 			
 			if(FlipClock[name]) {
 				face = new FlipClock[name](this, options);
 			}
 			else {
-				face = new FlipClock[this.defaultClockFace+'Face'](this, options);
+				face = new FlipClock[this.defaultClockFace+suffix](this, options);
 			}
 			
 			face.build();
 				
 			return face;
 		},
+			
+		
+		/**
+		 * Load the FlipClock.Lang object
+		 *
+		 * @param	object  The name of the language to load
+		 */
+		 
+		loadLanguage: function(name) {	
+			var lang;
+			
+			if(FlipClock.Lang[name.ucfirst()]) {
+				lang = FlipClock.Lang[name.ucfirst()];
+			}
+			else if(FlipClock.Lang[name]) {
+				lang = FlipClock.Lang[name];
+			}
+			else {
+				lang = FlipClock.Lang[this.defaultLanguage];
+			}
+			
+			return lang;
+		},
 					
+		/**
+		 * Localize strings into various languages
+		 *
+		 * @param	string  The index of the localized string
+		 * @param	object  Optionally pass a lang object
+		 */
+
+		localize: function(index, obj) {
+			var lang = this.lang;
+			var lindex = index.toLowerCase();
+
+			if(typeof obj == "object") {
+				lang = obj;
+			}
+
+			if(lang && lang[lindex]) {
+				return lang[lindex];
+			}
+
+			return index;
+		},
+		 
+
 		/**
 		 * Starts the clock
 		 */
@@ -455,10 +526,12 @@ var FlipClock;
 			if(excludeDots) {
 				dots = '';	
 			}
-		
+
+			label = this.factory.localize(label);
+
 			var html = [
 				'<span class="'+this.factory.classes.divider+' '+(css ? css : '').toLowerCase()+'">',
-					'<span class="'+this.factory.classes.label+'">'+(css ? css : '')+'</span>',
+					'<span class="'+this.factory.classes.label+'">'+(label ? label : '')+'</span>',
 					dots,
 				'</span>'
 			];	
