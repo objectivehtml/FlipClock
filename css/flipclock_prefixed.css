@@ -37,7 +37,6 @@
 
 /* Main */
 .flip-clock-wrapper {
-  min-height: 100%;
   font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
   -webkit-user-select: none; }
 
@@ -52,7 +51,17 @@
   text-align: center;
   position: relative;
   width: 100%;
-  margin: 1em; }
+  margin: 1em;
+}
+
+.flip-clock-wrapper:before,
+.flip-clock-wrapper:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.flip-clock-wrapper:after {
+    clear: both;
+}
 
 /* Skeleton */
 .flip-clock-wrapper ul {
