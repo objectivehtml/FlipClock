@@ -3,7 +3,7 @@
 	/**
 	 * FlipClock English Language Pack
 	 *
-	 * This class will used to translate tokens into the english language.
+	 * This class will used to translate tokens into the English language.
 	 *	
 	 */
 	 
