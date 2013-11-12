@@ -1,5 +1,10 @@
 # FlipClock.js
 
+#### 0.3.2
+##### 11/12/2013
+
+- (Bug Fix) Fixed an issue with the clock not adding the play class to new digits when it is running
+
 #### 0.3.1
 ##### 11/07/2013
 
