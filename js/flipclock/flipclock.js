@@ -792,7 +792,7 @@ var FlipClock;
 		 
 		createList: function() {
 		
-			var html = $('<ul class="'+this.classes.flip+'" />');
+			var html = $('<ul class="'+this.classes.flip+' '+(this.factory.running ? this.factory.classes.play : '')+'" />');
 			
 			for(var x = 0; x < 10; x++) {
 				var item = $([

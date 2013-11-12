@@ -23,7 +23,8 @@
 		 
 		constructor: function(factory, options) {
 			factory.timer.interval = 0;
-			factory.autoStart = false;
+			factory.autoStart 	   = false;
+			factory.running  	   = true;
 
 			factory.increment = function() {
 				factory.countdown = false;
