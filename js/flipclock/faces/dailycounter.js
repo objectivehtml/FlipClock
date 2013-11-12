@@ -47,7 +47,6 @@
 
 			this.factory.lists = lists;
 
-
 			if(this.showSeconds) {
 				$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
 			}
