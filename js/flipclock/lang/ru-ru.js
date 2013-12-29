@@ -7,7 +7,7 @@
    *
    */
 
-  FlipClock.Lang.French = {
+  FlipClock.Lang.Russian = {
 
     'years'   : 'лет',
     'months'  : 'месяцев',
@@ -20,8 +20,8 @@
 
   /* Create various aliases for convenience */
 
-  FlipClock.Lang['ru']      = FlipClock.Lang.French;
-  FlipClock.Lang['ru-ru']   = FlipClock.Lang.French;
-  FlipClock.Lang['russian']  = FlipClock.Lang.French;
+  FlipClock.Lang['ru']      = FlipClock.Lang.Russian;
+  FlipClock.Lang['ru-ru']   = FlipClock.Lang.Russian;
+  FlipClock.Lang['russian']  = FlipClock.Lang.Russian;
 
 }(jQuery));
