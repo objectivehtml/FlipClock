@@ -9,12 +9,12 @@
 
   FlipClock.Lang.French = {
 
-    'years'   : 'ans',
-    'months'  : 'mois',
-    'days'    : 'jours',
-    'hours'   : 'heures',
-    'minutes' : 'minutes',
-    'seconds' : 'secondes'
+    'years'   : 'Ans',
+    'months'  : 'Mois',
+    'days'    : 'Jours',
+    'hours'   : 'Heures',
+    'minutes' : 'Minutes',
+    'seconds' : 'Secondes'
 
   };
 
