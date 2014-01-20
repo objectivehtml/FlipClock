@@ -107,7 +107,8 @@
   width: 100%;
   height: 50%;
   font-size: 80px;
-  overflow: hidden; }
+  overflow: hidden; 
+  outline: 1px solid transparent; }
 
 .flip-clock-wrapper ul li a div .shadow {
   position: absolute;
