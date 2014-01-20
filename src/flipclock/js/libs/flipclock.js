@@ -928,7 +928,7 @@ var FlipClock;
 				}
 				
 				for(var x = 0; x < value.length; x++) {
-					data.push(value[x]);
+					data.push(value.charAt(x));
 				}				
 			});
 			
