@@ -929,9 +929,9 @@ var FlipClock;
 					value = '0'+value;
 				}
 				
-				for(var x = 0; x < value.length; x++) {
-					data.push(value[x]);
-				}				
+				 for(var x = 0; x < value.length; x++) {
+				    data.push(value.charAt(x));
+				}   				
 			});
 			
 			if(data.length > this.minimumDigits) {
