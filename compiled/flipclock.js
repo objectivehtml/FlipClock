@@ -758,7 +758,7 @@ var FlipClock;
 			var t = this;
 			
 			if(!doNotAddPlayClass) {
-				if (!t.factory.time.time instanceof Date){
+				if (!(t.factory.time.time instanceof Date)){
 					if(!t.factory.countdown) {
 						t.factory.time.time++;
 					}
@@ -1115,7 +1115,11 @@ var FlipClock;
 		 
 		getTimeSeconds: function(mod) {
 			if (this.time instanceof Date) {
-				return this.time.getTime()/1000 - (new Date()).getTime()/1000;
+				if (this.factory.countdown) {
+					return this.time.getTime()/1000 - (new Date()).getTime()/1000;
+				} else {
+					return (new Date()).getTime()/1000 - this.time.getTime()/1000 ;
+				}
 			} else {
 				return this.time;
 			}
