@@ -974,7 +974,7 @@ var FlipClock;
 		getTimeSeconds: function(mod) {
 			if (this.time instanceof Date) {
 				if (this.factory.countdown) {
-					return this.time.getTime()/1000 - (new Date()).getTime()/1000;
+					return Math.max(this.time.getTime()/1000 - (new Date()).getTime()/1000,0);
 				} else {
 					return (new Date()).getTime()/1000 - this.time.getTime()/1000 ;
 				}
