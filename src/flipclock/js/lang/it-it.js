@@ -23,3 +23,5 @@
 	FlipClock.Lang['it']      = FlipClock.Lang.Italian;
 	FlipClock.Lang['it-it']   = FlipClock.Lang.Italian;
 	FlipClock.Lang['italian'] = FlipClock.Lang.Italian;
+	
+}(jQuery));
