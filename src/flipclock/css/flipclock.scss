@@ -5,6 +5,7 @@
 .flip-clock-wrapper * {
     margin: 0;
     padding: 0;
+    line-height: normal;
     @include box-sizing(border-box);
 }
 

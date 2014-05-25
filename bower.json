@@ -1,0 +1,19 @@
+{
+  "name": "flipclock",
+  "version": "0.4.0",
+  "homepage": "https://github.com/objectivehtml/FlipClock",
+  "authors": [
+    "Objective HTML",
+    "Justin Kimbrell"
+  ],
+  "description": "Description goes here.",
+  "main": "compiled/flipclock.js",
+  "license": "MIT",
+  "ignore": [
+    ".jshintrc",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7.0"
+  }
+}
