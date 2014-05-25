@@ -1,5 +1,16 @@
 # FlipClock.js
 
+#### 0.4.0
+##### 1/20/2014
+
+- (Feature) Added Arabic language pack
+- (Feature) Added Russian language pack
+- (Feature) Installed Node and Grunt to make compiling the source automated and much easier
+- (Bug Fix) Capitalized French translations
+- (Bug Fix) Fixed an issue with IE7
+- (Bug Fix) Fixed a Firefox display issue
+- (Bug Fix) Fixed an issue that would cause a JS if the property didn't exist. https://github.com/objectivehtml/FlipClock/pull/66
+
 #### 0.3.2
 ##### 11/12/2013
 
