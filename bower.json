@@ -6,7 +6,7 @@
     "Objective HTML",
     "Justin Kimbrell"
   ],
-  "description": "Description goes here.",
+  "description": "FlipClock.js is a proper abstract object oriented clock and counter library with a realistic flip effect.",
   "main": "compiled/flipclock.js",
   "license": "MIT",
   "ignore": [
