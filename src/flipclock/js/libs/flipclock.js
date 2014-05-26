@@ -286,7 +286,7 @@ var FlipClock;
 			this.running  = false;
 			this.base(options);		
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
-			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0);
+			this.time     = new FlipClock.Time(this, (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0));
 			this.timer    = new FlipClock.Timer(this, options);
 
 			this.lang     = this.loadLanguage(this.language);
@@ -616,15 +616,17 @@ var FlipClock;
 			var t = this;
 			
 			if(!doNotAddPlayClass) {
-				if(!t.factory.countdown) {
-					t.factory.time.time++;
-				}
-				else {
-					if(t.factory.time.time <= 0) {
-						t.factory.stop();
+				if (!(t.factory.time.time instanceof Date)){
+					if(!t.factory.countdown) {
+						t.factory.time.time++;
 					}
-					
-					t.factory.time.time--;	
+					else {
+						if(t.factory.time.time <= 0) {
+							t.factory.stop();
+						}
+						
+						t.factory.time.time--;	
+					}
 				}
 			}
 			
@@ -842,7 +844,7 @@ var FlipClock;
 		minimumDigits: 0,
 		
 		/**
-		 * The time (in seconds)
+		 * The time (in seconds) or a Date object representing the start (or finish in countdown mode)
 		 */		
 		 
 		time: 0,
@@ -962,6 +964,28 @@ var FlipClock;
 
 			return this.digitize(digits);
 		},
+		
+		/**
+		 * Gets time count in seconds regardless of if targetting date or not.
+		 *
+		 * @return  int   Returns a floored integer
+		 */
+		 
+		getTimeSeconds: function(mod) {
+			if (this.time instanceof Date) {
+				if (this.factory.countdown) {
+					if ((new Date()).getTime() > this.time.getTime()) {
+						this.factory.stop();
+					}
+					return Math.max(this.time.getTime()/1000 - (new Date()).getTime()/1000,0);
+				} else {
+					return (new Date()).getTime()/1000 - this.time.getTime()/1000 ;
+				}
+			} else {
+				return this.time;
+			}
+		},
+		
 
 		/**
 		 * Gets number of days
@@ -971,7 +995,7 @@ var FlipClock;
 		 */
 		 
 		getDays: function(mod) {
-			var days = this.time / 60 / 60 / 24;
+			var days = this.getTimeSeconds() / 60 / 60 / 24;
 			
 			if(mod) {
 				days = days % 7;
@@ -1014,7 +1038,7 @@ var FlipClock;
 		 */
 		 
 		getHours: function(mod) {
-			var hours = this.time / 60 / 60;
+			var hours = this.getTimeSeconds() / 60 / 60;
 			
 			if(mod) {
 				hours = hours % 24;	
@@ -1048,7 +1072,7 @@ var FlipClock;
 		 */
 		 
 		getMinutes: function(mod) {
-			var minutes = this.time / 60;
+			var minutes = this.getTimeSeconds() / 60;
 			
 			if(mod) {
 				minutes = minutes % 60;
@@ -1078,7 +1102,7 @@ var FlipClock;
 		 */
 		 
 		getSeconds: function(mod) {
-			var seconds = this.time;
+			var seconds = this.getTimeSeconds();
 			
 			if(mod) {
 				if(seconds == 60) {
@@ -1119,7 +1143,7 @@ var FlipClock;
 		 */
 		 
 		getWeeks: function() {
-			var weeks = this.time / 60 / 60 / 24 / 7;
+			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
 			
 			if(mod) {
 				weeks = weeks % 52;
@@ -1162,16 +1186,16 @@ var FlipClock;
 		 */
 		 
 		toString: function() {
-			return this.time.toString();
+			return this.getTimeSeconds().toString();
 		}
 		
 		/*
 		getYears: function() {
-			return Math.floor(this.time / 60 / 60 / 24 / 7 / 52);
+			return Math.floor(this.getTimeSeconds() / 60 / 60 / 24 / 7 / 52);
 		},
 		
 		getDecades: function() {
-			return Math.floor(this.getWeeks() / 10);
+			return Math.floor(this.getYears() / 10);
 		}*/
 	});
 	
@@ -1373,7 +1397,7 @@ var FlipClock;
 	 */
 	 
 	$.fn.FlipClock = function(digit, options) {
-		if(typeof digit == "object") {
+		if(typeof digit == "object" && !(digit instanceof Date)) {
 			options = digit;
 			digit = 0;
 		}		
