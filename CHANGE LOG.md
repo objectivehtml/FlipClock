@@ -1,5 +1,21 @@
 # FlipClock.js
 
+#### 0.5.0
+##### 5/25/2014
+
+- (Feature) Added bower.js file to the core repo
+- (Feature) Added ability to define a minimumDigit property in the FlipClock factory.
+- (Feature) Added Swedish language pack
+- (Feature) Added Italian language pack
+- (Feature) Added Danish language pack
+- (Feature) Added Dutch language pack
+- (Bug Fix) Refactored libraries to be one class per file
+- (Bug Fix) Fixed an issue with the reset method not working properly
+- (Bug Fix) Fixed an issue with the minimumDigits property.
+- (Bug Fix) Fixed issue that allows it to work with Boostrap library.
+- (Bug Fix) Fixed a number of issues from Github that wouldn't merge
+- (Bug Fix) Fixed an issue with the instantiation process not working consistently with the jQuery instantiator
+
 #### 0.4.0
 ##### 1/20/2014
 
