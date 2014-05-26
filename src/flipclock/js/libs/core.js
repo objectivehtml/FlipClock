@@ -23,6 +23,11 @@ var FlipClock;
 	 */
 	 
 	FlipClock = function(obj, digit, options) {
+		if(typeof digit == "object") {
+			options = digit;
+			digit = 0;
+		}
+
 		return new FlipClock.Factory(obj, digit, options);
 	};
 

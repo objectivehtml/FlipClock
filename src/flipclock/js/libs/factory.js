@@ -143,12 +143,16 @@
 		 
 		constructor: function(obj, digit, options) {
 
+			if(!options) {
+				options = {};
+			}
+
 			this.lists 	  = [];
 			this.running  = false;
 			this.base(options);		
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
-			this.original = digit;
-			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0, {
+			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
+			this.time     = new FlipClock.Time(this, this.original, {
 				minimumDigits: options.minimumDigits ? options.minimumDigits : 0 
 			});
 

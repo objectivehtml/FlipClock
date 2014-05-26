@@ -158,7 +158,7 @@
 		 */
 		 
 		getDays: function(mod) {
-			var days = this.time / 60 / 60 / 24;
+			var days = this.getTimeSeconds() / 60 / 60 / 24;
 			
 			if(mod) {
 				days = days % 7;
@@ -201,7 +201,7 @@
 		 */
 		 
 		getHours: function(mod) {
-			var hours = this.time / 60 / 60;
+			var hours = this.getTimeSeconds() / 60 / 60;
 			
 			if(mod) {
 				hours = hours % 24;	
@@ -235,7 +235,7 @@
 		 */
 		 
 		getMinutes: function(mod) {
-			var minutes = this.time / 60;
+			var minutes = this.getTimeSeconds() / 60;
 			
 			if(mod) {
 				minutes = minutes % 60;
@@ -258,6 +258,27 @@
 		},
 		
 		/**
+		 * Gets time count in seconds regardless of if targetting date or not.
+		 *
+		 * @return  int   Returns a floored integer
+		 */
+		 
+		getTimeSeconds: function(mod) {
+			if (this.time instanceof Date) {
+				if (this.factory.countdown) {
+					if ((new Date()).getTime() > this.time.getTime()) {
+						this.factory.stop();
+					}
+					return Math.max(this.time.getTime()/1000 - (new Date()).getTime()/1000,0);
+				} else {
+					return (new Date()).getTime()/1000 - this.time.getTime()/1000 ;
+				}
+			} else {
+				return this.time;
+			}
+		},
+		
+		/**
 		 * Gets number of seconds
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
@@ -265,7 +286,7 @@
 		 */
 		 
 		getSeconds: function(mod) {
-			var seconds = this.time;
+			var seconds = this.getTimeSeconds();
 			
 			if(mod) {
 				if(seconds == 60) {
@@ -306,7 +327,7 @@
 		 */
 		 
 		getWeeks: function() {
-			var weeks = this.time / 60 / 60 / 24 / 7;
+			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
 			
 			if(mod) {
 				weeks = weeks % 52;
@@ -349,7 +370,7 @@
 		 */
 		 
 		toString: function() {
-			return this.time.toString();
+			return this.getTimeSeconds().toString();
 		}
 		
 		/*

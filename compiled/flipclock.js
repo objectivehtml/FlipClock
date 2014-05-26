@@ -165,6 +165,13 @@ var FlipClock;
 	 */
 	 
 	FlipClock = function(obj, digit, options) {
+		if(typeof digit == "object") {
+			options = digit;
+			digit = 0;
+		}
+
+		console.log(options);
+
 		return new FlipClock.Factory(obj, digit, options);
 	};
 
@@ -474,17 +481,19 @@ var FlipClock;
 		 
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
-			
+
 			if(!doNotAddPlayClass) {
-				if(!t.factory.countdown) {
-					t.factory.time.time++;
-				}
-				else {
-					if(t.factory.time.time <= 0) {
-						t.factory.stop();
+				if (!t.factory.time.time instanceof Date) {
+					if(!t.factory.countdown) {
+						t.factory.time.time++;
 					}
-					
-					t.factory.time.time--;	
+					else {
+						if(t.factory.time.time <= 0) {
+							t.factory.stop();
+						}
+						
+						t.factory.time.time--;
+					}
 				}
 			}
 			
@@ -673,12 +682,16 @@ var FlipClock;
 		 
 		constructor: function(obj, digit, options) {
 
+			if(!options) {
+				options = {};
+			}
+
 			this.lists 	  = [];
 			this.running  = false;
 			this.base(options);		
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
-			this.original = digit;
-			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0, {
+			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
+			this.time     = new FlipClock.Time(this, this.original, {
 				minimumDigits: options.minimumDigits ? options.minimumDigits : 0 
 			});
 
@@ -1246,7 +1259,7 @@ var FlipClock;
 		 */
 		 
 		getDays: function(mod) {
-			var days = this.time / 60 / 60 / 24;
+			var days = this.getTimeSeconds() / 60 / 60 / 24;
 			
 			if(mod) {
 				days = days % 7;
@@ -1289,7 +1302,7 @@ var FlipClock;
 		 */
 		 
 		getHours: function(mod) {
-			var hours = this.time / 60 / 60;
+			var hours = this.getTimeSeconds() / 60 / 60;
 			
 			if(mod) {
 				hours = hours % 24;	
@@ -1323,7 +1336,7 @@ var FlipClock;
 		 */
 		 
 		getMinutes: function(mod) {
-			var minutes = this.time / 60;
+			var minutes = this.getTimeSeconds() / 60;
 			
 			if(mod) {
 				minutes = minutes % 60;
@@ -1346,6 +1359,27 @@ var FlipClock;
 		},
 		
 		/**
+		 * Gets time count in seconds regardless of if targetting date or not.
+		 *
+		 * @return  int   Returns a floored integer
+		 */
+		 
+		getTimeSeconds: function(mod) {
+			if (this.time instanceof Date) {
+				if (this.factory.countdown) {
+					if ((new Date()).getTime() > this.time.getTime()) {
+						this.factory.stop();
+					}
+					return Math.max(this.time.getTime()/1000 - (new Date()).getTime()/1000,0);
+				} else {
+					return (new Date()).getTime()/1000 - this.time.getTime()/1000 ;
+				}
+			} else {
+				return this.time;
+			}
+		},
+		
+		/**
 		 * Gets number of seconds
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
@@ -1353,7 +1387,7 @@ var FlipClock;
 		 */
 		 
 		getSeconds: function(mod) {
-			var seconds = this.time;
+			var seconds = this.getTimeSeconds();
 			
 			if(mod) {
 				if(seconds == 60) {
@@ -1394,7 +1428,7 @@ var FlipClock;
 		 */
 		 
 		getWeeks: function() {
-			var weeks = this.time / 60 / 60 / 24 / 7;
+			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
 			
 			if(mod) {
 				weeks = weeks % 52;
@@ -1437,7 +1471,7 @@ var FlipClock;
 		 */
 		 
 		toString: function() {
-			return this.time.toString();
+			return this.getTimeSeconds().toString();
 		}
 		
 		/*
@@ -2198,6 +2232,33 @@ var FlipClock;
 (function($) {
 		
 	/**
+	 * FlipClock Danish Language Pack
+	 *
+	 * This class will used to translate tokens into the Danish language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Danish = {
+		
+		'years'   : 'År',
+		'months'  : 'Måneder',
+		'days'    : 'Dage',
+		'hours'   : 'Timer',
+		'minutes' : 'Minutter',
+		'seconds' : 'Sekunder'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['da']      = FlipClock.Lang.Danish;
+	FlipClock.Lang['da-dk']   = FlipClock.Lang.Danish;
+	FlipClock.Lang['danish'] = FlipClock.Lang.Danish;
+
+}(jQuery));
+(function($) {
+		
+	/**
 	 * FlipClock German Language Pack
 	 *
 	 * This class will used to translate tokens into the German language.
@@ -2305,6 +2366,61 @@ var FlipClock;
 }(jQuery));
 
 (function($) {
+		
+	/**
+	 * FlipClock Italian Language Pack
+	 *
+	 * This class will used to translate tokens into the Italian language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Italian = {
+		
+		'years'   : 'Anni',
+		'months'  : 'Mesi',
+		'days'    : 'Giorni',
+		'hours'   : 'Ore',
+		'minutes' : 'Minuti',
+		'seconds' : 'Secondi'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['it']      = FlipClock.Lang.Italian;
+	FlipClock.Lang['it-it']   = FlipClock.Lang.Italian;
+	FlipClock.Lang['italian'] = FlipClock.Lang.Italian;
+	
+}(jQuery));
+
+(function($) {
+
+    /**
+     * FlipClock Dutch Language Pack
+     *
+     * This class will used to translate tokens into the Dutch language.
+     */
+
+    FlipClock.Lang.Dutch = {
+
+        'years'   : 'Jaren',
+        'months'  : 'Maanden',
+        'days'    : 'Dagen',
+        'hours'   : 'Uren',
+        'minutes' : 'Minuten',
+        'seconds' : 'Seconden'
+
+    };
+
+    /* Create various aliases for convenience */
+
+    FlipClock.Lang['nl']      = FlipClock.Lang.Dutch;
+    FlipClock.Lang['nl-be']   = FlipClock.Lang.Dutch;
+    FlipClock.Lang['dutch']   = FlipClock.Lang.Dutch;
+
+}(jQuery));
+
+(function($) {
 
   /**
    * FlipClock Russian Language Pack
@@ -2329,5 +2445,32 @@ var FlipClock;
   FlipClock.Lang['ru']      = FlipClock.Lang.Russian;
   FlipClock.Lang['ru-ru']   = FlipClock.Lang.Russian;
   FlipClock.Lang['russian']  = FlipClock.Lang.Russian;
+
+}(jQuery));
+(function($) {
+		
+	/**
+	 * FlipClock Swedish Language Pack
+	 *
+	 * This class will used to translate tokens into the Swedish language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Swedish = {
+		
+		'years'   : 'År',
+		'months'  : 'Månader',
+		'days'    : 'Dagar',
+		'hours'   : 'Timmar',
+		'minutes' : 'Minuter',
+		'seconds' : 'Sekunder'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['sv']      = FlipClock.Lang.Danish;
+	FlipClock.Lang['sv-se']   = FlipClock.Lang.Danish;
+	FlipClock.Lang['swedish'] = FlipClock.Lang.Danish;
 
 }(jQuery));

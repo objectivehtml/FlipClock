@@ -171,17 +171,19 @@
 		 
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
-			
+
 			if(!doNotAddPlayClass) {
-				if(!t.factory.countdown) {
-					t.factory.time.time++;
-				}
-				else {
-					if(t.factory.time.time <= 0) {
-						t.factory.stop();
+				if (!t.factory.time.time instanceof Date) {
+					if(!t.factory.countdown) {
+						t.factory.time.time++;
 					}
-					
-					t.factory.time.time--;	
+					else {
+						if(t.factory.time.time <= 0) {
+							t.factory.stop();
+						}
+						
+						t.factory.time.time--;
+					}
 				}
 			}
 			

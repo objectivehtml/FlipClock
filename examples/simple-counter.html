@@ -19,7 +19,7 @@
 			$(document).ready(function() {
 
 				// Instantiate a counter
-				clock = $('.clock').FlipClock(0, {
+				clock = new FlipClock($('.clock'), {
 					clockFace: 'Counter',
 					minimumDigits: 4
 				});
