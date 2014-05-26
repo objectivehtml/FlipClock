@@ -9,7 +9,9 @@
 	<body>
 		<div class="clock" style="margin:2em;"></div>
 
-		<button type="button" style="margin: 25px; font-size: 20px; padding: 15px;">+1</button>
+		<button type="button" class="increment" style="margin: 25px; font-size: 20px; padding: 15px;">+1</button>
+		
+		<button type="button" class="reset" style="margin: 25px; font-size: 20px; padding: 15px;">Reset</button>
 		
 		<script type="text/javascript">
 			var clock;
@@ -22,14 +24,20 @@
 				});
 
 				// Attach a click event to a button a increment the clock
-				$('button').click(function() {
-					clock.setValue(10);
+				$('.increment').click(function() {
+					//clock.setValue(10);
 
 					// Or you could decrease the clock
 					// clock.decrement();
 
+					clock.increment();
+
 					// Or set it to a specific value
 					// clock.setValue(x);
+				});
+
+				$('.reset').click(function() {
+					clock.reset();
 				});
 			});
 		</script>

@@ -84,6 +84,18 @@
 			this.base(time, doNotAddPlayClass);
 		},
 
+		/**
+		 * Reset the clock face
+		 */
+
+		reset: function() {
+			this.factory.time = new FlipClock.Time(
+				this.factor, 
+				this.factory.original ? Math.round(this.factory.original) : 0
+			);
+
+			this.flip(true);
+		}
 	});
 	
 }(jQuery));
