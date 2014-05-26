@@ -39,7 +39,7 @@
 		 */		
 		 
 		lists: [],
-			
+
 		/**
 		 * Constructor
 		 *
@@ -107,7 +107,7 @@
 				options = digit;
 				digit = 0;
 			}
-			
+
 			var obj = new FlipClock.List(this.factory, digit, options);
 
 			//this.factory.$wrapper.append(obj.$obj);	

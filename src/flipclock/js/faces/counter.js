@@ -14,6 +14,8 @@
 		
 		autoStart: false,
 
+		minimumDigits: 2,
+
 		/**
 		 * Constructor
 		 *
@@ -59,7 +61,9 @@
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					var list = t.createList(digit);
+					var list = t.createList(digit, {
+						minimumDigits: t.minimumDigits,
+					});
 
 					list.select(digit);
 					lists.push(list);

@@ -1,7 +1,5 @@
 /*jshint smarttabs:true */
 
-var FlipClock;
-	
 /**
  * FlipClock.js
  *
@@ -69,6 +67,8 @@ var FlipClock;
 		 * @param  object  An object to override the default properties	 
 		 */
 		 
+		minimumDigits: 0,
+
 		constructor: function(factory, digit, options) {
 			this.factory = factory;
 			this.digit   = digit;

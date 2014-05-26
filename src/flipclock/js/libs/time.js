@@ -28,12 +28,6 @@
 		 * The time (in seconds)
 		 */		
 		 
-		minimumDigits: 0,
-		
-		/**
-		 * The time (in seconds)
-		 */		
-		 
 		time: 0,
 		
 		/**
@@ -42,6 +36,8 @@
 		 
 		factory: false,
 		
+		minimumDigits: 0,
+
 		/**
 		 * Constructor
 		 *
@@ -120,13 +116,15 @@
 					data.push(value.charAt(x));
 				}				
 			});
-			
+
 			if(data.length > this.minimumDigits) {
 				this.minimumDigits = data.length;
 			}
 			
 			if(this.minimumDigits > data.length) {
-				data.unshift('0');
+				for(var x = data.length; x < this.minimumDigits; x++) {
+					data.unshift('0');
+				}
 			}
 			
 			return data;

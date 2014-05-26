@@ -142,13 +142,16 @@
 		 */
 		 
 		constructor: function(obj, digit, options) {
-			
+
 			this.lists 	  = [];
 			this.running  = false;
 			this.base(options);		
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
 			this.original = digit;
-			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0);
+			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0, {
+				minimumDigits: options.minimumDigits ? options.minimumDigits : 0 
+			});
+
 			this.timer    = new FlipClock.Timer(this, options);
 
 			this.lang     = this.loadLanguage(this.language);

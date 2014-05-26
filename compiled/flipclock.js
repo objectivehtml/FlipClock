@@ -342,7 +342,7 @@ var FlipClock;
 		 */		
 		 
 		lists: [],
-			
+
 		/**
 		 * Constructor
 		 *
@@ -410,7 +410,7 @@ var FlipClock;
 				options = digit;
 				digit = 0;
 			}
-			
+
 			var obj = new FlipClock.List(this.factory, digit, options);
 
 			//this.factory.$wrapper.append(obj.$obj);	
@@ -672,13 +672,16 @@ var FlipClock;
 		 */
 		 
 		constructor: function(obj, digit, options) {
-			
+
 			this.lists 	  = [];
 			this.running  = false;
 			this.base(options);		
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
 			this.original = digit;
-			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0);
+			this.time     = new FlipClock.Time(this, digit ? Math.round(digit) : 0, {
+				minimumDigits: options.minimumDigits ? options.minimumDigits : 0 
+			});
+
 			this.timer    = new FlipClock.Timer(this, options);
 
 			this.lang     = this.loadLanguage(this.language);
@@ -857,8 +860,6 @@ var FlipClock;
 
 /*jshint smarttabs:true */
 
-var FlipClock;
-	
 /**
  * FlipClock.js
  *
@@ -926,6 +927,8 @@ var FlipClock;
 		 * @param  object  An object to override the default properties	 
 		 */
 		 
+		minimumDigits: 0,
+
 		constructor: function(factory, digit, options) {
 			this.factory = factory;
 			this.digit   = digit;
@@ -1113,12 +1116,6 @@ var FlipClock;
 		 * The time (in seconds)
 		 */		
 		 
-		minimumDigits: 0,
-		
-		/**
-		 * The time (in seconds)
-		 */		
-		 
 		time: 0,
 		
 		/**
@@ -1127,6 +1124,8 @@ var FlipClock;
 		 
 		factory: false,
 		
+		minimumDigits: 0,
+
 		/**
 		 * Constructor
 		 *
@@ -1205,13 +1204,15 @@ var FlipClock;
 					data.push(value.charAt(x));
 				}				
 			});
-			
+
 			if(data.length > this.minimumDigits) {
 				this.minimumDigits = data.length;
 			}
 			
 			if(this.minimumDigits > data.length) {
-				data.unshift('0');
+				for(var x = data.length; x < this.minimumDigits; x++) {
+					data.unshift('0');
+				}
 			}
 			
 			return data;
@@ -1745,6 +1746,8 @@ var FlipClock;
 		
 		autoStart: false,
 
+		minimumDigits: 2,
+
 		/**
 		 * Constructor
 		 *
@@ -1790,7 +1793,9 @@ var FlipClock;
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					var list = t.createList(digit);
+					var list = t.createList(digit, {
+						minimumDigits: t.minimumDigits,
+					});
 
 					list.select(digit);
 					lists.push(list);
