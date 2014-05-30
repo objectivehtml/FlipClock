@@ -170,8 +170,6 @@ var FlipClock;
 			digit = 0;
 		}
 
-		console.log(options);
-
 		return new FlipClock.Factory(obj, digit, options);
 	};
 
@@ -483,7 +481,7 @@ var FlipClock;
 			var t = this;
 
 			if(!doNotAddPlayClass) {
-				if (!t.factory.time.time instanceof Date) {
+				if (!(t.factory.time.time instanceof Date)) {
 					if(!t.factory.countdown) {
 						t.factory.time.time++;
 					}

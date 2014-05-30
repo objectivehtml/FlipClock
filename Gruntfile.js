@@ -31,12 +31,26 @@ module.exports = function(grunt) {
           'compiled/flipclock.min.js': ['<%= concat.js.dest %>']
         }
       }
-    }
+    },
+    watch: {
+      options: {
+        livereload: true
+      },
+      scripts: {
+        files: ['<%= concat.js.src %>'],
+        tasks: ['concat'],
+      },
+      css: {
+        files: ['<%= concat.css.src %>'],
+        tasks: ['concat'],
+      }
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat', 'uglify', 'watch']);
 };
