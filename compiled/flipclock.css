@@ -142,7 +142,10 @@
   -ms-transform-origin: 50% 0;
   -o-transform-origin: 50% 0;
   transform-origin: 50% 0;
-  bottom: 0; }
+  bottom: 0;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
 
 .flip-clock-wrapper ul li a div div.inn {
   position: absolute;
