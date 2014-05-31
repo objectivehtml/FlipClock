@@ -85,8 +85,10 @@
 		 * Flip the clock face
 		 */
 		 
-		flip: function(doNotAddPlayClass) {
-			var time = this.factory.getTime().digitize([this.factory.getTime().time]);
+		flip: function(time, doNotAddPlayClass) {
+			console.log(time, doNotAddPlayClass);
+			
+			time = this.factory.getTime().digitize([this.factory.getTime().time]);
 
 			this.base(time, doNotAddPlayClass);
 		},
@@ -101,7 +103,7 @@
 				this.factory.original ? Math.round(this.factory.original) : 0
 			);
 
-			this.flip(true);
+			this.flip();
 		}
 	});
 	

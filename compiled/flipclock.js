@@ -199,7 +199,7 @@ var FlipClock;
 		 * Version
 		 */
 		 
-		version: '0.5.2',
+		version: '0.5.3',
 		
 		/**
 		 * Sets the default options
@@ -481,7 +481,8 @@ var FlipClock;
 			var t = this;
 
 			/*
-			Commenting out because I don't this is necessary
+			Commenting out because I don't this is necessary, leaving comments just in case.
+			
 			if(!doNotAddPlayClass) {
 				if (!(t.factory.time.time instanceof Date)) {
 					if(!t.factory.countdown) {
@@ -494,14 +495,16 @@ var FlipClock;
 			}
 			*/
 			
+			console.log(arguments);
+
 			var offset = t.factory.lists.length - time.length;
 
 			if(offset < 0) {
 				offset = 0;
 			}			
 			
-			var totalNew = 0;
-			var reFlip = false;
+			// var totalNew = 0;
+			// var reFlip = false;
 
 			$.each(time, function(i, digit) {
 				i += offset;
@@ -513,13 +516,13 @@ var FlipClock;
 			
 					list.select(digit);
 					
-					if(digit != currentDigit && !doNotAddPlayClass) {
+					if(!doNotAddPlayClass) {
 						list.play();	
 					}
 				}	
 				else {
 					t.addDigit(digit);
-					reFlip = true;
+					// reFlip = true;
 				}
 			});
 
@@ -529,11 +532,13 @@ var FlipClock;
 				}
 			}
 
+			/*
 			if(t.factory.getTime().getTimeSeconds() <= 0) {
 				setTimeout(function() {
 					t.factory.stop();
 				}, t.factory.timer.animationRate);
 			}
+			*/
 		}
 					
 	});
@@ -1863,8 +1868,10 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 		 
-		flip: function(doNotAddPlayClass) {
-			var time = this.factory.getTime().digitize([this.factory.getTime().time]);
+		flip: function(time, doNotAddPlayClass) {
+			console.log(time, doNotAddPlayClass);
+			
+			time = this.factory.getTime().digitize([this.factory.getTime().time]);
 
 			this.base(time, doNotAddPlayClass);
 		},
@@ -1879,7 +1886,7 @@ var FlipClock;
 				this.factory.original ? Math.round(this.factory.original) : 0
 			);
 
-			this.flip(true);
+			this.flip();
 		}
 	});
 	

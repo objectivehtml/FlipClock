@@ -173,7 +173,8 @@
 			var t = this;
 
 			/*
-			Commenting out because I don't this is necessary
+			Commenting out because I don't this is necessary, leaving comments just in case.
+			
 			if(!doNotAddPlayClass) {
 				if (!(t.factory.time.time instanceof Date)) {
 					if(!t.factory.countdown) {
@@ -186,14 +187,16 @@
 			}
 			*/
 			
+			console.log(arguments);
+
 			var offset = t.factory.lists.length - time.length;
 
 			if(offset < 0) {
 				offset = 0;
 			}			
 			
-			var totalNew = 0;
-			var reFlip = false;
+			// var totalNew = 0;
+			// var reFlip = false;
 
 			$.each(time, function(i, digit) {
 				i += offset;
@@ -205,13 +208,13 @@
 			
 					list.select(digit);
 					
-					if(digit != currentDigit && !doNotAddPlayClass) {
+					if(!doNotAddPlayClass) {
 						list.play();	
 					}
 				}	
 				else {
 					t.addDigit(digit);
-					reFlip = true;
+					// reFlip = true;
 				}
 			});
 
@@ -221,11 +224,13 @@
 				}
 			}
 
+			/*
 			if(t.factory.getTime().getTimeSeconds() <= 0) {
 				setTimeout(function() {
 					t.factory.stop();
 				}, t.factory.timer.animationRate);
 			}
+			*/
 		}
 					
 	});
