@@ -153,7 +153,8 @@
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
 			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
 			this.time     = new FlipClock.Time(this, this.original, {
-				minimumDigits: options.minimumDigits ? options.minimumDigits : 0 
+				minimumDigits: options.minimumDigits ? options.minimumDigits : 0,
+				animationRate: options.animationRate ? options.animationRate : 1000 
 			});
 
 			this.timer    = new FlipClock.Timer(this, options);

@@ -178,17 +178,13 @@
 						t.factory.time.time++;
 					}
 					else {
-						if(t.factory.time.time <= 0) {
-							t.factory.stop();
-						}
-						
 						t.factory.time.time--;
 					}
 				}
 			}
 			
 			var offset = t.factory.lists.length - time.length;
-			
+
 			if(offset < 0) {
 				offset = 0;
 			}			
@@ -220,6 +216,12 @@
 				if(x >= offset && t.factory.lists[x].digit != time[x]) {
 					t.factory.lists[x].select(time[x]);
 				}
+			}
+
+			if(t.factory.time.time <= 0) {
+				setTimeout(function() {
+					t.factory.stop();
+				}, t.factory.timer.animationRate);
 			}
 		}
 					

@@ -30,12 +30,15 @@
 
 			factory.increment = function() {
 				factory.countdown = false;
-				factory.setTime(factory.getTime().time + 1);
+				factory.setTime(factory.getTime().getTimeSeconds() + 1);
 			};
 
 			factory.decrement = function() {
 				factory.countdown = true;
-				factory.setTime(factory.getTime().time - 1);
+				var time = factory.getTime().getTimeSeconds();
+				if(time > 0) {
+					factory.setTime(time - 1);
+				}
 			};
 
 			factory.setValue = function(digits) {

@@ -52,6 +52,12 @@
 		 */		
 		 
 		interval: 1000,
+
+		/**
+		 * The rate of the animation in milliseconds
+		 */		
+		 
+		animationRate: 1000,
 				
 		/**
 		 * Constructor
@@ -184,8 +190,10 @@
 		 
 		_setInterval: function(callback) {
 			var t = this;
-			
-			t.timer = setInterval(function() {			
+	
+			t._interval(callback);
+
+			t.timer = setInterval(function() {		
 				t._interval(callback);
 			}, this.interval);
 		}

@@ -19,9 +19,9 @@
 			$(document).ready(function() {
 
 				// Instantiate a counter
-				clock = new FlipClock($('.clock'), {
+				clock = new FlipClock($('.clock'), 1, {
 					clockFace: 'Counter',
-					minimumDigits: 4
+					countdown: true
 				});
 
 				// Attach a click event to a button a increment the clock
@@ -29,9 +29,9 @@
 					//clock.setValue(10);
 
 					// Or you could decrease the clock
-					// clock.decrement();
+					clock.decrement();
 
-					clock.increment();
+					//clock.increment();
 
 					// Or set it to a specific value
 					// clock.setValue(x);

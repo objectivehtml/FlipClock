@@ -486,17 +486,13 @@ var FlipClock;
 						t.factory.time.time++;
 					}
 					else {
-						if(t.factory.time.time <= 0) {
-							t.factory.stop();
-						}
-						
 						t.factory.time.time--;
 					}
 				}
 			}
 			
 			var offset = t.factory.lists.length - time.length;
-			
+
 			if(offset < 0) {
 				offset = 0;
 			}			
@@ -528,6 +524,12 @@ var FlipClock;
 				if(x >= offset && t.factory.lists[x].digit != time[x]) {
 					t.factory.lists[x].select(time[x]);
 				}
+			}
+
+			if(t.factory.time.time <= 0) {
+				setTimeout(function() {
+					t.factory.stop();
+				}, t.factory.timer.animationRate);
 			}
 		}
 					
@@ -690,7 +692,8 @@ var FlipClock;
 			this.$wrapper = $(obj).addClass(this.classes.wrapper);
 			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
 			this.time     = new FlipClock.Time(this, this.original, {
-				minimumDigits: options.minimumDigits ? options.minimumDigits : 0 
+				minimumDigits: options.minimumDigits ? options.minimumDigits : 0,
+				animationRate: options.animationRate ? options.animationRate : 1000 
 			});
 
 			this.timer    = new FlipClock.Timer(this, options);
@@ -969,7 +972,7 @@ var FlipClock;
 			var target = this.$obj.find('[data-digit="'+digit+'"]');
 			var active = this.$obj.find('.'+this.classes.active).removeClass(this.classes.active);
 			var before = this.$obj.find('.'+this.classes.before).removeClass(this.classes.before);
-			
+
 			if(!this.factory.countdown) {
 				if(target.is(':first-child')) {
 					this.$obj.find(':last-child').addClass(this.classes.before);
@@ -1004,7 +1007,7 @@ var FlipClock;
 		 
 		stop: function() {
 			var t = this;
-			
+
 			setTimeout(function() {
 				t.$obj.removeClass(t.factory.classes.play);
 			}, this.factory.timer.interval);
@@ -1538,6 +1541,12 @@ var FlipClock;
 		 */		
 		 
 		interval: 1000,
+
+		/**
+		 * The rate of the animation in milliseconds
+		 */		
+		 
+		animationRate: 1000,
 				
 		/**
 		 * Constructor
@@ -1670,8 +1679,10 @@ var FlipClock;
 		 
 		_setInterval: function(callback) {
 			var t = this;
-			
-			t.timer = setInterval(function() {			
+	
+			t._interval(callback);
+
+			t.timer = setInterval(function() {		
 				t._interval(callback);
 			}, this.interval);
 		}
@@ -1794,12 +1805,15 @@ var FlipClock;
 
 			factory.increment = function() {
 				factory.countdown = false;
-				factory.setTime(factory.getTime().time + 1);
+				factory.setTime(factory.getTime().getTimeSeconds() + 1);
 			};
 
 			factory.decrement = function() {
 				factory.countdown = true;
-				factory.setTime(factory.getTime().time - 1);
+				var time = factory.getTime().getTimeSeconds();
+				if(time > 0) {
+					factory.setTime(time - 1);
+				}
 			};
 
 			factory.setValue = function(digits) {

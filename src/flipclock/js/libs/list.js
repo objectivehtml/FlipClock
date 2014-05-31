@@ -98,7 +98,7 @@
 			var target = this.$obj.find('[data-digit="'+digit+'"]');
 			var active = this.$obj.find('.'+this.classes.active).removeClass(this.classes.active);
 			var before = this.$obj.find('.'+this.classes.before).removeClass(this.classes.before);
-			
+
 			if(!this.factory.countdown) {
 				if(target.is(':first-child')) {
 					this.$obj.find(':last-child').addClass(this.classes.before);
@@ -133,7 +133,7 @@
 		 
 		stop: function() {
 			var t = this;
-			
+
 			setTimeout(function() {
 				t.$obj.removeClass(t.factory.classes.play);
 			}, this.factory.timer.interval);
