@@ -172,6 +172,8 @@
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
+			/*
+			Commenting out because I don't this is necessary
 			if(!doNotAddPlayClass) {
 				if (!(t.factory.time.time instanceof Date)) {
 					if(!t.factory.countdown) {
@@ -182,6 +184,7 @@
 					}
 				}
 			}
+			*/
 			
 			var offset = t.factory.lists.length - time.length;
 
@@ -218,7 +221,7 @@
 				}
 			}
 
-			if(t.factory.time.time <= 0) {
+			if(t.factory.getTime().getTimeSeconds() <= 0) {
 				setTimeout(function() {
 					t.factory.stop();
 				}, t.factory.timer.animationRate);
