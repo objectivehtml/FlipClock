@@ -199,7 +199,7 @@ var FlipClock;
 		 * Version
 		 */
 		 
-		version: '0.5.1',
+		version: '0.5.2',
 		
 		/**
 		 * Sets the default options
