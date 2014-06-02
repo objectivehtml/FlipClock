@@ -504,17 +504,12 @@ var FlipClock;
 				offset = 0;
 			}			
 			
-			// var totalNew = 0;
-			// var reFlip = false;
-
 			$.each(time, function(i, digit) {
 				i += offset;
 				
 				var list = t.factory.lists[i];
 					
 				if(list) {
-					//var currentDigit = list.digit;
-			
 					list.select(digit);
 					
 					if(!doNotAddPlayClass) {
@@ -523,7 +518,6 @@ var FlipClock;
 				}	
 				else {
 					t.addDigit(digit);
-					// reFlip = true;
 				}
 			});
 
@@ -532,14 +526,6 @@ var FlipClock;
 					t.factory.lists[x].select(time[x]);
 				}
 			}
-
-			/*
-			if(t.factory.getTime().getTimeSeconds() <= 0) {
-				setTimeout(function() {
-					t.factory.stop();
-				}, t.factory.timer.animationRate);
-			}
-			*/
 		}
 					
 	});
