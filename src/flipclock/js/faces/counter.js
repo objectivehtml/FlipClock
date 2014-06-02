@@ -51,7 +51,13 @@
 
 			this.base(factory, options);
 		},
-		
+
+		/**
+		 * Increments the time with each face flip
+		 */
+		 
+		increment: function() {},
+
 		/**
 		 * Build the clock face	
 		 */
@@ -86,10 +92,10 @@
 		 */
 		 
 		flip: function(time, doNotAddPlayClass) {
-			console.log(time, doNotAddPlayClass);
+			if(!time) {		
+				time = this.factory.getTime().digitize([this.factory.getTime().time]);
+			}
 			
-			time = this.factory.getTime().digitize([this.factory.getTime().time]);
-
 			this.base(time, doNotAddPlayClass);
 		},
 

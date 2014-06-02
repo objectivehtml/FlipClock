@@ -292,7 +292,7 @@
 		 
 		setTime: function(time) {
 			this.time.time = time;
-			this.face.setTime(time);		
+			this.flip();		
 		},
 		
 		/**

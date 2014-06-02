@@ -193,13 +193,13 @@ var FlipClock;
 		 * Build Date
 		 */
 		 
-		buildDate: '2015-05-30',
+		buildDate: '2014-06-02',
 		
 		/**
 		 * Version
 		 */
 		 
-		version: '0.5.3',
+		version: '0.5.4',
 		
 		/**
 		 * Sets the default options
@@ -436,12 +436,13 @@ var FlipClock;
 		},
 
 		/**
-		 * Sets the clock time
-		 */
-		 
+		 * Sets the clock time (deprecated, duplicate method)
+		 *
+
 		setTime: function(time) {
-			this.flip(time);		
+			this.flip();		
 		},
+		*/
 		
 		/**
 		 * Sets the clock time
@@ -474,28 +475,28 @@ var FlipClock;
 		stop: function() {},
 			
 		/**
+		 * Increments the time with each face flip
+		 */
+		 
+		increment: function() {
+			if (!(this.factory.time.time instanceof Date)) {
+				if(!this.factory.countdown) {
+					this.factory.time.addSecond();
+				}
+				else {
+					this.factory.time.subSecond();
+				}
+			}
+		},
+			
+		/**
 		 * Triggers when the numbers on the clock flip
 		 */
 		 
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
-			/*
-			Commenting out because I don't this is necessary, leaving comments just in case.
-			
-			if(!doNotAddPlayClass) {
-				if (!(t.factory.time.time instanceof Date)) {
-					if(!t.factory.countdown) {
-						t.factory.time.time++;
-					}
-					else {
-						t.factory.time.time--;
-					}
-				}
-			}
-			*/
-			
-			console.log(arguments);
+			this.increment();
 
 			var offset = t.factory.lists.length - time.length;
 
@@ -512,7 +513,7 @@ var FlipClock;
 				var list = t.factory.lists[i];
 					
 				if(list) {
-					var currentDigit = list.digit;
+					//var currentDigit = list.digit;
 			
 					list.select(digit);
 					
@@ -839,7 +840,7 @@ var FlipClock;
 		 
 		setTime: function(time) {
 			this.time.time = time;
-			this.face.setTime(time);		
+			this.flip();		
 		},
 		
 		/**
@@ -1146,6 +1147,10 @@ var FlipClock;
 		 
 		factory: false,
 		
+		/**
+		 * The minimum number of digits the clock face will have
+		 */		
+		 
 		minimumDigits: 0,
 
 		/**
@@ -1473,6 +1478,38 @@ var FlipClock;
 			}
 			
 			return digits;
+		},
+
+		/**
+		 * Adds X second to the current time
+		 */
+
+		addSeconds: function(x) {
+			this.time += x;
+		},
+
+		/**
+		 * Adds 1 second to the current time
+		 */
+
+		addSecond: function() {
+			this.addSeconds(1);
+		},
+
+		/**
+		 * Substracts X seconds from the current time
+		 */
+
+		subSeconds: function(x) {
+			this.time -= x;
+		},
+
+		/**
+		 * Substracts 1 second from the current time
+		 */
+
+		subSecond: function() {
+			this.subSeconds(1);
 		},
 		
 		/**
@@ -1834,7 +1871,13 @@ var FlipClock;
 
 			this.base(factory, options);
 		},
-		
+
+		/**
+		 * Increments the time with each face flip
+		 */
+		 
+		increment: function() {},
+
 		/**
 		 * Build the clock face	
 		 */
@@ -1869,10 +1912,10 @@ var FlipClock;
 		 */
 		 
 		flip: function(time, doNotAddPlayClass) {
-			console.log(time, doNotAddPlayClass);
+			if(!time) {		
+				time = this.factory.getTime().digitize([this.factory.getTime().time]);
+			}
 			
-			time = this.factory.getTime().digitize([this.factory.getTime().time]);
-
 			this.base(time, doNotAddPlayClass);
 		},
 
@@ -1963,10 +2006,11 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 
-		flip: function(doNotAddPlayClass, time) {
+		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
 				time = this.factory.time.getDayCounter(this.showSeconds);
 			}
+
 			this.base(time, doNotAddPlayClass);
 		},
 

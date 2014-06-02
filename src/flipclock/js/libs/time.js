@@ -36,6 +36,10 @@
 		 
 		factory: false,
 		
+		/**
+		 * The minimum number of digits the clock face will have
+		 */		
+		 
 		minimumDigits: 0,
 
 		/**
@@ -363,6 +367,38 @@
 			}
 			
 			return digits;
+		},
+
+		/**
+		 * Adds X second to the current time
+		 */
+
+		addSeconds: function(x) {
+			this.time += x;
+		},
+
+		/**
+		 * Adds 1 second to the current time
+		 */
+
+		addSecond: function() {
+			this.addSeconds(1);
+		},
+
+		/**
+		 * Substracts X seconds from the current time
+		 */
+
+		subSeconds: function(x) {
+			this.time -= x;
+		},
+
+		/**
+		 * Substracts 1 second from the current time
+		 */
+
+		subSecond: function() {
+			this.subSeconds(1);
 		},
 		
 		/**

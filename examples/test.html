@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../compiled/flipclock.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<script src="../compiled/flipclock.js"></script>		
+	</head>
+	<body>
+		<div class="clock" style="margin:2em;"></div>
+
+		<script type="text/javascript">
+			var clock;
+			
+			$(document).ready(function() {
+
+				var date = new Date(Date.UTC(2014, 6, 27, 12, 0, 0));
+				var now = new Date();
+				var diff = date.getTime()/1000 - now.getTime()/1000;
+
+				clock = $('.clock').FlipClock(diff, {
+					clockFace: 'DailyCounter',
+					countdown: false
+				});
+
+			});
+		</script>
+		
+	</body>
+</html>

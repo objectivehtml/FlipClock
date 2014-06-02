@@ -128,12 +128,13 @@
 		},
 
 		/**
-		 * Sets the clock time
-		 */
-		 
+		 * Sets the clock time (deprecated, duplicate method)
+		 *
+
 		setTime: function(time) {
-			this.flip(time);		
+			this.flip();		
 		},
+		*/
 		
 		/**
 		 * Sets the clock time
@@ -166,28 +167,28 @@
 		stop: function() {},
 			
 		/**
+		 * Increments the time with each face flip
+		 */
+		 
+		increment: function() {
+			if (!(this.factory.time.time instanceof Date)) {
+				if(!this.factory.countdown) {
+					this.factory.time.addSecond();
+				}
+				else {
+					this.factory.time.subSecond();
+				}
+			}
+		},
+			
+		/**
 		 * Triggers when the numbers on the clock flip
 		 */
 		 
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
-			/*
-			Commenting out because I don't this is necessary, leaving comments just in case.
-			
-			if(!doNotAddPlayClass) {
-				if (!(t.factory.time.time instanceof Date)) {
-					if(!t.factory.countdown) {
-						t.factory.time.time++;
-					}
-					else {
-						t.factory.time.time--;
-					}
-				}
-			}
-			*/
-			
-			console.log(arguments);
+			this.increment();
 
 			var offset = t.factory.lists.length - time.length;
 
@@ -204,7 +205,7 @@
 				var list = t.factory.lists[i];
 					
 				if(list) {
-					var currentDigit = list.digit;
+					//var currentDigit = list.digit;
 			
 					list.select(digit);
 					
