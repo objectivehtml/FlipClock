@@ -292,7 +292,7 @@
 		 
 		setTime: function(time) {
 			this.time.time = time;
-			this.flip();		
+			this.flip(true);		
 		},
 		
 		/**
@@ -325,8 +325,8 @@
 		 *
 		 * @param  array  An array of digits	 
 		 */
-		flip: function() {
-			this.face.flip();
+		flip: function(doNotAddPlayClass) {
+			this.face.flip(false, doNotAddPlayClass);
 		}
 		
 	});

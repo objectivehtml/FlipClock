@@ -51,12 +51,12 @@
 		 * Flip the clock face
 		 */
 		 
-		flip: function() {			
+		flip: function(time, doNotAddPlayClass) {			
 			if(this.meridiumText != this._getMeridium()) {
 				this.meridiumText = this._getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
 			}
-			this.base(this.factory.time.getTime());	
+			this.base(this.factory.time.getTime(), doNotAddPlayClass);	
 		},
 		
 		/**

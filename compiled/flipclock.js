@@ -193,13 +193,13 @@ var FlipClock;
 		 * Build Date
 		 */
 		 
-		buildDate: '2014-06-02',
+		buildDate: '2014-06-03',
 		
 		/**
 		 * Version
 		 */
 		 
-		version: '0.5.4',
+		version: '0.5.5',
 		
 		/**
 		 * Sets the default options
@@ -484,7 +484,12 @@ var FlipClock;
 					this.factory.time.addSecond();
 				}
 				else {
-					this.factory.time.subSecond();
+					if(this.factory.time.getTimeSeconds() == 0) {
+			        	this.factory.stop()
+					}
+					else {
+						this.factory.time.subSecond();
+					}
 				}
 			}
 		},
@@ -826,7 +831,7 @@ var FlipClock;
 		 
 		setTime: function(time) {
 			this.time.time = time;
-			this.flip();		
+			this.flip(true);		
 		},
 		
 		/**
@@ -859,8 +864,8 @@ var FlipClock;
 		 *
 		 * @param  array  An array of digits	 
 		 */
-		flip: function() {
-			this.face.flip();
+		flip: function(doNotAddPlayClass) {
+			this.face.flip(false, doNotAddPlayClass);
 		}
 		
 	});
@@ -1782,9 +1787,9 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time) {
+		flip: function(time, doNotAddPlayClass) {
 			time = time ? time : this.factory.time.getMilitaryTime();
-			this.base(time);	
+			this.base(time, doNotAddPlayClass);	
 		},
 		
 		/**
@@ -2085,7 +2090,7 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 		 
-		flip: function(doNotAddPlayClass, time) {
+		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
 				time = this.factory.time.getHourCounter();
 			}			
@@ -2149,8 +2154,11 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 		 
-		flip: function(doNotAddPlayClass) {
-			this.base(doNotAddPlayClass, this.factory.time.getMinuteCounter());
+		flip: function(time, doNotAddPlayClass) {
+			if(!time) {
+				time = this.factory.time.getMinuteCounter();
+			}
+			this.base(time, doNotAddPlayClass);
 		},
 
 	});
@@ -2209,12 +2217,12 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 		 
-		flip: function() {			
+		flip: function(time, doNotAddPlayClass) {			
 			if(this.meridiumText != this._getMeridium()) {
 				this.meridiumText = this._getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
 			}
-			this.base(this.factory.time.getTime());	
+			this.base(this.factory.time.getTime(), doNotAddPlayClass);	
 		},
 		
 		/**

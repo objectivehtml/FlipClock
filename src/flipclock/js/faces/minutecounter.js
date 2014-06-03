@@ -38,8 +38,11 @@
 		 * Flip the clock face
 		 */
 		 
-		flip: function(doNotAddPlayClass) {
-			this.base(doNotAddPlayClass, this.factory.time.getMinuteCounter());
+		flip: function(time, doNotAddPlayClass) {
+			if(!time) {
+				time = this.factory.time.getMinuteCounter();
+			}
+			this.base(time, doNotAddPlayClass);
 		},
 
 	});

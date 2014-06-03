@@ -66,7 +66,7 @@
 		 * Flip the clock face
 		 */
 		 
-		flip: function(doNotAddPlayClass, time) {
+		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
 				time = this.factory.time.getHourCounter();
 			}			

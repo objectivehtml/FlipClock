@@ -176,7 +176,12 @@
 					this.factory.time.addSecond();
 				}
 				else {
-					this.factory.time.subSecond();
+					if(this.factory.time.getTimeSeconds() == 0) {
+			        	this.factory.stop()
+					}
+					else {
+						this.factory.time.subSecond();
+					}
 				}
 			}
 		},

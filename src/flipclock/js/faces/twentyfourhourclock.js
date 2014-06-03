@@ -58,9 +58,9 @@
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time) {
+		flip: function(time, doNotAddPlayClass) {
 			time = time ? time : this.factory.time.getMilitaryTime();
-			this.base(time);	
+			this.base(time, doNotAddPlayClass);	
 		},
 		
 		/**
