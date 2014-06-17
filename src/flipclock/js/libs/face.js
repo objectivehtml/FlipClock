@@ -202,17 +202,20 @@
 			}			
 			
 			$.each(time, function(i, digit) {
+                		var isChanged;
+
 				i += offset;
-				
+
 				var list = t.factory.lists[i];
-					
+
 				if(list) {
+                    			isChanged = list.digit !== digit;
 					list.select(digit);
-					
-					if(!doNotAddPlayClass) {
-						list.play();	
+
+					if(!doNotAddPlayClass && isChanged) {
+						list.play();
 					}
-				}	
+				}
 				else {
 					t.addDigit(digit);
 				}
