@@ -1882,7 +1882,7 @@ var FlipClock;
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
 					var list = t.createList(digit, {
-						minimumDigits: t.minimumDigits,
+						minimumDigits: t.minimumDigits
 					});
 
 					list.select(digit);
@@ -2159,7 +2159,7 @@ var FlipClock;
 				time = this.factory.time.getMinuteCounter();
 			}
 			this.base(time, doNotAddPlayClass);
-		},
+		}
 
 	});
 	
