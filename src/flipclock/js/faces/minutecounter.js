@@ -43,7 +43,7 @@
 				time = this.factory.time.getMinuteCounter();
 			}
 			this.base(time, doNotAddPlayClass);
-		},
+		}
 
 	});
 	
