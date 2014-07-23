@@ -7,7 +7,7 @@
 	 *	
 	 */
 
-	FlipClock.Lang.Norwegian-BM = {
+	FlipClock.Lang.Norwegian = {
 
 		'years'   : 'År',
 		'months'  : 'Måneder',
@@ -20,9 +20,9 @@
 
 	/* Create various aliases for convenience */
 
-	FlipClock.Lang['no']      = FlipClock.Lang.Norwegian-BM;
-	FlipClock.Lang['nb']      = FlipClock.Lang.Norwegian-BM;
-	FlipClock.Lang['no-nb']   = FlipClock.Lang.Norwegian-BM;
-	FlipClock.Lang['norwegian'] = FlipClock.Lang.Norwegian-BM;
+	FlipClock.Lang['no']      = FlipClock.Lang.Norwegian;
+	FlipClock.Lang['nb']      = FlipClock.Lang.Norwegian;
+	FlipClock.Lang['no-nb']   = FlipClock.Lang.Norwegian;
+	FlipClock.Lang['norwegian'] = FlipClock.Lang.Norwegian;
 
 }(jQuery));
