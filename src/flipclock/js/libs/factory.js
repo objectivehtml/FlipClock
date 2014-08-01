@@ -128,7 +128,13 @@
 		lists: [],
 		
 		/**
-		 * The wrapping jQuery object
+		 * The jQuery object
+		 */		
+		 
+		$el: false,
+
+		/**
+		 * The jQuery object (depcrecated)
 		 */		
 		 
 		$wrapper: false,
@@ -147,20 +153,24 @@
 				options = {};
 			}
 
-			this.lists 	  = [];
-			this.running  = false;
+			this.lists = [];
+			this.running = false;
 			this.base(options);		
-			this.$wrapper = $(obj).addClass(this.classes.wrapper);
+			this.$el = $(obj).addClass(this.classes.wrapper);
+
+			// Depcrated support of the $wrapper property.
+			this.$wrapper = this.$el;
+
 			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
-			this.time     = new FlipClock.Time(this, this.original, {
+			this.time = new FlipClock.Time(this, this.original, {
 				minimumDigits: options.minimumDigits ? options.minimumDigits : 0,
 				animationRate: options.animationRate ? options.animationRate : 1000 
 			});
 
-			this.timer    = new FlipClock.Timer(this, options);
+			this.timer = new FlipClock.Timer(this, options);
 
-			this.lang     = this.loadLanguage(this.language);
-			this.face     = this.loadClockFace(this.clockFace, options);
+			this.lang = this.loadLanguage(this.language);
+			this.face = this.loadClockFace(this.clockFace, options);
 
 			if(this.autoStart) {
 				this.start();
