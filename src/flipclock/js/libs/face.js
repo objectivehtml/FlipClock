@@ -165,7 +165,22 @@
 		 */
 		 
 		stop: function() {},
-			
+		
+		/**
+		 * Auto increments/decrements the value of the clock face
+		 */
+		 
+		autoIncrement: function() {
+			if (!(this.factory.time.time instanceof Date)) {
+				if(!this.factory.countdown) {
+					this.increment();
+				}
+				else {
+					this.decrement();
+				}
+			}
+		},
+
 		/**
 		 * Increments the value of the clock face
 		 */
@@ -194,6 +209,7 @@
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
+			/*
 			if (!(this.factory.time.time instanceof Date)) {
 				if(!this.factory.countdown) {
 					this.increment();
@@ -202,6 +218,7 @@
 					this.decrement();
 				}
 			}
+			*/
 
 			$.each(time, function(i, digit) {
 				var list = t.lists[i];
