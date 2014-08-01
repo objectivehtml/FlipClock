@@ -477,7 +477,22 @@ var FlipClock;
 		 */
 		 
 		stop: function() {},
-			
+		
+		/**
+		 * Auto increments/decrements the value of the clock face
+		 */
+		 
+		autoIncrement: function() {
+			if (!(this.factory.time.time instanceof Date)) {
+				if(!this.factory.countdown) {
+					this.increment();
+				}
+				else {
+					this.decrement();
+				}
+			}
+		},
+
 		/**
 		 * Increments the value of the clock face
 		 */
@@ -506,6 +521,7 @@ var FlipClock;
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
+			/*
 			if (!(this.factory.time.time instanceof Date)) {
 				if(!this.factory.countdown) {
 					this.increment();
@@ -514,6 +530,7 @@ var FlipClock;
 					this.decrement();
 				}
 			}
+			*/
 
 			$.each(time, function(i, digit) {
 				var list = t.lists[i];
@@ -640,6 +657,12 @@ var FlipClock;
 		clockFace: 'HourlyCounter',
 		 
 		/**
+		 * The name of the clock face class in use
+		 */	
+		 
+		countdown: false,
+		 
+		/**
 		 * The name of the default clock face class to use if the defined
 		 * clockFace variable is not a valid FlipClock.Face object
 		 */	
@@ -728,13 +751,15 @@ var FlipClock;
 
 			this.lists = [];
 			this.running = false;
-			this.base(options);		
+			this.base(options);	
+
 			this.$el = $(obj).addClass(this.classes.wrapper);
 
 			// Depcrated support of the $wrapper property.
 			this.$wrapper = this.$el;
 
 			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
+
 			this.time = new FlipClock.Time(this, this.original, {
 				minimumDigits: options.minimumDigits ? options.minimumDigits : 0,
 				animationRate: options.animationRate ? options.animationRate : 1000 
@@ -743,6 +768,7 @@ var FlipClock;
 			this.timer = new FlipClock.Timer(this, options);
 
 			this.lang = this.loadLanguage(this.language);
+			
 			this.face = this.loadClockFace(this.clockFace, options);
 
 			if(this.autoStart) {
@@ -833,6 +859,7 @@ var FlipClock;
 			var t = this;
 
 			if(!t.running && (!t.countdown || t.countdown && t.time.time > 0)) {
+				
 				t.face.start(t.time);
 				t.timer.start(function() {
 					t.flip();
@@ -1932,7 +1959,7 @@ var FlipClock;
 			time = time ? time : this.factory.time.getMilitaryTime();
 			
 			this.base(time, doNotAddPlayClass);	
-		},
+		}
 		
 		/**
 		 * Clear the excess digits from the tens columns for sec/min
@@ -1967,7 +1994,7 @@ var FlipClock;
 	 
 	FlipClock.CounterFace = FlipClock.Face.extend({
 		
-		autoStart: false,
+		// autoStart: false,
 
 		minimumDigits: 2,
 
@@ -1979,9 +2006,9 @@ var FlipClock;
 		 */
 		 
 		constructor: function(factory, options) {
-			factory.timer.interval = 0;
-			factory.autoStart 	   = false;
-			factory.running  	   = true;
+			//factory.timer.interval = 0;
+			factory.autoStart 	   = options.autoStart ? true : false;
+			//factory.running  	   = true;
 
 			factory.increment = function() {
 				factory.countdown = false;
@@ -2006,12 +2033,6 @@ var FlipClock;
 
 			this.base(factory, options);
 		},
-
-		/**
-		 * Increments the time with each face flip
-		 */
-		 
-		increment: function() {},
 
 		/**
 		 * Build the clock face	
@@ -2049,6 +2070,10 @@ var FlipClock;
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {		
 				time = this.factory.getTime().digitize([this.factory.getTime().time]);
+			}
+
+			if(this.autoStart) {
+				this.autoIncrement();
 			}
 			
 			this.base(time, doNotAddPlayClass);
@@ -2146,8 +2171,10 @@ var FlipClock;
 				time = this.factory.time.getDayCounter(this.showSeconds);
 			}
 
+			this.autoIncrement();
+
 			this.base(time, doNotAddPlayClass);
-		},
+		}
 
 		/**
 		 * Clear the excess digits from the tens columns for sec/min
@@ -2241,9 +2268,12 @@ var FlipClock;
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
 				time = this.factory.time.getHourCounter();
-			}			
+			}	
+
+			this.autoIncrement();
+		
 			this.base(time, doNotAddPlayClass);
-		},
+		}
 		
 		/**
 		 * Clear the excess digits from the tens columns for sec/min
@@ -2308,6 +2338,7 @@ var FlipClock;
 			if(!time) {
 				time = this.factory.time.getMinuteCounter();
 			}
+
 			this.base(time, doNotAddPlayClass);
 		}
 
@@ -2393,12 +2424,13 @@ var FlipClock;
 		 
 		_isPM: function() {
 			return this._getMeridium() == 'PM' ? true : false;
-		},
+		}
 		
 		/**
 		 * Clear the excess digits from the tens columns for sec/min
 		 */
 		 
+		/*
 		_clearExcessDigits: function() {
 			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
@@ -2408,6 +2440,7 @@ var FlipClock;
 				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
+		*/
 				
 	});
 	
