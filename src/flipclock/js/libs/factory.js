@@ -67,6 +67,12 @@
 		clockFace: 'HourlyCounter',
 		 
 		/**
+		 * The name of the clock face class in use
+		 */	
+		 
+		countdown: false,
+		 
+		/**
 		 * The name of the default clock face class to use if the defined
 		 * clockFace variable is not a valid FlipClock.Face object
 		 */	
@@ -155,13 +161,15 @@
 
 			this.lists = [];
 			this.running = false;
-			this.base(options);		
+			this.base(options);	
+
 			this.$el = $(obj).addClass(this.classes.wrapper);
 
 			// Depcrated support of the $wrapper property.
 			this.$wrapper = this.$el;
 
 			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
+
 			this.time = new FlipClock.Time(this, this.original, {
 				minimumDigits: options.minimumDigits ? options.minimumDigits : 0,
 				animationRate: options.animationRate ? options.animationRate : 1000 
@@ -170,6 +178,7 @@
 			this.timer = new FlipClock.Timer(this, options);
 
 			this.lang = this.loadLanguage(this.language);
+			
 			this.face = this.loadClockFace(this.clockFace, options);
 
 			if(this.autoStart) {
@@ -260,6 +269,7 @@
 			var t = this;
 
 			if(!t.running && (!t.countdown || t.countdown && t.time.time > 0)) {
+				
 				t.face.start(t.time);
 				t.timer.start(function() {
 					t.flip();
