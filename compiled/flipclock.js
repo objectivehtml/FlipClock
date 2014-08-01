@@ -2548,6 +2548,34 @@ var FlipClock;
 
 }(jQuery));
 (function($) {
+		
+	/**
+	 * FlipClock Finnish Language Pack
+	 *
+	 * This class will used to translate tokens into the Finnish language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Finnish = {
+		
+		'years'   : 'Vuotta',
+		'months'  : 'Kuukautta',
+		'days'    : 'Päivää',
+		'hours'   : 'Tuntia',
+		'minutes' : 'Minuuttia',
+		'seconds' : 'Sekuntia'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['fi']      = FlipClock.Lang.Finnish;
+	FlipClock.Lang['fi-fi']   = FlipClock.Lang.Finnish;
+	FlipClock.Lang['finnish'] = FlipClock.Lang.Finnish;
+
+}(jQuery));
+
+(function($) {
 
   /**
    * FlipClock Canadian French Language Pack
@@ -2660,6 +2688,35 @@ var FlipClock;
 (function($) {
 
 	/**
+	 * FlipClock Norwegian-Bokmål Language Pack
+	 *
+	 * This class will used to translate tokens into the Norwegian language.
+	 *	
+	 */
+
+	FlipClock.Lang.Norwegian = {
+
+		'years'   : 'År',
+		'months'  : 'Måneder',
+		'days'    : 'Dager',
+		'hours'   : 'Timer',
+		'minutes' : 'Minutter',
+		'seconds' : 'Sekunder'	
+
+	};
+
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['no']      = FlipClock.Lang.Norwegian;
+	FlipClock.Lang['nb']      = FlipClock.Lang.Norwegian;
+	FlipClock.Lang['no-nb']   = FlipClock.Lang.Norwegian;
+	FlipClock.Lang['norwegian'] = FlipClock.Lang.Norwegian;
+
+}(jQuery));
+
+(function($) {
+
+	/**
 	 * FlipClock Portuguese Language Pack
 	 *
 	 * This class will used to translate tokens into the Portuguese language.
@@ -2733,8 +2790,8 @@ var FlipClock;
 	
 	/* Create various aliases for convenience */
 
-	FlipClock.Lang['sv']      = FlipClock.Lang.Danish;
-	FlipClock.Lang['sv-se']   = FlipClock.Lang.Danish;
-	FlipClock.Lang['swedish'] = FlipClock.Lang.Danish;
+	FlipClock.Lang['sv']      = FlipClock.Lang.Swedish;
+	FlipClock.Lang['sv-se']   = FlipClock.Lang.Swedish;
+	FlipClock.Lang['swedish'] = FlipClock.Lang.Swedish;
 
 }(jQuery));
