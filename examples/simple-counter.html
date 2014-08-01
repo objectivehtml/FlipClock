@@ -11,6 +11,8 @@
 
 		<button type="button" class="increment" style="margin: 25px; font-size: 20px; padding: 15px;">+1</button>
 		
+		<button type="button" class="decrement" style="margin: 25px; font-size: 20px; padding: 15px;">-1</button>
+		
 		<button type="button" class="reset" style="margin: 25px; font-size: 20px; padding: 15px;">Reset</button>
 		
 		<script type="text/javascript">
@@ -19,9 +21,8 @@
 			$(document).ready(function() {
 
 				// Instantiate a counter
-				clock = new FlipClock($('.clock'), {
-					clockFace: 'Counter',
-					minimumDigits: 4
+				clock = new FlipClock($('.clock'), 101, {
+					clockFace: 'Counter'
 				});
 
 				// Attach a click event to a button a increment the clock
@@ -35,6 +36,11 @@
 
 					// Or set it to a specific value
 					// clock.setValue(x);
+				});
+
+				// Attach a click event to a button a decrement the clock
+				$('.decrement').click(function() {
+					clock.decrement();
 				});
 
 				$('.reset').click(function() {
