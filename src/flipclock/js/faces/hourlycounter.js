@@ -71,9 +71,12 @@
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
 				time = this.factory.time.getHourCounter();
-			}			
+			}	
+
+			this.autoIncrement();
+		
 			this.base(time, doNotAddPlayClass);
-		},
+		}
 		
 		/**
 		 * Clear the excess digits from the tens columns for sec/min

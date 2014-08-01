@@ -75,8 +75,10 @@
 				time = this.factory.time.getDayCounter(this.showSeconds);
 			}
 
+			this.autoIncrement();
+
 			this.base(time, doNotAddPlayClass);
-		},
+		}
 
 		/**
 		 * Clear the excess digits from the tens columns for sec/min

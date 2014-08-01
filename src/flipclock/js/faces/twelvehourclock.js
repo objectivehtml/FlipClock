@@ -77,12 +77,13 @@
 		 
 		_isPM: function() {
 			return this._getMeridium() == 'PM' ? true : false;
-		},
+		}
 		
 		/**
 		 * Clear the excess digits from the tens columns for sec/min
 		 */
 		 
+		/*
 		_clearExcessDigits: function() {
 			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
@@ -92,6 +93,7 @@
 				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
+		*/
 				
 	});
 	

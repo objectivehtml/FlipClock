@@ -12,7 +12,7 @@
 	 
 	FlipClock.CounterFace = FlipClock.Face.extend({
 		
-		autoStart: false,
+		// autoStart: false,
 
 		minimumDigits: 2,
 
@@ -24,9 +24,9 @@
 		 */
 		 
 		constructor: function(factory, options) {
-			factory.timer.interval = 0;
-			factory.autoStart 	   = false;
-			factory.running  	   = true;
+			//factory.timer.interval = 0;
+			factory.autoStart 	   = options.autoStart ? true : false;
+			//factory.running  	   = true;
 
 			factory.increment = function() {
 				factory.countdown = false;
@@ -51,12 +51,6 @@
 
 			this.base(factory, options);
 		},
-
-		/**
-		 * Increments the time with each face flip
-		 */
-		 
-		increment: function() {},
 
 		/**
 		 * Build the clock face	
@@ -94,6 +88,10 @@
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {		
 				time = this.factory.getTime().digitize([this.factory.getTime().time]);
+			}
+
+			if(this.autoStart) {
+				this.autoIncrement();
 			}
 			
 			this.base(time, doNotAddPlayClass);

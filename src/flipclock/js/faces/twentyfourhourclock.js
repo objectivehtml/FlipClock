@@ -62,7 +62,7 @@
 			time = time ? time : this.factory.time.getMilitaryTime();
 			
 			this.base(time, doNotAddPlayClass);	
-		},
+		}
 		
 		/**
 		 * Clear the excess digits from the tens columns for sec/min

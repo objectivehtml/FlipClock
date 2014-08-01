@@ -42,6 +42,7 @@
 			if(!time) {
 				time = this.factory.time.getMinuteCounter();
 			}
+
 			this.base(time, doNotAddPlayClass);
 		}
 
