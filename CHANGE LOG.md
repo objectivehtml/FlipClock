@@ -1,5 +1,19 @@
 # FlipClock.js
 
+#### 0.6.0
+##### 7/31/2014
+
+- (Refactor) Refactored the face api. Replaced the $wrapper property with $el.
+- (Refactor) Refactored the list api and replace the $obj with $el.
+- (Refactor) Also added the lastDigit property to track the last digit that was selected.
+- (Refactor) Added new createListItem method to create list items easily.
+- (Refactor) Added getNextDigit method to get the next digit in the face
+- (Refactor) Added getPrevDigit method to get the previous digit in the face
+- (Refactor) Refactored the $obj property to $el
+- (Bug Fix) Fixed several bugs as a result of the refactors
+- (Bug Fix) Changed the way nodes are added to the DOM to hopefully fix some performance issues
+- (Bug Fix) Changed the way the select() method works to use the new DOM nodes
+
 #### 0.5.0
 ##### 5/25/2014
 
