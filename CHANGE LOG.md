@@ -3,6 +3,8 @@
 #### 0.6.0
 ##### 7/31/2014
 
+- (Feature) Added Norwegian Language Pack
+- (Feature) Added Finnish Language Pack
 - (Refactor) Refactored the face api. Replaced the $wrapper property with $el.
 - (Refactor) Refactored the list api and replace the $obj with $el.
 - (Refactor) Also added the lastDigit property to track the last digit that was selected.
@@ -13,6 +15,11 @@
 - (Bug Fix) Fixed several bugs as a result of the refactors
 - (Bug Fix) Changed the way nodes are added to the DOM to hopefully fix some performance issues
 - (Bug Fix) Changed the way the select() method works to use the new DOM nodes
+- (Bug Fix) Manually merge pull request from Github issues
+- (Bug Fix) Added the countdown propert to the class schema
+- (Bug Fix) Fixed an issue with auto incrementing the clock properly. Added new autoIncrement() method to facilitate this action.
+- (Bug Fix) Updated clock face to use the new autoIncrement API
+- (Bug Fix) Fixed bug caused by trailing commas
 
 #### 0.5.0
 ##### 5/25/2014
