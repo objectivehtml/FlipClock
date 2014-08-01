@@ -417,9 +417,9 @@ var FlipClock;
 			}
 
 			var obj = new FlipClock.List(this.factory, digit, options);
+		
+			this.lists.push(obj);
 
-			//this.factory.$wrapper.append(obj.$obj);	
-			
 			return obj;
 		},
 		
@@ -457,9 +457,9 @@ var FlipClock;
 				}
 			});
 			
-			obj.$obj.insertBefore(this.factory.lists[0].$obj);
+			obj.$el.append(this.factory.lists[this.factory.lists.length - 1].$obj);
 							
-			this.factory.lists.unshift(obj);
+			//this.factory.lists.unshift(obj);
 		},
 		
 		/**
@@ -475,22 +475,23 @@ var FlipClock;
 		stop: function() {},
 			
 		/**
-		 * Increments the time with each face flip
+		 * Increments the value of the clock face
 		 */
 		 
 		increment: function() {
-			if (!(this.factory.time.time instanceof Date)) {
-				if(!this.factory.countdown) {
-					this.factory.time.addSecond();
-				}
-				else {
-					if(this.factory.time.getTimeSeconds() == 0) {
-			        	this.factory.stop()
-					}
-					else {
-						this.factory.time.subSecond();
-					}
-				}
+			this.factory.time.addSecond();
+		},
+
+		/**
+		 * Decrements the value of the clock face
+		 */
+
+		decrement: function() {
+			if(this.factory.time.getTimeSeconds() == 0) {
+	        	this.factory.stop()
+			}
+			else {
+				this.factory.time.subSecond();
 			}
 		},
 			
@@ -501,7 +502,33 @@ var FlipClock;
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
-			this.increment();
+			if (!(this.factory.time.time instanceof Date)) {
+				if(!this.factory.countdown) {
+					this.increment();
+				}
+				else {
+					this.decrement();
+				}
+			}
+
+			$.each(time, function(i, digit) {
+				var list = t.lists[i];
+
+				if(list) {
+					if(!doNotAddPlayClass && digit != list.digit) {
+						list.play();	
+					}
+
+					list.select(digit);
+				}	
+				else {
+					t.addDigit(digit);
+				}
+			});
+
+			/*
+			DELETE PENDING - Legacy flip code that was replaced with the
+			much more simple logic above.
 
 			var offset = t.factory.lists.length - time.length;
 
@@ -513,7 +540,9 @@ var FlipClock;
 				i += offset;
 				
 				var list = t.factory.lists[i];
-					
+				
+				console.log()
+
 				if(list) {
 					list.select(digit);
 					
@@ -531,6 +560,7 @@ var FlipClock;
 					t.factory.lists[x].select(time[x]);
 				}
 			}
+			*/
 		}
 					
 	});
@@ -667,7 +697,13 @@ var FlipClock;
 		lists: [],
 		
 		/**
-		 * The wrapping jQuery object
+		 * The jQuery object
+		 */		
+		 
+		$el: false,
+
+		/**
+		 * The jQuery object (depcrecated)
 		 */		
 		 
 		$wrapper: false,
@@ -686,20 +722,24 @@ var FlipClock;
 				options = {};
 			}
 
-			this.lists 	  = [];
-			this.running  = false;
+			this.lists = [];
+			this.running = false;
 			this.base(options);		
-			this.$wrapper = $(obj).addClass(this.classes.wrapper);
+			this.$el = $(obj).addClass(this.classes.wrapper);
+
+			// Depcrated support of the $wrapper property.
+			this.$wrapper = this.$el;
+
 			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
-			this.time     = new FlipClock.Time(this, this.original, {
+			this.time = new FlipClock.Time(this, this.original, {
 				minimumDigits: options.minimumDigits ? options.minimumDigits : 0,
 				animationRate: options.animationRate ? options.animationRate : 1000 
 			});
 
-			this.timer    = new FlipClock.Timer(this, options);
+			this.timer = new FlipClock.Timer(this, options);
 
-			this.lang     = this.loadLanguage(this.language);
-			this.face     = this.loadClockFace(this.clockFace, options);
+			this.lang = this.loadLanguage(this.language);
+			this.face = this.loadClockFace(this.clockFace, options);
 
 			if(this.autoStart) {
 				this.start();
@@ -922,7 +962,13 @@ var FlipClock;
 		factory: false,
 		
 		/**
-		 * The wrapping jQuery object
+		 * The jQuery object
+		 */		
+		 
+		$el: false,
+
+		/**
+		 * The jQuery object (deprecated)
 		 */		
 		 
 		$obj: false,
@@ -932,6 +978,12 @@ var FlipClock;
 		 */		
 		 
 		items: [],
+		
+		/**
+		 * The last digit
+		 */		
+		 
+		lastDigit: 0,
 				 
 		/**
 		 * Constructor
@@ -945,14 +997,18 @@ var FlipClock;
 
 		constructor: function(factory, digit, options) {
 			this.factory = factory;
-			this.digit   = digit;
-			this.$obj    = this.createList();
+			this.digit = digit;
+			this.lastDigit = digit;
+			this.$el = this.createList();
 			
+			// Depcrated support of the $obj property.
+			this.$wrapper = this.$el;
+
 			if(digit > 0) {
 				this.select(digit);
 			}
-			
-			this.factory.$wrapper.append(this.$obj);
+
+			this.factory.$el.append(this.$el);
 		},
 		
 		/**
@@ -969,13 +1025,33 @@ var FlipClock;
 				this.digit = digit;
 			}
 
-			var target = this.$obj.find('[data-digit="'+digit+'"]');
-			var active = this.$obj.find('.'+this.classes.active).removeClass(this.classes.active);
-			var before = this.$obj.find('.'+this.classes.before).removeClass(this.classes.before);
+			if(this.digit != this.lastDigit) {
+				var $delete = this.$el.find('.'+this.classes.before).removeClass(this.classes.before);
+
+				this.$el.find('.'+this.classes.active).removeClass(this.classes.active)
+													  .addClass(this.classes.before);
+
+				this.appendListItem(this.classes.active, this.digit);
+
+				$delete.remove();
+
+				this.lastDigit = this.digit;
+			}
+
+			/*
+			var prevDigit = this.digit == 0 ? 9 : this.digit - 1;
+			var nextDigit = this.digit == 9 ? 0 : this.digit + 1;
+
+			this.setBeforeValue(prevDigit);
+			this.setActiveValue(this.digit);
+
+			var target = this.$el.find('[data-digit="'+digit+'"]');
+			var active = this.$el.find('.'+this.classes.active).removeClass(this.classes.active);
+			var before = this.$el.find('.'+this.classes.before).removeClass(this.classes.before);
 
 			if(!this.factory.countdown) {
 				if(target.is(':first-child')) {
-					this.$obj.find(':last-child').addClass(this.classes.before);
+					this.$el.find(':last-child').addClass(this.classes.before);
 				}
 				else {
 					target.prev().addClass(this.classes.before);
@@ -983,14 +1059,15 @@ var FlipClock;
 			}
 			else {
 				if(target.is(':last-child')) {
-					this.$obj.find(':first-child').addClass(this.classes.before);
+					this.$el.find(':first-child').addClass(this.classes.before);
 				}
 				else {
 					target.next().addClass(this.classes.before);
 				}
 			}
 			
-			target.addClass(this.classes.active);			
+			target.addClass(this.classes.active);	
+			*/		
 		},
 		
 		/**
@@ -998,7 +1075,7 @@ var FlipClock;
 		 */
 		 		
 		play: function() {
-			this.$obj.addClass(this.factory.classes.play);
+			this.$el.addClass(this.factory.classes.play);
 		},
 		
 		/**
@@ -1009,19 +1086,54 @@ var FlipClock;
 			var t = this;
 
 			setTimeout(function() {
-				t.$obj.removeClass(t.factory.classes.play);
+				t.$el.removeClass(t.factory.classes.play);
 			}, this.factory.timer.interval);
 		},
 		
+		createListItem: function(css, value) {
+			return [
+				'<li class="'+(css ? css : '')+'">',
+					'<a href="#">',
+						'<div class="up">',
+							'<div class="shadow"></div>',
+							'<div class="inn">'+(value ? value : '')+'</div>',
+						'</div>',
+						'<div class="down">',
+							'<div class="shadow"></div>',
+							'<div class="inn">'+(value ? value : '')+'</div>',
+						'</div>',
+					'</a>',
+				'</li>'
+			].join('');
+		},
+
+		appendListItem: function(css, value) {
+			var html = this.createListItem(css, value);
+
+			this.$el.append(html);
+		},
+
 		/**
 		 * Create the list of digits and appends it to the DOM object 
 		 */
 		 
 		createList: function() {
-		
-			var html = $('<ul class="'+this.classes.flip+' '+(this.factory.running ? this.factory.classes.play : '')+'" />');
+
+			var lastDigit = this.getPrevDigit() ? this.getPrevDigit() : this.digit;
+
+			var html = $([
+				'<ul class="'+this.classes.flip+' '+(this.factory.running ? this.factory.classes.play : '')+'">',
+					this.createListItem(this.classes.before, lastDigit),
+					this.createListItem(this.classes.active, this.digit),
+				'</ul>'
+			].join(''));
 			
-			for(var x = 0; x < 10; x++) {
+			/*
+			DELETE PENDING - Replace with the more simple logic above.
+			This should reduce the load on the some GPU's by having
+			signifantly fewing DOM nodes in memory.
+
+			for(var x = 0; x < 2; x++) {
 				var item = $([
 				'<li data-digit="'+x+'">',
 					'<a href="#">',
@@ -1040,9 +1152,32 @@ var FlipClock;
 				
 				html.append(item);
 			}
+			*/
 						
 			return html;
+		},
+
+		getNextDigit: function() {
+			return this.digit == 9 ? 0 : this.digit + 1;
+		},
+
+		getPrevDigit: function() {
+			return this.digit == 0 ? 9 : this.digit - 1;
+		},
+
+		/*
+		setActiveDigit: function(digit) {
+			var $obj = this.$el.find('.'+this.classes.active);
+
+			$obj.find('.inn').html(digit);
+			$obj.removeClass(this.classes.active).addClass(this.classes.active);
+		},
+
+		setActiveDigit: function(digit) {
+			this.$el.find('.'+this.classes.before).find('.inn').html(digit);
 		}
+		*/
+
 	});
 	
 	
@@ -1760,7 +1895,7 @@ var FlipClock;
 		 
 		build: function(time) {
 			var t        = this;
-			var children = this.factory.$wrapper.find('ul');
+			var children = this.factory.$el.find('ul');
 
 			time = time ? time : (this.factory.time.time || this.factory.time.getMilitaryTime());
 			
@@ -1773,10 +1908,10 @@ var FlipClock;
 			this.dividers.push(this.createDivider());
 			this.dividers.push(this.createDivider());
 			
-			$(this.dividers[0]).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
-			$(this.dividers[1]).insertBefore(this.factory.lists[this.factory.lists.length - 4].$obj);
+			$(this.dividers[0]).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
+			$(this.dividers[1]).insertBefore(this.factory.lists[this.factory.lists.length - 4].$el);
 			
-			this._clearExcessDigits();
+			// this._clearExcessDigits();
 			
 			if(this.autoStart) {
 				this.start();
@@ -1789,6 +1924,7 @@ var FlipClock;
 		 
 		flip: function(time, doNotAddPlayClass) {
 			time = time ? time : this.factory.time.getMilitaryTime();
+			
 			this.base(time, doNotAddPlayClass);	
 		},
 		
@@ -1796,15 +1932,17 @@ var FlipClock;
 		 * Clear the excess digits from the tens columns for sec/min
 		 */
 		 
+		/*
 		_clearExcessDigits: function() {
 			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
 			
 			for(var x = 6; x < 10; x++) {
-				tenSeconds.$obj.find('li:last-child').remove();
-				tenMinutes.$obj.find('li:last-child').remove();
+				tenSeconds.$el.find('li:last-child').remove();
+				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
+		*/
 				
 	});
 	
@@ -1875,7 +2013,7 @@ var FlipClock;
 		 
 		build: function() {
 			var t        = this;
-			var children = this.factory.$wrapper.find('ul');
+			var children = this.factory.$el.find('ul');
 			var lists    = [];
 			var time 	 = this.factory.getTime().digitize([this.factory.getTime().time]);
 
@@ -1960,7 +2098,7 @@ var FlipClock;
 
 		build: function(excludeHours, time) {
 			var t        = this;
-			var children = this.factory.$wrapper.find('ul');
+			var children = this.factory.$el.find('ul');
 			var lists    = [];
 			var offset   = 0;
 
@@ -1975,18 +2113,18 @@ var FlipClock;
 			this.factory.lists = lists;
 
 			if(this.showSeconds) {
-				$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
+				$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
 			}
 			else
 			{
 				offset = 2;
 			}
 
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4 + offset].$obj);
-			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6 + offset].$obj);
-			$(this.createDivider('Days', true)).insertBefore(this.factory.lists[0].$obj);
+			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4 + offset].$el);
+			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6 + offset].$el);
+			$(this.createDivider('Days', true)).insertBefore(this.factory.lists[0].$el);
 
-			this._clearExcessDigits();
+			// this._clearExcessDigits();
 
 			if(this.autoStart) {
 				this.start();
@@ -2009,15 +2147,17 @@ var FlipClock;
 		 * Clear the excess digits from the tens columns for sec/min
 		 */
 
+		 /*
 		_clearExcessDigits: function() {
 			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
 
 			for(var x = 6; x < 10; x++) {
-				tenSeconds.$obj.find('li:last-child').remove();
-				tenMinutes.$obj.find('li:last-child').remove();
+				tenSeconds.$el.find('li:last-child').remove();
+				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
+		*/
 
 	});
 
@@ -2038,7 +2178,7 @@ var FlipClock;
 	 
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
 			
-		clearExcessDigits: true,
+		// clearExcessDigits: true,
 
 		/**
 		 * Constructor
@@ -2057,7 +2197,7 @@ var FlipClock;
 		
 		build: function(excludeHours, time) {
 			var t        = this;
-			var children = this.factory.$wrapper.find('ul');
+			var children = this.factory.$el.find('ul');
 			var lists = [];
 			
 			time     = time ? time : this.factory.time.getHourCounter();
@@ -2070,16 +2210,18 @@ var FlipClock;
 			
 			this.factory.lists = lists;	
 			
-			$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4].$obj);
+			$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4].$el);
 			
 			if(!excludeHours) {
-				$(this.createDivider('Hours', true)).insertBefore(this.factory.lists[0].$obj);
+				$(this.createDivider('Hours', true)).insertBefore(this.factory.lists[0].$el);
 			}
 			
+			/*
 			if(this.clearExcessDigits) {
 				this._clearExcessDigits();
 			}
+			*/
 			
 			if(this.autoStart) {
 				this.start();
@@ -2101,15 +2243,17 @@ var FlipClock;
 		 * Clear the excess digits from the tens columns for sec/min
 		 */
 		 
+		/*
 		_clearExcessDigits: function() {
 			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
 			
 			for(var x = 6; x < 10; x++) {
-				tenSeconds.$obj.find('li:last-child').remove();
-				tenMinutes.$obj.find('li:last-child').remove();
+				tenSeconds.$el.find('li:last-child').remove();
+				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
+		*/
 		
 	});
 	
@@ -2210,7 +2354,7 @@ var FlipClock;
 				'</ul>'
 			].join(''));
 			
-			this.meridium.insertAfter(this.factory.lists[this.factory.lists.length-1].$obj);
+			this.meridium.insertAfter(this.factory.lists[this.factory.lists.length-1].$el);
 		},
 		
 		/**
@@ -2254,8 +2398,8 @@ var FlipClock;
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
 			
 			for(var x = 6; x < 10; x++) {
-				tenSeconds.$obj.find('li:last-child').remove();
-				tenMinutes.$obj.find('li:last-child').remove();
+				tenSeconds.$el.find('li:last-child').remove();
+				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
 				
