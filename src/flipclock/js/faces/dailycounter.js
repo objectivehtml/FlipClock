@@ -33,7 +33,7 @@
 
 		build: function(excludeHours, time) {
 			var t        = this;
-			var children = this.factory.$wrapper.find('ul');
+			var children = this.factory.$el.find('ul');
 			var lists    = [];
 			var offset   = 0;
 
@@ -48,18 +48,18 @@
 			this.factory.lists = lists;
 
 			if(this.showSeconds) {
-				$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
+				$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
 			}
 			else
 			{
 				offset = 2;
 			}
 
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4 + offset].$obj);
-			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6 + offset].$obj);
-			$(this.createDivider('Days', true)).insertBefore(this.factory.lists[0].$obj);
+			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4 + offset].$el);
+			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6 + offset].$el);
+			$(this.createDivider('Days', true)).insertBefore(this.factory.lists[0].$el);
 
-			this._clearExcessDigits();
+			// this._clearExcessDigits();
 
 			if(this.autoStart) {
 				this.start();
@@ -82,15 +82,17 @@
 		 * Clear the excess digits from the tens columns for sec/min
 		 */
 
+		 /*
 		_clearExcessDigits: function() {
 			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
 
 			for(var x = 6; x < 10; x++) {
-				tenSeconds.$obj.find('li:last-child').remove();
-				tenMinutes.$obj.find('li:last-child').remove();
+				tenSeconds.$el.find('li:last-child').remove();
+				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
+		*/
 
 	});
 

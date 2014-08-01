@@ -44,7 +44,7 @@
 				'</ul>'
 			].join(''));
 			
-			this.meridium.insertAfter(this.factory.lists[this.factory.lists.length-1].$obj);
+			this.meridium.insertAfter(this.factory.lists[this.factory.lists.length-1].$el);
 		},
 		
 		/**
@@ -88,8 +88,8 @@
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
 			
 			for(var x = 6; x < 10; x++) {
-				tenSeconds.$obj.find('li:last-child').remove();
-				tenMinutes.$obj.find('li:last-child').remove();
+				tenSeconds.$el.find('li:last-child').remove();
+				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
 				

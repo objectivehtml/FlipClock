@@ -14,7 +14,7 @@
 	 
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
 			
-		clearExcessDigits: true,
+		// clearExcessDigits: true,
 
 		/**
 		 * Constructor
@@ -33,7 +33,7 @@
 		
 		build: function(excludeHours, time) {
 			var t        = this;
-			var children = this.factory.$wrapper.find('ul');
+			var children = this.factory.$el.find('ul');
 			var lists = [];
 			
 			time     = time ? time : this.factory.time.getHourCounter();
@@ -46,16 +46,18 @@
 			
 			this.factory.lists = lists;	
 			
-			$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4].$obj);
+			$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4].$el);
 			
 			if(!excludeHours) {
-				$(this.createDivider('Hours', true)).insertBefore(this.factory.lists[0].$obj);
+				$(this.createDivider('Hours', true)).insertBefore(this.factory.lists[0].$el);
 			}
 			
+			/*
 			if(this.clearExcessDigits) {
 				this._clearExcessDigits();
 			}
+			*/
 			
 			if(this.autoStart) {
 				this.start();
@@ -77,15 +79,17 @@
 		 * Clear the excess digits from the tens columns for sec/min
 		 */
 		 
+		/*
 		_clearExcessDigits: function() {
 			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
 			
 			for(var x = 6; x < 10; x++) {
-				tenSeconds.$obj.find('li:last-child').remove();
-				tenMinutes.$obj.find('li:last-child').remove();
+				tenSeconds.$el.find('li:last-child').remove();
+				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
+		*/
 		
 	});
 	

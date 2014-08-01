@@ -31,7 +31,7 @@
 		 
 		build: function(time) {
 			var t        = this;
-			var children = this.factory.$wrapper.find('ul');
+			var children = this.factory.$el.find('ul');
 
 			time = time ? time : (this.factory.time.time || this.factory.time.getMilitaryTime());
 			
@@ -44,10 +44,10 @@
 			this.dividers.push(this.createDivider());
 			this.dividers.push(this.createDivider());
 			
-			$(this.dividers[0]).insertBefore(this.factory.lists[this.factory.lists.length - 2].$obj);
-			$(this.dividers[1]).insertBefore(this.factory.lists[this.factory.lists.length - 4].$obj);
+			$(this.dividers[0]).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
+			$(this.dividers[1]).insertBefore(this.factory.lists[this.factory.lists.length - 4].$el);
 			
-			this._clearExcessDigits();
+			// this._clearExcessDigits();
 			
 			if(this.autoStart) {
 				this.start();
@@ -60,6 +60,7 @@
 		 
 		flip: function(time, doNotAddPlayClass) {
 			time = time ? time : this.factory.time.getMilitaryTime();
+			
 			this.base(time, doNotAddPlayClass);	
 		},
 		
@@ -67,15 +68,17 @@
 		 * Clear the excess digits from the tens columns for sec/min
 		 */
 		 
+		/*
 		_clearExcessDigits: function() {
 			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
 			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
 			
 			for(var x = 6; x < 10; x++) {
-				tenSeconds.$obj.find('li:last-child').remove();
-				tenMinutes.$obj.find('li:last-child').remove();
+				tenSeconds.$el.find('li:last-child').remove();
+				tenMinutes.$el.find('li:last-child').remove();
 			}
 		}
+		*/
 				
 	});
 	

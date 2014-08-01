@@ -64,7 +64,7 @@
 		 
 		build: function() {
 			var t        = this;
-			var children = this.factory.$wrapper.find('ul');
+			var children = this.factory.$el.find('ul');
 			var lists    = [];
 			var time 	 = this.factory.getTime().digitize([this.factory.getTime().time]);
 
