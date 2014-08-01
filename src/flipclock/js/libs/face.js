@@ -109,9 +109,9 @@
 			}
 
 			var obj = new FlipClock.List(this.factory, digit, options);
+		
+			this.lists.push(obj);
 
-			//this.factory.$wrapper.append(obj.$obj);	
-			
 			return obj;
 		},
 		
@@ -149,9 +149,9 @@
 				}
 			});
 			
-			obj.$obj.insertBefore(this.factory.lists[0].$obj);
+			obj.$el.append(this.factory.lists[this.factory.lists.length - 1].$obj);
 							
-			this.factory.lists.unshift(obj);
+			//this.factory.lists.unshift(obj);
 		},
 		
 		/**
@@ -167,22 +167,23 @@
 		stop: function() {},
 			
 		/**
-		 * Increments the time with each face flip
+		 * Increments the value of the clock face
 		 */
 		 
 		increment: function() {
-			if (!(this.factory.time.time instanceof Date)) {
-				if(!this.factory.countdown) {
-					this.factory.time.addSecond();
-				}
-				else {
-					if(this.factory.time.getTimeSeconds() == 0) {
-			        	this.factory.stop()
-					}
-					else {
-						this.factory.time.subSecond();
-					}
-				}
+			this.factory.time.addSecond();
+		},
+
+		/**
+		 * Decrements the value of the clock face
+		 */
+
+		decrement: function() {
+			if(this.factory.time.getTimeSeconds() == 0) {
+	        	this.factory.stop()
+			}
+			else {
+				this.factory.time.subSecond();
 			}
 		},
 			
@@ -193,7 +194,33 @@
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
-			this.increment();
+			if (!(this.factory.time.time instanceof Date)) {
+				if(!this.factory.countdown) {
+					this.increment();
+				}
+				else {
+					this.decrement();
+				}
+			}
+
+			$.each(time, function(i, digit) {
+				var list = t.lists[i];
+
+				if(list) {
+					if(!doNotAddPlayClass && digit != list.digit) {
+						list.play();	
+					}
+
+					list.select(digit);
+				}	
+				else {
+					t.addDigit(digit);
+				}
+			});
+
+			/*
+			DELETE PENDING - Legacy flip code that was replaced with the
+			much more simple logic above.
 
 			var offset = t.factory.lists.length - time.length;
 
@@ -205,7 +232,9 @@
 				i += offset;
 				
 				var list = t.factory.lists[i];
-					
+				
+				console.log()
+
 				if(list) {
 					list.select(digit);
 					
@@ -223,6 +252,7 @@
 					t.factory.lists[x].select(time[x]);
 				}
 			}
+			*/
 		}
 					
 	});
