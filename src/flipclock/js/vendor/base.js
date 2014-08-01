@@ -16,11 +16,15 @@ Base.extend = function(_instance, _static) { // subclass
 	
 	// build the prototype
 	Base._prototyping = true;
+	
 	var proto = new this();
+	
 	extend.call(proto, _instance);
-  proto.base = function() {
-    // call this method from any other method to invoke that method's ancestor
-  };
+	
+	proto.base = function() {
+	// call this method from any other method to invoke that method's ancestor
+	};
+
 	delete Base._prototyping;
 	
 	// create the wrapper for the constructor function

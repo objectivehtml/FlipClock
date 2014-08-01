@@ -16,11 +16,15 @@ Base.extend = function(_instance, _static) { // subclass
 	
 	// build the prototype
 	Base._prototyping = true;
+	
 	var proto = new this();
+	
 	extend.call(proto, _instance);
-  proto.base = function() {
-    // call this method from any other method to invoke that method's ancestor
-  };
+	
+	proto.base = function() {
+	// call this method from any other method to invoke that method's ancestor
+	};
+
 	delete Base._prototyping;
 	
 	// create the wrapper for the constructor function
@@ -852,7 +856,9 @@ var FlipClock;
 			this.timer.stop(callback);
 			
 			for(var x in this.lists) {
-				this.lists[x].stop();
+				if (this.lists.hasOwnProperty(x)) {
+					this.lists[x].stop();
+				}
 			}	
 		},
 		
@@ -2020,7 +2026,7 @@ var FlipClock;
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
 					var list = t.createList(digit, {
-						minimumDigits: t.minimumDigits,
+						minimumDigits: t.minimumDigits
 					});
 
 					list.select(digit);
@@ -2303,7 +2309,7 @@ var FlipClock;
 				time = this.factory.time.getMinuteCounter();
 			}
 			this.base(time, doNotAddPlayClass);
-		},
+		}
 
 	});
 	
@@ -2651,6 +2657,33 @@ var FlipClock;
 
 }(jQuery));
 
+(function($) {
+
+	/**
+	 * FlipClock Portuguese Language Pack
+	 *
+	 * This class will used to translate tokens into the Portuguese language.
+	 *
+	 */
+
+	FlipClock.Lang.Portuguese = {
+
+		'years'   : 'Anos',
+		'months'  : 'Meses',
+		'days'    : 'Dias',
+		'hours'   : 'Horas',
+		'minutes' : 'Minutos',
+		'seconds' : 'Segundos'
+
+	};
+
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['pt']         = FlipClock.Lang.Portuguese;
+	FlipClock.Lang['pt-br']      = FlipClock.Lang.Portuguese;
+	FlipClock.Lang['portuguese'] = FlipClock.Lang.Portuguese;
+
+}(jQuery));
 (function($) {
 
   /**

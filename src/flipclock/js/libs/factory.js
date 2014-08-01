@@ -283,7 +283,9 @@
 			this.timer.stop(callback);
 			
 			for(var x in this.lists) {
-				this.lists[x].stop();
+				if (this.lists.hasOwnProperty(x)) {
+					this.lists[x].stop();
+				}
 			}	
 		},
 		
