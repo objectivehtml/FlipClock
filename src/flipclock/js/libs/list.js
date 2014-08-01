@@ -48,7 +48,13 @@
 		factory: false,
 		
 		/**
-		 * The wrapping jQuery object
+		 * The jQuery object
+		 */		
+		 
+		$el: false,
+
+		/**
+		 * The jQuery object (deprecated)
 		 */		
 		 
 		$obj: false,
@@ -58,6 +64,12 @@
 		 */		
 		 
 		items: [],
+		
+		/**
+		 * The last digit
+		 */		
+		 
+		lastDigit: 0,
 				 
 		/**
 		 * Constructor
@@ -71,14 +83,18 @@
 
 		constructor: function(factory, digit, options) {
 			this.factory = factory;
-			this.digit   = digit;
-			this.$obj    = this.createList();
+			this.digit = digit;
+			this.lastDigit = digit;
+			this.$el = this.createList();
 			
+			// Depcrated support of the $obj property.
+			this.$wrapper = this.$el;
+
 			if(digit > 0) {
 				this.select(digit);
 			}
-			
-			this.factory.$wrapper.append(this.$obj);
+
+			this.factory.$el.append(this.$el);
 		},
 		
 		/**
@@ -95,13 +111,33 @@
 				this.digit = digit;
 			}
 
-			var target = this.$obj.find('[data-digit="'+digit+'"]');
-			var active = this.$obj.find('.'+this.classes.active).removeClass(this.classes.active);
-			var before = this.$obj.find('.'+this.classes.before).removeClass(this.classes.before);
+			if(this.digit != this.lastDigit) {
+				var $delete = this.$el.find('.'+this.classes.before).removeClass(this.classes.before);
+
+				this.$el.find('.'+this.classes.active).removeClass(this.classes.active)
+													  .addClass(this.classes.before);
+
+				this.appendListItem(this.classes.active, this.digit);
+
+				$delete.remove();
+
+				this.lastDigit = this.digit;
+			}
+
+			/*
+			var prevDigit = this.digit == 0 ? 9 : this.digit - 1;
+			var nextDigit = this.digit == 9 ? 0 : this.digit + 1;
+
+			this.setBeforeValue(prevDigit);
+			this.setActiveValue(this.digit);
+
+			var target = this.$el.find('[data-digit="'+digit+'"]');
+			var active = this.$el.find('.'+this.classes.active).removeClass(this.classes.active);
+			var before = this.$el.find('.'+this.classes.before).removeClass(this.classes.before);
 
 			if(!this.factory.countdown) {
 				if(target.is(':first-child')) {
-					this.$obj.find(':last-child').addClass(this.classes.before);
+					this.$el.find(':last-child').addClass(this.classes.before);
 				}
 				else {
 					target.prev().addClass(this.classes.before);
@@ -109,14 +145,15 @@
 			}
 			else {
 				if(target.is(':last-child')) {
-					this.$obj.find(':first-child').addClass(this.classes.before);
+					this.$el.find(':first-child').addClass(this.classes.before);
 				}
 				else {
 					target.next().addClass(this.classes.before);
 				}
 			}
 			
-			target.addClass(this.classes.active);			
+			target.addClass(this.classes.active);	
+			*/		
 		},
 		
 		/**
@@ -124,7 +161,7 @@
 		 */
 		 		
 		play: function() {
-			this.$obj.addClass(this.factory.classes.play);
+			this.$el.addClass(this.factory.classes.play);
 		},
 		
 		/**
@@ -135,19 +172,54 @@
 			var t = this;
 
 			setTimeout(function() {
-				t.$obj.removeClass(t.factory.classes.play);
+				t.$el.removeClass(t.factory.classes.play);
 			}, this.factory.timer.interval);
 		},
 		
+		createListItem: function(css, value) {
+			return [
+				'<li class="'+(css ? css : '')+'">',
+					'<a href="#">',
+						'<div class="up">',
+							'<div class="shadow"></div>',
+							'<div class="inn">'+(value ? value : '')+'</div>',
+						'</div>',
+						'<div class="down">',
+							'<div class="shadow"></div>',
+							'<div class="inn">'+(value ? value : '')+'</div>',
+						'</div>',
+					'</a>',
+				'</li>'
+			].join('');
+		},
+
+		appendListItem: function(css, value) {
+			var html = this.createListItem(css, value);
+
+			this.$el.append(html);
+		},
+
 		/**
 		 * Create the list of digits and appends it to the DOM object 
 		 */
 		 
 		createList: function() {
-		
-			var html = $('<ul class="'+this.classes.flip+' '+(this.factory.running ? this.factory.classes.play : '')+'" />');
+
+			var lastDigit = this.getPrevDigit() ? this.getPrevDigit() : this.digit;
+
+			var html = $([
+				'<ul class="'+this.classes.flip+' '+(this.factory.running ? this.factory.classes.play : '')+'">',
+					this.createListItem(this.classes.before, lastDigit),
+					this.createListItem(this.classes.active, this.digit),
+				'</ul>'
+			].join(''));
 			
-			for(var x = 0; x < 10; x++) {
+			/*
+			DELETE PENDING - Replace with the more simple logic above.
+			This should reduce the load on the some GPU's by having
+			signifantly fewing DOM nodes in memory.
+
+			for(var x = 0; x < 2; x++) {
 				var item = $([
 				'<li data-digit="'+x+'">',
 					'<a href="#">',
@@ -166,9 +238,32 @@
 				
 				html.append(item);
 			}
+			*/
 						
 			return html;
+		},
+
+		getNextDigit: function() {
+			return this.digit == 9 ? 0 : this.digit + 1;
+		},
+
+		getPrevDigit: function() {
+			return this.digit == 0 ? 9 : this.digit - 1;
+		},
+
+		/*
+		setActiveDigit: function(digit) {
+			var $obj = this.$el.find('.'+this.classes.active);
+
+			$obj.find('.inn').html(digit);
+			$obj.removeClass(this.classes.active).addClass(this.classes.active);
+		},
+
+		setActiveDigit: function(digit) {
+			this.$el.find('.'+this.classes.before).find('.inn').html(digit);
 		}
+		*/
+
 	});
 	
 	
