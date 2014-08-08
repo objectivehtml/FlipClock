@@ -1,5 +1,13 @@
 # FlipClock.js
 
+#### 0.6.1
+##### 8/8/2014
+
+- (Bug Fix) Fixed an issue with multiple instances breaking due to a property instance not getting properly set.
+- (Bug Fix) Removed legacy flipclock.js file
+- (Example) Added new example to illustrate multiple instances
+
+
 #### 0.6.0
 ##### 7/31/2014
 
