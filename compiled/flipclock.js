@@ -360,9 +360,10 @@ var FlipClock;
 		 */
 		 
 		constructor: function(factory, options) {
+			this.dividers = [];
+			this.lists = [];
 			this.base(options);
 			this.factory  = factory;
-			this.dividers = [];
 		},
 		
 		/**
@@ -531,6 +532,8 @@ var FlipClock;
 				}
 			}
 			*/
+
+			console.log(t.lists);
 
 			$.each(time, function(i, digit) {
 				var list = t.lists[i];
