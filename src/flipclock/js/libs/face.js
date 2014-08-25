@@ -221,8 +221,6 @@
 			}
 			*/
 
-			console.log(t.lists);
-
 			$.each(time, function(i, digit) {
 				var list = t.lists[i];
 
