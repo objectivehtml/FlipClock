@@ -1197,7 +1197,7 @@ var FlipClock;
 
 		getPrevDigit: function() {
 			return this.digit == 0 ? 9 : this.digit - 1;
-		},
+		}
 
 		/*
 		setActiveDigit: function(digit) {
