@@ -20,8 +20,8 @@
 	
 	/* Create various aliases for convenience */
 
-	FlipClock.Lang['da']      = FlipClock.Lang.Danish;
-	FlipClock.Lang['da-dk']   = FlipClock.Lang.Danish;
+	FlipClock.Lang['da']     = FlipClock.Lang.Danish;
+	FlipClock.Lang['da-dk']  = FlipClock.Lang.Danish;
 	FlipClock.Lang['danish'] = FlipClock.Lang.Danish;
 
 }(jQuery));

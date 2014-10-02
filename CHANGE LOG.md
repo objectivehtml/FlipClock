@@ -1,5 +1,11 @@
 # FlipClock.js
 
+#### 0.6.2
+##### 9/1/2014
+
+- (Bug Fix) Fixed an issue with the HourlyCounter and MinuteCounter faces not working properly when new digits are added
+- (Refactor) Add new `appendDigitToClock` to clock method to the `FlipClock.Face` class that will append the new digits to the DOM. This method can be inherted by the class face to change the default behavior 
+
 #### 0.6.1
 ##### 8/8/2014
 

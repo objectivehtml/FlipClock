@@ -347,7 +347,7 @@
 		 *
 		 * @param  array  An array of digits	 
 		 */
-		flip: function(doNotAddPlayClass) {
+		flip: function(doNotAddPlayClass) {			
 			this.face.flip(false, doNotAddPlayClass);
 		}
 		

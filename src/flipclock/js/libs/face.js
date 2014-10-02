@@ -93,7 +93,11 @@
 				'</span>'
 			];	
 			
-			return $(html.join(''));
+			var $html = $(html.join(''));
+
+			this.dividers.push($html);
+
+			return $html;
 		},
 		
 		/**
@@ -129,16 +133,15 @@
 		},
 
 		/**
-		 * Sets the clock time (deprecated, duplicate method)
-		 *
+		 * Append a newly created list to the clock
+		 */
 
-		setTime: function(time) {
-			this.flip();		
+		appendDigitToClock: function(obj) {
+			obj.$el.append(false);
 		},
-		*/
-		
+
 		/**
-		 * Sets the clock time
+		 * Add a digit to the clock face
 		 */
 		 
 		addDigit: function(digit) {
@@ -149,10 +152,8 @@
 					flip: this.factory.classes.flip
 				}
 			});
-			
-			obj.$el.append(this.factory.lists[this.factory.lists.length - 1].$obj);
-							
-			//this.factory.lists.unshift(obj);
+
+			this.appendDigitToClock(obj);
 		},
 		
 		/**
@@ -210,17 +211,6 @@
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
-			/*
-			if (!(this.factory.time.time instanceof Date)) {
-				if(!this.factory.countdown) {
-					this.increment();
-				}
-				else {
-					this.decrement();
-				}
-			}
-			*/
-
 			$.each(time, function(i, digit) {
 				var list = t.lists[i];
 
@@ -235,42 +225,6 @@
 					t.addDigit(digit);
 				}
 			});
-
-			/*
-			DELETE PENDING - Legacy flip code that was replaced with the
-			much more simple logic above.
-
-			var offset = t.factory.lists.length - time.length;
-
-			if(offset < 0) {
-				offset = 0;
-			}			
-			
-			$.each(time, function(i, digit) {
-				i += offset;
-				
-				var list = t.factory.lists[i];
-				
-				console.log()
-
-				if(list) {
-					list.select(digit);
-					
-					if(!doNotAddPlayClass) {
-						list.play();	
-					}
-				}	
-				else {
-					t.addDigit(digit);
-				}
-			});
-
-			for(var x = 0; x < time.length; x++) {
-				if(x >= offset && t.factory.lists[x].digit != time[x]) {
-					t.factory.lists[x].select(time[x]);
-				}
-			}
-			*/
 		}
 					
 	});

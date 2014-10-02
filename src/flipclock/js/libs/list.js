@@ -88,7 +88,7 @@
 			this.$el = this.createList();
 			
 			// Depcrated support of the $obj property.
-			this.$wrapper = this.$el;
+			this.$obj = this.$el;
 
 			if(digit > 0) {
 				this.select(digit);
@@ -213,33 +213,7 @@
 					this.createListItem(this.classes.active, this.digit),
 				'</ul>'
 			].join(''));
-			
-			/*
-			DELETE PENDING - Replace with the more simple logic above.
-			This should reduce the load on the some GPU's by having
-			signifantly fewing DOM nodes in memory.
-
-			for(var x = 0; x < 2; x++) {
-				var item = $([
-				'<li data-digit="'+x+'">',
-					'<a href="#">',
-						'<div class="up">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+x+'</div>',
-						'</div>',
-						'<div class="down">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+x+'</div>',
-						'</div>',
-					'</a>',
-				'</li>'].join(''));
-				
-				this.items.push(item);
-				
-				html.append(item);
-			}
-			*/
-						
+					
 			return html;
 		},
 
@@ -249,20 +223,7 @@
 
 		getPrevDigit: function() {
 			return this.digit == 0 ? 9 : this.digit - 1;
-		},
-
-		/*
-		setActiveDigit: function(digit) {
-			var $obj = this.$el.find('.'+this.classes.active);
-
-			$obj.find('.inn').html(digit);
-			$obj.removeClass(this.classes.active).addClass(this.classes.active);
-		},
-
-		setActiveDigit: function(digit) {
-			this.$el.find('.'+this.classes.before).find('.inn').html(digit);
 		}
-		*/
 
 	});
 	

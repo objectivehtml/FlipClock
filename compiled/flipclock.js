@@ -405,7 +405,11 @@ var FlipClock;
 				'</span>'
 			];	
 			
-			return $(html.join(''));
+			var $html = $(html.join(''));
+
+			this.dividers.push($html);
+
+			return $html;
 		},
 		
 		/**
@@ -441,16 +445,15 @@ var FlipClock;
 		},
 
 		/**
-		 * Sets the clock time (deprecated, duplicate method)
-		 *
+		 * Append a newly created list to the clock
+		 */
 
-		setTime: function(time) {
-			this.flip();		
+		appendDigitToClock: function(obj) {
+			obj.$el.append(false);
 		},
-		*/
-		
+
 		/**
-		 * Sets the clock time
+		 * Add a digit to the clock face
 		 */
 		 
 		addDigit: function(digit) {
@@ -461,10 +464,8 @@ var FlipClock;
 					flip: this.factory.classes.flip
 				}
 			});
-			
-			obj.$el.append(this.factory.lists[this.factory.lists.length - 1].$obj);
-							
-			//this.factory.lists.unshift(obj);
+
+			this.appendDigitToClock(obj);
 		},
 		
 		/**
@@ -522,17 +523,6 @@ var FlipClock;
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
-			/*
-			if (!(this.factory.time.time instanceof Date)) {
-				if(!this.factory.countdown) {
-					this.increment();
-				}
-				else {
-					this.decrement();
-				}
-			}
-			*/
-
 			$.each(time, function(i, digit) {
 				var list = t.lists[i];
 
@@ -547,42 +537,6 @@ var FlipClock;
 					t.addDigit(digit);
 				}
 			});
-
-			/*
-			DELETE PENDING - Legacy flip code that was replaced with the
-			much more simple logic above.
-
-			var offset = t.factory.lists.length - time.length;
-
-			if(offset < 0) {
-				offset = 0;
-			}			
-			
-			$.each(time, function(i, digit) {
-				i += offset;
-				
-				var list = t.factory.lists[i];
-				
-				console.log()
-
-				if(list) {
-					list.select(digit);
-					
-					if(!doNotAddPlayClass) {
-						list.play();	
-					}
-				}	
-				else {
-					t.addDigit(digit);
-				}
-			});
-
-			for(var x = 0; x < time.length; x++) {
-				if(x >= offset && t.factory.lists[x].digit != time[x]) {
-					t.factory.lists[x].select(time[x]);
-				}
-			}
-			*/
 		}
 					
 	});
@@ -938,7 +892,7 @@ var FlipClock;
 		 *
 		 * @param  array  An array of digits	 
 		 */
-		flip: function(doNotAddPlayClass) {
+		flip: function(doNotAddPlayClass) {			
 			this.face.flip(false, doNotAddPlayClass);
 		}
 		
@@ -1036,7 +990,7 @@ var FlipClock;
 			this.$el = this.createList();
 			
 			// Depcrated support of the $obj property.
-			this.$wrapper = this.$el;
+			this.$obj = this.$el;
 
 			if(digit > 0) {
 				this.select(digit);
@@ -1161,33 +1115,7 @@ var FlipClock;
 					this.createListItem(this.classes.active, this.digit),
 				'</ul>'
 			].join(''));
-			
-			/*
-			DELETE PENDING - Replace with the more simple logic above.
-			This should reduce the load on the some GPU's by having
-			signifantly fewing DOM nodes in memory.
-
-			for(var x = 0; x < 2; x++) {
-				var item = $([
-				'<li data-digit="'+x+'">',
-					'<a href="#">',
-						'<div class="up">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+x+'</div>',
-						'</div>',
-						'<div class="down">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+x+'</div>',
-						'</div>',
-					'</a>',
-				'</li>'].join(''));
-				
-				this.items.push(item);
-				
-				html.append(item);
-			}
-			*/
-						
+					
 			return html;
 		},
 
@@ -1197,20 +1125,7 @@ var FlipClock;
 
 		getPrevDigit: function() {
 			return this.digit == 0 ? 9 : this.digit - 1;
-		},
-
-		/*
-		setActiveDigit: function(digit) {
-			var $obj = this.$el.find('.'+this.classes.active);
-
-			$obj.find('.inn').html(digit);
-			$obj.removeClass(this.classes.active).addClass(this.classes.active);
-		},
-
-		setActiveDigit: function(digit) {
-			this.$el.find('.'+this.classes.before).find('.inn').html(digit);
 		}
-		*/
 
 	});
 	
@@ -2274,23 +2189,17 @@ var FlipClock;
 			this.autoIncrement();
 		
 			this.base(time, doNotAddPlayClass);
-		}
-		
+		},
+
 		/**
-		 * Clear the excess digits from the tens columns for sec/min
+		 * Append a newly created list to the clock
 		 */
-		 
-		/*
-		_clearExcessDigits: function() {
-			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
-			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
-			
-			for(var x = 6; x < 10; x++) {
-				tenSeconds.$el.find('li:last-child').remove();
-				tenMinutes.$el.find('li:last-child').remove();
-			}
+
+		appendDigitToClock: function(obj) {
+			this.base(obj);
+
+			this.dividers[0].insertAfter(this.dividers[0].next());
 		}
-		*/
 		
 	});
 	
@@ -2495,8 +2404,8 @@ var FlipClock;
 	
 	/* Create various aliases for convenience */
 
-	FlipClock.Lang['da']      = FlipClock.Lang.Danish;
-	FlipClock.Lang['da-dk']   = FlipClock.Lang.Danish;
+	FlipClock.Lang['da']     = FlipClock.Lang.Danish;
+	FlipClock.Lang['da-dk']  = FlipClock.Lang.Danish;
 	FlipClock.Lang['danish'] = FlipClock.Lang.Danish;
 
 }(jQuery));

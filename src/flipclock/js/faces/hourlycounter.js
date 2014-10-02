@@ -76,23 +76,17 @@
 			this.autoIncrement();
 		
 			this.base(time, doNotAddPlayClass);
-		}
-		
+		},
+
 		/**
-		 * Clear the excess digits from the tens columns for sec/min
+		 * Append a newly created list to the clock
 		 */
-		 
-		/*
-		_clearExcessDigits: function() {
-			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
-			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
-			
-			for(var x = 6; x < 10; x++) {
-				tenSeconds.$el.find('li:last-child').remove();
-				tenMinutes.$el.find('li:last-child').remove();
-			}
+
+		appendDigitToClock: function(obj) {
+			this.base(obj);
+
+			this.dividers[0].insertAfter(this.dividers[0].next());
 		}
-		*/
 		
 	});
 	
