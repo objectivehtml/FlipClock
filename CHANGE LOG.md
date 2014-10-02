@@ -1,6 +1,6 @@
 # FlipClock.js
 
-#### 0.6.2
+#### 0.6.3
 ##### 9/1/2014
 
 - (Bug Fix) Fixed an issue with the HourlyCounter and MinuteCounter faces not working properly when new digits are added
