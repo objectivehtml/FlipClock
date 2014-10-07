@@ -205,7 +205,7 @@
 
 			this.$el.html('');
 
-			this.time.minimumDigits = 0;
+			this.time.minimumDigits = this.minimumDigits;
 			
 			if(FlipClock[name]) {
 				face = new FlipClock[name](this, options);
