@@ -448,7 +448,10 @@ var FlipClock;
 		reset: function() {
 			this.factory.time = new FlipClock.Time(
 				this.factor, 
-				this.factory.original ? Math.round(this.factory.original) : 0
+				this.factory.original ? Math.round(this.factory.original) : 0,
+				{
+					minimumDigits: this.factory.minimumDigits
+				}
 			);
 
 			this.flip(this.factory.original, false);
@@ -579,6 +582,16 @@ var FlipClock;
 	FlipClock.Factory = FlipClock.Base.extend({
 		
 		/**
+		 * The clock's animation rate.
+		 * 
+		 * Note, currently this property doesn't do anything.
+		 * This property is here to be used in the future to
+		 * programmaticaly set the clock's animation speed
+		 */		
+
+		animationRate: 1000,
+
+		/**
 		 * Auto start the clock on page load (True|False)
 		 */	
 		 
@@ -639,10 +652,16 @@ var FlipClock;
 		defaultLanguage: 'english',
 		 
 		/**
-		 * The language being used to display labels (string)
+		 * The jQuery object
+		 */		
+		 
+		$el: false,
+
+		/**
+		 * The FlipClock.Face object
 		 */	
 		 
-		language: 'english',
+		face: true,
 		 
 		/**
 		 * The language object after it has been loaded
@@ -651,17 +670,23 @@ var FlipClock;
 		lang: false,
 		 
 		/**
+		 * The language being used to display labels (string)
+		 */	
+		 
+		language: 'english',
+		 
+		/**
+		 * The minimum digits the clock must have
+		 */		
+
+		minimumDigits: 0,
+
+		/**
 		 * The original starting value of the clock. Used for the reset method.
 		 */		
 		 
 		original: false,
 		
-		/**
-		 * The FlipClock.Face object
-		 */	
-		 
-		face: true,
-		 
 		/**
 		 * Is the clock running? (True|False)
 		 */		
@@ -680,18 +705,6 @@ var FlipClock;
 		 
 		timer: false,
 		
-		/**
-		 * An array of FlipClock.List objects
-		 */		
-		 
-		lists: [],
-		
-		/**
-		 * The jQuery object
-		 */		
-		 
-		$el: false,
-
 		/**
 		 * The jQuery object (depcrecated)
 		 */		
@@ -724,8 +737,8 @@ var FlipClock;
 			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
 
 			this.time = new FlipClock.Time(this, this.original, {
-				minimumDigits: options.minimumDigits ? options.minimumDigits : 0,
-				animationRate: options.animationRate ? options.animationRate : 1000 
+				minimumDigits: this.minimumDigits,
+				animationRate: this.animationRate 
 			});
 
 			this.timer = new FlipClock.Timer(this, options);
@@ -737,6 +750,7 @@ var FlipClock;
 			if(this.autoStart) {
 				this.start();
 			}
+
 		},
 		
 		/**
@@ -758,7 +772,7 @@ var FlipClock;
 
 			this.$el.html('');
 
-			this.time.minimumDigits = 0;
+			this.time.minimumDigits = this.minimumDigits;
 			
 			if(FlipClock[name]) {
 				face = new FlipClock[name](this, options);
@@ -993,7 +1007,7 @@ var FlipClock;
 		 */		
 		 
 		lastDigit: 0,
-				 
+			
 		/**
 		 * Constructor
 		 *
@@ -1002,8 +1016,6 @@ var FlipClock;
 		 * @param  object  An object to override the default properties	 
 		 */
 		 
-		minimumDigits: 0,
-
 		constructor: function(factory, digit, options) {
 			this.factory = factory;
 			this.digit = digit;
@@ -1045,38 +1057,7 @@ var FlipClock;
 				$delete.remove();
 
 				this.lastDigit = this.digit;
-			}
-
-			/*
-			var prevDigit = this.digit == 0 ? 9 : this.digit - 1;
-			var nextDigit = this.digit == 9 ? 0 : this.digit + 1;
-
-			this.setBeforeValue(prevDigit);
-			this.setActiveValue(this.digit);
-
-			var target = this.$el.find('[data-digit="'+digit+'"]');
-			var active = this.$el.find('.'+this.classes.active).removeClass(this.classes.active);
-			var before = this.$el.find('.'+this.classes.before).removeClass(this.classes.before);
-
-			if(!this.factory.countdown) {
-				if(target.is(':first-child')) {
-					this.$el.find(':last-child').addClass(this.classes.before);
-				}
-				else {
-					target.prev().addClass(this.classes.before);
-				}
-			}
-			else {
-				if(target.is(':last-child')) {
-					this.$el.find(':first-child').addClass(this.classes.before);
-				}
-				else {
-					target.next().addClass(this.classes.before);
-				}
-			}
-			
-			target.addClass(this.classes.active);	
-			*/		
+			}	
 		},
 		
 		/**
@@ -1099,6 +1080,10 @@ var FlipClock;
 			}, this.factory.timer.interval);
 		},
 		
+		/**
+		 * Creates the list item HTML and returns as a string 
+		 */
+		 
 		createListItem: function(css, value) {
 			return [
 				'<li class="'+(css ? css : '')+'">',
@@ -1115,6 +1100,10 @@ var FlipClock;
 				'</li>'
 			].join('');
 		},
+
+		/**
+		 * Append the list item to the parent DOM node 
+		 */
 
 		appendListItem: function(css, value) {
 			var html = this.createListItem(css, value);
@@ -1240,7 +1229,7 @@ var FlipClock;
 		factory: false,
 		
 		/**
-		 * The minimum number of digits the clock face will have
+		 * The minimum number of digits the clock face must have
 		 */		
 		 
 		minimumDigits: 0,
@@ -1254,6 +1243,14 @@ var FlipClock;
 		 */
 		 
 		constructor: function(factory, time, options) {
+			if(typeof options != "object") {
+				options = {};
+			}
+
+			if(!options.minimumDigits) {
+				options.minimumDigits = factory.minimumDigits;
+			}
+
 			this.base(options);
 			this.factory = factory;
 
@@ -1262,14 +1259,6 @@ var FlipClock;
 			}
 		},
 
-		getDateObject: function() {
-			if(this.time instanceof Date) {
-				return this.time;
-			}
-
-			return new Date(this.getTimeSeconds());
-		},
-		
 		/**
 		 * Convert a string or integer to an array of digits
 		 *
@@ -1346,7 +1335,21 @@ var FlipClock;
 		},
 		
 		/**
-		 * Gets a daily breakdown
+		 * Gets a new Date object for the current time
+		 *
+		 * @return  array  Returns a Date object
+		 */
+
+		getDateObject: function() {
+			if(this.time instanceof Date) {
+				return this.time;
+			}
+
+			return new Date(this.getTimeSeconds());
+		},
+		
+		/**
+		 * Gets a digitized daily counter
 		 *
 		 * @return  object  Returns a digitized object
 		 */
@@ -1498,28 +1501,6 @@ var FlipClock;
 		},
 		
 		/**
-		 * Gets number of seconds
-		 *
-		 * @param   bool  Should perform a modulus? If not sent, then no.
-		 * @return  int   Retuns a ceiled integer
-		 */
-		 
-		getSeconds: function(mod) {
-			var seconds = this.getTimeSeconds();
-			
-			if(mod) {
-				if(seconds == 60) {
-					seconds = 0;
-				}
-				else {
-					seconds = seconds % 60;
-				}
-			}
-			
-			return Math.ceil(seconds);
-		},
-		
-		/**
 		 * Gets the current twelve hour time
 		 *
 		 * @return  object  Returns a digitized object
@@ -1542,13 +1523,35 @@ var FlipClock;
 		},
 		
 		/**
+		 * Gets number of seconds
+		 *
+		 * @param   bool  Should perform a modulus? If not sent, then no.
+		 * @return  int   Retuns a ceiled integer
+		 */
+		 
+		getSeconds: function(mod) {
+			var seconds = this.getTimeSeconds();
+			
+			if(mod) {
+				if(seconds == 60) {
+					seconds = 0;
+				}
+				else {
+					seconds = seconds % 60;
+				}
+			}
+			
+			return Math.ceil(seconds);
+		},
+
+		/**
 		 * Gets number of weeks
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
 		 * @return  int   Retuns a floored integer
 		 */
 		 
-		getWeeks: function() {
+		getWeeks: function(mod) {
 			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
 			
 			if(mod) {
@@ -1705,7 +1708,7 @@ var FlipClock;
 		interval: 1000,
 
 		/**
-		 * The rate of the animation in milliseconds
+		 * The rate of the animation in milliseconds (not currently in use)
 		 */		
 		 
 		animationRate: 1000,
@@ -1890,10 +1893,7 @@ var FlipClock;
 			if(!this.factory.time.time) {
 				this.factory.original = new Date();
 
-				this.factory.time = new FlipClock.Time(this.factory, this.factory.original, {
-					minimumDigits: this.factory.time.minimumDigits ? this.factory.time.minimumDigits : 0,
-					animationRate: this.factory.time.animationRate ? this.factory.time.animationRate : 1000 
-				});
+				this.factory.time = new FlipClock.Time(this.factory, this.factory.original);
 			}
 
 			var time = this.factory.time.getMilitaryTime();
@@ -1949,12 +1949,6 @@ var FlipClock;
 		shouldAutoIncrement: false,
 
 		/**
-		 * Minimum digits the clock face will show
-		 */
-
-		minimumDigits: 2,
-
-		/**
 		 * Constructor
 		 *
 		 * @param  object  The parent FlipClock.Factory object
@@ -2008,9 +2002,7 @@ var FlipClock;
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					var list = t.createList(digit, {
-						minimumDigits: t.minimumDigits
-					});
+					var list = t.createList(digit);
 
 					list.select(digit);
 				});
@@ -2046,7 +2038,7 @@ var FlipClock;
 
 		reset: function() {
 			this.factory.time = new FlipClock.Time(
-				this.factor, 
+				this.factory, 
 				this.factory.original ? Math.round(this.factory.original) : 0
 			);
 
