@@ -1488,9 +1488,6 @@ var FlipClock;
 
 			if (this.time instanceof Date) {
 				if (this.factory.countdown) {
-					if (date.getTime() > this.time.getTime()) {
-						this.factory.stop();
-					}
 					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
 				} else {
 					return date.getTime()/1000 - this.time.getTime()/1000 ;
