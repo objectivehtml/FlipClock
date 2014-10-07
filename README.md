@@ -2,7 +2,7 @@
 
 ### Installation
 
-FlipClock.js can be install in several ways.
+FlipClock.js can be installed in the following ways:
 
 #### Bower
 
