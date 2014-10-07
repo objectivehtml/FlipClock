@@ -203,7 +203,7 @@ var FlipClock;
 		 * Version
 		 */
 		 
-		version: '0.7.1',
+		version: '0.7.2',
 		
 		/**
 		 * Sets the default options
@@ -1345,7 +1345,7 @@ var FlipClock;
 				return this.time;
 			}
 
-			return new Date(this.getTimeSeconds());
+			return new Date((new Date()).getTime() + this.getTimeSeconds() * 1000);
 		},
 		
 		/**
@@ -1434,16 +1434,23 @@ var FlipClock;
 		 * @return  object  returns a digitized object
 		 */
 		 
-		getMilitaryTime: function(date) {
+		getMilitaryTime: function(date, showSeconds) {
+			if(typeof showSeconds === "undefined") {
+				showSeconds = true;
+			}
+
 			if(!date) {
 				date = this.getDateObject();
 			}
 
 			var obj  = this.digitize([
 				date.getHours(),
-				date.getMinutes(),
-				date.getSeconds()				
+				date.getMinutes()			
 			]);
+
+			if(showSeconds === true) {
+				date.getSeconds();
+			}
 
 			return obj;
 		},
@@ -1506,20 +1513,30 @@ var FlipClock;
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getTime: function(date) {
+		getTime: function(date, showSeconds) {
+			if(typeof showSeconds === "undefined") {
+				showSeconds = true;
+			}
+
 			if(!date) {
 				date = this.getDateObject();
 			}
+
+			console.log(date);
+
 			
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
-			var obj   = this.digitize([
+			var data   = [
 				hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours),
-				date.getMinutes(),
-				date.getSeconds()				
-			]);
+				date.getMinutes()			
+			];
 
-			return obj;
+			if(showSeconds === true) {
+				data.push(date.getSeconds());
+			}
+
+			return this.digitize(data);
 		},
 		
 		/**
@@ -1551,7 +1568,7 @@ var FlipClock;
 		 * @return  int   Retuns a floored integer
 		 */
 		 
-		getWeeks: function(mod) {
+		getWeeks: function() {
 			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
 			
 			if(mod) {
@@ -1886,7 +1903,7 @@ var FlipClock;
 		 * @param  object  Pass the time that should be used to display on the clock.	
 		 */
 		 
-		build: function() {
+		build: function(time) {
 			var t        = this;
 			var children = this.factory.$el.find('ul');
 
@@ -1896,7 +1913,7 @@ var FlipClock;
 				this.factory.time = new FlipClock.Time(this.factory, this.factory.original);
 			}
 
-			var time = this.factory.time.getMilitaryTime();
+			var time = time ? time : this.factory.time.getMilitaryTime(false, this.showSeconds);
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
@@ -1920,7 +1937,7 @@ var FlipClock;
 		flip: function(time, doNotAddPlayClass) {
 			this.autoIncrement();
 			
-			time = time ? time : this.factory.time.getMilitaryTime();
+			time = time ? time : this.factory.time.getMilitaryTime(false, this.showSeconds);
 			
 			this.base(time, doNotAddPlayClass);	
 		}
@@ -2292,7 +2309,7 @@ var FlipClock;
 		build: function() {
 			var t = this;
 
-			var time = this.factory.time.getTime();
+			var time = this.factory.time.getTime(false, this.showSeconds);
 
 			this.base(time);			
 			this.meridiumText = this.getMeridium();			
@@ -2303,7 +2320,7 @@ var FlipClock;
 					'</li>',
 				'</ul>'
 			].join(''));
-			
+						
 			this.meridium.insertAfter(this.lists[this.lists.length-1].$el);
 		},
 		
@@ -2316,7 +2333,7 @@ var FlipClock;
 				this.meridiumText = this.getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
 			}
-			this.base(this.factory.time.getTime(), doNotAddPlayClass);	
+			this.base(this.factory.time.getTime(false, this.showSeconds), doNotAddPlayClass);	
 		},
 		
 		/**
