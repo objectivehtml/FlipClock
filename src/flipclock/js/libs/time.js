@@ -267,15 +267,19 @@
 		 * @return  int   Returns a floored integer
 		 */
 		 
-		getTimeSeconds: function(mod) {
+		getTimeSeconds: function(date) {
+			if(!date) {
+				date = new Date();
+			}
+
 			if (this.time instanceof Date) {
 				if (this.factory.countdown) {
-					if ((new Date()).getTime() > this.time.getTime()) {
+					if (date.getTime() > this.time.getTime()) {
 						this.factory.stop();
 					}
-					return Math.max(this.time.getTime()/1000 - (new Date()).getTime()/1000,0);
+					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
 				} else {
-					return (new Date()).getTime()/1000 - this.time.getTime()/1000 ;
+					return date.getTime()/1000 - this.time.getTime()/1000 ;
 				}
 			} else {
 				return this.time;
