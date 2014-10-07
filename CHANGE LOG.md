@@ -1,5 +1,10 @@
 # FlipClock.js
 
+#### 0.7.3
+##### 10/06/2014
+
+- (Bug Fix) Fixed an issue that would prevent the seconds from showing on the TwentyFourHourClock face
+
 #### 0.7.2
 ##### 10/06/2014
 
