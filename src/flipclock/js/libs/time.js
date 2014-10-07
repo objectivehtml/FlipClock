@@ -37,7 +37,7 @@
 		factory: false,
 		
 		/**
-		 * The minimum number of digits the clock face will have
+		 * The minimum number of digits the clock face must have
 		 */		
 		 
 		minimumDigits: 0,
@@ -51,6 +51,14 @@
 		 */
 		 
 		constructor: function(factory, time, options) {
+			if(typeof options != "object") {
+				options = {};
+			}
+
+			if(!options.minimumDigits) {
+				options.minimumDigits = factory.minimumDigits;
+			}
+
 			this.base(options);
 			this.factory = factory;
 
@@ -59,14 +67,6 @@
 			}
 		},
 
-		getDateObject: function() {
-			if(this.time instanceof Date) {
-				return this.time;
-			}
-
-			return new Date(this.getTimeSeconds());
-		},
-		
 		/**
 		 * Convert a string or integer to an array of digits
 		 *
@@ -143,7 +143,21 @@
 		},
 		
 		/**
-		 * Gets a daily breakdown
+		 * Gets a new Date object for the current time
+		 *
+		 * @return  array  Returns a Date object
+		 */
+
+		getDateObject: function() {
+			if(this.time instanceof Date) {
+				return this.time;
+			}
+
+			return new Date(this.getTimeSeconds());
+		},
+		
+		/**
+		 * Gets a digitized daily counter
 		 *
 		 * @return  object  Returns a digitized object
 		 */
@@ -295,28 +309,6 @@
 		},
 		
 		/**
-		 * Gets number of seconds
-		 *
-		 * @param   bool  Should perform a modulus? If not sent, then no.
-		 * @return  int   Retuns a ceiled integer
-		 */
-		 
-		getSeconds: function(mod) {
-			var seconds = this.getTimeSeconds();
-			
-			if(mod) {
-				if(seconds == 60) {
-					seconds = 0;
-				}
-				else {
-					seconds = seconds % 60;
-				}
-			}
-			
-			return Math.ceil(seconds);
-		},
-		
-		/**
 		 * Gets the current twelve hour time
 		 *
 		 * @return  object  Returns a digitized object
@@ -339,13 +331,35 @@
 		},
 		
 		/**
+		 * Gets number of seconds
+		 *
+		 * @param   bool  Should perform a modulus? If not sent, then no.
+		 * @return  int   Retuns a ceiled integer
+		 */
+		 
+		getSeconds: function(mod) {
+			var seconds = this.getTimeSeconds();
+			
+			if(mod) {
+				if(seconds == 60) {
+					seconds = 0;
+				}
+				else {
+					seconds = seconds % 60;
+				}
+			}
+			
+			return Math.ceil(seconds);
+		},
+
+		/**
 		 * Gets number of weeks
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
 		 * @return  int   Retuns a floored integer
 		 */
 		 
-		getWeeks: function() {
+		getWeeks: function(mod) {
 			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
 			
 			if(mod) {
