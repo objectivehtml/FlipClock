@@ -177,9 +177,9 @@
 
 			this.timer = new FlipClock.Timer(this, options);
 
-			this.lang = this.loadLanguage(this.language);
+			this.loadLanguage(this.language);
 			
-			this.face = this.loadClockFace(this.clockFace, options);
+			this.loadClockFace(this.clockFace, options);
 
 			if(this.autoStart) {
 				this.start();
