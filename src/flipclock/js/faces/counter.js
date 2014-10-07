@@ -72,9 +72,7 @@
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					var list = t.createList(digit, {
-						minimumDigits: t.minimumDigits
-					});
+					var list = t.createList(digit);
 
 					list.select(digit);
 				});
