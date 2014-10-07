@@ -1,5 +1,5 @@
 {
-	"name": "FlipClock",
+	"name": "flipclock",
 	"version": "0.7.3",
 	"email": "support@objectivehtml.com",
   "author": "Objective HTML, LLC <support@objectivehtml.com>",
@@ -19,10 +19,6 @@
 
   "bugs": {
 		"url": "https://github.com/nodejitsu/browsenpm.org/issues"
-	},
-
-  "bin": {
-	  "FlipClock": "./bin/FlipClock"
 	},
 
 	"dependencies": {
