@@ -25,7 +25,7 @@
 	FlipClock.Time = FlipClock.Base.extend({
 		
 		/**
-		 * The time (in seconds)
+		 * The time (in seconds) or a date object
 		 */		
 		 
 		time: 0,
@@ -116,7 +116,7 @@
 		 
 		digitize: function(obj) {
 			var data = [];
-			
+
 			$.each(obj, function(i, value) {
 				value = value.toString();
 				
@@ -138,7 +138,7 @@
 					data.unshift('0');
 				}
 			}
-			
+
 			return data;
 		},
 		
@@ -228,8 +228,11 @@
 		 * @return  object  returns a digitized object
 		 */
 		 
-		getMilitaryTime: function() {
-			var date = new Date(); 
+		getMilitaryTime: function(date) {
+			if(!date) {
+				date = this.getDateObject();
+			}
+
 			var obj  = this.digitize([
 				date.getHours(),
 				date.getMinutes(),
