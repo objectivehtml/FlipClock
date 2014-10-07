@@ -12,7 +12,7 @@
 	 */
 	 
 	FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({
-		
+
 		clearExcessDigits: false,
 
 		/**

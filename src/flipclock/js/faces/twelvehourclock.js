@@ -29,13 +29,13 @@
 		 * @param  object  Pass the time that should be used to display on the clock.	
 		 */
 		 
-		build: function(time) {
-			var t        = this;
-			
-			time = time ? time : (this.factory.time.time ? this.factory.time.time : this.factory.time.getTime());
-			
+		build: function() {
+			var t = this;
+
+			var time = this.factory.time.getTime();
+
 			this.base(time);			
-			this.meridiumText = this._isPM() ? 'PM' : 'AM';			
+			this.meridiumText = this.getMeridium();			
 			this.meridium = $([
 				'<ul class="flip-clock-meridium">',
 					'<li>',
@@ -44,7 +44,7 @@
 				'</ul>'
 			].join(''));
 			
-			this.meridium.insertAfter(this.factory.lists[this.factory.lists.length-1].$el);
+			this.meridium.insertAfter(this.lists[this.lists.length-1].$el);
 		},
 		
 		/**
@@ -52,8 +52,8 @@
 		 */
 		 
 		flip: function(time, doNotAddPlayClass) {			
-			if(this.meridiumText != this._getMeridium()) {
-				this.meridiumText = this._getMeridium();
+			if(this.meridiumText != this.getMeridium()) {
+				this.meridiumText = this.getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
 			}
 			this.base(this.factory.time.getTime(), doNotAddPlayClass);	
@@ -65,7 +65,7 @@
 		 * @return  string  Returns the meridium (AM|PM)
 		 */
 		 
-		_getMeridium: function() {
+		getMeridium: function() {
 			return new Date().getHours() >= 12 ? 'PM' : 'AM';
 		},
 		
@@ -75,25 +75,19 @@
 		 * @return  bool  Returns true or false
 		 */
 		 
-		_isPM: function() {
-			return this._getMeridium() == 'PM' ? true : false;
-		}
-		
+		isPM: function() {
+			return this.getMeridium() == 'PM' ? true : false;
+		},
+
 		/**
-		 * Clear the excess digits from the tens columns for sec/min
+		 * Is it currently before the post-medirium?
+		 *
+		 * @return  bool  Returns true or false
 		 */
 		 
-		/*
-		_clearExcessDigits: function() {
-			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
-			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
-			
-			for(var x = 6; x < 10; x++) {
-				tenSeconds.$el.find('li:last-child').remove();
-				tenMinutes.$el.find('li:last-child').remove();
-			}
+		isAM: function() {
+			return this.getMeridium() == 'AM' ? true : false;
 		}
-		*/
 				
 	});
 	

@@ -19,7 +19,6 @@
 		 */
 		 
 		constructor: function(factory, options) {
-			factory.countdown = false;
 			this.base(factory, options);
 		},
 
@@ -29,29 +28,34 @@
 		 * @param  object  Pass the time that should be used to display on the clock.	
 		 */
 		 
-		build: function(time) {
+		build: function() {
 			var t        = this;
 			var children = this.factory.$el.find('ul');
 
-			time = time ? time : (this.factory.time.time || this.factory.time.getMilitaryTime());
-			
+			if(!this.factory.time.time) {
+				this.factory.original = new Date();
+
+				this.factory.time = new FlipClock.Time(this.factory, this.factory.original, {
+					minimumDigits: this.factory.time.minimumDigits ? this.factory.time.minimumDigits : 0,
+					animationRate: this.factory.time.animationRate ? this.factory.time.animationRate : 1000 
+				});
+			}
+
+			var time = this.factory.time.getMilitaryTime();
+
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					t.factory.lists.push(t.createList(digit));
+					t.createList(digit);
 				});
 			}
 			
-			this.dividers.push(this.createDivider());
-			this.dividers.push(this.createDivider());
+			this.createDivider();
+			this.createDivider();
+
+			$(this.dividers[0]).insertBefore(this.lists[this.lists.length - 2].$el);
+			$(this.dividers[1]).insertBefore(this.lists[this.lists.length - 4].$el);
 			
-			$(this.dividers[0]).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
-			$(this.dividers[1]).insertBefore(this.factory.lists[this.factory.lists.length - 4].$el);
-			
-			// this._clearExcessDigits();
-			
-			if(this.autoStart) {
-				this.start();
-			}
+			this.base();
 		},
 		
 		/**
@@ -59,26 +63,12 @@
 		 */
 		 
 		flip: function(time, doNotAddPlayClass) {
+			this.autoIncrement();
+			
 			time = time ? time : this.factory.time.getMilitaryTime();
 			
 			this.base(time, doNotAddPlayClass);	
 		}
-		
-		/**
-		 * Clear the excess digits from the tens columns for sec/min
-		 */
-		 
-		/*
-		_clearExcessDigits: function() {
-			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
-			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
-			
-			for(var x = 6; x < 10; x++) {
-				tenSeconds.$el.find('li:last-child').remove();
-				tenMinutes.$el.find('li:last-child').remove();
-			}
-		}
-		*/
 				
 	});
 	

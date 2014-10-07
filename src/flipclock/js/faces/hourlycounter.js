@@ -32,36 +32,25 @@
 		 */
 		
 		build: function(excludeHours, time) {
-			var t        = this;
+			var t = this;
 			var children = this.factory.$el.find('ul');
-			var lists = [];
 			
-			time     = time ? time : this.factory.time.getHourCounter();
+			time = time ? time : this.factory.time.getHourCounter();
 			
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					lists.push(t.createList(digit));
+					t.createList(digit);
 				});
 			}
 			
-			this.factory.lists = lists;	
-			
-			$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4].$el);
+			$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4].$el);
 			
 			if(!excludeHours) {
-				$(this.createDivider('Hours', true)).insertBefore(this.factory.lists[0].$el);
+				$(this.createDivider('Hours', true)).insertBefore(this.lists[0].$el);
 			}
 			
-			/*
-			if(this.clearExcessDigits) {
-				this._clearExcessDigits();
-			}
-			*/
-			
-			if(this.autoStart) {
-				this.start();
-			}
+			this.base();
 		},
 		
 		/**

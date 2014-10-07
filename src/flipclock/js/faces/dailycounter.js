@@ -31,39 +31,32 @@
 		 * Build the clock face
 		 */
 
-		build: function(excludeHours, time) {
-			var t        = this;
+		build: function(time) {
+			var t = this;
 			var children = this.factory.$el.find('ul');
-			var lists    = [];
-			var offset   = 0;
+			var offset = 0;
 
-			time     = time ? time : this.factory.time.getDayCounter(this.showSeconds);
+			time = time ? time : this.factory.time.getDayCounter(this.showSeconds);
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					lists.push(t.createList(digit));
+					t.createList(digit);
 				});
 			}
 
-			this.factory.lists = lists;
-
 			if(this.showSeconds) {
-				$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
+				$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
 			}
 			else
 			{
 				offset = 2;
 			}
 
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4 + offset].$el);
-			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6 + offset].$el);
-			$(this.createDivider('Days', true)).insertBefore(this.factory.lists[0].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4 + offset].$el);
+			$(this.createDivider('Hours')).insertBefore(this.lists[this.lists.length - 6 + offset].$el);
+			$(this.createDivider('Days', true)).insertBefore(this.lists[0].$el);
 
-			// this._clearExcessDigits();
-
-			if(this.autoStart) {
-				this.start();
-			}
+			this.base();
 		},
 
 		/**
@@ -79,22 +72,6 @@
 
 			this.base(time, doNotAddPlayClass);
 		}
-
-		/**
-		 * Clear the excess digits from the tens columns for sec/min
-		 */
-
-		 /*
-		_clearExcessDigits: function() {
-			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
-			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
-
-			for(var x = 6; x < 10; x++) {
-				tenSeconds.$el.find('li:last-child').remove();
-				tenMinutes.$el.find('li:last-child').remove();
-			}
-		}
-		*/
 
 	});
 
