@@ -58,6 +58,14 @@
 				this.time = time;
 			}
 		},
+
+		getDateObject: function() {
+			if(this.time instanceof Date) {
+				return this.time;
+			}
+
+			return new Date(this.getTimeSeconds());
+		},
 		
 		/**
 		 * Convert a string or integer to an array of digits
