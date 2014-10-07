@@ -29,11 +29,7 @@
 	 * @param  object  An object of properties to override the default	
 	 */
 	 
-	$.fn.FlipClock = function(digit, options) {
-		if(typeof digit == "object") {
-			options = digit;
-			digit = 0;
-		}		
+	$.fn.FlipClock = function(digit, options) {	
 		return new FlipClock($(this), digit, options);
 	};
 	
