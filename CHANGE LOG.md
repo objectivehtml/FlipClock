@@ -1,5 +1,10 @@
 # FlipClock.js
 
+#### 0.7.4
+##### 10/06/2014
+
+- (Feature) Published to NPM and can be installed with `npm install flipclock`
+
 #### 0.7.3
 ##### 10/06/2014
 
