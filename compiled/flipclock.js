@@ -169,7 +169,7 @@ var FlipClock;
 	 */
 	 
 	FlipClock = function(obj, digit, options) {
-		if(typeof digit == "object") {
+		if(digit instanceof Object && digit instanceof Date === false) {
 			options = digit;
 			digit = 0;
 		}
@@ -335,6 +335,12 @@ var FlipClock;
 	FlipClock.Face = FlipClock.Base.extend({
 		
 		/**
+		 * Sets whether or not the clock should start upon instantiation
+		 */
+		 
+		autoStart: true,
+
+		/**
 		 * An array of jQuery objects used for the dividers (the colons)
 		 */
 		 
@@ -363,14 +369,18 @@ var FlipClock;
 			this.dividers = [];
 			this.lists = [];
 			this.base(options);
-			this.factory  = factory;
+			this.factory = factory;
 		},
 		
 		/**
 		 * Build the clock face
 		 */
 		 
-		build: function() {},
+		build: function() {
+			if(this.autoStart) {
+				this.start();
+			}
+		},
 		
 		/**
 		 * Creates a jQuery object used for the digit divider
@@ -381,7 +391,6 @@ var FlipClock;
 		 */
 		 
 		createDivider: function(label, css, excludeDots) {
-		
 			if(typeof css == "boolean" || !css) {
 				excludeDots = css;
 				css = label;
@@ -441,6 +450,7 @@ var FlipClock;
 				this.factor, 
 				this.factory.original ? Math.round(this.factory.original) : 0
 			);
+
 			this.flip(this.factory.original, false);
 		},
 
@@ -485,13 +495,11 @@ var FlipClock;
 		 */
 		 
 		autoIncrement: function() {
-			if (!(this.factory.time.time instanceof Date)) {
-				if(!this.factory.countdown) {
-					this.increment();
-				}
-				else {
-					this.decrement();
-				}
+			if(!this.factory.countdown) {
+				this.increment();
+			}
+			else {
+				this.decrement();
 			}
 		},
 
@@ -722,9 +730,9 @@ var FlipClock;
 
 			this.timer = new FlipClock.Timer(this, options);
 
-			this.lang = this.loadLanguage(this.language);
+			this.loadLanguage(this.language);
 			
-			this.face = this.loadClockFace(this.clockFace, options);
+			this.loadClockFace(this.clockFace, options);
 
 			if(this.autoStart) {
 				this.start();
@@ -739,9 +747,18 @@ var FlipClock;
 		 */
 		 
 		loadClockFace: function(name, options) {	
-			var face, suffix = 'Face';
+			var face, suffix = 'Face', hasStopped = false;
 			
 			name = name.ucfirst()+suffix;
+
+			if(this.face.stop) {
+				this.stop();
+				hasStopped = true;
+			}
+
+			this.$el.html('');
+
+			this.time.minimumDigits = 0;
 			
 			if(FlipClock[name]) {
 				face = new FlipClock[name](this, options);
@@ -751,11 +768,16 @@ var FlipClock;
 			}
 			
 			face.build();
-				
-			return face;
-		},
+
+			this.face = face
+
+			if(hasStopped) {
+				this.start();
+			}
 			
-		
+			return this.face;
+		},
+				
 		/**
 		 * Load the FlipClock.Lang object
 		 *
@@ -775,7 +797,7 @@ var FlipClock;
 				lang = FlipClock.Lang[this.defaultLanguage];
 			}
 			
-			return lang;
+			return this.lang = lang;
 		},
 					
 		/**
@@ -814,7 +836,6 @@ var FlipClock;
 			var t = this;
 
 			if(!t.running && (!t.countdown || t.countdown && t.time.time > 0)) {
-				
 				t.face.start(t.time);
 				t.timer.start(function() {
 					t.flip();
@@ -892,7 +913,7 @@ var FlipClock;
 		 *
 		 * @param  array  An array of digits	 
 		 */
-		flip: function(doNotAddPlayClass) {			
+		flip: function(doNotAddPlayClass) {	
 			this.face.flip(false, doNotAddPlayClass);
 		}
 		
@@ -1163,11 +1184,7 @@ var FlipClock;
 	 * @param  object  An object of properties to override the default	
 	 */
 	 
-	$.fn.FlipClock = function(digit, options) {
-		if(typeof digit == "object") {
-			options = digit;
-			digit = 0;
-		}		
+	$.fn.FlipClock = function(digit, options) {	
 		return new FlipClock($(this), digit, options);
 	};
 	
@@ -1211,7 +1228,7 @@ var FlipClock;
 	FlipClock.Time = FlipClock.Base.extend({
 		
 		/**
-		 * The time (in seconds)
+		 * The time (in seconds) or a date object
 		 */		
 		 
 		time: 0,
@@ -1243,6 +1260,14 @@ var FlipClock;
 			if(time) {
 				this.time = time;
 			}
+		},
+
+		getDateObject: function() {
+			if(this.time instanceof Date) {
+				return this.time;
+			}
+
+			return new Date(this.getTimeSeconds());
 		},
 		
 		/**
@@ -1294,7 +1319,7 @@ var FlipClock;
 		 
 		digitize: function(obj) {
 			var data = [];
-			
+
 			$.each(obj, function(i, value) {
 				value = value.toString();
 				
@@ -1316,7 +1341,7 @@ var FlipClock;
 					data.unshift('0');
 				}
 			}
-			
+
 			return data;
 		},
 		
@@ -1406,8 +1431,11 @@ var FlipClock;
 		 * @return  object  returns a digitized object
 		 */
 		 
-		getMilitaryTime: function() {
-			var date = new Date(); 
+		getMilitaryTime: function(date) {
+			if(!date) {
+				date = this.getDateObject();
+			}
+
 			var obj  = this.digitize([
 				date.getHours(),
 				date.getMinutes(),
@@ -1453,15 +1481,19 @@ var FlipClock;
 		 * @return  int   Returns a floored integer
 		 */
 		 
-		getTimeSeconds: function(mod) {
+		getTimeSeconds: function(date) {
+			if(!date) {
+				date = new Date();
+			}
+
 			if (this.time instanceof Date) {
 				if (this.factory.countdown) {
-					if ((new Date()).getTime() > this.time.getTime()) {
+					if (date.getTime() > this.time.getTime()) {
 						this.factory.stop();
 					}
-					return Math.max(this.time.getTime()/1000 - (new Date()).getTime()/1000,0);
+					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
 				} else {
-					return (new Date()).getTime()/1000 - this.time.getTime()/1000 ;
+					return date.getTime()/1000 - this.time.getTime()/1000 ;
 				}
 			} else {
 				return this.time;
@@ -1496,8 +1528,11 @@ var FlipClock;
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getTime: function() {
-			var date  = new Date(); 
+		getTime: function(date) {
+			if(!date) {
+				date = this.getDateObject();
+			}
+			
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
 			var obj   = this.digitize([
@@ -1560,7 +1595,12 @@ var FlipClock;
 		 */
 
 		addSeconds: function(x) {
-			this.time += x;
+			if(this.time instanceof Date) {
+				this.time.setSeconds(this.time.getSeconds() + x);
+			}
+			else {
+				this.time += x;
+			}
 		},
 
 		/**
@@ -1576,7 +1616,12 @@ var FlipClock;
 		 */
 
 		subSeconds: function(x) {
-			this.time -= x;
+			if(this.time instanceof Date) {
+				this.time.setSeconds(this.time.getSeconds() - x);
+			}
+			else {
+				this.time -= x;
+			}
 		},
 
 		/**
@@ -1832,7 +1877,6 @@ var FlipClock;
 		 */
 		 
 		constructor: function(factory, options) {
-			factory.countdown = false;
 			this.base(factory, options);
 		},
 
@@ -1842,29 +1886,34 @@ var FlipClock;
 		 * @param  object  Pass the time that should be used to display on the clock.	
 		 */
 		 
-		build: function(time) {
+		build: function() {
 			var t        = this;
 			var children = this.factory.$el.find('ul');
 
-			time = time ? time : (this.factory.time.time || this.factory.time.getMilitaryTime());
-			
+			if(!this.factory.time.time) {
+				this.factory.original = new Date();
+
+				this.factory.time = new FlipClock.Time(this.factory, this.factory.original, {
+					minimumDigits: this.factory.time.minimumDigits ? this.factory.time.minimumDigits : 0,
+					animationRate: this.factory.time.animationRate ? this.factory.time.animationRate : 1000 
+				});
+			}
+
+			var time = this.factory.time.getMilitaryTime();
+
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					t.factory.lists.push(t.createList(digit));
+					t.createList(digit);
 				});
 			}
 			
-			this.dividers.push(this.createDivider());
-			this.dividers.push(this.createDivider());
+			this.createDivider();
+			this.createDivider();
+
+			$(this.dividers[0]).insertBefore(this.lists[this.lists.length - 2].$el);
+			$(this.dividers[1]).insertBefore(this.lists[this.lists.length - 4].$el);
 			
-			$(this.dividers[0]).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
-			$(this.dividers[1]).insertBefore(this.factory.lists[this.factory.lists.length - 4].$el);
-			
-			// this._clearExcessDigits();
-			
-			if(this.autoStart) {
-				this.start();
-			}
+			this.base();
 		},
 		
 		/**
@@ -1872,26 +1921,12 @@ var FlipClock;
 		 */
 		 
 		flip: function(time, doNotAddPlayClass) {
+			this.autoIncrement();
+			
 			time = time ? time : this.factory.time.getMilitaryTime();
 			
 			this.base(time, doNotAddPlayClass);	
 		}
-		
-		/**
-		 * Clear the excess digits from the tens columns for sec/min
-		 */
-		 
-		/*
-		_clearExcessDigits: function() {
-			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
-			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
-			
-			for(var x = 6; x < 10; x++) {
-				tenSeconds.$el.find('li:last-child').remove();
-				tenMinutes.$el.find('li:last-child').remove();
-			}
-		}
-		*/
 				
 	});
 	
@@ -1910,7 +1945,15 @@ var FlipClock;
 	 
 	FlipClock.CounterFace = FlipClock.Face.extend({
 		
-		// autoStart: false,
+		/**
+		 * Tells the counter clock face if it should auto-increment
+		 */
+
+		shouldAutoIncrement: false,
+
+		/**
+		 * Minimum digits the clock face will show
+		 */
 
 		minimumDigits: 2,
 
@@ -1922,9 +1965,16 @@ var FlipClock;
 		 */
 		 
 		constructor: function(factory, options) {
-			//factory.timer.interval = 0;
-			factory.autoStart 	   = options.autoStart ? true : false;
-			//factory.running  	   = true;
+
+			if(typeof options != "object") {
+				options = {};
+			}
+
+			factory.autoStart = options.autoStart ? true : false;
+
+			if(options.autoStart) {
+				this.shouldAutoIncrement = true;
+			}
 
 			factory.increment = function() {
 				factory.countdown = false;
@@ -1957,7 +2007,6 @@ var FlipClock;
 		build: function() {
 			var t        = this;
 			var children = this.factory.$el.find('ul');
-			var lists    = [];
 			var time 	 = this.factory.getTime().digitize([this.factory.getTime().time]);
 
 			if(time.length > children.length) {
@@ -1967,31 +2016,30 @@ var FlipClock;
 					});
 
 					list.select(digit);
-					lists.push(list);
 				});
 			
 			}
 
-			$.each(lists, function(i, list) {
+			$.each(this.lists, function(i, list) {
 				list.play();
 			});
 
-			this.factory.lists = lists;
+			this.base();
 		},
 		
 		/**
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {
+		flip: function(time, doNotAddPlayClass) {			
+			if(this.shouldAutoIncrement) {
+				this.autoIncrement();
+			}
+
 			if(!time) {		
 				time = this.factory.getTime().digitize([this.factory.getTime().time]);
 			}
 
-			if(this.autoStart) {
-				this.autoIncrement();
-			}
-			
 			this.base(time, doNotAddPlayClass);
 		},
 
@@ -2043,39 +2091,32 @@ var FlipClock;
 		 * Build the clock face
 		 */
 
-		build: function(excludeHours, time) {
-			var t        = this;
+		build: function(time) {
+			var t = this;
 			var children = this.factory.$el.find('ul');
-			var lists    = [];
-			var offset   = 0;
+			var offset = 0;
 
-			time     = time ? time : this.factory.time.getDayCounter(this.showSeconds);
+			time = time ? time : this.factory.time.getDayCounter(this.showSeconds);
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					lists.push(t.createList(digit));
+					t.createList(digit);
 				});
 			}
 
-			this.factory.lists = lists;
-
 			if(this.showSeconds) {
-				$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
+				$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
 			}
 			else
 			{
 				offset = 2;
 			}
 
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4 + offset].$el);
-			$(this.createDivider('Hours')).insertBefore(this.factory.lists[this.factory.lists.length - 6 + offset].$el);
-			$(this.createDivider('Days', true)).insertBefore(this.factory.lists[0].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4 + offset].$el);
+			$(this.createDivider('Hours')).insertBefore(this.lists[this.lists.length - 6 + offset].$el);
+			$(this.createDivider('Days', true)).insertBefore(this.lists[0].$el);
 
-			// this._clearExcessDigits();
-
-			if(this.autoStart) {
-				this.start();
-			}
+			this.base();
 		},
 
 		/**
@@ -2091,22 +2132,6 @@ var FlipClock;
 
 			this.base(time, doNotAddPlayClass);
 		}
-
-		/**
-		 * Clear the excess digits from the tens columns for sec/min
-		 */
-
-		 /*
-		_clearExcessDigits: function() {
-			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
-			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
-
-			for(var x = 6; x < 10; x++) {
-				tenSeconds.$el.find('li:last-child').remove();
-				tenMinutes.$el.find('li:last-child').remove();
-			}
-		}
-		*/
 
 	});
 
@@ -2145,36 +2170,25 @@ var FlipClock;
 		 */
 		
 		build: function(excludeHours, time) {
-			var t        = this;
+			var t = this;
 			var children = this.factory.$el.find('ul');
-			var lists = [];
 			
-			time     = time ? time : this.factory.time.getHourCounter();
+			time = time ? time : this.factory.time.getHourCounter();
 			
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
-					lists.push(t.createList(digit));
+					t.createList(digit);
 				});
 			}
 			
-			this.factory.lists = lists;	
-			
-			$(this.createDivider('Seconds')).insertBefore(this.factory.lists[this.factory.lists.length - 2].$el);
-			$(this.createDivider('Minutes')).insertBefore(this.factory.lists[this.factory.lists.length - 4].$el);
+			$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4].$el);
 			
 			if(!excludeHours) {
-				$(this.createDivider('Hours', true)).insertBefore(this.factory.lists[0].$el);
+				$(this.createDivider('Hours', true)).insertBefore(this.lists[0].$el);
 			}
 			
-			/*
-			if(this.clearExcessDigits) {
-				this._clearExcessDigits();
-			}
-			*/
-			
-			if(this.autoStart) {
-				this.start();
-			}
+			this.base();
 		},
 		
 		/**
@@ -2218,7 +2232,7 @@ var FlipClock;
 	 */
 	 
 	FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({
-		
+
 		clearExcessDigits: false,
 
 		/**
@@ -2286,13 +2300,13 @@ var FlipClock;
 		 * @param  object  Pass the time that should be used to display on the clock.	
 		 */
 		 
-		build: function(time) {
-			var t        = this;
-			
-			time = time ? time : (this.factory.time.time ? this.factory.time.time : this.factory.time.getTime());
-			
+		build: function() {
+			var t = this;
+
+			var time = this.factory.time.getTime();
+
 			this.base(time);			
-			this.meridiumText = this._isPM() ? 'PM' : 'AM';			
+			this.meridiumText = this.getMeridium();			
 			this.meridium = $([
 				'<ul class="flip-clock-meridium">',
 					'<li>',
@@ -2301,7 +2315,7 @@ var FlipClock;
 				'</ul>'
 			].join(''));
 			
-			this.meridium.insertAfter(this.factory.lists[this.factory.lists.length-1].$el);
+			this.meridium.insertAfter(this.lists[this.lists.length-1].$el);
 		},
 		
 		/**
@@ -2309,8 +2323,8 @@ var FlipClock;
 		 */
 		 
 		flip: function(time, doNotAddPlayClass) {			
-			if(this.meridiumText != this._getMeridium()) {
-				this.meridiumText = this._getMeridium();
+			if(this.meridiumText != this.getMeridium()) {
+				this.meridiumText = this.getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
 			}
 			this.base(this.factory.time.getTime(), doNotAddPlayClass);	
@@ -2322,7 +2336,7 @@ var FlipClock;
 		 * @return  string  Returns the meridium (AM|PM)
 		 */
 		 
-		_getMeridium: function() {
+		getMeridium: function() {
 			return new Date().getHours() >= 12 ? 'PM' : 'AM';
 		},
 		
@@ -2332,25 +2346,19 @@ var FlipClock;
 		 * @return  bool  Returns true or false
 		 */
 		 
-		_isPM: function() {
-			return this._getMeridium() == 'PM' ? true : false;
-		}
-		
+		isPM: function() {
+			return this.getMeridium() == 'PM' ? true : false;
+		},
+
 		/**
-		 * Clear the excess digits from the tens columns for sec/min
+		 * Is it currently before the post-medirium?
+		 *
+		 * @return  bool  Returns true or false
 		 */
 		 
-		/*
-		_clearExcessDigits: function() {
-			var tenSeconds = this.factory.lists[this.factory.lists.length - 2];
-			var tenMinutes = this.factory.lists[this.factory.lists.length - 4];
-			
-			for(var x = 6; x < 10; x++) {
-				tenSeconds.$el.find('li:last-child').remove();
-				tenMinutes.$el.find('li:last-child').remove();
-			}
+		isAM: function() {
+			return this.getMeridium() == 'AM' ? true : false;
 		}
-		*/
 				
 	});
 	
