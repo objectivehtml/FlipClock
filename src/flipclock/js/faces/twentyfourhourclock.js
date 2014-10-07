@@ -28,7 +28,7 @@
 		 * @param  object  Pass the time that should be used to display on the clock.	
 		 */
 		 
-		build: function() {
+		build: function(time) {
 			var t        = this;
 			var children = this.factory.$el.find('ul');
 
@@ -38,7 +38,7 @@
 				this.factory.time = new FlipClock.Time(this.factory, this.factory.original);
 			}
 
-			var time = this.factory.time.getMilitaryTime();
+			var time = time ? time : this.factory.time.getMilitaryTime(false, this.showSeconds);
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
@@ -62,7 +62,7 @@
 		flip: function(time, doNotAddPlayClass) {
 			this.autoIncrement();
 			
-			time = time ? time : this.factory.time.getMilitaryTime();
+			time = time ? time : this.factory.time.getMilitaryTime(false, this.showSeconds);
 			
 			this.base(time, doNotAddPlayClass);	
 		}
