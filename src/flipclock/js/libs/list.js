@@ -70,7 +70,7 @@
 		 */		
 		 
 		lastDigit: 0,
-				 
+			
 		/**
 		 * Constructor
 		 *
@@ -79,8 +79,6 @@
 		 * @param  object  An object to override the default properties	 
 		 */
 		 
-		minimumDigits: 0,
-
 		constructor: function(factory, digit, options) {
 			this.factory = factory;
 			this.digit = digit;
@@ -122,38 +120,7 @@
 				$delete.remove();
 
 				this.lastDigit = this.digit;
-			}
-
-			/*
-			var prevDigit = this.digit == 0 ? 9 : this.digit - 1;
-			var nextDigit = this.digit == 9 ? 0 : this.digit + 1;
-
-			this.setBeforeValue(prevDigit);
-			this.setActiveValue(this.digit);
-
-			var target = this.$el.find('[data-digit="'+digit+'"]');
-			var active = this.$el.find('.'+this.classes.active).removeClass(this.classes.active);
-			var before = this.$el.find('.'+this.classes.before).removeClass(this.classes.before);
-
-			if(!this.factory.countdown) {
-				if(target.is(':first-child')) {
-					this.$el.find(':last-child').addClass(this.classes.before);
-				}
-				else {
-					target.prev().addClass(this.classes.before);
-				}
-			}
-			else {
-				if(target.is(':last-child')) {
-					this.$el.find(':first-child').addClass(this.classes.before);
-				}
-				else {
-					target.next().addClass(this.classes.before);
-				}
-			}
-			
-			target.addClass(this.classes.active);	
-			*/		
+			}	
 		},
 		
 		/**
@@ -176,6 +143,10 @@
 			}, this.factory.timer.interval);
 		},
 		
+		/**
+		 * Creates the list item HTML and returns as a string 
+		 */
+		 
 		createListItem: function(css, value) {
 			return [
 				'<li class="'+(css ? css : '')+'">',
@@ -192,6 +163,10 @@
 				'</li>'
 			].join('');
 		},
+
+		/**
+		 * Append the list item to the parent DOM node 
+		 */
 
 		appendListItem: function(css, value) {
 			var html = this.createListItem(css, value);
