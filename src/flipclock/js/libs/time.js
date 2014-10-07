@@ -251,16 +251,16 @@
 				date = this.getDateObject();
 			}
 
-			var obj  = this.digitize([
+			var data  = [
 				date.getHours(),
 				date.getMinutes()			
-			]);
+			];
 
 			if(showSeconds === true) {
-				date.getSeconds();
+				data.push(date.getSeconds());
 			}
 
-			return obj;
+			return this.digitize(data);
 		},
 				
 		/**
