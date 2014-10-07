@@ -390,7 +390,12 @@
 		 */
 
 		subSeconds: function(x) {
-			this.time -= x;
+			if(this.time instanceof Date) {
+				this.time.setSeconds(this.time.getSeconds() - x);
+			}
+			else {
+				this.time -= x;
+			}
 		},
 
 		/**
