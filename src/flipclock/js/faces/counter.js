@@ -19,12 +19,6 @@
 		shouldAutoIncrement: false,
 
 		/**
-		 * Minimum digits the clock face will show
-		 */
-
-		minimumDigits: 2,
-
-		/**
 		 * Constructor
 		 *
 		 * @param  object  The parent FlipClock.Factory object
