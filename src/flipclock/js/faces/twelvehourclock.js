@@ -32,7 +32,7 @@
 		build: function() {
 			var t = this;
 
-			var time = this.factory.time.getTime();
+			var time = this.factory.time.getTime(false, this.showSeconds);
 
 			this.base(time);			
 			this.meridiumText = this.getMeridium();			
@@ -43,7 +43,7 @@
 					'</li>',
 				'</ul>'
 			].join(''));
-			
+						
 			this.meridium.insertAfter(this.lists[this.lists.length-1].$el);
 		},
 		
@@ -56,7 +56,7 @@
 				this.meridiumText = this.getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
 			}
-			this.base(this.factory.time.getTime(), doNotAddPlayClass);	
+			this.base(this.factory.time.getTime(false, this.showSeconds), doNotAddPlayClass);	
 		},
 		
 		/**
