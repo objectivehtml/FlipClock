@@ -12,9 +12,17 @@ FlipClock.js can be install in several ways.
 
 	npm install flipclock
 
+#### Download .zip
+
+	[Download .ZIP](https://github.com/objectivehtml/FlipClock/releases)
+
+---
+
 ### Demo & Documentation
 
 Website and documentation at http://flipclockjs.com/
+
+---
 
 ### License
 
