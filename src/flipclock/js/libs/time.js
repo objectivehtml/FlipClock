@@ -153,7 +153,7 @@
 				return this.time;
 			}
 
-			return new Date(this.getTimeSeconds());
+			return new Date((new Date()).getTime() + this.getTimeSeconds() * 1000);
 		},
 		
 		/**
@@ -242,16 +242,23 @@
 		 * @return  object  returns a digitized object
 		 */
 		 
-		getMilitaryTime: function(date) {
+		getMilitaryTime: function(date, showSeconds) {
+			if(typeof showSeconds === "undefined") {
+				showSeconds = true;
+			}
+
 			if(!date) {
 				date = this.getDateObject();
 			}
 
 			var obj  = this.digitize([
 				date.getHours(),
-				date.getMinutes(),
-				date.getSeconds()				
+				date.getMinutes()			
 			]);
+
+			if(showSeconds === true) {
+				date.getSeconds();
+			}
 
 			return obj;
 		},
@@ -314,20 +321,30 @@
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getTime: function(date) {
+		getTime: function(date, showSeconds) {
+			if(typeof showSeconds === "undefined") {
+				showSeconds = true;
+			}
+
 			if(!date) {
 				date = this.getDateObject();
 			}
+
+			console.log(date);
+
 			
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
-			var obj   = this.digitize([
+			var data   = [
 				hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours),
-				date.getMinutes(),
-				date.getSeconds()				
-			]);
+				date.getMinutes()			
+			];
 
-			return obj;
+			if(showSeconds === true) {
+				data.push(date.getSeconds());
+			}
+
+			return this.digitize(data);
 		},
 		
 		/**
@@ -359,7 +376,7 @@
 		 * @return  int   Retuns a floored integer
 		 */
 		 
-		getWeeks: function(mod) {
+		getWeeks: function() {
 			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
 			
 			if(mod) {
