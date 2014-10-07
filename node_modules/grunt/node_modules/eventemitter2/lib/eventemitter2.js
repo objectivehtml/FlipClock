@@ -1,4 +1,11 @@
-;!function(exports, undefined) {
+/*!
+ * EventEmitter2
+ * https://github.com/hij1nx/EventEmitter2
+ *
+ * Copyright (c) 2013 hij1nx
+ * Licensed under the MIT license.
+ */
+;!function(undefined) {
 
   var isArray = Array.isArray ? Array.isArray : function _isArray(obj) {
     return Object.prototype.toString.call(obj) === "[object Array]";
@@ -331,10 +338,10 @@
         this.event = type;
         listeners[i].apply(this, args);
       }
-      return (listeners.length > 0) || this._all;
+      return (listeners.length > 0) || !!this._all;
     }
     else {
-      return this._all;
+      return !!this._all;
     }
 
   };
@@ -397,12 +404,12 @@
 
   EventEmitter.prototype.onAny = function(fn) {
 
-    if(!this._all) {
-      this._all = [];
-    }
-
     if (typeof fn !== 'function') {
       throw new Error('onAny only accepts instances of Function');
+    }
+
+    if(!this._all) {
+      this._all = [];
     }
 
     // Add the function to the event listener collection.
@@ -551,11 +558,16 @@
   };
 
   if (typeof define === 'function' && define.amd) {
+     // AMD. Register as an anonymous module.
     define(function() {
       return EventEmitter;
     });
-  } else {
+  } else if (typeof exports === 'object') {
+    // CommonJS
     exports.EventEmitter2 = EventEmitter;
   }
-
-}(typeof process !== 'undefined' && typeof process.title !== 'undefined' && typeof exports !== 'undefined' ? exports : window);
+  else {
+    // Browser global.
+    window.EventEmitter2 = EventEmitter;
+  }
+}();

@@ -1,10 +1,31 @@
 {
-  "name": "FlipClock",
-  "version": "0.4.0",
-  "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.6.3",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-concat": "~0.3.0"
-  }
+	"name": "FlipClock",
+	"version": "0.7.3",
+	"email": "support@objectivehtml.com",
+  "author": "Objective HTML, LLC <support@objectivehtml.com>",
+  "license": "MIT",
+
+	"devDependencies": {
+		"grunt": "~0.4.2",
+		"grunt-contrib-jshint": "~0.6.3",
+		"grunt-contrib-uglify": "~0.2.7",
+		"grunt-contrib-concat": "~0.3.0"
+	},
+	
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/objectivehtml/FlipClock"
+	},
+
+  "bugs": {
+		"url": "https://github.com/nodejitsu/browsenpm.org/issues"
+	},
+
+  "bin": {
+	  "FlipClock": "./bin/FlipClock"
+	},
+
+	"dependencies": {
+		"jquery": ">=1.7"
+	}
 }

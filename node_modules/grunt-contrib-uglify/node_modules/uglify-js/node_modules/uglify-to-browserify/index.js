@@ -31,6 +31,9 @@ function transform(file) {
   src += 'exports.minify = ' + uglify.minify.toString() + ';\n\n'
   src += 'exports.describe_ast = ' + uglify.describe_ast.toString() + ';'
 
+  // TODO: remove once https://github.com/substack/node-browserify/issues/631 is resolved
+  src = src.replace(/"for"/g, '"fo" + "r"')
+
   cache[file] = src
   return makeStream(src);
 }
