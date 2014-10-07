@@ -1,5 +1,19 @@
 # FlipClock.js
 
+#### 0.7.1
+##### 10/06/2014
+
+- (Bug Fix) Fixed an issue that would cause a JS error if the FlipClock.Time object wasn't instantiated with any options
+- (Bug Fix) Fixed an issue with the minimumDigits property not being set
+- (Bug Fix) Fixed an issue with the minimumDigits property not being set when a clock face was reset
+- (Bug Fix) Removed more leaky abstractions within the TwentyFourHourClock face
+- (Bug Fix) Removed unnecessary minimumDigits property
+- (Bug Fix) Removed the way lists were instantiated. The minimumDigits property was removed, as it's not necessary
+- (Bug Fix) Fixed a type that would cause the clock to improperly reset
+- (Bug Fix) Updated code comments
+- (Refactored) Removed minimumDigit property, which was a leaky abstraction
+- (Example) Added new example to show a clock with a minimum number of digits
+
 #### 0.7.0
 ##### 10/06/2014
 
