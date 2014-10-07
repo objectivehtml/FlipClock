@@ -12,7 +12,15 @@
 	 
 	FlipClock.CounterFace = FlipClock.Face.extend({
 		
-		// autoStart: false,
+		/**
+		 * Tells the counter clock face if it should auto-increment
+		 */
+
+		shouldAutoIncrement: false,
+
+		/**
+		 * Minimum digits the clock face will show
+		 */
 
 		minimumDigits: 2,
 
@@ -24,9 +32,16 @@
 		 */
 		 
 		constructor: function(factory, options) {
-			//factory.timer.interval = 0;
-			factory.autoStart 	   = options.autoStart ? true : false;
-			//factory.running  	   = true;
+
+			if(typeof options != "object") {
+				options = {};
+			}
+
+			factory.autoStart = options.autoStart ? true : false;
+
+			if(options.autoStart) {
+				this.shouldAutoIncrement = true;
+			}
 
 			factory.increment = function() {
 				factory.countdown = false;
@@ -59,7 +74,6 @@
 		build: function() {
 			var t        = this;
 			var children = this.factory.$el.find('ul');
-			var lists    = [];
 			var time 	 = this.factory.getTime().digitize([this.factory.getTime().time]);
 
 			if(time.length > children.length) {
@@ -69,31 +83,30 @@
 					});
 
 					list.select(digit);
-					lists.push(list);
 				});
 			
 			}
 
-			$.each(lists, function(i, list) {
+			$.each(this.lists, function(i, list) {
 				list.play();
 			});
 
-			this.factory.lists = lists;
+			this.base();
 		},
 		
 		/**
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {
+		flip: function(time, doNotAddPlayClass) {			
+			if(this.shouldAutoIncrement) {
+				this.autoIncrement();
+			}
+
 			if(!time) {		
 				time = this.factory.getTime().digitize([this.factory.getTime().time]);
 			}
 
-			if(this.autoStart) {
-				this.autoIncrement();
-			}
-			
 			this.base(time, doNotAddPlayClass);
 		},
 
