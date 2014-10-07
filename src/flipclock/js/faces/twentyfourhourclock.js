@@ -35,10 +35,7 @@
 			if(!this.factory.time.time) {
 				this.factory.original = new Date();
 
-				this.factory.time = new FlipClock.Time(this.factory, this.factory.original, {
-					minimumDigits: this.factory.time.minimumDigits ? this.factory.time.minimumDigits : 0,
-					animationRate: this.factory.time.animationRate ? this.factory.time.animationRate : 1000 
-				});
+				this.factory.time = new FlipClock.Time(this.factory, this.factory.original);
 			}
 
 			var time = this.factory.time.getMilitaryTime();
