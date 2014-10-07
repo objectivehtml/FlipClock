@@ -310,8 +310,11 @@
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getTime: function() {
-			var date  = new Date(); 
+		getTime: function(date) {
+			if(!date) {
+				date = this.getDateObject();
+			}
+			
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
 			var obj   = this.digitize([
@@ -374,7 +377,12 @@
 		 */
 
 		addSeconds: function(x) {
-			this.time += x;
+			if(this.time instanceof Date) {
+				this.time.setSeconds(this.time.getSeconds() + x);
+			}
+			else {
+				this.time += x;
+			}
 		},
 
 		/**
