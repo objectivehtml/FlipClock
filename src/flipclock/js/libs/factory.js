@@ -26,6 +26,16 @@
 	FlipClock.Factory = FlipClock.Base.extend({
 		
 		/**
+		 * The clock's animation rate.
+		 * 
+		 * Note, currently this property doesn't do anything.
+		 * This property is here to be used in the future to
+		 * programmaticaly set the clock's animation speed
+		 */		
+
+		animationRate: 1000,
+
+		/**
 		 * Auto start the clock on page load (True|False)
 		 */	
 		 
@@ -86,10 +96,16 @@
 		defaultLanguage: 'english',
 		 
 		/**
-		 * The language being used to display labels (string)
+		 * The jQuery object
+		 */		
+		 
+		$el: false,
+
+		/**
+		 * The FlipClock.Face object
 		 */	
 		 
-		language: 'english',
+		face: true,
 		 
 		/**
 		 * The language object after it has been loaded
@@ -98,17 +114,23 @@
 		lang: false,
 		 
 		/**
+		 * The language being used to display labels (string)
+		 */	
+		 
+		language: 'english',
+		 
+		/**
+		 * The minimum digits the clock must have
+		 */		
+
+		minimumDigits: 0,
+
+		/**
 		 * The original starting value of the clock. Used for the reset method.
 		 */		
 		 
 		original: false,
 		
-		/**
-		 * The FlipClock.Face object
-		 */	
-		 
-		face: true,
-		 
 		/**
 		 * Is the clock running? (True|False)
 		 */		
@@ -127,18 +149,6 @@
 		 
 		timer: false,
 		
-		/**
-		 * An array of FlipClock.List objects
-		 */		
-		 
-		lists: [],
-		
-		/**
-		 * The jQuery object
-		 */		
-		 
-		$el: false,
-
 		/**
 		 * The jQuery object (depcrecated)
 		 */		
@@ -171,8 +181,8 @@
 			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
 
 			this.time = new FlipClock.Time(this, this.original, {
-				minimumDigits: options.minimumDigits ? options.minimumDigits : 0,
-				animationRate: options.animationRate ? options.animationRate : 1000 
+				minimumDigits: this.minimumDigits,
+				animationRate: this.animationRate 
 			});
 
 			this.timer = new FlipClock.Timer(this, options);
@@ -184,6 +194,7 @@
 			if(this.autoStart) {
 				this.start();
 			}
+
 		},
 		
 		/**

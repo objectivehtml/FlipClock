@@ -54,7 +54,7 @@
 		interval: 1000,
 
 		/**
-		 * The rate of the animation in milliseconds
+		 * The rate of the animation in milliseconds (not currently in use)
 		 */		
 		 
 		animationRate: 1000,
