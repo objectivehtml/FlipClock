@@ -1,5 +1,29 @@
 # FlipClock.js
 
+#### 0.7.0
+##### 10/06/2014
+
+- (Feature) Added ability to set the TwelveHourClock and TwentyFourHourClock faces to be able to use a custom date object passed upon instantiation or set after instantiation
+- (Bug Fix) Fixed an issue with the HourlyCounter and MinuteCounter faces not working properly when new digits are added
+- (Bug Fix) Fixed an issue where the clock wouldn't instantiate properly if a date object was passed to it
+- (Bug Fix) Added the autoStart property to the FlipClock.Face class declaration
+- (Bug Fix) Fixed the way the loadClockFace and loadLanguage methods worked
+- (Bug Fix) The loadClockFace method now resets the clock so if the method is called after instantiation, the entire clock face is re-rendered
+- (Bug Fix) Changed the way the getTimeSeconds method works. Now a date object can be passed to get the time relative to the date instead of always being the current time
+- (Bug Fix) Fixed some issues with instantiating date objects within the jQuery object.
+- (Bug Fix) Fixed an issue with the Counter face that would prevent the counter from auto-incrementing if the autoStart property was used.
+- (Refactor) Add new `appendDigitToClock` to clock method to the `FlipClock.Face` class that will append the new digits to the DOM. This method can be inherted by the class face to change the default behavior
+- (Refactor) Refactored the clock faces for leaky abstractions
+- (Refactor) Refactored the FlipClock.Time.addSeconds() method to work when the time is a date object, not an integer
+- (Refactor) Refactored the FlipClock.Time.subSeconds() method to work when the time is a date object, not an integer
+- (Refactor) Added new FlipClock.Time.getDateObject method to always return a date object, even when the time is an integer
+- (Refactor) Made the getMilitaryTime and getTime objects capable of returning time relative to a datestamp passed as an argument instead of always assuming to current time
+- (Refactor) Removed another leaky abstraction from the getTimeSeconds methods
+- (Example) Added new example to show how to set a twenty four hour clock with a custom time
+- (Example) Added new example to show how to set a twelve hour clock with a custom time
+- (Example) Added example to show how to change clock faces upon instantiation
+- (Example) Added new example for the DailyCounter clock face
+
 #### 0.6.3
 ##### 9/1/2014
 
