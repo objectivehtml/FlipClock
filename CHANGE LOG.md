@@ -1,5 +1,14 @@
 # FlipClock.js
 
+#### 0.7.2
+##### 10/06/2014
+
+- (Bug Fix) Made it so the TwelveHourClock and TwentyFourHourClock faces can use the showSeconds parameter
+- (Bug Fix) Fixed an issue with the time being overridden upon inheritance in the TwentyFourHour clock face
+- (Refactor) Added param to the getTime and getMilitaryTime methods to hide the seconds from being returned
+- (Example) Added twenty four hour clock without seconds
+- (Example) Added Twelve Hour Clock example without seconds
+
 #### 0.7.1
 ##### 10/06/2014
 
