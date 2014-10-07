@@ -194,9 +194,18 @@
 		 */
 		 
 		loadClockFace: function(name, options) {	
-			var face, suffix = 'Face';
+			var face, suffix = 'Face', hasStopped = false;
 			
 			name = name.ucfirst()+suffix;
+
+			if(this.face.stop) {
+				this.stop();
+				hasStopped = true;
+			}
+
+			this.$el.html('');
+
+			this.time.minimumDigits = 0;
 			
 			if(FlipClock[name]) {
 				face = new FlipClock[name](this, options);
@@ -206,11 +215,16 @@
 			}
 			
 			face.build();
-				
-			return face;
-		},
+
+			this.face = face
+
+			if(hasStopped) {
+				this.start();
+			}
 			
-		
+			return this.face;
+		},
+				
 		/**
 		 * Load the FlipClock.Lang object
 		 *
@@ -230,7 +244,7 @@
 				lang = FlipClock.Lang[this.defaultLanguage];
 			}
 			
-			return lang;
+			return this.lang = lang;
 		},
 					
 		/**
@@ -269,7 +283,6 @@
 			var t = this;
 
 			if(!t.running && (!t.countdown || t.countdown && t.time.time > 0)) {
-				
 				t.face.start(t.time);
 				t.timer.start(function() {
 					t.flip();
@@ -347,7 +360,7 @@
 		 *
 		 * @param  array  An array of digits	 
 		 */
-		flip: function(doNotAddPlayClass) {			
+		flip: function(doNotAddPlayClass) {	
 			this.face.flip(false, doNotAddPlayClass);
 		}
 		
