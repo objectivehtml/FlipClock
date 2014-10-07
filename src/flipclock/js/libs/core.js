@@ -23,7 +23,7 @@ var FlipClock;
 	 */
 	 
 	FlipClock = function(obj, digit, options) {
-		if(typeof digit == "object") {
+		if(digit instanceof Object && digit instanceof Date === false) {
 			options = digit;
 			digit = 0;
 		}
