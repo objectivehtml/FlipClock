@@ -23,6 +23,12 @@
 	FlipClock.Face = FlipClock.Base.extend({
 		
 		/**
+		 * Sets whether or not the clock should start upon instantiation
+		 */
+		 
+		autoStart: true,
+
+		/**
 		 * An array of jQuery objects used for the dividers (the colons)
 		 */
 		 
@@ -51,14 +57,18 @@
 			this.dividers = [];
 			this.lists = [];
 			this.base(options);
-			this.factory  = factory;
+			this.factory = factory;
 		},
 		
 		/**
 		 * Build the clock face
 		 */
 		 
-		build: function() {},
+		build: function() {
+			if(this.autoStart) {
+				this.start();
+			}
+		},
 		
 		/**
 		 * Creates a jQuery object used for the digit divider
@@ -69,7 +79,6 @@
 		 */
 		 
 		createDivider: function(label, css, excludeDots) {
-		
 			if(typeof css == "boolean" || !css) {
 				excludeDots = css;
 				css = label;
@@ -129,6 +138,7 @@
 				this.factor, 
 				this.factory.original ? Math.round(this.factory.original) : 0
 			);
+
 			this.flip(this.factory.original, false);
 		},
 
@@ -173,13 +183,11 @@
 		 */
 		 
 		autoIncrement: function() {
-			if (!(this.factory.time.time instanceof Date)) {
-				if(!this.factory.countdown) {
-					this.increment();
-				}
-				else {
-					this.decrement();
-				}
+			if(!this.factory.countdown) {
+				this.increment();
+			}
+			else {
+				this.decrement();
 			}
 		},
 
