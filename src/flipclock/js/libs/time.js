@@ -376,7 +376,7 @@
 		 * @return  int   Retuns a floored integer
 		 */
 		 
-		getWeeks: function() {
+		getWeeks: function(mod) {
 			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
 			
 			if(mod) {

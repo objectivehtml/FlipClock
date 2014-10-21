@@ -1,5 +1,10 @@
 # FlipClock.js
 
+#### 0.7.5
+##### 21/10/2014
+
+- (Bug Fix) Fixed a typo in the definition of the (unused by default) method getWeeks.
+
 #### 0.7.4
 ##### 10/06/2014
 
