@@ -39,7 +39,7 @@
 			this.meridium = $([
 				'<ul class="flip-clock-meridium">',
 					'<li>',
-						'<div>'+this.meridiumText+'</div>',
+						'<div class="facesWrapper">'+this.meridiumText+'</div>',
 					'</li>',
 				'</ul>'
 			].join(''));

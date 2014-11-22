@@ -9,13 +9,13 @@
     @include box-sizing(border-box);
 }
 
-.flip-clock-wrapper a {
+.flip-clock-wrapper div.facesWrapper {
     cursor: pointer;
     text-decoration: none;
     color: #ccc;
 }
 
-.flip-clock-wrapper a:hover {
+.flip-clock-wrapper {
     color: #fff;
 }
 
@@ -91,7 +91,7 @@
     z-index: 2;
 }
 
-.flip-clock-wrapper ul li a {
+.flip-clock-wrapper ul li div.facesWrapper {
     display: block;
     height: 100%;
     @include perspective(200px);
@@ -99,7 +99,7 @@
     overflow: visible !important;
 }
 
-.flip-clock-wrapper ul li a div {
+.flip-clock-wrapper ul li div.facesWrapper div {
     z-index: 1;
     position: absolute;
     left: 0;
@@ -108,19 +108,19 @@
     overflow: hidden;
 }
 
-.flip-clock-wrapper ul li a div .shadow {
+.flip-clock-wrapper ul li div.facesWrapper div .shadow {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 2;
 }
 
-.flip-clock-wrapper ul li a div.up {
+.flip-clock-wrapper ul li div.facesWrapper div.up {
     @include transform-origin(50% 100%);
     top: 0;
 }
 
-.flip-clock-wrapper ul li a div.up:after {
+.flip-clock-wrapper ul li div.facesWrapper div.up:after {
   content: "";
   position:absolute;
   top:44px;
@@ -132,12 +132,12 @@
   background-color: rgba(0,0,0,.4);
 }
 
-.flip-clock-wrapper ul li a div.down {
+.flip-clock-wrapper ul li div.facesWrapper div.down {
     @include transform-origin(50% 0);
     bottom: 0;
 }
 
-.flip-clock-wrapper ul li a div div.inn {
+.flip-clock-wrapper ul li div.facesWrapper div div.inn {
     position: absolute;
     left: 0;
     z-index: 1;
@@ -151,12 +151,12 @@
     font-size: 70px;
 }
 
-.flip-clock-wrapper ul li a div.up div.inn {
+.flip-clock-wrapper ul li div.facesWrapper div.up div.inn {
     top: 0;
 
 }
 
-.flip-clock-wrapper ul li a div.down div.inn {
+.flip-clock-wrapper ul li div.facesWrapper div.down div.inn {
     bottom: 0;
 }
 

@@ -150,7 +150,7 @@
 		createListItem: function(css, value) {
 			return [
 				'<li class="'+(css ? css : '')+'">',
-					'<div>',
+					'<div class="facesWrapper">',
 						'<div class="up">',
 							'<div class="shadow"></div>',
 							'<div class="inn">'+(value ? value : '')+'</div>',
