@@ -1087,7 +1087,7 @@ var FlipClock;
 		createListItem: function(css, value) {
 			return [
 				'<li class="'+(css ? css : '')+'">',
-					'<a href="#">',
+					'<div class="facesWrapper">',
 						'<div class="up">',
 							'<div class="shadow"></div>',
 							'<div class="inn">'+(value ? value : '')+'</div>',
@@ -1096,7 +1096,7 @@ var FlipClock;
 							'<div class="shadow"></div>',
 							'<div class="inn">'+(value ? value : '')+'</div>',
 						'</div>',
-					'</a>',
+					'</div>',
 				'</li>'
 			].join('');
 		},
@@ -2316,7 +2316,7 @@ var FlipClock;
 			this.meridium = $([
 				'<ul class="flip-clock-meridium">',
 					'<li>',
-						'<a href="#">'+this.meridiumText+'</a>',
+						'<div class="facesWrapper">'+this.meridiumText+'</div>',
 					'</li>',
 				'</ul>'
 			].join(''));
@@ -2490,7 +2490,7 @@ var FlipClock;
 		
 		'years'   : 'A&#241;os',
 		'months'  : 'Meses',
-		'days'    : 'D&#237;as',
+		'days'    : 'D&#205;as',
 		'hours'   : 'Horas',
 		'minutes' : 'Minutos',
 		'seconds' : 'Segundo'	
