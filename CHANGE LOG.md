@@ -1,7 +1,23 @@
 # FlipClock.js
 
+#### 0.7.7
+##### 12/12/2014
+
+- (Bug Fix) Recompiled build and version. Mistake in previous release.
+
+#### 0.7.6
+##### 12/12/2014
+
+- (Example) Added new interval callback example
+- (Bug Fix) Merge pull request #160 from rustygreen/patch-1
+- (Bug Fix) Fixed constructor bug passing "factory". Updated face.js, the "factory" was not being passed into the constructor, instead a typo was "factor".
+- (Bug Fix) Merge pull request #150 from charlesbaynham/Fix-modulus-for-getWeeks
+- (Bug Fix) Fixed typo in the definition of getWeeks, preventing its usage
+- (Bug Fix) Merge pull request #156 from laureanoendeiza/patch-1
+- (Bug Fix) Fixed typo in the definition of getWeeks, preventing its usage.
+
 #### 0.7.5
-##### 21/10/2014
+##### 10/10/2014
 
 - (Bug Fix) Fixed a typo in the definition of the (unused by default) method getWeeks.
 
