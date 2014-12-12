@@ -1,5 +1,10 @@
 # FlipClock.js
 
+#### 0.7.8
+##### 12/12/2014
+
+- (Bug Fix) Fixed a Grunt compiling error and had to repackage the release (again)
+
 #### 0.7.7
 ##### 12/12/2014
 
