@@ -135,7 +135,7 @@
 
 		reset: function() {
 			this.factory.time = new FlipClock.Time(
-				this.factor, 
+				this.factory, 
 				this.factory.original ? Math.round(this.factory.original) : 0,
 				{
 					minimumDigits: this.factory.minimumDigits
