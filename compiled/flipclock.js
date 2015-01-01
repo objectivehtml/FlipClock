@@ -893,8 +893,19 @@ var FlipClock;
 		 */
 		 
 		setTime: function(time) {
-			this.time.time = time;
-			this.flip(true);		
+			if (time instanceof Date) {
+				var now = new Date();
+
+				if (this.countdown) {
+					this.time.time = Math.floor((time.getTime() - now.getTime()) / 1000);
+				} else {
+					this.time.time = Math.floor((now.getTime() - time.getTime()) / 1000);
+				}
+			} else {
+				this.time.time = time;
+			}
+
+			this.flip(true);
 		},
 		
 		/**
@@ -1488,7 +1499,7 @@ var FlipClock;
 		/**
 		 * Gets time count in seconds regardless of if targetting date or not.
 		 *
-		 * @return  int   Returns a floored integer
+		 * @return  int   Returns a floored integer, or a ceiled integer for countdowns
 		 */
 		 
 		getTimeSeconds: function(date) {
@@ -1498,12 +1509,16 @@ var FlipClock;
 
 			if (this.time instanceof Date) {
 				if (this.factory.countdown) {
-					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
+					return Math.ceil(Math.max(this.time.getTime()/1000 - date.getTime()/1000,0));
 				} else {
-					return date.getTime()/1000 - this.time.getTime()/1000 ;
+					return Math.floor(date.getTime()/1000 - this.time.getTime()/1000);
 				}
 			} else {
-				return this.time;
+				if (this.factory.countdown) {
+					return Math.ceil(this.time);
+				} else {
+					return Math.floor(this.time);
+				}
 			}
 		},
 		
@@ -1548,17 +1563,14 @@ var FlipClock;
 		 
 		getSeconds: function(mod) {
 			var seconds = this.getTimeSeconds();
-			
+
 			if(mod) {
-				if(seconds == 60) {
-					seconds = 0;
-				}
-				else {
-					seconds = seconds % 60;
-				}
+				seconds = seconds % 60;
+			} else if(seconds == 60) {
+				seconds = 0;
 			}
 			
-			return Math.ceil(seconds);
+			return seconds;
 		},
 
 		/**
