@@ -893,8 +893,19 @@ var FlipClock;
 		 */
 		 
 		setTime: function(time) {
-			this.time.time = time;
-			this.flip(true);		
+			if (time instanceof Date) {
+				var now = new Date();
+
+				if (this.countdown) {
+					this.time.time = Math.floor((time.getTime() - now.getTime()) / 1000);
+				} else {
+					this.time.time = Math.floor((now.getTime() - time.getTime()) / 1000);
+				}
+			} else {
+				this.time.time = time;
+			}
+
+			this.flip(true);
 		},
 		
 		/**
