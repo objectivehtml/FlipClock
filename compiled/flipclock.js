@@ -186,9 +186,6 @@ var FlipClock;
 	/**
 	 * The Base FlipClock class is used to extend all other FlipFlock
 	 * classes. It handles the callbacks and the basic setters/getters
-	 *	
-	 * @param 	object  An object of the default properties
-	 * @param 	object  An object of properties to override the default	
 	 */
 
 	FlipClock.Base = Base.extend({
@@ -206,6 +203,18 @@ var FlipClock;
 		version: '0.7.7',
 		
 		/**
+		 * The bound events to this object
+		 */
+
+		_events: {},
+
+		/**
+		 * The bound events to this object
+		 */
+
+		_uid: false,
+		 
+		/**
 		 * Sets the default options
 		 *
 		 * @param	object 	The default options
@@ -219,6 +228,8 @@ var FlipClock;
 			if(typeof options !== "object") {
 				options = {};
 			}
+			this._events = {};
+			this._uid = (new FlipClock.Uuid()).toString();		
 			this.setOptions($.extend(true, {}, _default, options));
 		},
 		
@@ -304,844 +315,107 @@ var FlipClock;
 		  			this.setOption(key, options[key]);
 		  		}
 		  	}
-		}
-		
-	});
-	
-}(jQuery));
+		},
 
-/*jshint smarttabs:true */
-
-/**
- * FlipClock.js
- *
- * @author     Justin Kimbrell
- * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
- */
-	
-(function($) {
-	
-	"use strict";
-	
-	/**
-	 * The FlipClock Face class is the base class in which to extend
-	 * all other FlockClock.Face classes.
-	 *
-	 * @param 	object  The parent FlipClock.Factory object
-	 * @param 	object  An object of properties to override the default	
-	 */
-	 
-	FlipClock.Face = FlipClock.Base.extend({
-		
-		/**
-		 * Sets whether or not the clock should start upon instantiation
-		 */
-		 
-		autoStart: true,
-
-		/**
-		 * An array of jQuery objects used for the dividers (the colons)
-		 */
-		 
-		dividers: [],
-
-		/**
-		 * An array of FlipClock.List objects
-		 */		
-		 
-		factory: false,
-		
-		/**
-		 * An array of FlipClock.List objects
-		 */		
-		 
-		lists: [],
-
-		/**
-		 * Constructor
+		/*
+		 * Bind an event
 		 *
-		 * @param 	object  The parent FlipClock.Factory object
-		 * @param 	object  An object of properties to override the default	
-		 */
-		 
-		constructor: function(factory, options) {
-			this.dividers = [];
-			this.lists = [];
-			this.base(options);
-			this.factory = factory;
-		},
-		
-		/**
-		 * Build the clock face
-		 */
-		 
-		build: function() {
-			if(this.autoStart) {
-				this.start();
+		 * @param  string
+		 * @param  callback
+		*/
+
+		on: function(name, callback) {
+			if(!this._events[name]) {
+				this._events[name] = [];
 			}
+
+			var event = new FlipClock.Event(name, callback);
+
+			this._events[name].push(event);
+
+			return event;
 		},
-		
-		/**
-		 * Creates a jQuery object used for the digit divider
+
+		/*
+		 * Bind an event to be called once
 		 *
-		 * @param	mixed 	The divider label text
-		 * @param	mixed	Set true to exclude the dots in the divider. 
-		 *					If not set, is false.
-		 */
-		 
-		createDivider: function(label, css, excludeDots) {
-			if(typeof css == "boolean" || !css) {
-				excludeDots = css;
-				css = label;
-			}
+		 * @param  string
+		 * @param  callback
+		*/
 
-			var dots = [
-				'<span class="'+this.factory.classes.dot+' top"></span>',
-				'<span class="'+this.factory.classes.dot+' bottom"></span>'
-			].join('');
+		once: function(name, callback) {
+			var event = this.on(name, callback);
 
-			if(excludeDots) {
-				dots = '';	
-			}
-
-			label = this.factory.localize(label);
-
-			var html = [
-				'<span class="'+this.factory.classes.divider+' '+(css ? css : '').toLowerCase()+'">',
-					'<span class="'+this.factory.classes.label+'">'+(label ? label : '')+'</span>',
-					dots,
-				'</span>'
-			];	
-			
-			var $html = $(html.join(''));
-
-			this.dividers.push($html);
-
-			return $html;
+			event.setFireOnce(true);
 		},
-		
-		/**
-		 * Creates a FlipClock.List object and appends it to the DOM
+
+		/*
+		 * Remove all bound events for a specific trigger
 		 *
-		 * @param	mixed 	The digit to select in the list
-		 * @param	object  An object to override the default properties
-		 */
-		 
-		createList: function(digit, options) {
-			if(typeof digit === "object") {
-				options = digit;
-				digit = 0;
-			}
+		 * @param  string
+		 * @return 
+		*/
 
-			var obj = new FlipClock.List(this.factory, digit, options);
-		
-			this.lists.push(obj);
-
-			return obj;
-		},
-		
-		/**
-		 * Triggers when the clock is reset
-		 */
-
-		reset: function() {
-			this.factory.time = new FlipClock.Time(
-				this.factory, 
-				this.factory.original ? Math.round(this.factory.original) : 0,
-				{
-					minimumDigits: this.factory.minimumDigits
-				}
-			);
-
-			this.flip(this.factory.original, false);
-		},
-
-		/**
-		 * Append a newly created list to the clock
-		 */
-
-		appendDigitToClock: function(obj) {
-			obj.$el.append(false);
-		},
-
-		/**
-		 * Add a digit to the clock face
-		 */
-		 
-		addDigit: function(digit) {
-			var obj = this.createList(digit, {
-				classes: {
-					active: this.factory.classes.active,
-					before: this.factory.classes.before,
-					flip: this.factory.classes.flip
-				}
-			});
-
-			this.appendDigitToClock(obj);
-		},
-		
-		/**
-		 * Triggers when the clock is started
-		 */
-		 
-		start: function() {},
-		
-		/**
-		 * Triggers when the time on the clock stops
-		 */
-		 
-		stop: function() {},
-		
-		/**
-		 * Auto increments/decrements the value of the clock face
-		 */
-		 
-		autoIncrement: function() {
-			if(!this.factory.countdown) {
-				this.increment();
-			}
-			else {
-				this.decrement();
+		off: function(name) {
+			if(this._events[name]) {
+				delete this._events[name];
 			}
 		},
 
-		/**
-		 * Increments the value of the clock face
-		 */
-		 
-		increment: function() {
-			this.factory.time.addSecond();
-		},
+		/*
+		 * Remove all bound events for a specific trigger
+		 *
+		 * @param  string
+		 * @return 
+		*/
 
-		/**
-		 * Decrements the value of the clock face
-		 */
+		trigger: function(name) {
+			if(this._events[name]) {
+				var params = [];
 
-		decrement: function() {
-			if(this.factory.time.getTimeSeconds() == 0) {
-	        	this.factory.stop()
-			}
-			else {
-				this.factory.time.subSecond();
-			}
-		},
-			
-		/**
-		 * Triggers when the numbers on the clock flip
-		 */
-		 
-		flip: function(time, doNotAddPlayClass) {
-			var t = this;
-
-			$.each(time, function(i, digit) {
-				var list = t.lists[i];
-
-				if(list) {
-					if(!doNotAddPlayClass && digit != list.digit) {
-						list.play();	
+				for(var x in arguments) {
+					if(x > 0) {
+						params.push(arguments[x]);
 					}
-
-					list.select(digit);
-				}	
-				else {
-					t.addDigit(digit);
 				}
-			});
-		}
-					
-	});
-	
-}(jQuery));
 
-/*jshint smarttabs:true */
-
-/**
- * FlipClock.js
- *
- * @author     Justin Kimbrell
- * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
- */
-	
-(function($) {
-	
-	"use strict";
-	
-	/**
-	 * The FlipClock Factory class is used to build the clock and manage
-	 * all the public methods.
-	 *
-	 * @param 	object  A jQuery object or CSS selector used to fetch
-	 				    the wrapping DOM nodes
-	 * @param 	mixed   This is the digit used to set the clock. If an 
-	 				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
-	 */
-	 	
-	FlipClock.Factory = FlipClock.Base.extend({
-		
-		/**
-		 * The clock's animation rate.
-		 * 
-		 * Note, currently this property doesn't do anything.
-		 * This property is here to be used in the future to
-		 * programmaticaly set the clock's animation speed
-		 */		
-
-		animationRate: 1000,
-
-		/**
-		 * Auto start the clock on page load (True|False)
-		 */	
-		 
-		autoStart: true,
-		
-		/**
-		 * The callback methods
-		 */		
-		 
-		callbacks: {
-			destroy: false,
-			create: false,
-			init: false,
-			interval: false,
-			start: false,
-			stop: false,
-			reset: false
-		},
-		
-		/**
-		 * The CSS classes
-		 */		
-		 
-		classes: {
-			active: 'flip-clock-active',
-			before: 'flip-clock-before',
-			divider: 'flip-clock-divider',
-			dot: 'flip-clock-dot',
-			label: 'flip-clock-label',
-			flip: 'flip',
-			play: 'play',
-			wrapper: 'flip-clock-wrapper'
-		},
-		
-		/**
-		 * The name of the clock face class in use
-		 */	
-		 
-		clockFace: 'HourlyCounter',
-		 
-		/**
-		 * The name of the clock face class in use
-		 */	
-		 
-		countdown: false,
-		 
-		/**
-		 * The name of the default clock face class to use if the defined
-		 * clockFace variable is not a valid FlipClock.Face object
-		 */	
-		 
-		defaultClockFace: 'HourlyCounter',
-		 
-		/**
-		 * The default language
-		 */	
-		 
-		defaultLanguage: 'english',
-		 
-		/**
-		 * The jQuery object
-		 */		
-		 
-		$el: false,
-
-		/**
-		 * The FlipClock.Face object
-		 */	
-		 
-		face: true,
-		 
-		/**
-		 * The language object after it has been loaded
-		 */	
-		 
-		lang: false,
-		 
-		/**
-		 * The language being used to display labels (string)
-		 */	
-		 
-		language: 'english',
-		 
-		/**
-		 * The minimum digits the clock must have
-		 */		
-
-		minimumDigits: 0,
-
-		/**
-		 * The original starting value of the clock. Used for the reset method.
-		 */		
-		 
-		original: false,
-		
-		/**
-		 * Is the clock running? (True|False)
-		 */		
-		 
-		running: false,
-		
-		/**
-		 * The FlipClock.Time object
-		 */		
-		 
-		time: false,
-		
-		/**
-		 * The FlipClock.Timer object
-		 */		
-		 
-		timer: false,
-		
-		/**
-		 * The jQuery object (depcrecated)
-		 */		
-		 
-		$wrapper: false,
-		
-		/**
-		 * Constructor
-		 *
-		 * @param   object  The wrapping jQuery object
-		 * @param	object  Number of seconds used to start the clock
-		 * @param	object 	An object override options
-		 */
-		 
-		constructor: function(obj, digit, options) {
-
-			if(!options) {
-				options = {};
-			}
-
-			this.lists = [];
-			this.running = false;
-			this.base(options);	
-
-			this.$el = $(obj).addClass(this.classes.wrapper);
-
-			// Depcrated support of the $wrapper property.
-			this.$wrapper = this.$el;
-
-			this.original = (digit instanceof Date) ? digit : (digit ? Math.round(digit) : 0);
-
-			this.time = new FlipClock.Time(this, this.original, {
-				minimumDigits: this.minimumDigits,
-				animationRate: this.animationRate 
-			});
-
-			this.timer = new FlipClock.Timer(this, options);
-
-			this.loadLanguage(this.language);
-			
-			this.loadClockFace(this.clockFace, options);
-
-			if(this.autoStart) {
-				this.start();
-			}
-
-		},
-		
-		/**
-		 * Load the FlipClock.Face object
-		 *
-		 * @param	object  The name of the FlickClock.Face class
-		 * @param	object 	An object override options
-		 */
-		 
-		loadClockFace: function(name, options) {	
-			var face, suffix = 'Face', hasStopped = false;
-			
-			name = name.ucfirst()+suffix;
-
-			if(this.face.stop) {
-				this.stop();
-				hasStopped = true;
-			}
-
-			this.$el.html('');
-
-			this.time.minimumDigits = this.minimumDigits;
-			
-			if(FlipClock[name]) {
-				face = new FlipClock[name](this, options);
-			}
-			else {
-				face = new FlipClock[this.defaultClockFace+suffix](this, options);
-			}
-			
-			face.build();
-
-			this.face = face
-
-			if(hasStopped) {
-				this.start();
-			}
-			
-			return this.face;
-		},
-				
-		/**
-		 * Load the FlipClock.Lang object
-		 *
-		 * @param	object  The name of the language to load
-		 */
-		 
-		loadLanguage: function(name) {	
-			var lang;
-			
-			if(FlipClock.Lang[name.ucfirst()]) {
-				lang = FlipClock.Lang[name.ucfirst()];
-			}
-			else if(FlipClock.Lang[name]) {
-				lang = FlipClock.Lang[name];
-			}
-			else {
-				lang = FlipClock.Lang[this.defaultLanguage];
-			}
-			
-			return this.lang = lang;
-		},
-					
-		/**
-		 * Localize strings into various languages
-		 *
-		 * @param	string  The index of the localized string
-		 * @param	object  Optionally pass a lang object
-		 */
-
-		localize: function(index, obj) {
-			var lang = this.lang;
-
-			if(!index) {
-				return null;
-			}
-
-			var lindex = index.toLowerCase();
-
-			if(typeof obj == "object") {
-				lang = obj;
-			}
-
-			if(lang && lang[lindex]) {
-				return lang[lindex];
-			}
-
-			return index;
-		},
-		 
-
-		/**
-		 * Starts the clock
-		 */
-		 
-		start: function(callback) {
-			var t = this;
-
-			if(!t.running && (!t.countdown || t.countdown && t.time.time > 0)) {
-				t.face.start(t.time);
-				t.timer.start(function() {
-					t.flip();
-					
-					if(typeof callback === "function") {
-						callback();
-					}	
-				});
-			}
-			else {
-				t.log('Trying to start timer when countdown already at 0');
-			}
-		},
-		
-		/**
-		 * Stops the clock
-		 */
-		 
-		stop: function(callback) {
-			this.face.stop();
-			this.timer.stop(callback);
-			
-			for(var x in this.lists) {
-				if (this.lists.hasOwnProperty(x)) {
-					this.lists[x].stop();
+				for(var i in this._events[name]) {
+					this._events[name][i].fire(this, params);
 				}
-			}	
-		},
-		
-		/**
-		 * Reset the clock
-		 */
-		 
-		reset: function(callback) {
-			this.timer.reset(callback);
-			this.face.reset();
-		},
-		
-		/**
-		 * Sets the clock time
-		 */
-		 
-		setTime: function(time) {
-			this.time.time = time;
-			this.flip(true);		
-		},
-		
-		/**
-		 * Get the clock time
-		 *
-		 * @return  object  Returns a FlipClock.Time object
-		 */
-		 
-		getTime: function(time) {
-			return this.time;		
-		},
-		
-		/**
-		 * Changes the increment of time to up or down (add/sub)
-		 */
-		 
-		setCountdown: function(value) {
-			var running = this.running;
-			
-			this.countdown = value ? true : false;
-				
-			if(running) {
-				this.stop();
-				this.start();
+
+				return this._events[name];
 			}
 		},
-		
-		/**
-		 * Flip the digits on the clock
+
+		/*
+		 * Translate a string to the localized locale
 		 *
-		 * @param  array  An array of digits	 
-		 */
-		flip: function(doNotAddPlayClass) {	
-			this.face.flip(false, doNotAddPlayClass);
+		 * @param  
+		 * @return 
+		*/
+
+		localize: function(name) {
+			if(this.translator) {
+				this.translator.localize(name);
+			}
+
+			return name;
+		},
+
+		/*
+		 * Helper method for localize. t() is just short.
+		 *
+		 * @param  
+		 * @return 
+		*/
+
+		t: function(name) {
+			return this.localize(name);
 		}
 		
 	});
-		
-}(jQuery));
-
-/*jshint smarttabs:true */
-
-/**
- * FlipClock.js
- *
- * @author     Justin Kimbrell
- * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
- */
-	
-(function($) {
-	
-	"use strict";
-	
-	/**
-	 * The FlipClock List class is used to build the list used to create 
-	 * the card flip effect. This object fascilates selecting the correct
-	 * node by passing a specific digit.
-	 *
-	 * @param 	object  A FlipClock.Factory object
-	 * @param 	mixed   This is the digit used to set the clock. If an 
-	 *				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
-	 */
-	 	
-	FlipClock.List = FlipClock.Base.extend({
-		
-		/**
-		 * The digit (0-9)
-		 */		
-		 
-		digit: 0,
-		
-		/**
-		 * The CSS classes
-		 */		
-		 
-		classes: {
-			active: 'flip-clock-active',
-			before: 'flip-clock-before',
-			flip: 'flip'	
-		},
-				
-		/**
-		 * The parent FlipClock.Factory object
-		 */		
-		 
-		factory: false,
-		
-		/**
-		 * The jQuery object
-		 */		
-		 
-		$el: false,
-
-		/**
-		 * The jQuery object (deprecated)
-		 */		
-		 
-		$obj: false,
-		
-		/**
-		 * The items in the list
-		 */		
-		 
-		items: [],
-		
-		/**
-		 * The last digit
-		 */		
-		 
-		lastDigit: 0,
-			
-		/**
-		 * Constructor
-		 *
-		 * @param  object  A FlipClock.Factory object
-		 * @param  int     An integer use to select the correct digit
-		 * @param  object  An object to override the default properties	 
-		 */
-		 
-		constructor: function(factory, digit, options) {
-			this.factory = factory;
-			this.digit = digit;
-			this.lastDigit = digit;
-			this.$el = this.createList();
-			
-			// Depcrated support of the $obj property.
-			this.$obj = this.$el;
-
-			if(digit > 0) {
-				this.select(digit);
-			}
-
-			this.factory.$el.append(this.$el);
-		},
-		
-		/**
-		 * Select the digit in the list
-		 *
-		 * @param  int  A digit 0-9	 
-		 */
-		 
-		select: function(digit) {
-			if(typeof digit === "undefined") {
-				digit = this.digit;
-			}
-			else {
-				this.digit = digit;
-			}
-
-			if(this.digit != this.lastDigit) {
-				var $delete = this.$el.find('.'+this.classes.before).removeClass(this.classes.before);
-
-				this.$el.find('.'+this.classes.active).removeClass(this.classes.active)
-													  .addClass(this.classes.before);
-
-				this.appendListItem(this.classes.active, this.digit);
-
-				$delete.remove();
-
-				this.lastDigit = this.digit;
-			}	
-		},
-		
-		/**
-		 * Adds the play class to the DOM object
-		 */
-		 		
-		play: function() {
-			this.$el.addClass(this.factory.classes.play);
-		},
-		
-		/**
-		 * Removes the play class to the DOM object 
-		 */
-		 
-		stop: function() {
-			var t = this;
-
-			setTimeout(function() {
-				t.$el.removeClass(t.factory.classes.play);
-			}, this.factory.timer.interval);
-		},
-		
-		/**
-		 * Creates the list item HTML and returns as a string 
-		 */
-		 
-		createListItem: function(css, value) {
-			return [
-				'<li class="'+(css ? css : '')+'">',
-					'<a href="#">',
-						'<div class="up">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+(value ? value : '')+'</div>',
-						'</div>',
-						'<div class="down">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+(value ? value : '')+'</div>',
-						'</div>',
-					'</a>',
-				'</li>'
-			].join('');
-		},
-
-		/**
-		 * Append the list item to the parent DOM node 
-		 */
-
-		appendListItem: function(css, value) {
-			var html = this.createListItem(css, value);
-
-			this.$el.append(html);
-		},
-
-		/**
-		 * Create the list of digits and appends it to the DOM object 
-		 */
-		 
-		createList: function() {
-
-			var lastDigit = this.getPrevDigit() ? this.getPrevDigit() : this.digit;
-
-			var html = $([
-				'<ul class="'+this.classes.flip+' '+(this.factory.running ? this.factory.classes.play : '')+'">',
-					this.createListItem(this.classes.before, lastDigit),
-					this.createListItem(this.classes.active, this.digit),
-				'</ul>'
-			].join(''));
-					
-			return html;
-		},
-
-		getNextDigit: function() {
-			return this.digit == 9 ? 0 : this.digit + 1;
-		},
-
-		getPrevDigit: function() {
-			return this.digit == 0 ? 9 : this.digit - 1;
-		}
-
-	});
-	
 	
 }(jQuery));
-
 /*jshint smarttabs:true */
 
 /**
@@ -1203,12 +477,1070 @@ var FlipClock;
 (function($) {
 	
 	"use strict";
+	
+	/**
+	 * The FlipClock.List class is used to build the list used to create 
+	 * the card flip effect. This object fascilates selecting the correct
+	 * node by passing a specific value.
+	 *
+	 * @param 	mixed   This is the value used to set the clock. If an 
+	 *				    object is passed, 0 will be used.	
+	 * @param 	object  An object of properties to override the default	
+	 */
+	 	
+	FlipClock.List = FlipClock.Base.extend({
+		
+		/**
+		 * The CSS classes
+		 */		
+		 
+		classes: {
+			active: 'flip-clock-active',
+			before: 'flip-clock-before',
+			flip: 'flip',
+			play: 'play'
+		},
+				
+		/**
+		 * The jQuery object
+		 */		
+		 
+		$el: false,
+		
+		/**
+		 * The items in the list
+		 */		
+		 
+		items: [],
+		
+		/**
+		 * The last value selected in the list
+		 */		
+		 
+		lastValue: 0,
+			
+		/**
+		 * The selected value in the list
+		 */		
+		 
+		value: 0,
+		
+		/**
+		 * Constructor
+		 *
+		 * @param  object  A FlipClock.Factory object
+		 * @param  int     An string or integer use to select the correct value
+		 * @param  object  An object to override the default properties	 
+		 */
+		 
+		constructor: function(value, options) {
+			this.base(options);
+
+			this.value = value;
+
+			var t = this;
+
+			this.createList();
+
+			this.trigger('init');
+		},
+		
+		/**
+		 * Select the value in the list
+		 *
+		 * @param  int  A value 0-9	 
+		 */
+		 
+		select: function(value) {
+			var _afterListItem = this._afterListItem;
+
+			this.lastValue = this.value;
+
+			if(typeof value === "undefined") {
+				value = this.value;
+			}
+			else {
+				this.value = value;
+			}
+
+			if(this.value != this.lastValue) {
+				this._beforeListItem.$el.removeClass(this.classes.before);
+
+				this.$el.find('.'+this.classes.active)
+					.removeClass(this.classes.active)
+					.addClass(this.classes.before);
+
+				this.items.splice(0, 1);
+
+				this._afterListItem = this.createListItem(this.classes.active, this.value);
+
+				this._beforeListItem.$el.remove();
+				this._beforeListItem = _afterListItem;
+
+				this.trigger('select', this.value);
+			}	
+		},
+
+		/*
+		 * Add the play class to the list
+		 *
+		 * @return 
+		*/
+
+		addPlayClass: function() {
+			this.$el.addClass(this.classes.play);
+		},
+		
+		/*
+		 * Remove the play class to the list
+		 *
+		 * @return 
+		*/
+
+		removePlayClass: function() {
+			this.$el.removeClass(this.classes.play);
+		},
+		
+		/**
+		 * Creates the list item HTML and returns as a string 
+		 */
+		 
+		createListItem: function(css, value) {
+			var item = new FlipClock.ListItem(css, value);
+
+			this.items.push(item);
+
+			this.$el.append(item.$el);
+
+			this.trigger('create:item', item);
+
+			return item;
+		},
+
+		/**
+		 * Create the lsit of values and appends it to the DOM object 
+		 */
+		 
+		createList: function() {
+			var $el = this.$el = $('<ul class="'+this.classes.flip+'"></ul>');
+
+			this._beforeListItem = this.createListItem(this.classes.before, this.getPrevValue());
+			this._afterListItem = this.createListItem(this.classes.active, this.value);
+
+			$el.append(this._beforeListItem.el);
+			$el.append(this._afterListItem.el);
+			
+			this.trigger('create:list', $el);		
+
+			return $el;
+		}
+
+	});
+		
+}(jQuery));
+(function($) {
+
+	FlipClock.ListItem = FlipClock.Base.extend({
+		
+		css: null,
+
+		value: null,
+
+		classes: {
+			up: 'up',
+			down: 'down'
+		},
+
+		$el: false,
+		
+		constructor: function(css, value, options) {
+			this.base(options);
+			this.css = css;
+			this.value = value;
+			
+			this.$el = $([
+				'<li class="'+(css ? css : '')+'">',
+					'<a href="#">',
+						'<div class="'+this.classes.up+'">',
+							'<div class="shadow"></div>',
+							'<div class="inn">'+value+'</div>',
+						'</div>',
+						'<div class="'+this.classes.down+'">',
+							'<div class="shadow"></div>',
+							'<div class="inn">'+value+'</div>',
+						'</div>',
+					'</a>',
+				'</li>'
+			].join(''));
+		},
+
+		toString: function() {
+			return this.$el.html();
+		}
+
+	});
+
+}(jQuery));
+/*jshint smarttabs:true */
+
+/**
+ * FlipClock.js
+ *
+ * @author     Justin Kimbrell
+ * @copyright  2013 - Objective HTML, LLC
+ * @licesnse   http://www.opensource.org/licenses/mit-license.php
+ */
+	
+(function($) {
+	
+	"use strict";
+	
+	/**
+	 * The FlipClock List class is used to build the list used to create 
+	 * the card flip effect. This object fascilates selecting the correct
+	 * node by passing a specific value.
+	 *
+	 * @param 	mixed   This is the value used to set the clock. If an 
+	 *				    object is passed, 0 will be used.	
+	 * @param 	object  An object of properties to override the default	
+	 */
+
+	FlipClock.EnglishAlphaList = FlipClock.List.extend({
+
+		capitalLetters: true,
+		
+		getPrevValue: function() {
+			var charCode = this.value.charCodeAt(0) - 1;
+			var minCode = 65, maxCode = 90;
+
+			if(!this.capitalLetters) {
+				minCode = 97;
+				maxCode = 122;
+			}
+
+			if(charCode < minCode) {
+				charCode = maxCode;
+			}
+
+			return String.fromCharCode(charCode);
+		},
+
+		getNextValue: function() {
+			var charCode = this.value.charCodeAt(0) + 1;
+			var minCode = 65, maxCode = 90;
+
+			if(!this.capitalLetters) {
+				minCode = 97;
+				maxCode = 122;
+			}
+
+			if(charCode > maxCode) {
+				charCode = minCode;
+			}
+
+			return String.fromCharCode(charCode);
+		}
+
+	});
+	
+	
+}(jQuery));
+(function($) {
+
+	FlipClock.Divider = FlipClock.Base.extend({
+
+		label: false,
+
+		css: false,
+		
+		excludeDots: false,
+
+		translator: false,
+
+		classes: {
+			divider: 'flip-clock-divider',
+			dot: 'flip-clock-dot',
+			label: 'flip-clock-label'
+		},
+
+		$el: false,
+
+		constructor: function(label, options) {
+			this.base(options);
+
+			this.label = this.t(label);
+
+			var dots = !this.excludeDots ? [
+				'<span class="'+this.classes.dot+' top"></span>',
+				'<span class="'+this.classes.dot+' bottom"></span>'
+			].join('') : '';
+
+			this.$el = $([
+				'<span class="'+this.classes.divider+' '+(this.css ? this.css : '').toLowerCase()+'">',
+					'<span class="'+this.classes.label+'">'+(this.label ? this.label : '')+'</span>',
+					dots,
+				'</span>'
+			].join(''));
+
+		},
+
+		toString: function() {
+			return this.$el.html();
+		}
+
+	});
+
+}(jQuery));
+(function($) {
+
+	FlipClock.Event = FlipClock.Base.extend({
+
+		name: false,
+
+		_hasFired: false,
+
+		_lastResponse: null,
+
+		_preventFire: false,
+
+		_fireOnce: false,
+
+		_callback: function() {},
+
+		constructor: function(name, callback) {
+			if(!name) {
+				throw "Events must have a name";
+			}
+
+			if(typeof callback === "function") {
+				this._callback = callback;
+			}
+		},
+
+		fire: function(obj, arguments) {
+			if(this._preventFire === false) {
+				this.setLastResponse(this._callback.apply(obj, arguments));
+				this._hasFired = true;
+				if(this._fireOnce) {
+					this._preventFire = true;
+				}
+			}
+		},
+
+		off: function() {
+			this._preventFire = true;
+		},
+
+		hasFired: function() {
+			return this._hasFired;
+		},
+
+		getLastResponse: function() {
+			return this._lastResponse;
+		},
+
+		setLastResponse: function(response) {
+			this._lastResponse = response;
+		},
+
+		getFireOnce: function(value) {
+			return this._fireOnce;
+		},
+
+		setFireOnce: function(value) {
+			this._fireOnce = value;
+		}
+
+	});
+
+}(jQuery));
+/*jshint smarttabs:true */
+
+/**
+ * FlipClock.js
+ *
+ * @author     Justin Kimbrell
+ * @copyright  2013 - Objective HTML, LLC
+ * @licesnse   http://www.opensource.org/licenses/mit-license.php
+ */
+	
+(function($) {
+	
+	"use strict";
+	
+	/**
+	 * The FlipClock Face class is the base class in which to extend
+	 * all other FlockClock.Face classes.
+	 *
+	 * @param 	object  An object of properties to override the default	
+	 */
+	 
+	FlipClock.Face = FlipClock.Base.extend({
+		
+		/**
+		 * The clock's animation rate.
+		 * 
+		 * Note, currently this property doesn't do anything.
+		 * This property is here to be used in the future to
+		 * programmaticaly set the clock's animation speed
+		 */		
+
+		animationRate: 1000,
+
+		/**
+		 * Sets whether or not the clock should start upon instantiation
+		 */
+		 
+		autoStart: true,
+
+		/**
+		 * Sets whether or not the clock should countdown
+		 */
+		 
+		countdown: false,
+
+		/**
+		 * The default language
+		 */	
+		 
+		defaultLanguage: 'english',
+		 
+		/**
+		 * An array of jQuery objects used for the dividers (the colons)
+		 */
+		 
+		dividers: [],
+
+		/**
+		 * The language object after it has been loaded
+		 */	
+		 
+		lang: false,
+
+		/**
+		 * The language being used to display labels (string)
+		 */	
+		 
+		language: 'english',
+
+		/**
+		 * An array of FlipClock.List objects
+		 */		
+		 
+		lists: [],
+
+		/**
+		 * The minimum digits the clock must have
+		 */		
+
+		minimumDigits: 0,
+
+		/**
+		 * The original starting value of the clock face.
+		 */		
+		 
+		originalValue: 0,
+
+		/**
+		 * The FlipClock.Time object
+		 */		
+		 
+		time: false,
+		
+		/**
+		 * The FlipClock.Timer object
+		 */		
+		 
+		timer: false,
+		
+		/**
+		 * The FlipClock.Translator object
+		 */		
+		 
+		translator: false,
+
+		/**
+		 * The current value of the clock face.
+		 */		
+		 
+		value: false,
+		
+		/**
+		 * Constructor
+		 *
+		 * @param 	mixed
+		 * @param 	object
+		 */
+		 
+		constructor: function(value, options) {
+			var t = this;
+
+			if(value instanceof Date === false && typeof value === "object") {
+				options = value;
+				value = 0;
+			}
+
+			this.dividers = [];
+			this.lists = [];
+			this.originalValue = value;
+
+			this.translator = new FlipClock.Translator({
+				defaultLanguage: this.defaultLanguage,
+				language: this.language
+			});
+
+			this.time = new FlipClock.Time(value, {
+				minimumDigits: 0
+			});
+
+			this.timer = new FlipClock.Timer();
+
+			this.timer.on('interval', function() {
+				t.flip();
+				t.trigger('interval');
+			});
+
+			this.base(options);
+
+			this.on('add:digit', function(list) {
+				if(this.dividers.length) {
+					for(var i in this.dividers) {
+						var divider = this.dividers[i];
+
+						if(!divider.$el.is(':first-child')) {
+							divider.$el.insertAfter(divider.$el.next());
+						}
+					}
+				}
+			});
+
+			this.trigger('create');
+		},
+		
+		/**
+		 * Add a digit to the clock face
+		 */
+		 
+		addDigit: function(digit) {
+			var list = this.createList(digit);
+
+			console.log(this._events);
+
+			this.trigger('add:digit', list);
+
+			return list;
+		},
+
+		attachList: function($el, list) {
+			$el.append(list.$el);
+		},
+			
+		/**
+		 * Build the clock face
+		 */
+		 
+		build: function() {
+			if(this.autoStart) {
+				this.start();
+			}
+		},
+	
+		/**
+		 * Perform arbirtrary logic when the clock face instantiated.
+		 * The factor object is passed in the first argument
+		 *
+		 * @param  object
+		 */
+
+		init: function(factory) {
+			this.trigger('init');
+		},
+		
+		/**
+		 * Creates a jQuery object used for the digit divider
+		 *
+		 * @param	mixed 	The divider label text
+		 * @param	mixed	Set true to exclude the dots in the divider. 
+		 *					If not set, is false.
+		 */
+		 
+		createDivider: function(label, css, excludeDots) {
+			if(typeof css == "boolean" || !css) {
+				excludeDots = css;
+				css = false;
+			}
+
+			var divider = new FlipClock.Divider(label, {
+				css: css,
+				excludeDots: excludeDots,
+				translator: this.translator
+			});
+
+			this.dividers.push(divider);
+
+			return divider;
+		},
+		
+		/**
+		 * Creates a FlipClock.List object and appends it to the DOM
+		 *
+		 * @param	mixed 	The value to select in the list
+		 * @param	object  An object to override the default properties
+		 */
+		 
+		createList: function(value, options) {
+			var List = this.getListClass();
+
+			var list = new List(value, {
+				translator: this.translator
+			});
+		
+			if(this.timer.running) {
+				list.addPlayClass();
+			}
+
+			this.lists.push(list);
+
+			this.trigger('create:list', list);
+
+			return list;
+		},
+
+		/*
+		 * Get the list class object
+		 *
+		 * @return 
+		*/
+
+		getListClass: function() {
+			return FlipClock.NumericList;
+		},
+		
+		/**
+		 * Triggers when the clock is reset
+		 */
+
+		reset: function() {
+			this.time.time = Math.round(this.originalValue);
+			this.flip();
+			this.trigger('reset');
+		},
+
+		/**
+		 * Starts the clock
+		 */
+		 
+		start: function() {
+			if(!this.timer.running) {
+				this.trigger('before:start');
+				this.timer.start();
+				this.trigger('start');
+			}
+		},
+		
+		/**
+		 * Stops the clock
+		 */
+		 
+		stop: function() {
+			var t = this;
+			this.trigger('before:stop');
+			this.timer.stop(function() {
+				t.trigger('stop');
+			});
+		},
+		
+		/**
+		 * Auto increments/decrements the value of the clock face
+		 */
+		 
+		autoIncrement: function() {
+			if(!this.countdown) {
+				this.increment();
+			}
+			else {
+				this.decrement();
+			}
+		},
+
+		/**
+		 * Increments the value of the clock face
+		 */
+		 
+		increment: function() {
+			this.time.addSecond();
+		},
+
+		/**
+		 * Decrements the value of the clock face
+		 */
+
+		decrement: function() {
+			if(this.time.getTimeSeconds() == 0) {
+	        	this.stop()
+			}
+			else {
+				this.time.subSecond();
+			}
+		},
+		
+		/**
+		 * Triggers when the numbers on the clock flip
+		 */
+		 
+		flip: function(time) {
+			var t = this;
+
+			$.each(time, function(i, digit) {
+				if(t.lists[i]) {
+					t.lists[i].select(digit);
+
+					if(t.timer.running) {
+						t.lists[i].addPlayClass();
+					}
+				}	
+				else {
+					t.addDigit(digit);
+				}
+			});
+
+			this.trigger('flip');
+		},
+
+		/**
+		 * Sets the clock time
+		 */
+		 
+		setTime: function(time) {
+			this.time.time = time;
+			this.flip();		
+		},
+		
+		/**
+		 * Get the clock time
+		 *
+		 * @return  object  Returns a FlipClock.Time object
+		 */
+		 
+		getTime: function(time) {
+			return this.time;		
+		},
+
+		/**
+		 * Changes the increment of time to up or down (add/sub)
+		 */
+		
+		setCountdown: function(value) {			
+			this.countdown = value ? true : false;
+				
+			if(this.timer.running) {
+				this.stop();
+				this.start();
+			}
+		}	
+
+	});
+	
+}(jQuery));
+
+/*jshint smarttabs:true */
+
+/**
+ * FlipClock.js
+ *
+ * @author     Justin Kimbrell
+ * @copyright  2013 - Objective HTML, LLC
+ * @licesnse   http://www.opensource.org/licenses/mit-license.php
+ */
+	
+(function($) {
+	
+	"use strict";
+	
+	/**
+	 * The FlipClock Factory class is used to build the clock and manage
+	 * all the public methods.
+	 *
+	 * @param 	object  A jQuery object or CSS selector used to fetch
+	 				    the wrapping DOM nodes
+	 * @param 	mixed   This is the digit used to set the clock. If an 
+	 				    object is passed, 0 will be used.	
+	 * @param 	object  An object of properties to override the default	
+	 */
+	 	
+	FlipClock.Factory = FlipClock.Base.extend({
+		
+		/**
+		 * The CSS classes
+		 */		
+		 
+		classes: {
+			wrapper: 'flip-clock-wrapper'
+		},
+		
+		/**
+		 * The name of the clock face class in use
+		 */	
+		 
+		clockFace: 'HourlyCounter',
+		 
+		/**
+		 * The FlipClock.Face options object
+		 */	
+		 
+		clockFaceOptions: {},
+		 
+		/**
+		 * The name of the default clock face class to use if the defined
+		 * clockFace variable is not a valid FlipClock.Face object
+		 */	
+		 
+		defaultClockFace: 'HourlyCounter',
+		 
+		/**
+		 * The jQuery object
+		 */		
+		 
+		$el: false,
+
+		/**
+		 * The FlipClock.Face object
+		 */	
+		 
+		face: false,		 
+		 
+		/**
+		 * Constructor
+		 *
+		 * @param   object  The wrapping jQuery object
+		 * @param	object  Number of seconds used to start the clock
+		 * @param	object 	An object override options
+		 * @return
+		 */
+		 
+		constructor: function($el, value, options) {			
+			if(value instanceof Date === false && typeof value === "object") {
+				options = value;
+				value = 0;
+			}
+
+			this.base(options);
+
+			this.lists = [];
+			
+			this.$el = $el.addClass(this.classes.wrapper);
+
+			this.loadClockFace(this.clockFace, value, this.clockFaceOptions);
+		},
+		
+		/**
+		 * Load the FlipClock.Face object
+		 *
+		 * @param	object  The name of the FlickClock.Face class
+		 * @param	object 	An object override options
+		 * @return  object
+		 */
+		 
+		loadClockFace: function(name, value, options) {	
+			var t = this, face, suffix = 'Face', hasStopped = false;
+			
+			name = name.ucfirst()+suffix;
+
+			if(this.face.stop) {
+				this.stop();
+				hasStopped = true;
+			}
+
+			this.$el.html('');
+
+			if(FlipClock[name]) {
+				this.face = new FlipClock[name](value, options);
+			}
+			else {
+				this.face = new FlipClock[this.defaultClockFace+suffix](value, options);
+			}
+
+			this.face.on('create:list', function(list) {
+				t.face.attachList(t.$el, list);
+			});
+
+			this.face.on('destroy', function() {
+				t.callback(t.onDestroy);
+			});
+
+			this.face.on('start', function() {
+				t.callback(t.onStart);
+			});
+			
+			this.face.on('stop', function() {
+				t.callback(t.onStop);
+			});
+			
+			this.face.on('reset', function() {
+				t.callback(t.onReset);
+			});
+			
+			this.face.on('init', function() {
+				t.callback(t.onInit);
+			});
+			
+			this.face.on('interval', function() {
+				t.callback(t.onInterval);
+			});
+			
+			this.face.init(this);
+
+			this.face.build();
+
+			if(hasStopped) {
+				this.start();
+			}
+			
+			return this.face;
+		},
+			
+		/**
+		 * Starts the clock
+		 *
+		 * @return  object
+		 */
+		 
+		start: function() {
+			this.face.start();
+
+			return this;
+		},
+		
+		/**
+		 * Stops the clock
+		 *
+		 * @return  object
+		 */
+		 
+		stop: function() {
+			this.face.stop();
+			
+			return this;
+		},
+
+		/**
+		 * Reset the clock
+		 *
+		 * @return  object
+		 */
+		 
+		reset: function() {
+			this.face.reset();
+			
+			return this;
+		},
+
+		/**
+		 * Sets the clock time
+		 *
+		 * @return  object
+		 */
+		 
+		setTime: function(time) {
+			this.face.setTime(time);
+			
+			return this;
+		},
+
+		/**
+		 * Gets the clock time
+		 *
+		 * @return  object
+		 */
+		 
+		getTime: function() {
+			this.face.getTime();
+			
+			return this;
+		},
+
+		onDestroy: function() {},
+		
+		onCreate: function() {},
+		
+		onInit: function() {},
+		
+		onInterval: function() {},
+		
+		onStart: function() {},
+		
+		onStop: function() {},
+		
+		onReset: function() {}
+		
+	});
+		
+}(jQuery));
+
+/*jshint smarttabs:true */
+
+/**
+ * FlipClock.js
+ *
+ * @author     Justin Kimbrell
+ * @copyright  2013 - Objective HTML, LLC
+ * @licesnse   http://www.opensource.org/licenses/mit-license.php
+ */
+	
+(function($) {
+	
+	"use strict";
+	
+	/**
+	 * The FlipClock.List class is used to build the list used to create 
+	 * the card flip effect. This object fascilates selecting the correct
+	 * node by passing a specific value.
+	 *
+	 * @param 	mixed   This is the value used to set the clock. If an 
+	 *				    object is passed, 0 will be used.	
+	 * @param 	object  An object of properties to override the default	
+	 */
+
+	FlipClock.NumericList = FlipClock.List.extend({
+		
+		getPrevValue: function() {
+			if(this.value > 0) {
+				return this.value - 1;
+			}
+
+			return 9;
+		},
+
+		getNextValue: function() {
+			if(this.value < 9) {
+				return this.value + 1;
+			}
+
+			return 0;
+		}
+
+	});
+	
+	
+}(jQuery));
+/*jshint smarttabs:true */
+
+/**
+ * FlipClock.js
+ *
+ * @author     Justin Kimbrell
+ * @copyright  2013 - Objective HTML, LLC
+ * @licesnse   http://www.opensource.org/licenses/mit-license.php
+ */
+	
+(function($) {
+	
+	"use strict";
 			
 	/**
 	 * The FlipClock Time class is used to manage all the time 
 	 * calculations.
 	 *
-	 * @param 	object  A FlipClock.Factory object
 	 * @param 	mixed   This is the digit used to set the clock. If an 
 	 *				    object is passed, 0 will be used.	
 	 * @param 	object  An object of properties to override the default	
@@ -1223,12 +1555,6 @@ var FlipClock;
 		time: 0,
 		
 		/**
-		 * The parent FlipClock.Factory object
-		 */		
-		 
-		factory: false,
-		
-		/**
 		 * The minimum number of digits the clock face must have
 		 */		
 		 
@@ -1237,26 +1563,24 @@ var FlipClock;
 		/**
 		 * Constructor
 		 *
-		 * @param  object  A FlipClock.Factory object
 		 * @param  int     An integer use to select the correct digit
 		 * @param  object  An object to override the default properties	 
 		 */
 		 
-		constructor: function(factory, time, options) {
+		constructor: function(time, options) {
 			if(typeof options != "object") {
 				options = {};
 			}
 
-			if(!options.minimumDigits) {
-				options.minimumDigits = factory.minimumDigits;
+			if(time instanceof Date) {
+				this.time = time;
+			}
+			else if(time) {
+				this.time = Math.round(time);
 			}
 
 			this.base(options);
-			this.factory = factory;
 
-			if(time) {
-				this.time = time;
-			}
 		},
 
 		/**
@@ -1491,13 +1815,13 @@ var FlipClock;
 		 * @return  int   Returns a floored integer
 		 */
 		 
-		getTimeSeconds: function(date) {
+		getTimeSeconds: function(countdown, date) {
 			if(!date) {
 				date = new Date();
 			}
 
 			if (this.time instanceof Date) {
-				if (this.factory.countdown) {
+				if (countdown) {
 					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
 				} else {
 					return date.getTime()/1000 - this.time.getTime()/1000 ;
@@ -1522,9 +1846,6 @@ var FlipClock;
 				date = this.getDateObject();
 			}
 
-			console.log(date);
-
-			
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
 			var data   = [
@@ -1686,37 +2007,22 @@ var FlipClock;
 	/**
 	 * The FlipClock.Timer object managers the JS timers
 	 *
-	 * @param	object  The parent FlipClock.Factory object
 	 * @param	object  Override the default options
 	 */
 	
 	FlipClock.Timer = FlipClock.Base.extend({
 		
 		/**
-		 * Callbacks
+		 * The rate of the animation in milliseconds (not currently in use)
 		 */		
 		 
-		callbacks: {
-			destroy: false,
-			create: false,
-			init: false,
-			interval: false,
-			start: false,
-			stop: false,
-			reset: false
-		},
-		
+		animationRate: 1000,
+
 		/**
 		 * FlipClock timer count (how many intervals have passed)
 		 */		
 		 
 		count: 0,
-		
-		/**
-		 * The parent FlipClock.Factory object
-		 */		
-		 
-		factory: false,
 		
 		/**
 		 * Timer interval (1 second by default)
@@ -1725,10 +2031,10 @@ var FlipClock;
 		interval: 1000,
 
 		/**
-		 * The rate of the animation in milliseconds (not currently in use)
+		 * Is the timer running?
 		 */		
 		 
-		animationRate: 1000,
+		running: false,
 				
 		/**
 		 * Constructor
@@ -1736,11 +2042,9 @@ var FlipClock;
 		 * @return	void
 		 */		
 		 
-		constructor: function(factory, options) {
+		constructor: function(options) {
 			this.base(options);
-			this.factory = factory;
-			this.callback(this.callbacks.init);	
-			this.callback(this.callbacks.create);
+			this.trigger('init');
 		},
 		
 		/**
@@ -1773,8 +2077,8 @@ var FlipClock;
 		reset: function(callback) {
 			clearInterval(this.timer);
 			this.count = 0;
-			this._setInterval(callback);			
-			this.callback(this.callbacks.reset);
+			this._setInterval(callback);
+			this.trigger('reset');
 		},
 		
 		/**
@@ -1784,10 +2088,10 @@ var FlipClock;
 		 * @return	void
 		 */		
 		 
-		start: function(callback) {		
-			this.factory.running = true;
+		start: function(callback) {	
+			this.running = true;	
 			this._createTimer(callback);
-			this.callback(this.callbacks.start);
+			this.trigger('start');
 		},
 		
 		/**
@@ -1798,10 +2102,15 @@ var FlipClock;
 		 */		
 		 
 		stop: function(callback) {
-			this.factory.running = false;
-			this._clearInterval(callback);
-			this.callback(this.callbacks.stop);
-			this.callback(callback);
+			var t = this;
+
+			this.running = false;
+			this._clearInterval();
+
+			setTimeout(function() {
+				t.callback(callback);
+				t.trigger('stop');
+			}, this.interval);
 		},
 		
 		/**
@@ -1832,11 +2141,12 @@ var FlipClock;
 		 * @return	void
 		 */		
 		 	
-		_destroyTimer: function(callback) {
-			this._clearInterval();			
+		destroyTimer: function(callback) {
+			this._clearInterval();
+			this.running = false;		
 			this.timer = false;
 			this.callback(callback);
-			this.callback(this.callbacks.destroy);
+			this.trigger('destroy')
 		},
 		
 		/**
@@ -1847,8 +2157,8 @@ var FlipClock;
 		 */		
 		 
 		_interval: function(callback) {
-			this.callback(this.callbacks.interval);
 			this.callback(callback);
+			this.trigger('interval');
 			this.count++;
 		},
 		
@@ -1872,7 +2182,133 @@ var FlipClock;
 	});
 	
 }(jQuery));
+(function() {
 
+	FlipClock.Translator = FlipClock.Base.extend({
+
+		/**
+		 * The default language
+		 */	
+		 
+		defaultLanguage: 'english',
+		 
+		/**
+		 * The language being used to display labels (string)
+		 */	
+		 
+		language: 'english',
+
+		/**
+		 * The language object after it has been loaded
+		 */	
+		 
+		lang: false,
+
+		/*
+		 * Constructor
+		 *
+		 * @param  string
+		 * @return 
+		*/
+
+		constructor: function(options) {
+			this.base(options);
+			this.loadLanguage(this.language);
+		},
+
+		/**
+		 * Load the FlipClock.Lang object
+		 *
+		 * @param	object  The name of the language to load
+		 */
+		 
+		loadLanguage: function(name) {	
+			var lang;
+			
+			if(FlipClock.Lang[name.ucfirst()]) {
+				lang = FlipClock.Lang[name.ucfirst()];
+			}
+			else if(FlipClock.Lang[name]) {
+				lang = FlipClock.Lang[name];
+			}
+			else {
+				lang = FlipClock.Lang[this.defaultLanguage];
+			}
+			
+			return this.lang = lang;
+		},
+					
+		/**
+		 * Localize strings into various languages
+		 *
+		 * @param	string  The index of the localized string
+		 * @param	object  Optionally pass a lang object
+		 */
+
+		localize: function(index, obj) {
+			var lang = this.lang;
+
+			if(!index) {
+				return null;
+			}
+
+			var lindex = index.toLowerCase();
+
+			if(typeof obj == "object") {
+				lang = obj;
+			}
+
+			if(lang && lang[lindex]) {
+				return lang[lindex];
+			}
+
+			return index;
+		}
+
+	});
+
+}());
+(function($) {
+
+	FlipClock.Uuid = FlipClock.Base.extend({
+		
+		value: false,
+
+		constructor: function() {
+			this.value = this.generate();
+		},
+
+		generate: function() {
+			var d = new Date().getTime();
+		    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		        var r = (d + Math.random()*16)%16 | 0;
+		        d = Math.floor(d/16);
+		        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+		    });
+		    return uuid;
+		},
+
+		equals: function(other) {
+		    return this.isUuid(other) && value == other;
+		},
+
+		isUuid: function(value) {
+			var validator = new RegExp("^[a-z0-9]{32}$", "i");
+
+			return value && (value instanceof Uuid || validator.test(value.toString()));
+		},
+
+		toString: function() {
+			return this.value;
+		},
+
+		toJSON: function() {
+			return this.value;
+		}
+
+	});
+
+}(jQuery));
 (function($) {
 	
 	/**
@@ -1880,22 +2316,10 @@ var FlipClock;
 	 *
 	 * This class will generate a twenty-four our clock for FlipClock.js
 	 *
-	 * @param  object  The parent FlipClock.Factory object
 	 * @param  object  An object of properties to override the default	
 	 */
 	 
 	FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
-
-		/**
-		 * Constructor
-		 *
-		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default	
-		 */
-		 
-		constructor: function(factory, options) {
-			this.base(factory, options);
-		},
 
 		/**
 		 * Build the clock face
@@ -1904,28 +2328,14 @@ var FlipClock;
 		 */
 		 
 		build: function(time) {
-			var t        = this;
-			var children = this.factory.$el.find('ul');
+			var time = time ? time : this.time.getMilitaryTime(false, this.showSeconds);
 
-			if(!this.factory.time.time) {
-				this.factory.original = new Date();
-
-				this.factory.time = new FlipClock.Time(this.factory, this.factory.original);
-			}
-
-			var time = time ? time : this.factory.time.getMilitaryTime(false, this.showSeconds);
-
-			if(time.length > children.length) {
-				$.each(time, function(i, digit) {
-					t.createList(digit);
-				});
+			for(var i in time) {
+				this.createList(time[i]);
 			}
 			
-			this.createDivider();
-			this.createDivider();
-
-			$(this.dividers[0]).insertBefore(this.lists[this.lists.length - 2].$el);
-			$(this.dividers[1]).insertBefore(this.lists[this.lists.length - 4].$el);
+			this.createDivider().$el.insertBefore(this.lists[this.lists.length - 2].$el);
+			this.createDivider().$el.insertBefore(this.lists[this.lists.length - 4].$el);
 			
 			this.base();
 		},
@@ -1937,9 +2347,9 @@ var FlipClock;
 		flip: function(time, doNotAddPlayClass) {
 			this.autoIncrement();
 			
-			time = time ? time : this.factory.time.getMilitaryTime(false, this.showSeconds);
+			time = time ? time : this.time.getMilitaryTime(false, this.showSeconds);
 			
-			this.base(time, doNotAddPlayClass);	
+			this.base(time);	
 		}
 				
 	});
@@ -1952,9 +2362,6 @@ var FlipClock;
 	 *
 	 * This class will generate a generice flip counter. The timer has been
 	 * disabled. clock.increment() and clock.decrement() have been added.
-	 *
-	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
 	 */
 	 
 	FlipClock.CounterFace = FlipClock.Face.extend({
@@ -1969,98 +2376,90 @@ var FlipClock;
 		 * Constructor
 		 *
 		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default	
+		 * @param  object  An object of properties to override the default
+		 * @return	
 		 */
 		 
-		constructor: function(factory, options) {
+		constructor: function(value, options) {
+			this.base(value, options);
 
-			if(typeof options != "object") {
-				options = {};
-			}
+			this.timer.off('stop');
 
-			factory.autoStart = options.autoStart ? true : false;
-
-			if(options.autoStart) {
+			this.on('before:start', function() {
 				this.shouldAutoIncrement = true;
-			}
+			});
 
-			factory.increment = function() {
-				factory.countdown = false;
-				factory.setTime(factory.getTime().getTimeSeconds() + 1);
-			};
+			this.on('before:stop', function() {
+				this.shouldAutoIncrement = false;
+			});
 
-			factory.decrement = function() {
-				factory.countdown = true;
-				var time = factory.getTime().getTimeSeconds();
-				if(time > 0) {
-					factory.setTime(time - 1);
-				}
-			};
-
-			factory.setValue = function(digits) {
-				factory.setTime(digits);
-			};
-
-			factory.setCounter = function(digits) {
-				factory.setTime(digits);
-			};
-
-			this.base(factory, options);
+			this.on('create:list', function(list) {
+				list.addPlayClass();
+			});
 		},
 
 		/**
 		 * Build the clock face	
+		 *	
+		 * @return
 		 */
 		 
 		build: function() {
-			var t        = this;
-			var children = this.factory.$el.find('ul');
-			var time 	 = this.factory.getTime().digitize([this.factory.getTime().time]);
+			var t = this, time = this.getTime().digitize([this.getTime().time]);
 
-			if(time.length > children.length) {
-				$.each(time, function(i, digit) {
-					var list = t.createList(digit);
-
-					list.select(digit);
-				});
-			
-			}
-
-			$.each(this.lists, function(i, list) {
-				list.play();
+			$.each(time, function(i, value) {
+				t.createList(value);
 			});
+
+			if(this.autoStart) {
+				this.shouldAutoIncrement = true;
+			}
 
 			this.base();
 		},
 		
 		/**
 		 * Flip the clock face
+		 *	
+		 * @return
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {			
+		flip: function(time) {
 			if(this.shouldAutoIncrement) {
 				this.autoIncrement();
 			}
 
-			if(!time) {		
-				time = this.factory.getTime().digitize([this.factory.getTime().time]);
+			if(!time) {
+				time = this.getTime().digitize([this.getTime().time]);
 			}
 
-			this.base(time, doNotAddPlayClass);
+			this.base(time);
 		},
 
 		/**
-		 * Reset the clock face
+		 * Perform arbirtrary logic when the clock face instantiated.
+		 * The factor object is passed in the first argument
+		 *
+		 * @param  object
+		 * @return
 		 */
 
-		reset: function() {
-			this.factory.time = new FlipClock.Time(
-				this.factory, 
-				this.factory.original ? Math.round(this.factory.original) : 0
-			);
+		init: function(factory) {
+			var t = this;
 
-			this.flip();
+			factory.increment = function() {
+				t.increment();
+				t.flip();
+			};
+
+			factory.decrement = function() {
+				t.decrement();
+				t.flip();
+			};
+
+			this.base(factory);
 		}
+
 	});
 	
 }(jQuery));
@@ -2074,7 +2473,6 @@ var FlipClock;
 	 * the number of available digits is exceeded in the count, a new
 	 * digit will be created.
 	 *
-	 * @param  object  The parent FlipClock.Factory object
 	 * @param  object  An object of properties to override the default
 	 */
 
@@ -2083,44 +2481,27 @@ var FlipClock;
 		showSeconds: true,
 
 		/**
-		 * Constructor
-		 *
-		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default
-		 */
-
-		constructor: function(factory, options) {
-			this.base(factory, options);
-		},
-
-		/**
 		 * Build the clock face
 		 */
 
-		build: function(time) {
-			var t = this;
-			var children = this.factory.$el.find('ul');
-			var offset = 0;
+		build: function(time) {			
+			var offset = 0, time = time ? time : this.time.getDayCounter(this.showSeconds);
 
-			time = time ? time : this.factory.time.getDayCounter(this.showSeconds);
-
-			if(time.length > children.length) {
-				$.each(time, function(i, digit) {
-					t.createList(digit);
-				});
+			for(var i in time) {
+				this.createList(time[i]);
 			}
 
 			if(this.showSeconds) {
-				$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
+				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
 			}
 			else
 			{
 				offset = 2;
 			}
 
-			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4 + offset].$el);
-			$(this.createDivider('Hours')).insertBefore(this.lists[this.lists.length - 6 + offset].$el);
-			$(this.createDivider('Days', true)).insertBefore(this.lists[0].$el);
+			this.createDivider('Minutes').$el.insertBefore(this.lists[this.lists.length - 4 + offset].$el);
+			this.createDivider('Hours').$el.insertBefore(this.lists[this.lists.length - 6 + offset].$el);
+			this.createDivider('Days', true).$el.insertBefore(this.lists[0].$el);
 
 			this.base();
 		},
@@ -2129,14 +2510,13 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 
-		flip: function(time, doNotAddPlayClass) {
+		flip: function(time) {
 			if(!time) {
-				time = this.factory.time.getDayCounter(this.showSeconds);
+				time = this.time.getDayCounter(this.showSeconds);
 			}
 
 			this.autoIncrement();
-
-			this.base(time, doNotAddPlayClass);
+			this.base(time);
 		}
 
 	});
@@ -2158,42 +2538,24 @@ var FlipClock;
 	 
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
 			
-		// clearExcessDigits: true,
-
-		/**
-		 * Constructor
-		 *
-		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default	
-		 */
-		 
-		constructor: function(factory, options) {
-			this.base(factory, options);
-		},
-		
 		/**
 		 * Build the clock face
 		 */
 		
 		build: function(excludeHours, time) {
-			var t = this;
-			var children = this.factory.$el.find('ul');
+			var time = time ? time : this.time.getHourCounter();
 			
-			time = time ? time : this.factory.time.getHourCounter();
-			
-			if(time.length > children.length) {
-				$.each(time, function(i, digit) {
-					t.createList(digit);
-				});
+			for(var i in time) {
+				this.createList(time[i]);
 			}
-			
-			$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
-			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4].$el);
+
+			this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
+			this.createDivider('Minutes').$el.insertBefore(this.lists[this.lists.length - 4].$el);
 			
 			if(!excludeHours) {
-				$(this.createDivider('Hours', true)).insertBefore(this.lists[0].$el);
+				this.createDivider('Hours', true).$el.insertBefore(this.lists[0].$el);
 			}
-			
+
 			this.base();
 		},
 		
@@ -2201,14 +2563,13 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {
+		flip: function(time) {
 			if(!time) {
-				time = this.factory.time.getHourCounter();
+				time = this.time.getHourCounter();
 			}	
 
 			this.autoIncrement();
-		
-			this.base(time, doNotAddPlayClass);
+			this.base(time);
 		},
 
 		/**
@@ -2232,44 +2593,33 @@ var FlipClock;
 	 * This class will generate a minute counter for FlipClock.js. A
 	 * minute counter will track minutes and seconds. If an hour is 
 	 * reached, the counter will reset back to 0. (4 digits max)
-	 *
-	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
+	 *	
 	 */
 	 
 	FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({
 
-		clearExcessDigits: false,
-
 		/**
-		 * Constructor
-		 *
-		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default	
-		 */
-		 
-		constructor: function(factory, options) {
-			this.base(factory, options);
-		},
-		
-		/**
-		 * Build the clock face	
+		 * Build the clock face
+		 *	
+		 * @return
 		 */
 		 
 		build: function() {
-			this.base(true, this.factory.time.getMinuteCounter());
+			this.base(true, this.time.getMinuteCounter());
 		},
 		
 		/**
 		 * Flip the clock face
+		 *	
+		 * @return
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {
+		flip: function(time) {
 			if(!time) {
-				time = this.factory.time.getMinuteCounter();
+				time = this.time.getMinuteCounter();
 			}
 
-			this.base(time, doNotAddPlayClass);
+			this.base(time);
 		}
 
 	});
@@ -2281,9 +2631,6 @@ var FlipClock;
 	 * Twelve Hour Clock Face
 	 *
 	 * This class will generate a twelve hour clock for FlipClock.js
-	 *
-	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
 	 */
 	 
 	FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
@@ -2309,7 +2656,7 @@ var FlipClock;
 		build: function() {
 			var t = this;
 
-			var time = this.factory.time.getTime(false, this.showSeconds);
+			var time = this.time.getTime(false, this.showSeconds);
 
 			this.base(time);			
 			this.meridiumText = this.getMeridium();			
@@ -2328,12 +2675,12 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {			
+		flip: function(time) {			
 			if(this.meridiumText != this.getMeridium()) {
 				this.meridiumText = this.getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
 			}
-			this.base(this.factory.time.getTime(false, this.showSeconds), doNotAddPlayClass);	
+			this.base(this.time.getTime(false, this.showSeconds));	
 		},
 		
 		/**
@@ -2343,7 +2690,7 @@ var FlipClock;
 		 */
 		 
 		getMeridium: function() {
-			return new Date().getHours() >= 12 ? 'PM' : 'AM';
+			return new Date().getHours() >= 12 ? this.t('PM') : this.t('AM');
 		},
 		
 		/**
