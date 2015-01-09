@@ -14,42 +14,24 @@
 	 
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
 			
-		// clearExcessDigits: true,
-
-		/**
-		 * Constructor
-		 *
-		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default	
-		 */
-		 
-		constructor: function(factory, options) {
-			this.base(factory, options);
-		},
-		
 		/**
 		 * Build the clock face
 		 */
 		
 		build: function(excludeHours, time) {
-			var t = this;
-			var children = this.factory.$el.find('ul');
+			var time = time ? time : this.time.getHourCounter();
 			
-			time = time ? time : this.factory.time.getHourCounter();
-			
-			if(time.length > children.length) {
-				$.each(time, function(i, digit) {
-					t.createList(digit);
-				});
+			for(var i in time) {
+				this.createList(time[i]);
 			}
-			
-			$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
-			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4].$el);
+
+			this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
+			this.createDivider('Minutes').$el.insertBefore(this.lists[this.lists.length - 4].$el);
 			
 			if(!excludeHours) {
-				$(this.createDivider('Hours', true)).insertBefore(this.lists[0].$el);
+				this.createDivider('Hours', true).$el.insertBefore(this.lists[0].$el);
 			}
-			
+
 			this.base();
 		},
 		
@@ -57,14 +39,13 @@
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {
+		flip: function(time) {
 			if(!time) {
-				time = this.factory.time.getHourCounter();
+				time = this.time.getHourCounter();
 			}	
 
 			this.autoIncrement();
-		
-			this.base(time, doNotAddPlayClass);
+			this.base(time);
 		},
 
 		/**
