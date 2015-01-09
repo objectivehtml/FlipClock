@@ -4,9 +4,6 @@
 	 * Twelve Hour Clock Face
 	 *
 	 * This class will generate a twelve hour clock for FlipClock.js
-	 *
-	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
 	 */
 	 
 	FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
@@ -32,7 +29,7 @@
 		build: function() {
 			var t = this;
 
-			var time = this.factory.time.getTime(false, this.showSeconds);
+			var time = this.time.getTime(false, this.showSeconds);
 
 			this.base(time);			
 			this.meridiumText = this.getMeridium();			
@@ -51,12 +48,12 @@
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {			
+		flip: function(time) {			
 			if(this.meridiumText != this.getMeridium()) {
 				this.meridiumText = this.getMeridium();
 				this.meridium.find('a').html(this.meridiumText);	
 			}
-			this.base(this.factory.time.getTime(false, this.showSeconds), doNotAddPlayClass);	
+			this.base(this.time.getTime(false, this.showSeconds));	
 		},
 		
 		/**
@@ -66,7 +63,7 @@
 		 */
 		 
 		getMeridium: function() {
-			return new Date().getHours() >= 12 ? 'PM' : 'AM';
+			return new Date().getHours() >= 12 ? this.t('PM') : this.t('AM');
 		},
 		
 		/**
