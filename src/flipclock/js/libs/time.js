@@ -16,7 +16,6 @@
 	 * The FlipClock Time class is used to manage all the time 
 	 * calculations.
 	 *
-	 * @param 	object  A FlipClock.Factory object
 	 * @param 	mixed   This is the digit used to set the clock. If an 
 	 *				    object is passed, 0 will be used.	
 	 * @param 	object  An object of properties to override the default	
@@ -31,12 +30,6 @@
 		time: 0,
 		
 		/**
-		 * The parent FlipClock.Factory object
-		 */		
-		 
-		factory: false,
-		
-		/**
 		 * The minimum number of digits the clock face must have
 		 */		
 		 
@@ -45,26 +38,24 @@
 		/**
 		 * Constructor
 		 *
-		 * @param  object  A FlipClock.Factory object
 		 * @param  int     An integer use to select the correct digit
 		 * @param  object  An object to override the default properties	 
 		 */
 		 
-		constructor: function(factory, time, options) {
+		constructor: function(time, options) {
 			if(typeof options != "object") {
 				options = {};
 			}
 
-			if(!options.minimumDigits) {
-				options.minimumDigits = factory.minimumDigits;
+			if(time instanceof Date) {
+				this.time = time;
+			}
+			else if(time) {
+				this.time = Math.round(time);
 			}
 
 			this.base(options);
-			this.factory = factory;
 
-			if(time) {
-				this.time = time;
-			}
 		},
 
 		/**
@@ -299,13 +290,13 @@
 		 * @return  int   Returns a floored integer
 		 */
 		 
-		getTimeSeconds: function(date) {
+		getTimeSeconds: function(countdown, date) {
 			if(!date) {
 				date = new Date();
 			}
 
 			if (this.time instanceof Date) {
-				if (this.factory.countdown) {
+				if (countdown) {
 					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
 				} else {
 					return date.getTime()/1000 - this.time.getTime()/1000 ;
@@ -330,9 +321,6 @@
 				date = this.getDateObject();
 			}
 
-			console.log(date);
-
-			
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
 			var data   = [
