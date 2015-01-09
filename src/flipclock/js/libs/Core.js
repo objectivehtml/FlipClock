@@ -40,9 +40,6 @@ var FlipClock;
 	/**
 	 * The Base FlipClock class is used to extend all other FlipFlock
 	 * classes. It handles the callbacks and the basic setters/getters
-	 *	
-	 * @param 	object  An object of the default properties
-	 * @param 	object  An object of properties to override the default	
 	 */
 
 	FlipClock.Base = Base.extend({
@@ -60,6 +57,18 @@ var FlipClock;
 		version: '0.7.7',
 		
 		/**
+		 * The bound events to this object
+		 */
+
+		_events: {},
+
+		/**
+		 * The bound events to this object
+		 */
+
+		_uid: false,
+		 
+		/**
 		 * Sets the default options
 		 *
 		 * @param	object 	The default options
@@ -73,6 +82,8 @@ var FlipClock;
 			if(typeof options !== "object") {
 				options = {};
 			}
+			this._events = {};
+			this._uid = (new FlipClock.Uuid()).toString();		
 			this.setOptions($.extend(true, {}, _default, options));
 		},
 		
@@ -158,6 +169,102 @@ var FlipClock;
 		  			this.setOption(key, options[key]);
 		  		}
 		  	}
+		},
+
+		/*
+		 * Bind an event
+		 *
+		 * @param  string
+		 * @param  callback
+		*/
+
+		on: function(name, callback) {
+			if(!this._events[name]) {
+				this._events[name] = [];
+			}
+
+			var event = new FlipClock.Event(name, callback);
+
+			this._events[name].push(event);
+
+			return event;
+		},
+
+		/*
+		 * Bind an event to be called once
+		 *
+		 * @param  string
+		 * @param  callback
+		*/
+
+		once: function(name, callback) {
+			var event = this.on(name, callback);
+
+			event.setFireOnce(true);
+		},
+
+		/*
+		 * Remove all bound events for a specific trigger
+		 *
+		 * @param  string
+		 * @return 
+		*/
+
+		off: function(name) {
+			if(this._events[name]) {
+				delete this._events[name];
+			}
+		},
+
+		/*
+		 * Remove all bound events for a specific trigger
+		 *
+		 * @param  string
+		 * @return 
+		*/
+
+		trigger: function(name) {
+			if(this._events[name]) {
+				var params = [];
+
+				for(var x in arguments) {
+					if(x > 0) {
+						params.push(arguments[x]);
+					}
+				}
+
+				for(var i in this._events[name]) {
+					this._events[name][i].fire(this, params);
+				}
+
+				return this._events[name];
+			}
+		},
+
+		/*
+		 * Translate a string to the localized locale
+		 *
+		 * @param  
+		 * @return 
+		*/
+
+		localize: function(name) {
+			if(this.translator) {
+				this.translator.localize(name);
+			}
+
+			return name;
+		},
+
+		/*
+		 * Helper method for localize. t() is just short.
+		 *
+		 * @param  
+		 * @return 
+		*/
+
+		t: function(name) {
+			return this.localize(name);
 		}
 		
 	});
