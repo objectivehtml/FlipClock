@@ -7,9 +7,6 @@
 	 * hour counter will track hours, minutes, and seconds. If number of
 	 * available digits is exceeded in the count, a new digit will be 
 	 * created.
-	 *
-	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
 	 */
 	 
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({

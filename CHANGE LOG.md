@@ -3,6 +3,8 @@
 #### 0.8.0
 ##### 01/09/2014
 
+*This update is a major refactor and contains a few breaking API changes.*
+
 - (API) Added new Flipclock.Uuid generator classes which is used for "cid", a unique id assigned to all objects created by FlipClock
 - (API) Added FlipClock.Translator classes to provide an abstraction for translating strings in FlipClock
 - (API) Added FlipClock.NumericList for numeric based clocks

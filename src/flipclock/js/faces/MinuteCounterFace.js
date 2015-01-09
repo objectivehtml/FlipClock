@@ -6,7 +6,6 @@
 	 * This class will generate a minute counter for FlipClock.js. A
 	 * minute counter will track minutes and seconds. If an hour is 
 	 * reached, the counter will reset back to 0. (4 digits max)
-	 *	
 	 */
 	 
 	FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({

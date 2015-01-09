@@ -2314,9 +2314,7 @@ var FlipClock;
 	/**
 	 * Twenty-Four Hour Clock Face
 	 *
-	 * This class will generate a twenty-four our clock for FlipClock.js
-	 *
-	 * @param  object  An object of properties to override the default	
+	 * This class will generate a twenty-four our clock for FlipClock.js	
 	 */
 	 
 	FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
@@ -2472,8 +2470,6 @@ var FlipClock;
 	 * daily counter will track days, hours, minutes, and seconds. If
 	 * the number of available digits is exceeded in the count, a new
 	 * digit will be created.
-	 *
-	 * @param  object  An object of properties to override the default
 	 */
 
 	FlipClock.DailyCounterFace = FlipClock.Face.extend({
@@ -2531,9 +2527,6 @@ var FlipClock;
 	 * hour counter will track hours, minutes, and seconds. If number of
 	 * available digits is exceeded in the count, a new digit will be 
 	 * created.
-	 *
-	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
 	 */
 	 
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
@@ -2593,7 +2586,6 @@ var FlipClock;
 	 * This class will generate a minute counter for FlipClock.js. A
 	 * minute counter will track minutes and seconds. If an hour is 
 	 * reached, the counter will reset back to 0. (4 digits max)
-	 *	
 	 */
 	 
 	FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({

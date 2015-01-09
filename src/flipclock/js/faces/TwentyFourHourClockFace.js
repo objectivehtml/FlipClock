@@ -3,9 +3,7 @@
 	/**
 	 * Twenty-Four Hour Clock Face
 	 *
-	 * This class will generate a twenty-four our clock for FlipClock.js
-	 *
-	 * @param  object  An object of properties to override the default	
+	 * This class will generate a twenty-four our clock for FlipClock.js	
 	 */
 	 
 	FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
