@@ -15,37 +15,22 @@
 	/**
 	 * The FlipClock.Timer object managers the JS timers
 	 *
-	 * @param	object  The parent FlipClock.Factory object
 	 * @param	object  Override the default options
 	 */
 	
 	FlipClock.Timer = FlipClock.Base.extend({
 		
 		/**
-		 * Callbacks
+		 * The rate of the animation in milliseconds (not currently in use)
 		 */		
 		 
-		callbacks: {
-			destroy: false,
-			create: false,
-			init: false,
-			interval: false,
-			start: false,
-			stop: false,
-			reset: false
-		},
-		
+		animationRate: 1000,
+
 		/**
 		 * FlipClock timer count (how many intervals have passed)
 		 */		
 		 
 		count: 0,
-		
-		/**
-		 * The parent FlipClock.Factory object
-		 */		
-		 
-		factory: false,
 		
 		/**
 		 * Timer interval (1 second by default)
@@ -54,10 +39,10 @@
 		interval: 1000,
 
 		/**
-		 * The rate of the animation in milliseconds (not currently in use)
+		 * Is the timer running?
 		 */		
 		 
-		animationRate: 1000,
+		running: false,
 				
 		/**
 		 * Constructor
@@ -65,11 +50,9 @@
 		 * @return	void
 		 */		
 		 
-		constructor: function(factory, options) {
+		constructor: function(options) {
 			this.base(options);
-			this.factory = factory;
-			this.callback(this.callbacks.init);	
-			this.callback(this.callbacks.create);
+			this.trigger('init');
 		},
 		
 		/**
@@ -102,8 +85,8 @@
 		reset: function(callback) {
 			clearInterval(this.timer);
 			this.count = 0;
-			this._setInterval(callback);			
-			this.callback(this.callbacks.reset);
+			this._setInterval(callback);
+			this.trigger('reset');
 		},
 		
 		/**
@@ -113,10 +96,10 @@
 		 * @return	void
 		 */		
 		 
-		start: function(callback) {		
-			this.factory.running = true;
+		start: function(callback) {	
+			this.running = true;	
 			this._createTimer(callback);
-			this.callback(this.callbacks.start);
+			this.trigger('start');
 		},
 		
 		/**
@@ -127,10 +110,15 @@
 		 */		
 		 
 		stop: function(callback) {
-			this.factory.running = false;
-			this._clearInterval(callback);
-			this.callback(this.callbacks.stop);
-			this.callback(callback);
+			var t = this;
+
+			this.running = false;
+			this._clearInterval();
+
+			setTimeout(function() {
+				t.callback(callback);
+				t.trigger('stop');
+			}, this.interval);
 		},
 		
 		/**
@@ -161,11 +149,12 @@
 		 * @return	void
 		 */		
 		 	
-		_destroyTimer: function(callback) {
-			this._clearInterval();			
+		destroyTimer: function(callback) {
+			this._clearInterval();
+			this.running = false;		
 			this.timer = false;
 			this.callback(callback);
-			this.callback(this.callbacks.destroy);
+			this.trigger('destroy')
 		},
 		
 		/**
@@ -176,8 +165,8 @@
 		 */		
 		 
 		_interval: function(callback) {
-			this.callback(this.callbacks.interval);
 			this.callback(callback);
+			this.trigger('interval');
 			this.count++;
 		},
 		
