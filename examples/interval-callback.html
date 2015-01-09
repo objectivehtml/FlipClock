@@ -17,15 +17,9 @@
 			
 			clock = $('.clock').FlipClock({
 		        clockFace: 'MinuteCounter',
-		        callbacks: {
-		        	interval: function() {
-		        		var time = this.factory.getTime().time;
-		        		
-		        		if(time) {
-			        		console.log('interval', time);
-			        	}
-		        	}
-		        }
+		        onInterval: function() {
+	        		console.log('interval', this.face.getTime().time);
+	        	}
 		    });
 		});
 	</script>

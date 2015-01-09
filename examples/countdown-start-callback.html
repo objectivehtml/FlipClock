@@ -19,17 +19,16 @@
 			
 			clock = $('.clock').FlipClock(10, {
 		        clockFace: 'MinuteCounter',
-		        countdown: true,
-		        autoStart: false,
-		        callbacks: {
-		        	start: function() {
-		        		$('.message').html('The clock has started!');
-		        	}
-		        }
+		        clockFaceOptions: {
+			        countdown: true,
+			        autoStart: false
+			    },
+			    onStart: function() {
+	        		$('.message').html('The clock has started!');
+	        	}
 		    });
 
 		    $('.start').click(function(e) {
-
 		    	clock.start();
 		    });
 

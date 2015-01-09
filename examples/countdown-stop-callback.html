@@ -15,13 +15,13 @@
 		
 		$(document).ready(function() {
 
-			clock = $('.clock').FlipClock(10, {
+			clock = $('.clock').FlipClock(5, {
 		        clockFace: 'MinuteCounter',
-		        countdown: true,
-		        callbacks: {
-		        	stop: function() {
-		        		$('.message').html('The clock has stopped!');
-		        	}
+		        clockFaceOptions: {
+		        	countdown: true,
+		        },
+		        onStop: function() {
+		        	$('.message').html('The clock has stopped!');
 		        }
 		    });
 

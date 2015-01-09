@@ -17,8 +17,10 @@
 				// Instantiate a counter
 				clock = new FlipClock($('.clock'), {
 					clockFace: 'Counter',
-					autoStart: true,
-					minimumDigits: 6
+					clockFaceOptions: {
+						autoStart: true,
+						minimumDigits: 6
+					}
 				});
 			});
 		</script>

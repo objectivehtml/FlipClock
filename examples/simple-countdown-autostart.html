@@ -17,8 +17,10 @@
 				// Instantiate a counter
 				clock = new FlipClock($('.clock'), 10, {
 					clockFace: 'Counter',
-					autoStart: true,
-					countdown: true
+					clockFaceOptions: {
+						autoStart: true,
+						countdown: true
+					}
 				});
 				
 			});
