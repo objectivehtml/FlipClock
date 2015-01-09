@@ -13,23 +13,16 @@
 	"use strict";
 	
 	/**
-	 * The FlipClock List class is used to build the list used to create 
+	 * The FlipClock.List class is used to build the list used to create 
 	 * the card flip effect. This object fascilates selecting the correct
-	 * node by passing a specific digit.
+	 * node by passing a specific value.
 	 *
-	 * @param 	object  A FlipClock.Factory object
-	 * @param 	mixed   This is the digit used to set the clock. If an 
+	 * @param 	mixed   This is the value used to set the clock. If an 
 	 *				    object is passed, 0 will be used.	
 	 * @param 	object  An object of properties to override the default	
 	 */
 	 	
 	FlipClock.List = FlipClock.Base.extend({
-		
-		/**
-		 * The digit (0-9)
-		 */		
-		 
-		digit: 0,
 		
 		/**
 		 * The CSS classes
@@ -38,26 +31,15 @@
 		classes: {
 			active: 'flip-clock-active',
 			before: 'flip-clock-before',
-			flip: 'flip'	
+			flip: 'flip',
+			play: 'play'
 		},
 				
-		/**
-		 * The parent FlipClock.Factory object
-		 */		
-		 
-		factory: false,
-		
 		/**
 		 * The jQuery object
 		 */		
 		 
 		$el: false,
-
-		/**
-		 * The jQuery object (deprecated)
-		 */		
-		 
-		$obj: false,
 		
 		/**
 		 * The items in the list
@@ -66,81 +48,91 @@
 		items: [],
 		
 		/**
-		 * The last digit
+		 * The last value selected in the list
 		 */		
 		 
-		lastDigit: 0,
+		lastValue: 0,
 			
+		/**
+		 * The selected value in the list
+		 */		
+		 
+		value: 0,
+		
 		/**
 		 * Constructor
 		 *
 		 * @param  object  A FlipClock.Factory object
-		 * @param  int     An integer use to select the correct digit
+		 * @param  int     An string or integer use to select the correct value
 		 * @param  object  An object to override the default properties	 
 		 */
 		 
-		constructor: function(factory, digit, options) {
-			this.factory = factory;
-			this.digit = digit;
-			this.lastDigit = digit;
-			this.$el = this.createList();
-			
-			// Depcrated support of the $obj property.
-			this.$obj = this.$el;
+		constructor: function(value, options) {
+			this.base(options);
 
-			if(digit > 0) {
-				this.select(digit);
-			}
+			this.value = value;
 
-			this.factory.$el.append(this.$el);
-		},
-		
-		/**
-		 * Select the digit in the list
-		 *
-		 * @param  int  A digit 0-9	 
-		 */
-		 
-		select: function(digit) {
-			if(typeof digit === "undefined") {
-				digit = this.digit;
-			}
-			else {
-				this.digit = digit;
-			}
-
-			if(this.digit != this.lastDigit) {
-				var $delete = this.$el.find('.'+this.classes.before).removeClass(this.classes.before);
-
-				this.$el.find('.'+this.classes.active).removeClass(this.classes.active)
-													  .addClass(this.classes.before);
-
-				this.appendListItem(this.classes.active, this.digit);
-
-				$delete.remove();
-
-				this.lastDigit = this.digit;
-			}	
-		},
-		
-		/**
-		 * Adds the play class to the DOM object
-		 */
-		 		
-		play: function() {
-			this.$el.addClass(this.factory.classes.play);
-		},
-		
-		/**
-		 * Removes the play class to the DOM object 
-		 */
-		 
-		stop: function() {
 			var t = this;
 
-			setTimeout(function() {
-				t.$el.removeClass(t.factory.classes.play);
-			}, this.factory.timer.interval);
+			this.createList();
+
+			this.trigger('init');
+		},
+		
+		/**
+		 * Select the value in the list
+		 *
+		 * @param  int  A value 0-9	 
+		 */
+		 
+		select: function(value) {
+			var _afterListItem = this._afterListItem;
+
+			this.lastValue = this.value;
+
+			if(typeof value === "undefined") {
+				value = this.value;
+			}
+			else {
+				this.value = value;
+			}
+
+			if(this.value != this.lastValue) {
+				this._beforeListItem.$el.removeClass(this.classes.before);
+
+				this.$el.find('.'+this.classes.active)
+					.removeClass(this.classes.active)
+					.addClass(this.classes.before);
+
+				this.items.splice(0, 1);
+
+				this._afterListItem = this.createListItem(this.classes.active, this.value);
+
+				this._beforeListItem.$el.remove();
+				this._beforeListItem = _afterListItem;
+
+				this.trigger('select', this.value);
+			}	
+		},
+
+		/*
+		 * Add the play class to the list
+		 *
+		 * @return 
+		*/
+
+		addPlayClass: function() {
+			this.$el.addClass(this.classes.play);
+		},
+		
+		/*
+		 * Remove the play class to the list
+		 *
+		 * @return 
+		*/
+
+		removePlayClass: function() {
+			this.$el.removeClass(this.classes.play);
 		},
 		
 		/**
@@ -148,59 +140,35 @@
 		 */
 		 
 		createListItem: function(css, value) {
-			return [
-				'<li class="'+(css ? css : '')+'">',
-					'<a href="#">',
-						'<div class="up">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+(value ? value : '')+'</div>',
-						'</div>',
-						'<div class="down">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+(value ? value : '')+'</div>',
-						'</div>',
-					'</a>',
-				'</li>'
-			].join('');
+			var item = new FlipClock.ListItem(css, value);
+
+			this.items.push(item);
+
+			this.$el.append(item.$el);
+
+			this.trigger('create:item', item);
+
+			return item;
 		},
 
 		/**
-		 * Append the list item to the parent DOM node 
-		 */
-
-		appendListItem: function(css, value) {
-			var html = this.createListItem(css, value);
-
-			this.$el.append(html);
-		},
-
-		/**
-		 * Create the list of digits and appends it to the DOM object 
+		 * Create the lsit of values and appends it to the DOM object 
 		 */
 		 
 		createList: function() {
+			var $el = this.$el = $('<ul class="'+this.classes.flip+'"></ul>');
 
-			var lastDigit = this.getPrevDigit() ? this.getPrevDigit() : this.digit;
+			this._beforeListItem = this.createListItem(this.classes.before, this.getPrevValue());
+			this._afterListItem = this.createListItem(this.classes.active, this.value);
 
-			var html = $([
-				'<ul class="'+this.classes.flip+' '+(this.factory.running ? this.factory.classes.play : '')+'">',
-					this.createListItem(this.classes.before, lastDigit),
-					this.createListItem(this.classes.active, this.digit),
-				'</ul>'
-			].join(''));
-					
-			return html;
-		},
+			$el.append(this._beforeListItem.el);
+			$el.append(this._afterListItem.el);
+			
+			this.trigger('create:list', $el);		
 
-		getNextDigit: function() {
-			return this.digit == 9 ? 0 : this.digit + 1;
-		},
-
-		getPrevDigit: function() {
-			return this.digit == 0 ? 9 : this.digit - 1;
+			return $el;
 		}
 
 	});
-	
-	
+		
 }(jQuery));
