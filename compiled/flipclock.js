@@ -699,24 +699,39 @@ var FlipClock;
 	 * The FlipClock List class is used to build the list used to create 
 	 * the card flip effect. This object fascilates selecting the correct
 	 * node by passing a specific value.
-	 *
-	 * @param 	mixed   This is the value used to set the clock. If an 
-	 *				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
 	 */
 
 	FlipClock.EnglishAlphaList = FlipClock.List.extend({
 
 		capitalLetters: true,
+
+		constructor: function(value, options) {
+			if(!value) {
+				value = String.fromCharCode(this.getMinCharCode());
+			}
+
+			this.base(value, options);
+
+			if(!this.value) {
+				this.value = String.fromCharCode(this.getMinCharCode());
+			}
+		},
+
+		getMaxCharCode: function() {
+			return this.capitalLetters ? 90 : 122;
+		},
+
+		getMinCharCode: function() {
+			return this.capitalLetters ? 65 : 96;
+		},
+
+		getCharCode: function() {
+			return this.value.charCodeAt(0);
+		},
 		
 		getPrevValue: function() {
 			var charCode = this.value.charCodeAt(0) - 1;
-			var minCode = 65, maxCode = 90;
-
-			if(!this.capitalLetters) {
-				minCode = 97;
-				maxCode = 122;
-			}
+			var minCode = this.getMinCharCode(), maxCode = this.getMaxCharCode();
 
 			if(charCode < minCode) {
 				charCode = maxCode;
@@ -727,12 +742,7 @@ var FlipClock;
 
 		getNextValue: function() {
 			var charCode = this.value.charCodeAt(0) + 1;
-			var minCode = 65, maxCode = 90;
-
-			if(!this.capitalLetters) {
-				minCode = 97;
-				maxCode = 122;
-			}
+			var minCode = this.getMinCharCode(), maxCode = this.getMaxCharCode();
 
 			if(charCode > maxCode) {
 				charCode = minCode;
@@ -742,7 +752,6 @@ var FlipClock;
 		}
 
 	});
-	
 	
 }(jQuery));
 (function($) {
@@ -888,7 +897,13 @@ var FlipClock;
 		animationRate: 1000,
 
 		/**
-		 * Sets whether or not the clock should start upon instantiation
+		 * Sets whether or not the clock should automatically add the play class
+		 */
+		 
+		autoPlay: true,
+
+		/**
+		 * Sets whether or not the clock should start ticking upon instantiation
 		 */
 		 
 		autoStart: true,
@@ -963,7 +978,7 @@ var FlipClock;
 		 * The current value of the clock face.
 		 */		
 		 
-		value: false,
+		value: 0,
 		
 		/**
 		 * Constructor
@@ -975,6 +990,7 @@ var FlipClock;
 		constructor: function(value, options) {
 			var t = this;
 
+
 			if(value instanceof Date === false && typeof value === "object") {
 				options = value;
 				value = 0;
@@ -983,14 +999,11 @@ var FlipClock;
 			this.dividers = [];
 			this.lists = [];
 			this.originalValue = value;
+			this.value = value;
 
 			this.translator = new FlipClock.Translator({
 				defaultLanguage: this.defaultLanguage,
 				language: this.language
-			});
-
-			this.time = new FlipClock.Time(value, {
-				minimumDigits: 0
 			});
 
 			this.timer = new FlipClock.Timer();
@@ -1024,8 +1037,6 @@ var FlipClock;
 		addDigit: function(digit) {
 			var list = this.createList(digit);
 
-			console.log(this._events);
-
 			this.trigger('add:digit', list);
 
 			return list;
@@ -1053,6 +1064,10 @@ var FlipClock;
 		 */
 
 		init: function(factory) {
+			this.time = new FlipClock.Time(this.value, {
+				minimumDigits: this.minimumDigits
+			});
+
 			this.trigger('init');
 		},
 		
@@ -1089,13 +1104,9 @@ var FlipClock;
 		 */
 		 
 		createList: function(value, options) {
-			var List = this.getListClass();
-
-			var list = new List(value, {
-				translator: this.translator
-			});
+			var list = this.getListObject(value);
 		
-			if(this.timer.running) {
+			if(this.autoPlay || this.timer.running) {
 				list.addPlayClass();
 			}
 
@@ -1109,11 +1120,25 @@ var FlipClock;
 		/*
 		 * Get the list class object
 		 *
-		 * @return 
+		 * @return  object
 		*/
 
 		getListClass: function() {
 			return FlipClock.NumericList;
+		},
+
+		/*
+		 * Get a new list class instance
+		 *
+		 * @return  object
+		*/
+
+		getListObject: function(value) {
+			var List = this.getListClass();
+
+			return new List(value, {
+				translator: this.translator
+			});
 		},
 		
 		/**
@@ -1121,7 +1146,7 @@ var FlipClock;
 		 */
 
 		reset: function() {
-			this.time.time = Math.round(this.originalValue);
+			this.value = this.originalValue;
 			this.flip();
 			this.trigger('reset');
 		},
@@ -1144,10 +1169,12 @@ var FlipClock;
 		 
 		stop: function() {
 			var t = this;
-			this.trigger('before:stop');
-			this.timer.stop(function() {
-				t.trigger('stop');
-			});
+			if(this.timer.running) {
+				this.trigger('before:stop');
+				this.timer.stop(function() {
+					t.trigger('stop');
+				});
+			}
 		},
 		
 		/**
@@ -1168,7 +1195,11 @@ var FlipClock;
 		 */
 		 
 		increment: function() {
-			this.time.addSecond();
+			this.value++;
+
+			if(this.time) {
+				this.time.addSecond();
+			}
 		},
 
 		/**
@@ -1176,11 +1207,15 @@ var FlipClock;
 		 */
 
 		decrement: function() {
-			if(this.time.getTimeSeconds() == 0) {
-	        	this.stop()
+			if(this.time.getTimeSeconds() === 0) {
+	        	this.stop();
 			}
 			else {
-				this.time.subSecond();
+				this.value--;
+
+				if(this.time) {
+					this.time.subSecond();
+				}
 			}
 		},
 		
@@ -1195,7 +1230,7 @@ var FlipClock;
 				if(t.lists[i]) {
 					t.lists[i].select(digit);
 
-					if(t.timer.running) {
+					if(t.autoPlay || t.timer.running) {
 						t.lists[i].addPlayClass();
 					}
 				}	
@@ -1224,6 +1259,32 @@ var FlipClock;
 		 
 		getTime: function(time) {
 			return this.time;		
+		},
+
+		/**
+		 * Sets the clock face's time
+		 */
+		 
+		setValue: function(value) {
+			this.value = value;
+
+			if(this.time) {
+				this.time = new FlipClock.Time(this.value, {
+					minimumDigits: this.minimumDigits
+				});
+			}
+
+			this.flip();		
+		},
+		
+		/**
+		 * Get the clock face's value
+		 *
+		 * @return  object
+		 */
+		 
+		getValue: function() {
+			return this.value;		
 		},
 
 		/**
@@ -1342,13 +1403,12 @@ var FlipClock;
 		 */
 		 
 		loadClockFace: function(name, value, options) {	
-			var t = this, face, suffix = 'Face', hasStopped = false;
+			var t = this, face, suffix = 'Face';
 			
 			name = name.ucfirst()+suffix;
 
 			if(this.face.stop) {
 				this.stop();
-				hasStopped = true;
 			}
 
 			this.$el.html('');
@@ -1392,10 +1452,6 @@ var FlipClock;
 
 			this.face.build();
 
-			if(hasStopped) {
-				this.start();
-			}
-			
 			return this.face;
 		},
 			
@@ -1436,27 +1492,25 @@ var FlipClock;
 		},
 
 		/**
-		 * Sets the clock time
+		 * Sets the clock face's value
 		 *
 		 * @return  object
 		 */
 		 
-		setTime: function(time) {
-			this.face.setTime(time);
+		setFaceValue: function(value) {
+			this.face.setValue(value);
 			
 			return this;
 		},
 
 		/**
-		 * Gets the clock time
+		 * Gets the clock face's value
 		 *
 		 * @return  object
 		 */
 		 
-		getTime: function() {
-			this.face.getTime();
-			
-			return this;
+		getFaceValue: function() {
+			return this.face.getValue();
 		},
 
 		onDestroy: function() {},
@@ -1822,12 +1876,12 @@ var FlipClock;
 
 			if (this.time instanceof Date) {
 				if (countdown) {
-					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
+					return Math.round(Math.max(this.time.getTime()/1000 - date.getTime()/1000,0));
 				} else {
-					return date.getTime()/1000 - this.time.getTime()/1000 ;
+					return Math.round(date.getTime()/1000 - this.time.getTime()/1000);
 				}
 			} else {
-				return this.time;
+				return Math.round(this.time);
 			}
 		},
 		
@@ -2091,7 +2145,6 @@ var FlipClock;
 		start: function(callback) {	
 			this.running = true;	
 			this._createTimer(callback);
-			this.trigger('start');
 		},
 		
 		/**
@@ -2109,8 +2162,9 @@ var FlipClock;
 
 			setTimeout(function() {
 				t.callback(callback);
-				t.trigger('stop');
 			}, this.interval);
+
+			t.trigger('stop');
 		},
 		
 		/**
@@ -2171,12 +2225,13 @@ var FlipClock;
 		 
 		_setInterval: function(callback) {
 			var t = this;
-	
-			t._interval(callback);
-
-			t.timer = setInterval(function() {		
-				t._interval(callback);
+			this.timer = setInterval(function() {
+				if(t.running) {	
+					t._interval(callback);
+				}
 			}, this.interval);
+			this.trigger('start');
+			this._interval(callback);
 		}
 			
 	});
@@ -2480,8 +2535,10 @@ var FlipClock;
 		 * Build the clock face
 		 */
 
-		build: function(time) {			
-			var offset = 0, time = time ? time : this.time.getDayCounter(this.showSeconds);
+		build: function() {	
+			var offset = 0;
+
+			var time = this.time.getDayCounter(this.showSeconds)
 
 			for(var i in time) {
 				this.createList(time[i]);
@@ -2506,17 +2563,156 @@ var FlipClock;
 		 * Flip the clock face
 		 */
 
-		flip: function(time) {
-			if(!time) {
-				time = this.time.getDayCounter(this.showSeconds);
-			}
-
+		flip: function() {
+			this.base(this.time.getDayCounter(this.showSeconds));
 			this.autoIncrement();
-			this.base(time);
 		}
 
 	});
 
+}(jQuery));
+(function($) {
+		
+	/**
+	 * English Alphabet Clock Face
+	 *
+	 */
+	 
+	FlipClock.EnglishAlphabetFace = FlipClock.Face.extend({
+		
+		_autoIncrementValues: [],
+
+		/**
+		 * Tells the clock face if it should auto-increment
+		 */
+
+		shouldAutoIncrement: false,
+
+		/**
+		 * Tells the clock face if it should use capital letters
+		 */
+
+		capitalLetters: true,
+
+		init: function(factory) {
+			this.base(factory);
+
+			this.on('before:start', function() {
+				console.log('before');
+
+				this.shouldAutoIncrement = true;
+			});
+			
+			this.on('before:stop', function() {
+				this.shouldAutoIncrement = false;
+			});
+
+			if(!this.value) {
+				this.value = this.getListObject(this.value).value;
+			}
+		},
+
+		build: function() {
+			var values = this.value.split('');
+
+			for(var i in values) {
+				this.createList(values[i]);
+			}
+
+			for(var x in this.lists) {
+				this._autoIncrementValues.unshift(this.lists[x].getCharCode());
+			}
+
+			this.base();
+		},
+
+		increment: function() {
+			var flip = true, i = 0, values = this.value.split('');
+
+			while (flip)
+			{
+				flip = false;
+
+				var value = this._autoIncrementValues[i];
+				var list = this.lists[this.lists.length - i - 1];
+
+				if(list) {
+					values[this.value.length - i - 1] = list.getNextValue();
+
+					if(list.getCharCode() >= list.getMaxCharCode()) {
+						flip = true;
+						i++;
+					}
+				}
+				else {
+					values.unshift(String.fromCharCode(this.getListObject(false).getMinCharCode()));
+				}
+			}
+
+			this.value = values.join('');
+		},
+
+		decrement: function() {
+			var flip = true, i = 0, values = this.value.split('');
+
+			while (flip)
+			{
+				flip = false;
+
+				var value = this._autoIncrementValues[i];
+				var list = this.lists[this.lists.length - i - 1];
+
+				if(list) {
+					values[this.value.length - i - 1] = list.getPrevValue();
+
+					if(list.getCharCode() <= list.getMinCharCode()) {
+						flip = true;
+						i++;
+					}
+				}
+				else {
+					values.unshift(String.fromCharCode(this.getListObject(false).getMinCharCode()));
+				}
+			}
+
+			this.value = values.join('');
+		},
+
+		flip: function() {
+			if(this.shouldAutoIncrement) {
+				this.autoIncrement();
+			}
+
+			this.base(this.value.split(''));
+		},
+
+		/*
+		 * Get the list class object
+		 *
+		 * @return  object
+		*/
+
+		getListClass: function() {
+			return FlipClock.EnglishAlphaList;
+		},
+
+		/*
+		 * Get a new list class instance
+		 *
+		 * @return  object
+		*/
+
+		getListObject: function(value) {
+			var List = this.getListClass();
+
+			return new List(value, {
+				capitalLetters: this.capitalLetters,
+				translator: this.translator
+			});
+		}
+
+	});
+	
 }(jQuery));
 (function($) {
 			
@@ -2561,8 +2757,8 @@ var FlipClock;
 				time = this.time.getHourCounter();
 			}	
 
-			this.autoIncrement();
 			this.base(time);
+			this.autoIncrement();
 		},
 
 		/**
@@ -2571,7 +2767,6 @@ var FlipClock;
 
 		appendDigitToClock: function(obj) {
 			this.base(obj);
-
 			this.dividers[0].insertAfter(this.dividers[0].next());
 		}
 		
@@ -2606,12 +2801,8 @@ var FlipClock;
 		 * @return
 		 */
 		 
-		flip: function(time) {
-			if(!time) {
-				time = this.time.getMinuteCounter();
-			}
-
-			this.base(time);
+		flip: function() {
+			this.base(this.time.getMinuteCounter());
 		}
 
 	});
@@ -2646,21 +2837,21 @@ var FlipClock;
 		 */
 		 
 		build: function() {
-			var t = this;
+			var t = this, time = this.time.getTime(false, this.showSeconds);
+		
+			this.meridiumText = this.getMeridium();
 
-			var time = this.time.getTime(false, this.showSeconds);
-
-			this.base(time);			
-			this.meridiumText = this.getMeridium();			
-			this.meridium = $([
+			this.$meridium = $([
 				'<ul class="flip-clock-meridium">',
 					'<li>',
 						'<a href="#">'+this.meridiumText+'</a>',
 					'</li>',
 				'</ul>'
 			].join(''));
+
+			this.base(time);	
 						
-			this.meridium.insertAfter(this.lists[this.lists.length-1].$el);
+			this.$meridium.insertAfter(this.lists[this.lists.length-1].$el);
 		},
 		
 		/**
@@ -2670,8 +2861,9 @@ var FlipClock;
 		flip: function(time) {			
 			if(this.meridiumText != this.getMeridium()) {
 				this.meridiumText = this.getMeridium();
-				this.meridium.find('a').html(this.meridiumText);	
+				this.$meridium.find('a').html(this.meridiumText);	
 			}
+
 			this.base(this.time.getTime(false, this.showSeconds));	
 		},
 		
