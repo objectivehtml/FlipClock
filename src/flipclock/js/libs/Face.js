@@ -359,20 +359,18 @@
 		 */
 		 
 		flip: function(time) {
-			var t = this;
+			for(var i in time) {
+				if(this.lists[i]) {
+					this.lists[i].select(time[i]);
 
-			$.each(time, function(i, digit) {
-				if(t.lists[i]) {
-					t.lists[i].select(digit);
-
-					if(t.autoPlay || t.timer.running) {
-						t.lists[i].addPlayClass();
+					if(this.autoPlay || this.timer.running) {
+						this.lists[i].addPlayClass();
 					}
 				}	
 				else {
-					t.addDigit(digit);
+					this.addDigit(time[i]);
 				}
-			});
+			}
 
 			this.trigger('flip');
 		},

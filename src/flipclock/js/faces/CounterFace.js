@@ -50,10 +50,10 @@
 		build: function() {
 			var t = this, time = this.getTime().digitize([this.getTime().time]);
 
-			$.each(time, function(i, value) {
-				t.createList(value);
-			});
-
+			for(var i in time) {
+				t.createList(time[i]);
+			}
+			
 			if(this.autoStart) {
 				this.shouldAutoIncrement = true;
 			}

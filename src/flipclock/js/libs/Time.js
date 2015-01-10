@@ -108,8 +108,8 @@
 		digitize: function(obj) {
 			var data = [];
 
-			$.each(obj, function(i, value) {
-				value = value.toString();
+			for(var i in obj) {
+				value = obj[i].toString();
 				
 				if(value.length == 1) {
 					value = '0'+value;
@@ -117,8 +117,8 @@
 				
 				for(var x = 0; x < value.length; x++) {
 					data.push(value.charAt(x));
-				}				
-			});
+				}
+			}
 
 			if(data.length > this.minimumDigits) {
 				this.minimumDigits = data.length;
@@ -387,15 +387,15 @@
 			var total    = 0;
 			var newArray = [];
 			
-			$.each(digits, function(i, digit) {
+			for(var i in digits) {
 				if(i < totalDigits) {
 					total += parseInt(digits[i], 10);
 				}
 				else {
 					newArray.push(digits[i]);
 				}
-			});
-			
+			}
+
 			if(total === 0) {
 				return newArray;
 			}
