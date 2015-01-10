@@ -168,8 +168,6 @@
 		addDigit: function(digit) {
 			var list = this.createList(digit);
 
-			console.log(this._events);
-
 			this.trigger('add:digit', list);
 
 			return list;
@@ -288,10 +286,12 @@
 		 
 		stop: function() {
 			var t = this;
-			this.trigger('before:stop');
-			this.timer.stop(function() {
-				t.trigger('stop');
-			});
+			if(this.timer.running) {
+				this.trigger('before:stop');
+				this.timer.stop(function() {
+					t.trigger('stop');
+				});
+			}
 		},
 		
 		/**
@@ -320,8 +320,8 @@
 		 */
 
 		decrement: function() {
-			if(this.time.getTimeSeconds() == 0) {
-	        	this.stop()
+			if(this.time.getTimeSeconds() === 0) {
+	        	this.stop();
 			}
 			else {
 				this.time.subSecond();

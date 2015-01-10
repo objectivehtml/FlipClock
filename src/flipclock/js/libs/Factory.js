@@ -97,13 +97,12 @@
 		 */
 		 
 		loadClockFace: function(name, value, options) {	
-			var t = this, face, suffix = 'Face', hasStopped = false;
+			var t = this, face, suffix = 'Face';
 			
 			name = name.ucfirst()+suffix;
 
 			if(this.face.stop) {
 				this.stop();
-				hasStopped = true;
 			}
 
 			this.$el.html('');
@@ -146,10 +145,6 @@
 			this.face.init(this);
 
 			this.face.build();
-
-			if(hasStopped) {
-				this.start();
-			}
 			
 			return this.face;
 		},

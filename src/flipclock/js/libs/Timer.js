@@ -99,7 +99,6 @@
 		start: function(callback) {	
 			this.running = true;	
 			this._createTimer(callback);
-			this.trigger('start');
 		},
 		
 		/**
@@ -117,8 +116,9 @@
 
 			setTimeout(function() {
 				t.callback(callback);
-				t.trigger('stop');
 			}, this.interval);
+
+			t.trigger('stop');
 		},
 		
 		/**
@@ -179,12 +179,13 @@
 		 
 		_setInterval: function(callback) {
 			var t = this;
-	
-			t._interval(callback);
-
-			t.timer = setInterval(function() {		
-				t._interval(callback);
+			this.timer = setInterval(function() {
+				if(t.running) {	
+					t._interval(callback);
+				}
 			}, this.interval);
+			this.trigger('start');
+			this._interval(callback);
 		}
 			
 	});
