@@ -371,6 +371,32 @@
 		},
 
 		/**
+		 * Sets the clock face's time
+		 */
+		 
+		setValue: function(value) {
+			this.value = value;
+
+			if(this.time) {
+				this.time = new FlipClock.Time(this.value, {
+					minimumDigits: this.minimumDigits
+				});
+			}
+
+			this.flip();		
+		},
+		
+		/**
+		 * Get the clock face's value
+		 *
+		 * @return  object
+		 */
+		 
+		getValue: function() {
+			return this.value;		
+		},
+
+		/**
 		 * Changes the increment of time to up or down (add/sub)
 		 */
 		
