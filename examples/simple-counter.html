@@ -22,7 +22,10 @@
 
 				// Instantiate a counter
 				clock = new FlipClock($('.clock'), 101, {
-					clockFace: 'Counter'
+					clockFace: 'Counter',
+					clockFaceOptions: {
+						autoStart: false
+					}
 				});
 
 				// Attach a click event to a button a increment the clock
