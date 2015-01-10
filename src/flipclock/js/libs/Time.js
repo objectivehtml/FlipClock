@@ -297,12 +297,12 @@
 
 			if (this.time instanceof Date) {
 				if (countdown) {
-					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
+					return Math.round(Math.max(this.time.getTime()/1000 - date.getTime()/1000,0));
 				} else {
-					return date.getTime()/1000 - this.time.getTime()/1000 ;
+					return Math.round(date.getTime()/1000 - this.time.getTime()/1000);
 				}
 			} else {
-				return this.time;
+				return Math.round(this.time);
 			}
 		},
 		
