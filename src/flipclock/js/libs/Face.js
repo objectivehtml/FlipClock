@@ -32,7 +32,13 @@
 		animationRate: 1000,
 
 		/**
-		 * Sets whether or not the clock should start upon instantiation
+		 * Sets whether or not the clock should automatically add the play class
+		 */
+		 
+		autoPlay: true,
+
+		/**
+		 * Sets whether or not the clock should start ticking upon instantiation
 		 */
 		 
 		autoStart: true,
@@ -107,7 +113,7 @@
 		 * The current value of the clock face.
 		 */		
 		 
-		value: false,
+		value: 0,
 		
 		/**
 		 * Constructor
@@ -119,6 +125,7 @@
 		constructor: function(value, options) {
 			var t = this;
 
+
 			if(value instanceof Date === false && typeof value === "object") {
 				options = value;
 				value = 0;
@@ -127,14 +134,11 @@
 			this.dividers = [];
 			this.lists = [];
 			this.originalValue = value;
+			this.value = value;
 
 			this.translator = new FlipClock.Translator({
 				defaultLanguage: this.defaultLanguage,
 				language: this.language
-			});
-
-			this.time = new FlipClock.Time(value, {
-				minimumDigits: 0
 			});
 
 			this.timer = new FlipClock.Timer();
@@ -195,6 +199,10 @@
 		 */
 
 		init: function(factory) {
+			this.time = new FlipClock.Time(this.value, {
+				minimumDigits: this.minimumDigits
+			});
+
 			this.trigger('init');
 		},
 		
@@ -231,13 +239,9 @@
 		 */
 		 
 		createList: function(value, options) {
-			var List = this.getListClass();
-
-			var list = new List(value, {
-				translator: this.translator
-			});
+			var list = this.getListObject(value);
 		
-			if(this.timer.running) {
+			if(this.autoPlay || this.timer.running) {
 				list.addPlayClass();
 			}
 
@@ -251,11 +255,25 @@
 		/*
 		 * Get the list class object
 		 *
-		 * @return 
+		 * @return  object
 		*/
 
 		getListClass: function() {
 			return FlipClock.NumericList;
+		},
+
+		/*
+		 * Get a new list class instance
+		 *
+		 * @return  object
+		*/
+
+		getListObject: function(value) {
+			var List = this.getListClass();
+
+			return new List(value, {
+				translator: this.translator
+			});
 		},
 		
 		/**
@@ -263,7 +281,7 @@
 		 */
 
 		reset: function() {
-			this.time.time = Math.round(this.originalValue);
+			this.value = this.originalValue;
 			this.flip();
 			this.trigger('reset');
 		},
@@ -312,7 +330,11 @@
 		 */
 		 
 		increment: function() {
-			this.time.addSecond();
+			this.value++;
+
+			if(this.time) {
+				this.time.addSecond();
+			}
 		},
 
 		/**
@@ -324,7 +346,11 @@
 	        	this.stop();
 			}
 			else {
-				this.time.subSecond();
+				this.value--;
+
+				if(this.time) {
+					this.time.subSecond();
+				}
 			}
 		},
 		
@@ -339,7 +365,7 @@
 				if(t.lists[i]) {
 					t.lists[i].select(digit);
 
-					if(t.timer.running) {
+					if(t.autoPlay || t.timer.running) {
 						t.lists[i].addPlayClass();
 					}
 				}	
