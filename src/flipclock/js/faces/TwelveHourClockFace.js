@@ -27,21 +27,21 @@
 		 */
 		 
 		build: function() {
-			var t = this;
+			var t = this, time = this.time.getTime(false, this.showSeconds);
+		
+			this.meridiumText = this.getMeridium();
 
-			var time = this.time.getTime(false, this.showSeconds);
-
-			this.base(time);			
-			this.meridiumText = this.getMeridium();			
-			this.meridium = $([
+			this.$meridium = $([
 				'<ul class="flip-clock-meridium">',
 					'<li>',
 						'<a href="#">'+this.meridiumText+'</a>',
 					'</li>',
 				'</ul>'
 			].join(''));
+
+			this.base(time);	
 						
-			this.meridium.insertAfter(this.lists[this.lists.length-1].$el);
+			this.$meridium.insertAfter(this.lists[this.lists.length-1].$el);
 		},
 		
 		/**
@@ -51,8 +51,9 @@
 		flip: function(time) {			
 			if(this.meridiumText != this.getMeridium()) {
 				this.meridiumText = this.getMeridium();
-				this.meridium.find('a').html(this.meridiumText);	
+				this.$meridium.find('a').html(this.meridiumText);	
 			}
+
 			this.base(this.time.getTime(false, this.showSeconds));	
 		},
 		

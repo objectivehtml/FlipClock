@@ -41,8 +41,8 @@
 				time = this.time.getHourCounter();
 			}	
 
-			this.autoIncrement();
 			this.base(time);
+			this.autoIncrement();
 		},
 
 		/**
@@ -51,7 +51,6 @@
 
 		appendDigitToClock: function(obj) {
 			this.base(obj);
-
 			this.dividers[0].insertAfter(this.dividers[0].next());
 		}
 		

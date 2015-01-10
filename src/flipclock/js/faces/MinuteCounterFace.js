@@ -26,12 +26,8 @@
 		 * @return
 		 */
 		 
-		flip: function(time) {
-			if(!time) {
-				time = this.time.getMinuteCounter();
-			}
-
-			this.base(time);
+		flip: function() {
+			this.base(this.time.getMinuteCounter());
 		}
 
 	});
