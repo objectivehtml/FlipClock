@@ -1224,20 +1224,18 @@ var FlipClock;
 		 */
 		 
 		flip: function(time) {
-			var t = this;
+			for(var i in time) {
+				if(this.lists[i]) {
+					this.lists[i].select(time[i]);
 
-			$.each(time, function(i, digit) {
-				if(t.lists[i]) {
-					t.lists[i].select(digit);
-
-					if(t.autoPlay || t.timer.running) {
-						t.lists[i].addPlayClass();
+					if(this.autoPlay || this.timer.running) {
+						this.lists[i].addPlayClass();
 					}
 				}	
 				else {
-					t.addDigit(digit);
+					this.addDigit(time[i]);
 				}
-			});
+			}
 
 			this.trigger('flip');
 		},
@@ -1687,8 +1685,8 @@ var FlipClock;
 		digitize: function(obj) {
 			var data = [];
 
-			$.each(obj, function(i, value) {
-				value = value.toString();
+			for(var i in obj) {
+				value = obj[i].toString();
 				
 				if(value.length == 1) {
 					value = '0'+value;
@@ -1696,8 +1694,8 @@ var FlipClock;
 				
 				for(var x = 0; x < value.length; x++) {
 					data.push(value.charAt(x));
-				}				
-			});
+				}
+			}
 
 			if(data.length > this.minimumDigits) {
 				this.minimumDigits = data.length;
@@ -1966,15 +1964,15 @@ var FlipClock;
 			var total    = 0;
 			var newArray = [];
 			
-			$.each(digits, function(i, digit) {
+			for(var i in digits) {
 				if(i < totalDigits) {
 					total += parseInt(digits[i], 10);
 				}
 				else {
 					newArray.push(digits[i]);
 				}
-			});
-			
+			}
+
 			if(total === 0) {
 				return newArray;
 			}
@@ -2460,10 +2458,10 @@ var FlipClock;
 		build: function() {
 			var t = this, time = this.getTime().digitize([this.getTime().time]);
 
-			$.each(time, function(i, value) {
-				t.createList(value);
-			});
-
+			for(var i in time) {
+				t.createList(time[i]);
+			}
+			
 			if(this.autoStart) {
 				this.shouldAutoIncrement = true;
 			}
