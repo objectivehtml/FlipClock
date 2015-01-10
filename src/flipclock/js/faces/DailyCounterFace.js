@@ -17,8 +17,10 @@
 		 * Build the clock face
 		 */
 
-		build: function(time) {			
-			var offset = 0, time = time ? time : this.time.getDayCounter(this.showSeconds);
+		build: function() {	
+			var offset = 0;
+
+			var time = this.time.getDayCounter(this.showSeconds)
 
 			for(var i in time) {
 				this.createList(time[i]);
@@ -43,13 +45,9 @@
 		 * Flip the clock face
 		 */
 
-		flip: function(time) {
-			if(!time) {
-				time = this.time.getDayCounter(this.showSeconds);
-			}
-
+		flip: function() {
+			this.base(this.time.getDayCounter(this.showSeconds));
 			this.autoIncrement();
-			this.base(time);
 		}
 
 	});
