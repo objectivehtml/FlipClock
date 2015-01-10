@@ -145,7 +145,7 @@
 			this.face.init(this);
 
 			this.face.build();
-			
+
 			return this.face;
 		},
 			
@@ -186,27 +186,25 @@
 		},
 
 		/**
-		 * Sets the clock time
+		 * Sets the clock face's value
 		 *
 		 * @return  object
 		 */
 		 
-		setTime: function(time) {
-			this.face.setTime(time);
+		setFaceValue: function(value) {
+			this.face.setValue(value);
 			
 			return this;
 		},
 
 		/**
-		 * Gets the clock time
+		 * Gets the clock face's value
 		 *
 		 * @return  object
 		 */
 		 
-		getTime: function() {
-			this.face.getTime();
-			
-			return this;
+		getFaceValue: function() {
+			return this.face.getValue();
 		},
 
 		onDestroy: function() {},
