@@ -57,6 +57,12 @@ var FlipClock;
 		version: '0.7.7',
 		
 		/**
+		 * The available options for this class
+		 */		
+		
+		options: {},
+
+		/**
 		 * The bound events to this object
 		 */
 
@@ -71,8 +77,8 @@ var FlipClock;
 		/**
 		 * Sets the default options
 		 *
-		 * @param	object 	The default options
-		 * @param	object 	The override options
+		 * @param  object 	The default options
+		 * @param  object 	The override options
 		 */
 		 
 		constructor: function(_default, options) {
@@ -90,8 +96,9 @@ var FlipClock;
 		/**
 		 * Delegates the callback to the defined method
 		 *
-		 * @param	object 	The default options
-		 * @param	object 	The override options
+		 * @param  object 	The default options
+		 * @param  object 	The override options
+		 * @return object
 		 */
 		 
 		callback: function(method) {
@@ -106,33 +113,37 @@ var FlipClock;
 				
 				method.apply(this, args);
 			}
+
+			return this;
 		},
 		 
 		/**
 		 * Log a string into the console if it exists
 		 *
-		 * @param 	string 	The name of the option
-		 * @return	mixed
+		 * @param  string  The name of the option
+		 * @return mixed
 		 */		
 		 
 		log: function(str) {
 			if(window.console && console.log) {
 				console.log(str);
 			}
+
+			return this;
 		},
 		 
 		/**
 		 * Get an single option value. Returns false if option does not exist
 		 *
-		 * @param 	string 	The name of the option
-		 * @return	mixed
+		 * @param  string  The name of the option
+		 * @return mixed
 		 */		
 		 
 		getOption: function(index) {
-			if(this[index]) {
-				return this[index];
+			if(this.options.hasOwnProperty(index)) {
+				return this.options[index];
 			}
-			return false;
+			return null;
 		},
 		
 		/**
@@ -142,7 +153,7 @@ var FlipClock;
 		 */		
 		 
 		getOptions: function() {
-			return this;
+			return this.options;
 		},
 		
 		/**
@@ -153,7 +164,14 @@ var FlipClock;
 		 */		
 		 
 		setOption: function(index, value) {
-			this[index] = value;
+			if(this.hasOwnProperty(index)) {
+				this[index] = value;
+			}
+			else {
+				this.options[index] = value;
+			}
+
+			return this;
 		},
 		
 		/**
@@ -169,6 +187,8 @@ var FlipClock;
 		  			this.setOption(key, options[key]);
 		  		}
 		  	}
+
+		  	return this;
 		},
 
 		/*
@@ -201,26 +221,30 @@ var FlipClock;
 			var event = this.on(name, callback);
 
 			event.setFireOnce(true);
+
+			return event;
 		},
 
 		/*
 		 * Remove all bound events for a specific trigger
 		 *
 		 * @param  string
-		 * @return 
+		 * @return object
 		*/
 
 		off: function(name) {
 			if(this._events[name]) {
 				delete this._events[name];
 			}
+
+			return this;
 		},
 
 		/*
 		 * Remove all bound events for a specific trigger
 		 *
 		 * @param  string
-		 * @return 
+		 * @return mixed
 		*/
 
 		trigger: function(name) {
@@ -239,13 +263,15 @@ var FlipClock;
 
 				return this._events[name];
 			}
+
+			return this;
 		},
 
 		/*
 		 * Translate a string to the localized locale
 		 *
-		 * @param  
-		 * @return 
+		 * @param  string
+		 * @return string
 		*/
 
 		localize: function(name) {
@@ -259,8 +285,8 @@ var FlipClock;
 		/*
 		 * Helper method for localize. t() is just short.
 		 *
-		 * @param  
-		 * @return 
+		 * @param  string
+		 * @return string
 		*/
 
 		t: function(name) {
