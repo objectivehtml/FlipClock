@@ -1,4 +1,19 @@
+/*jshint smarttabs:true */
+
+/**
+ * FlipClock.js
+ *
+ * @author     Justin Kimbrell
+ * @copyright  2013 - Objective HTML, LLC
+ * @licesnse   http://www.opensource.org/licenses/mit-license.php
+ */
+
 (function($) {
+
+	/*
+	 * The FlipClock.Divider class makes visual dividers on clocks
+	 * easy to create and manipulate.
+	*/
 
 	FlipClock.Divider = FlipClock.Base.extend({
 

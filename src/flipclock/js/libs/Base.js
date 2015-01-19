@@ -9,7 +9,7 @@ var FlipClock;
  * @copyright  2013 - Objective HTML, LLC
  * @licesnse   http://www.opensource.org/licenses/mit-license.php
  */
-	
+
 (function($) {
 	
 	"use strict";
