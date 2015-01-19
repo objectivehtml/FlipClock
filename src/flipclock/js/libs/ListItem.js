@@ -12,6 +12,11 @@
 
 	"use strict";
 	
+	/**
+	 * The FlipClock.ListItem object generates and maintains a list item
+	 * in FlipClock.List objets.
+	 */
+	
 	FlipClock.ListItem = FlipClock.Base.extend({
 				
 		/**
