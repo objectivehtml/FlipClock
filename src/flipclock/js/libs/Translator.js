@@ -10,6 +10,8 @@
 
 (function() {
 
+	"use strict";
+	
 	FlipClock.Translator = FlipClock.Base.extend({
 
 		/**

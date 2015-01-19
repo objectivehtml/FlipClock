@@ -10,6 +10,8 @@
 
 (function($) {
 
+	"use strict";
+	
 	FlipClock.ListItem = FlipClock.Base.extend({
 				
 		/**

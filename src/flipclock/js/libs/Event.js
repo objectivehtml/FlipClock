@@ -10,6 +10,8 @@
 
 (function($) {
 
+	"use strict";
+	
 	/*
 	 * The FlipClock.Event class are instances for each event triggered
 	 * by FlipClock's classes.

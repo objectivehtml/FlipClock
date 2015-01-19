@@ -10,6 +10,8 @@
 
 (function($) {
 
+	"use strict";
+	
 	FlipClock.Uuid = FlipClock.Base.extend({
 		
 		/**

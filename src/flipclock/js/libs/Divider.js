@@ -10,6 +10,8 @@
 
 (function($) {
 
+	"use strict";
+	
 	/*
 	 * The FlipClock.Divider class makes visual dividers on clocks
 	 * easy to create and manipulate.
