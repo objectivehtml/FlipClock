@@ -12,6 +12,11 @@
 
 	"use strict";
 	
+	/**
+	 * The FlipClock.Translate object will translate string to a specified 
+	 * locale.
+	 */
+	
 	FlipClock.Translator = FlipClock.Base.extend({
 
 		/**

@@ -12,6 +12,11 @@
 
 	"use strict";
 	
+	/**
+	 * The FlipClock.Uuid object generates a uuid instance and return
+	 * the uuid as string.
+	 */
+	
 	FlipClock.Uuid = FlipClock.Base.extend({
 		
 		/**
