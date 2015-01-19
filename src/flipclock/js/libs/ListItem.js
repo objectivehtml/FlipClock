@@ -29,8 +29,10 @@
 			 */		
 			 
 			classes: {
-				up: 'up',
-				down: 'down'
+				down: 'down',
+				inn: 'inn',
+				shadow: 'shadow',
+				up: 'up'
 			},
 
 			/**
@@ -62,12 +64,12 @@
 				'<li class="'+(this.getOption('className') ? this.getOption('className') : '')+'">',
 					'<a href="#">',
 						'<div class="'+this.getOption('classes').up+'">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+value+'</div>',
+							'<div class="'+this.getOption('classes').shadow+'"></div>',
+							'<div class="'+this.getOption('classes').inn+'">'+value+'</div>',
 						'</div>',
 						'<div class="'+this.getOption('classes').down+'">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+value+'</div>',
+							'<div class="'+this.getOption('classes').shadow+'"></div>',
+							'<div class="'+this.getOption('classes').inn+'">'+value+'</div>',
 						'</div>',
 					'</a>',
 				'</li>'
