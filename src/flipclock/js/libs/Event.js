@@ -82,9 +82,9 @@
 		 * @return object
 		*/
 
-		fire: function(obj, arguments) {
+		fire: function(obj, args) {
 			if(this._preventFire === false) {
-				this.setLastResponse(this._callback.apply(obj, arguments));
+				this.setLastResponse(this._callback.apply(obj, args));
 				this._hasFired = true;
 				if(this._fireOnce) {
 					this._preventFire = true;
