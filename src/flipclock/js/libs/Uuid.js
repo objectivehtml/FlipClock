@@ -2,11 +2,27 @@
 
 	FlipClock.Uuid = FlipClock.Base.extend({
 		
+		/**
+		 * The actual uuid value as a string
+		 */	
+
 		value: false,
 
-		constructor: function() {
-			this.value = this.generate();
+		/*
+		 * Constructor
+		 * 
+		 * @return 
+		*/
+
+		constructor: function(value) {
+			this.value = value ? value : this.generate();
 		},
+
+		/*
+		 * Generate a new Uuid
+		 * 
+		 * @return string
+		*/
 
 		generate: function() {
 			var d = new Date().getTime();
@@ -18,9 +34,23 @@
 		    return uuid;
 		},
 
+		/*
+		 * Does this uuid equal another uuid object
+		 *
+		 * @param  object
+		 * @return bool
+		*/
+
 		equals: function(other) {
 		    return this.isUuid(other) && value == other;
 		},
+
+		/*
+		 * Tests another value to see if it's a uuid
+		 *
+		 * @param  mixed
+		 * @return bool
+		*/
 
 		isUuid: function(value) {
 			var validator = new RegExp("^[a-z0-9]{32}$", "i");
@@ -28,11 +58,13 @@
 			return value && (value instanceof Uuid || validator.test(value.toString()));
 		},
 
-		toString: function() {
-			return this.value;
-		},
+		/*
+		 * Outputs the object instance as a string
+		 *
+		 * @return string
+		*/
 
-		toJSON: function() {
+		toString: function() {
 			return this.value;
 		}
 

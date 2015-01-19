@@ -13,48 +13,12 @@
 	"use strict";
 	
 	/**
-	 * The FlipClock Face class is the base class in which to extend
-	 * all other FlockClock.Face classes.
-	 *
-	 * @param 	object  An object of properties to override the default	
+	 * The FlipClock.Face class is an abstract class used to create
+	 * new clock faces.
 	 */
-	 
+	 	
 	FlipClock.Face = FlipClock.Base.extend({
 		
-		/**
-		 * The clock's animation rate.
-		 * 
-		 * Note, currently this property doesn't do anything.
-		 * This property is here to be used in the future to
-		 * programmaticaly set the clock's animation speed
-		 */		
-
-		animationRate: 1000,
-
-		/**
-		 * Sets whether or not the clock should automatically add the play class
-		 */
-		 
-		autoPlay: true,
-
-		/**
-		 * Sets whether or not the clock should start ticking upon instantiation
-		 */
-		 
-		autoStart: true,
-
-		/**
-		 * Sets whether or not the clock should countdown
-		 */
-		 
-		countdown: false,
-
-		/**
-		 * The default language
-		 */	
-		 
-		defaultLanguage: 'english',
-		 
 		/**
 		 * An array of jQuery objects used for the dividers (the colons)
 		 */
@@ -68,22 +32,63 @@
 		lang: false,
 
 		/**
-		 * The language being used to display labels (string)
-		 */	
-		 
-		language: 'english',
-
-		/**
 		 * An array of FlipClock.List objects
 		 */		
 		 
 		lists: [],
 
 		/**
-		 * The minimum digits the clock must have
+		 * The available options for this class
 		 */		
+		
+		options: {
 
-		minimumDigits: 0,
+			/**
+			 * The clock's animation rate.
+			 * 
+			 * Note, currently this property doesn't do anything.
+			 * This property is here to be used in the future to
+			 * programmaticaly set the clock's animation speed
+			 */		
+
+			animationRate: 1000,
+
+			/**
+			 * Sets whether or not the clock should automatically add the play class
+			 */
+			 
+			autoPlay: true,
+
+			/**
+			 * Sets whether or not the clock should start ticking upon instantiation
+			 */
+			 
+			autoStart: true,
+
+			/**
+			 * Sets whether or not the clock should countdown
+			 */
+			 
+			countdown: false,
+
+			/**
+			 * The default language
+			 */	
+			 
+			defaultLanguage: 'english',
+			 
+			/**
+			 * The language being used to display labels (string)
+			 */	
+			 
+			language: 'english',
+
+			/**
+			 * The minimum digits the clock must have
+			 */		
+
+			minimumDigits: 0
+		},
 
 		/**
 		 * The original starting value of the clock face.
@@ -119,12 +124,11 @@
 		 * Constructor
 		 *
 		 * @param 	mixed
-		 * @param 	object
+		 * @param 	mixed
 		 */
 		 
 		constructor: function(value, options) {
 			var t = this;
-
 
 			if(value instanceof Date === false && typeof value === "object") {
 				options = value;
@@ -137,8 +141,8 @@
 			this.value = value;
 
 			this.translator = new FlipClock.Translator({
-				defaultLanguage: this.defaultLanguage,
-				language: this.language
+				defaultLanguage: this.getOption('defaultLanguage'),
+				language: this.getOption('language')
 			});
 
 			this.timer = new FlipClock.Timer();
@@ -161,8 +165,6 @@
 					}
 				}
 			});
-
-			this.trigger('create');
 		},
 		
 		/**
@@ -177,6 +179,14 @@
 			return list;
 		},
 
+		/*
+		 * Attach the FlipClock.List to the DOM of the clock face
+		 *
+		 * @param  object  A jQuery object
+		 * @param  object  A FlipClock.List object
+		 * @return 
+		*/
+
 		attachList: function($el, list) {
 			$el.append(list.$el);
 		},
@@ -186,9 +196,11 @@
 		 */
 		 
 		build: function() {
-			if(this.autoStart) {
+			if(this.getOption('autoStart')) {
 				this.start();
 			}
+
+			this.trigger('build');
 		},
 	
 		/**
@@ -199,10 +211,7 @@
 		 */
 
 		init: function(factory) {
-			this.time = new FlipClock.Time(this.value, {
-				minimumDigits: this.minimumDigits
-			});
-
+			this.setTimeObject(this.value);
 			this.trigger('init');
 		},
 		
@@ -214,23 +223,26 @@
 		 *					If not set, is false.
 		 */
 		 
-		createDivider: function(label, css, excludeDots) {
-			if(typeof css == "boolean" || !css) {
-				excludeDots = css;
-				css = false;
+		createDivider: function(label, className, excludeDots) {
+			if(typeof className == "boolean" || !className) {
+				excludeDots = className;
+				className = false;
 			}
 
-			var divider = new FlipClock.Divider(label, {
-				css: css,
+			var divider = new FlipClock.Divider({
+				label: label,
+				className: className,
 				excludeDots: excludeDots,
 				translator: this.translator
 			});
 
 			this.dividers.push(divider);
 
+			this.trigger('create:divider', divider);
+
 			return divider;
 		},
-		
+				
 		/**
 		 * Creates a FlipClock.List object and appends it to the DOM
 		 *
@@ -241,7 +253,7 @@
 		createList: function(value, options) {
 			var list = this.getListObject(value);
 		
-			if(this.autoPlay || this.timer.running) {
+			if(this.getOption('autoPlay') || this.timer.running) {
 				list.addPlayClass();
 			}
 
@@ -280,21 +292,23 @@
 		 * Triggers when the clock is reset
 		 */
 
-		reset: function() {
+		reset: function(callback) {
 			this.value = this.originalValue;
 			this.flip();
 			this.trigger('reset');
+			this.callback(callback);
 		},
 
 		/**
 		 * Starts the clock
 		 */
 		 
-		start: function() {
+		start: function(callback) {
 			if(!this.timer.running) {
 				this.trigger('before:start');
 				this.timer.start();
 				this.trigger('start');
+				this.callback(callback);
 			}
 		},
 		
@@ -302,12 +316,13 @@
 		 * Stops the clock
 		 */
 		 
-		stop: function() {
+		stop: function(callback) {
 			var t = this;
 			if(this.timer.running) {
 				this.trigger('before:stop');
 				this.timer.stop(function() {
 					t.trigger('stop');
+					t.callback(callback);
 				});
 			}
 		},
@@ -317,12 +332,14 @@
 		 */
 		 
 		autoIncrement: function() {
-			if(!this.countdown) {
+			if(!this.getOption('countdown')) {
 				this.increment();
 			}
 			else {
 				this.decrement();
 			}
+
+			this.trigger('auto:increment', this.getOption('countdown'));
 		},
 
 		/**
@@ -335,6 +352,8 @@
 			if(this.time) {
 				this.time.addSecond();
 			}
+
+			this.trigger('increment');
 		},
 
 		/**
@@ -352,6 +371,8 @@
 					this.time.subSecond();
 				}
 			}
+
+			this.trigger('decrement');
 		},
 		
 		/**
@@ -363,7 +384,7 @@
 				if(this.lists[i]) {
 					this.lists[i].select(time[i]);
 
-					if(this.autoPlay || this.timer.running) {
+					if(this.getOption('autoPlay') || this.timer.running) {
 						this.lists[i].addPlayClass();
 					}
 				}	
@@ -381,7 +402,8 @@
 		 
 		setTime: function(time) {
 			this.time.time = time;
-			this.flip();		
+			this.flip();
+			this.trigger('set:time', time);	
 		},
 		
 		/**
@@ -395,6 +417,16 @@
 		},
 
 		/**
+		 * Set the time attribute with a new FlipClock.Time object
+		 */
+		 
+		setTimeObject: function(time) {
+			this.time = new FlipClock.Time(time, {
+				minimumDigits: this.getOption('minimumDigits')
+			});
+		},
+		
+		/**
 		 * Sets the clock face's time
 		 */
 		 
@@ -402,14 +434,14 @@
 			this.value = value;
 
 			if(this.time) {
-				this.time = new FlipClock.Time(this.value, {
-					minimumDigits: this.minimumDigits
-				});
+				this.setTimeObject(this.time);
 			}
 
-			this.flip();		
+			this.flip();
+
+			this.trigger('set:value', this.value);		
 		},
-		
+
 		/**
 		 * Get the clock face's value
 		 *
@@ -425,12 +457,22 @@
 		 */
 		
 		setCountdown: function(value) {			
-			this.countdown = value ? true : false;
+			this.setOption('countdown', value ? true : false);
 				
 			if(this.timer.running) {
 				this.stop();
 				this.start();
 			}
+
+			this.trigger('set:countdown', this.getOption('countdown'));
+		},
+
+		/**
+		 * Get the current countdown option value
+		 */
+		
+		getCountdown: function(value) {			
+			return this.getOption('countdown');
 		}	
 
 	});

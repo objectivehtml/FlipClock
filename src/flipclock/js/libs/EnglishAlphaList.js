@@ -13,14 +13,32 @@
 	"use strict";
 	
 	/**
-	 * The FlipClock List class is used to build the list used to create 
-	 * the card flip effect. This object fascilates selecting the correct
-	 * node by passing a specific value.
+	 * The FlipClock.EnglishAlphaList class is a specific class to create
+	 * lists that alphabetical values
 	 */
 
 	FlipClock.EnglishAlphaList = FlipClock.List.extend({
 
-		capitalLetters: true,
+		/**
+		 * The available options for this class
+		 */		
+		
+		options: {
+
+			/**
+			 * Tells the list to use capital letters if true
+			 */		
+			
+			capitalLetters: true
+		},
+
+		/*
+		 * Constructor
+		 *
+		 * @param  string
+		 * @param  mixed
+		 * @return 
+		*/
 
 		constructor: function(value, options) {
 			if(!value) {
@@ -34,18 +52,42 @@
 			}
 		},
 
+		/*
+		 * Get the maximum character code in the list
+		 *
+		 * @return int
+		*/
+
 		getMaxCharCode: function() {
-			return this.capitalLetters ? 90 : 122;
+			return this.getOption('capitalLetters') ? 90 : 122;
 		},
 
+		/*
+		 * Get the minimum character code in the list
+		 *
+		 * @return int
+		*/
+
 		getMinCharCode: function() {
-			return this.capitalLetters ? 65 : 96;
+			return this.getOption('capitalLetters') ? 65 : 96;
 		},
+
+		/*
+		 * Get the char code of the current list value
+		 *
+		 * @return int
+		*/
 
 		getCharCode: function() {
 			return this.value.charCodeAt(0);
 		},
 		
+		/*
+		 * Get the previous value in the list
+		 *
+		 * @return int
+		*/
+
 		getPrevValue: function() {
 			var charCode = this.value.charCodeAt(0) - 1;
 			var minCode = this.getMinCharCode(), maxCode = this.getMaxCharCode();
@@ -56,6 +98,12 @@
 
 			return String.fromCharCode(charCode);
 		},
+
+		/*
+		 * Get the next value in the list
+		 *
+		 * @return int
+		*/
 
 		getNextValue: function() {
 			var charCode = this.value.charCodeAt(0) + 1;

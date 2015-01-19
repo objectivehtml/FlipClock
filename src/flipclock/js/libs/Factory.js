@@ -15,43 +15,10 @@
 	/**
 	 * The FlipClock Factory class is used to build the clock and manage
 	 * all the public methods.
-	 *
-	 * @param 	object  A jQuery object or CSS selector used to fetch
-	 				    the wrapping DOM nodes
-	 * @param 	mixed   This is the digit used to set the clock. If an 
-	 				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
 	 */
 	 	
 	FlipClock.Factory = FlipClock.Base.extend({
 		
-		/**
-		 * The CSS classes
-		 */		
-		 
-		classes: {
-			wrapper: 'flip-clock-wrapper'
-		},
-		
-		/**
-		 * The name of the clock face class in use
-		 */	
-		 
-		clockFace: 'HourlyCounter',
-		 
-		/**
-		 * The FlipClock.Face options object
-		 */	
-		 
-		clockFaceOptions: {},
-		 
-		/**
-		 * The name of the default clock face class to use if the defined
-		 * clockFace variable is not a valid FlipClock.Face object
-		 */	
-		 
-		defaultClockFace: 'HourlyCounter',
-		 
 		/**
 		 * The jQuery object
 		 */		
@@ -64,6 +31,40 @@
 		 
 		face: false,		 
 		 
+		/**
+		 * The available options for this class
+		 */		
+		
+		options: {
+
+			/**
+			 * An object of available CSS classes
+			 */		
+			 
+			classes: {
+				wrapper: 'flip-clock-wrapper'
+			},
+			
+			/**
+			 * The name of the clock face class in use
+			 */	
+			 
+			clockFace: 'HourlyCounter',
+			 
+			/**
+			 * The FlipClock.Face options object
+			 */	
+			 
+			clockFaceOptions: {},
+			 
+			/**
+			 * The name of the default clock face class to use if the defined
+			 * clockFace variable is not a valid FlipClock.Face object
+			 */	
+			 
+			defaultClockFace: 'HourlyCounter'
+		},
+
 		/**
 		 * Constructor
 		 *
@@ -83,9 +84,11 @@
 
 			this.lists = [];
 			
-			this.$el = $el.addClass(this.classes.wrapper);
+			this.$el = $el.addClass(this.getOption('classes').wrapper);
 
-			this.loadClockFace(this.clockFace, value, this.clockFaceOptions);
+			this.loadClockFace(this.getOption('clockFace'), value, this.getOption('clockFaceOptions'));
+
+			this.trigger('init');
 		},
 		
 		/**
@@ -111,7 +114,7 @@
 				this.face = new FlipClock[name](value, options);
 			}
 			else {
-				this.face = new FlipClock[this.defaultClockFace+suffix](value, options);
+				this.face = new FlipClock[this.getOption('defaultClockFace')+suffix](value, options);
 			}
 
 			this.face.on('create:list', function(list) {
@@ -134,10 +137,6 @@
 				t.callback(t.onReset);
 			});
 			
-			this.face.on('init', function() {
-				t.callback(t.onInit);
-			});
-			
 			this.face.on('interval', function() {
 				t.callback(t.onInterval);
 			});
@@ -146,9 +145,35 @@
 
 			this.face.build();
 
+			this.trigger('load:face', this.face);
+
+			this.callback(t.onInit);
+
 			return this.face;
 		},
 			
+		/**
+		 * Starts the clock face countdown option
+		 *
+		 * @return  object
+		 */
+		 
+		setCountdown: function(value) {
+			this.face.setCountdown(value);
+
+			return this;
+		},
+		
+		/**
+		 * Gets the countdown option from the clock face
+		 *
+		 * @return  object
+		 */
+		 
+		getCountdown: function() {
+			return this.face.getCountdown();
+		},
+		
 		/**
 		 * Starts the clock
 		 *
@@ -207,18 +232,52 @@
 			return this.face.getValue();
 		},
 
+		/*
+		 * The onDestroy callback
+		 *
+		 * @return 
+		*/
+
 		onDestroy: function() {},
 		
-		onCreate: function() {},
-		
+		/*
+		 * The onInit callback
+		 *
+		 * @return 
+		*/
+
 		onInit: function() {},
 		
+		/*
+		 * The onInterval callback
+		 *
+		 * @return 
+		*/
+
 		onInterval: function() {},
 		
+		/*
+		 * The onStart callback
+		 *
+		 * @return 
+		*/
+
 		onStart: function() {},
 		
+		/*
+		 * The onStop callback
+		 *
+		 * @return 
+		*/
+
 		onStop: function() {},
 		
+		/*
+		 * The onReset callback
+		 *
+		 * @return 
+		*/
+
 		onReset: function() {}
 		
 	});

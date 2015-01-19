@@ -11,16 +11,12 @@
 (function($) {
 	
 	"use strict";
-			
-	/**
-	 * The FlipClock Time class is used to manage all the time 
-	 * calculations.
-	 *
-	 * @param 	mixed   This is the digit used to set the clock. If an 
-	 *				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
-	 */
-	 	
+	
+	/*
+	 * The FlipClock.Time class is a helper classes to digitize clock
+	 * values and help calculate time.
+	*/
+
 	FlipClock.Time = FlipClock.Base.extend({
 		
 		/**
@@ -30,10 +26,17 @@
 		time: 0,
 		
 		/**
-		 * The minimum number of digits the clock face must have
+		 * The available options for this class
 		 */		
-		 
-		minimumDigits: 0,
+		
+		options: {
+
+			/**
+			 * The minimum number of digits the clock face must have
+			 */		
+			 
+			minimumDigits: 0
+		},
 
 		/**
 		 * Constructor
@@ -109,7 +112,7 @@
 			var data = [];
 
 			for(var i in obj) {
-				value = obj[i].toString();
+				var value = obj[i].toString();
 				
 				if(value.length == 1) {
 					value = '0'+value;
@@ -120,12 +123,12 @@
 				}
 			}
 
-			if(data.length > this.minimumDigits) {
-				this.minimumDigits = data.length;
+			if(data.length > this.getOption('minimumDigits')) {
+				this.setOption('minimumDigits', data.length);
 			}
 			
-			if(this.minimumDigits > data.length) {
-				for(var x = data.length; x < this.minimumDigits; x++) {
+			if(this.getOption('minimumDigits') > data.length) {
+				for(var x = data.length; x < this.getOption('minimumDigits'); x++) {
 					data.unshift('0');
 				}
 			}

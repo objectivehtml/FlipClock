@@ -13,17 +13,18 @@
 	"use strict";
 	
 	/**
-	 * The FlipClock.List class is used to build the list used to create 
-	 * the card flip effect. This object fascilates selecting the correct
-	 * node by passing a specific value.
-	 *
-	 * @param 	mixed   This is the value used to set the clock. If an 
-	 *				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
+	 * The FlipClock.NumberList class is a specific class to create
+	 * lists that display numbers
 	 */
 
 	FlipClock.NumericList = FlipClock.List.extend({
 		
+		/*
+		 * Get the previous value in the list
+		 *
+		 * @return int
+		*/
+
 		getPrevValue: function() {
 			if(this.value > 0) {
 				return this.value - 1;
@@ -31,6 +32,12 @@
 
 			return 9;
 		},
+
+		/*
+		 * Get the next value in the list
+		 *
+		 * @return int
+		*/
 
 		getNextValue: function() {
 			if(this.value < 9) {

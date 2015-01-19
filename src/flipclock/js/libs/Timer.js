@@ -13,31 +13,36 @@
 	"use strict";
 	
 	/**
-	 * The FlipClock.Timer object managers the JS timers
-	 *
-	 * @param	object  Override the default options
+	 * The FlipClock.Timer object is a helper to manage the JS time intervals
 	 */
 	
 	FlipClock.Timer = FlipClock.Base.extend({
 		
 		/**
-		 * The rate of the animation in milliseconds (not currently in use)
-		 */		
-		 
-		animationRate: 1000,
-
-		/**
 		 * FlipClock timer count (how many intervals have passed)
 		 */		
 		 
 		count: 0,
-		
-		/**
-		 * Timer interval (1 second by default)
-		 */		
-		 
-		interval: 1000,
 
+		/**
+		 * The available options for this class
+		 */		
+		
+		options: {
+
+			/**
+			 * The rate of the animation in milliseconds (not currently in use)
+			 */		
+			 
+			animationRate: 1000,
+
+			/**
+			 * Timer interval (1 second by default)
+			 */		
+			 
+			interval: 1000
+		},
+		
 		/**
 		 * Is the timer running?
 		 */		
@@ -62,7 +67,7 @@
 		 */		
 		 
 		getElapsed: function() {
-			return this.count * this.interval;
+			return this.count * this.getOption('interval');
 		},
 		
 		/**
@@ -88,7 +93,7 @@
 			this._setInterval(callback);
 			this.trigger('reset');
 		},
-		
+				
 		/**
 		 * This method is starts the timer
 		 *
@@ -116,7 +121,7 @@
 
 			setTimeout(function() {
 				t.callback(callback);
-			}, this.interval);
+			}, this.getOption('interval'));
 
 			t.trigger('stop');
 		},
@@ -183,7 +188,7 @@
 				if(t.running) {	
 					t._interval(callback);
 				}
-			}, this.interval);
+			}, this.getOption('interval'));
 			this.trigger('start');
 			this._interval(callback);
 		}

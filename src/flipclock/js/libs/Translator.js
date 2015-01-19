@@ -3,22 +3,29 @@
 	FlipClock.Translator = FlipClock.Base.extend({
 
 		/**
-		 * The default language
-		 */	
-		 
-		defaultLanguage: 'english',
-		 
-		/**
-		 * The language being used to display labels (string)
-		 */	
-		 
-		language: 'english',
-
-		/**
 		 * The language object after it has been loaded
 		 */	
 		 
 		lang: false,
+
+		/**
+		 * The available options for this class
+		 */		
+		
+		options: {
+
+			/**
+			 * The default language
+			 */	
+			 
+			defaultLanguage: 'english',
+			 
+			/**
+			 * The language being used to display labels (string)
+			 */	
+			 
+			language: 'english'
+		},
 
 		/*
 		 * Constructor
@@ -29,7 +36,7 @@
 
 		constructor: function(options) {
 			this.base(options);
-			this.loadLanguage(this.language);
+			this.loadLanguage(this.getOption('language'));
 		},
 
 		/**
@@ -48,7 +55,7 @@
 				lang = FlipClock.Lang[name];
 			}
 			else {
-				lang = FlipClock.Lang[this.defaultLanguage];
+				lang = FlipClock.Lang[this.getOption('defaultLanguage')];
 			}
 			
 			return this.lang = lang;

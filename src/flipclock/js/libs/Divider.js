@@ -2,35 +2,77 @@
 
 	FlipClock.Divider = FlipClock.Base.extend({
 
-		label: false,
-
-		css: false,
+		/**
+		 * The jQuery object
+		 */		
 		
-		excludeDots: false,
-
-		translator: false,
-
-		classes: {
-			divider: 'flip-clock-divider',
-			dot: 'flip-clock-dot',
-			label: 'flip-clock-label'
-		},
-
 		$el: false,
 
-		constructor: function(label, options) {
+		/**
+		 * The available options for this class
+		 */		
+		
+		options: {
+					
+			/**
+			 * The available options for this class
+			 */		
+			
+			className: false,
+		
+			/**
+			 * An object of available CSS classes
+			 */		
+			 
+			classes: {
+				divider: 'flip-clock-divider',
+				dot: 'flip-clock-dot',
+				label: 'flip-clock-label'
+			},
+
+			/**
+			 * If true the dots will not be displayed in the divider
+			 */		
+
+			excludeDots: false,
+
+			/**
+			 * The label for the divider
+			 */		
+			
+			label: false
+		},
+
+		/**
+		 * The FlipClock.Translator instance
+		 */		
+		
+		translator: false,
+
+		/*
+		 * Constructor
+		 *
+		 * @param  string
+		 * @param  mixed
+		 * @return
+		*/
+
+		constructor: function(options) {
 			this.base(options);
 
-			this.label = this.t(label);
+			// Tranlate the label
+			if(this.getOption('label')) {
+				this.setOption('label', this.t(this.getOption('label')));
+			}
 
-			var dots = !this.excludeDots ? [
-				'<span class="'+this.classes.dot+' top"></span>',
-				'<span class="'+this.classes.dot+' bottom"></span>'
+			var dots = !this.getOption('excludeDots') ? [
+				'<span class="'+this.getOption('classes').dot+' top"></span>',
+				'<span class="'+this.getOption('classes').dot+' bottom"></span>'
 			].join('') : '';
 
 			this.$el = $([
-				'<span class="'+this.classes.divider+' '+(this.css ? this.css : '').toLowerCase()+'">',
-					'<span class="'+this.classes.label+'">'+(this.label ? this.label : '')+'</span>',
+				'<span class="'+this.getOption('classes').divider+' '+(this.getOption('css') ? this.getOption('css') : '').toLowerCase()+'">',
+					'<span class="'+this.getOption('classes').label+'">'+(this.getOption('label') ? this.getOption('label') : '')+'</span>',
 					dots,
 				'</span>'
 			].join(''));

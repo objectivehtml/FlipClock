@@ -16,25 +16,10 @@
 	 * The FlipClock.List class is used to build the list used to create 
 	 * the card flip effect. This object fascilates selecting the correct
 	 * node by passing a specific value.
-	 *
-	 * @param 	mixed   This is the value used to set the clock. If an 
-	 *				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
 	 */
 	 	
 	FlipClock.List = FlipClock.Base.extend({
-		
-		/**
-		 * The CSS classes
-		 */		
-		 
-		classes: {
-			active: 'flip-clock-active',
-			before: 'flip-clock-before',
-			flip: 'flip',
-			play: 'play'
-		},
-				
+			
 		/**
 		 * The jQuery object
 		 */		
@@ -48,11 +33,29 @@
 		items: [],
 		
 		/**
-		 * The last value selected in the list
+		 * The available options for this class
 		 */		
-		 
-		lastValue: 0,
-			
+		
+		options: {
+
+			/**
+			 * The CSS classes
+			 */		
+			 
+			classes: {
+				active: 'flip-clock-active',
+				before: 'flip-clock-before',
+				flip: 'flip',
+				play: 'play'
+			},
+				
+			/**
+			 * The last value selected in the list
+			 */		
+			 
+			lastValue: 0
+		},
+
 		/**
 		 * The selected value in the list
 		 */		
@@ -88,7 +91,7 @@
 		select: function(value) {
 			var _afterListItem = this._afterListItem;
 
-			this.lastValue = this.value;
+			this.setOption('lastValue', this.value);
 
 			if(typeof value === "undefined") {
 				value = this.value;
@@ -97,16 +100,16 @@
 				this.value = value;
 			}
 
-			if(this.value != this.lastValue) {
-				this._beforeListItem.$el.removeClass(this.classes.before);
+			if(this.value != this.getOption('lastValue')) {
+				this._beforeListItem.$el.removeClass(this.getOption('classes').before);
 
-				this.$el.find('.'+this.classes.active)
-					.removeClass(this.classes.active)
-					.addClass(this.classes.before);
+				this.$el.find('.'+this.getOption('classes').active)
+					.removeClass(this.getOption('classes').active)
+					.addClass(this.getOption('classes').before);
 
 				this.items.splice(0, 1);
 
-				this._afterListItem = this.createListItem(this.classes.active, this.value);
+				this._afterListItem = this.createListItem(this.value, this.getOption('classes').active);
 
 				this._beforeListItem.$el.remove();
 				this._beforeListItem = _afterListItem;
@@ -122,7 +125,7 @@
 		*/
 
 		addPlayClass: function() {
-			this.$el.addClass(this.classes.play);
+			this.$el.addClass(this.getOption('classes').play);
 		},
 		
 		/*
@@ -132,15 +135,17 @@
 		*/
 
 		removePlayClass: function() {
-			this.$el.removeClass(this.classes.play);
+			this.$el.removeClass(this.getOption('classes').play);
 		},
 		
 		/**
 		 * Creates the list item HTML and returns as a string 
 		 */
 		 
-		createListItem: function(css, value) {
-			var item = new FlipClock.ListItem(css, value);
+		createListItem: function(value, css) {
+			var item = new FlipClock.ListItem(value, {
+				className: css
+			});
 
 			this.items.push(item);
 
@@ -152,14 +157,14 @@
 		},
 
 		/**
-		 * Create the lsit of values and appends it to the DOM object 
+		 * Create the list of values and appends it to the DOM object 
 		 */
 		 
 		createList: function() {
-			var $el = this.$el = $('<ul class="'+this.classes.flip+'"></ul>');
+			var $el = this.$el = $('<ul class="'+this.getOption('classes').flip+'"></ul>');
 
-			this._beforeListItem = this.createListItem(this.classes.before, this.getPrevValue());
-			this._afterListItem = this.createListItem(this.classes.active, this.value);
+			this._beforeListItem = this.createListItem(this.getPrevValue(), this.getOption('classes').before);
+			this._afterListItem = this.createListItem(this.value, this.getOption('classes').active);
 
 			$el.append(this._beforeListItem.el);
 			$el.append(this._afterListItem.el);
