@@ -15,21 +15,12 @@
 		
 		$(document).ready(function() {
 			
-			clock = $('.clock').FlipClock(10, {
-				clockFace: 'HourlyCounter',
-				clockFaceOptions: {
-					countdown: true,
-					includeSeconds: true
-				},
-				onStop: function() {
-					console.log('Time finished (callback)');
-				}
-			});
-
-			clock.face.on('stop', function() {
-				console.log('Time finished (event)');
-			});
-
+			clock = $('.clock').FlipClock(1018, {
+		        clockFace: 'HourlyCounter',
+		        clockFaceOptions: {
+		        	includeSeconds: false
+		        }
+		    });
 		});
 	</script>
 	
