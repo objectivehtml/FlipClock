@@ -3506,8 +3506,6 @@ var FlipClock;
 				time = this.time.getHourCounter(this.getOption('includeSeconds'));
 			}
 
-			console.log(time);
-
 			this.base(time);
 			this.autoIncrement();
 		},
@@ -3552,7 +3550,7 @@ var FlipClock;
 			if(this.getOption('includeSeconds')) {
 				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
 			}
-			
+
 			this.createDivider('Minutes').$el.insertBefore(this.lists[0].$el);
 
 			return FlipClock.Face.prototype.build.call(this);
@@ -3564,7 +3562,6 @@ var FlipClock;
 		 
 		flip: function() {
 			this.base(this.time.getMinuteCounter(this.getOption('includeSeconds')));
-			this.autoIncrement();
 		}
 
 	});
