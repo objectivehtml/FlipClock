@@ -31,6 +31,8 @@
 		 */
 		
 		build: function(time) {
+			console.log(this.time.getHourCounter(this.getOption('includeSeconds')));
+			
 			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('includeSeconds'));
 			
 			for(var i in time) {

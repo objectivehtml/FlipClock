@@ -201,7 +201,7 @@
 			];
 
 			if(includeSeconds !== false) {
-				//data.push(this.getSeconds(true));
+				data.push(this.getSeconds(true));
 			}
 
 			return this.digitize(data);

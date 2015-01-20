@@ -2197,7 +2197,7 @@ var FlipClock;
 			];
 
 			if(includeSeconds !== false) {
-				//data.push(this.getSeconds(true));
+				data.push(this.getSeconds(true));
 			}
 
 			return this.digitize(data);
@@ -3480,6 +3480,8 @@ var FlipClock;
 		 */
 		
 		build: function(time) {
+			console.log(this.time.getHourCounter(this.getOption('includeSeconds')));
+			
 			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('includeSeconds'));
 			
 			for(var i in time) {
