@@ -1428,7 +1428,7 @@ var FlipClock;
 		 
 		createList: function(value, options) {
 			var list = this.getListObject(value);
-		
+
 			if(this.getOption('autoPlay') || this.timer.running) {
 				list.addPlayClass();
 			}
@@ -1559,8 +1559,7 @@ var FlipClock;
 			for(var i in time) {
 				if(this.lists[i]) {
 					this.lists[i].select(time[i]);
-
-					if(this.getOption('autoPlay') || this.timer.running) {
+					if(this.getOption('autoPlay') && this.timer.running) {
 						this.lists[i].addPlayClass();
 					}
 				}	
@@ -3480,8 +3479,6 @@ var FlipClock;
 		 */
 		
 		build: function(time) {
-			console.log(this.time.getHourCounter(this.getOption('includeSeconds')));
-			
 			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('includeSeconds'));
 			
 			for(var i in time) {
