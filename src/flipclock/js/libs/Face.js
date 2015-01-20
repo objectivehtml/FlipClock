@@ -434,7 +434,7 @@
 			this.value = value;
 
 			if(this.time) {
-				this.setTimeObject(this.time);
+				this.setTimeObject(new FlipClock.Time(value));
 			}
 
 			this.flip();

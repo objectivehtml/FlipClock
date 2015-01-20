@@ -1610,7 +1610,7 @@ var FlipClock;
 			this.value = value;
 
 			if(this.time) {
-				this.setTimeObject(this.time);
+				this.setTimeObject(new FlipClock.Time(value));
 			}
 
 			this.flip();
@@ -2197,7 +2197,7 @@ var FlipClock;
 			];
 
 			if(includeSeconds !== false) {
-				data.push(this.getSeconds(true));
+				//data.push(this.getSeconds(true));
 			}
 
 			return this.digitize(data);
@@ -3504,9 +3504,12 @@ var FlipClock;
 		flip: function(time) {
 			if(!time) {
 				time = this.time.getHourCounter(this.getOption('includeSeconds'));
-			}	
+			}
+
+			console.log(time);
 
 			this.base(time);
+			this.autoIncrement();
 		},
 
 		/**

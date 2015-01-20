@@ -55,9 +55,12 @@
 		flip: function(time) {
 			if(!time) {
 				time = this.time.getHourCounter(this.getOption('includeSeconds'));
-			}	
+			}
+
+			console.log(time);
 
 			this.base(time);
+			this.autoIncrement();
 		},
 
 		/**
