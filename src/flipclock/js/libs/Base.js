@@ -164,7 +164,7 @@ var FlipClock;
 		 */		
 		 
 		setOption: function(index, value) {
-			if(this.hasOwnProperty(index)) {
+			if(this.hasOwnProperty(index) || typeof this[index] === "function") {
 				this[index] = value;
 			}
 			else {
