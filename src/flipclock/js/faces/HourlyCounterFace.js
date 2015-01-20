@@ -12,22 +12,38 @@
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
 			
 		/**
+		 * Constructor
+		 *
+		 * @param 	mixed
+		 * @param 	mixed
+		 */
+		 
+		constructor: function(value, options) {
+			this.base(value, options);
+
+			if(this.getOption('includeSeconds') === null) {
+				this.setOption('includeSeconds', true);
+			}
+		},
+
+		/**
 		 * Build the clock face
 		 */
 		
-		build: function(excludeHours, time) {
-			var time = time ? time : this.time.getHourCounter();
+		build: function(time) {
+			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('includeSeconds'));
 			
 			for(var i in time) {
 				this.createList(time[i]);
 			}
 
-			this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
-			this.createDivider('Minutes').$el.insertBefore(this.lists[this.lists.length - 4].$el);
-			
-			if(!excludeHours) {
-				this.createDivider('Hours', true).$el.insertBefore(this.lists[0].$el);
+			if(this.getOption('includeSeconds') === true) {
+				offset = 2;
+				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - offset].$el);
 			}
+			
+			this.createDivider('Minutes').$el.insertBefore(this.lists[this.lists.length - 2 - offset].$el);
+			this.createDivider('Hours', true).$el.insertBefore(this.lists[0].$el);
 
 			this.base();
 		},
@@ -38,11 +54,10 @@
 		 
 		flip: function(time) {
 			if(!time) {
-				time = this.time.getHourCounter();
+				time = this.time.getHourCounter(this.getOption('includeSeconds'));
 			}	
 
 			this.base(time);
-			this.autoIncrement();
 		},
 
 		/**

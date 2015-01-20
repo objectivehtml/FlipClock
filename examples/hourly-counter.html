@@ -16,7 +16,10 @@
 		$(document).ready(function() {
 			
 			clock = $('.clock').FlipClock({
-		        clockFace: 'HourlyCounter'
+		        clockFace: 'HourlyCounter',
+		        clockFaceOptions: {
+		        	includeSeconds: false
+		        }
 		    });
 		});
 	</script>

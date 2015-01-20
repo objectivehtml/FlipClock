@@ -2186,34 +2186,39 @@ var FlipClock;
 		/**
 		 * Gets an hourly breakdown
 		 *
+		 * @param   mixed   includeSeconds
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getHourCounter: function() {
-			var obj = this.digitize([
+		getHourCounter: function(includeSeconds) {
+			var data = [
 				this.getHours(),
-				this.getMinutes(true),
-				this.getSeconds(true)
-			]);
-			
-			return obj;
+				this.getMinutes(true)
+			];
+
+			if(includeSeconds !== false) {
+				data.push(this.getSeconds(true));
+			}
+
+			return this.digitize(data);
 		},
 		
 		/**
 		 * Gets an hourly breakdown
 		 *
+		 * @param   mixed   includeSeconds
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getHourly: function() {
-			return this.getHourCounter();
+		getHourly: function(includeSeconds) {
+			return this.getHourCounter(includeSeconds);
 		},
 		
 		/**
 		 * Gets number of hours
 		 *
-		 * @param   bool  Should perform a modulus? If not sent, then no.
-		 * @return  int   Retuns a floored integer
+		 * @param   bool  mod
+		 * @return  int
 		 */
 		 
 		getHours: function(mod) {
@@ -2274,13 +2279,16 @@ var FlipClock;
 		 * Gets a minute breakdown
 		 */
 		 
-		getMinuteCounter: function() {
-			var obj = this.digitize([
-				this.getMinutes(),
-				this.getSeconds(true)
-			]);
+		getMinuteCounter: function(includeSeconds) {
+			var data = [
+				this.getMinutes()
+			];
 
-			return obj;
+			if(includeSeconds !== false) {
+				data.push(this.getSeconds(true));
+			}
+
+			return this.digitize(data);
 		},
 		
 		/**
@@ -3453,22 +3461,38 @@ var FlipClock;
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
 			
 		/**
+		 * Constructor
+		 *
+		 * @param 	mixed
+		 * @param 	mixed
+		 */
+		 
+		constructor: function(value, options) {
+			this.base(value, options);
+
+			if(this.getOption('includeSeconds') === null) {
+				this.setOption('includeSeconds', true);
+			}
+		},
+
+		/**
 		 * Build the clock face
 		 */
 		
-		build: function(excludeHours, time) {
-			var time = time ? time : this.time.getHourCounter();
+		build: function(time) {
+			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('includeSeconds'));
 			
 			for(var i in time) {
 				this.createList(time[i]);
 			}
 
-			this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
-			this.createDivider('Minutes').$el.insertBefore(this.lists[this.lists.length - 4].$el);
-			
-			if(!excludeHours) {
-				this.createDivider('Hours', true).$el.insertBefore(this.lists[0].$el);
+			if(this.getOption('includeSeconds') === true) {
+				offset = 2;
+				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - offset].$el);
 			}
+			
+			this.createDivider('Minutes').$el.insertBefore(this.lists[this.lists.length - 2 - offset].$el);
+			this.createDivider('Hours', true).$el.insertBefore(this.lists[0].$el);
 
 			this.base();
 		},
@@ -3479,11 +3503,10 @@ var FlipClock;
 		 
 		flip: function(time) {
 			if(!time) {
-				time = this.time.getHourCounter();
+				time = this.time.getHourCounter(this.getOption('includeSeconds'));
 			}	
 
 			this.base(time);
-			this.autoIncrement();
 		},
 
 		/**
@@ -3517,17 +3540,28 @@ var FlipClock;
 		 */
 		 
 		build: function() {
-			this.base(true, this.time.getMinuteCounter());
+			var time = this.time.getMinuteCounter(this.getOption('includeSeconds'));
+			
+			for(var i in time) {
+				this.createList(time[i]);
+			}
+
+			if(this.getOption('includeSeconds')) {
+				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
+			}
+			
+			this.createDivider('Minutes').$el.insertBefore(this.lists[0].$el);
+
+			return FlipClock.Face.prototype.build.call(this);
 		},
-		
+
 		/**
 		 * Flip the clock face
-		 *	
-		 * @return
 		 */
 		 
 		flip: function() {
-			this.base(this.time.getMinuteCounter());
+			this.base(this.time.getMinuteCounter(this.getOption('includeSeconds')));
+			this.autoIncrement();
 		}
 
 	});

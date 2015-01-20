@@ -190,34 +190,39 @@
 		/**
 		 * Gets an hourly breakdown
 		 *
+		 * @param   mixed   includeSeconds
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getHourCounter: function() {
-			var obj = this.digitize([
+		getHourCounter: function(includeSeconds) {
+			var data = [
 				this.getHours(),
-				this.getMinutes(true),
-				this.getSeconds(true)
-			]);
-			
-			return obj;
+				this.getMinutes(true)
+			];
+
+			if(includeSeconds !== false) {
+				data.push(this.getSeconds(true));
+			}
+
+			return this.digitize(data);
 		},
 		
 		/**
 		 * Gets an hourly breakdown
 		 *
+		 * @param   mixed   includeSeconds
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getHourly: function() {
-			return this.getHourCounter();
+		getHourly: function(includeSeconds) {
+			return this.getHourCounter(includeSeconds);
 		},
 		
 		/**
 		 * Gets number of hours
 		 *
-		 * @param   bool  Should perform a modulus? If not sent, then no.
-		 * @return  int   Retuns a floored integer
+		 * @param   bool  mod
+		 * @return  int
 		 */
 		 
 		getHours: function(mod) {
@@ -278,13 +283,16 @@
 		 * Gets a minute breakdown
 		 */
 		 
-		getMinuteCounter: function() {
-			var obj = this.digitize([
-				this.getMinutes(),
-				this.getSeconds(true)
-			]);
+		getMinuteCounter: function(includeSeconds) {
+			var data = [
+				this.getMinutes()
+			];
 
-			return obj;
+			if(includeSeconds !== false) {
+				data.push(this.getSeconds(true));
+			}
+
+			return this.digitize(data);
 		},
 		
 		/**

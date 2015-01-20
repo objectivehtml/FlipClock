@@ -17,17 +17,28 @@
 		 */
 		 
 		build: function() {
-			this.base(true, this.time.getMinuteCounter());
+			var time = this.time.getMinuteCounter(this.getOption('includeSeconds'));
+			
+			for(var i in time) {
+				this.createList(time[i]);
+			}
+
+			if(this.getOption('includeSeconds')) {
+				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
+			}
+			
+			this.createDivider('Minutes').$el.insertBefore(this.lists[0].$el);
+
+			return FlipClock.Face.prototype.build.call(this);
 		},
-		
+
 		/**
 		 * Flip the clock face
-		 *	
-		 * @return
 		 */
 		 
 		flip: function() {
-			this.base(this.time.getMinuteCounter());
+			this.base(this.time.getMinuteCounter(this.getOption('includeSeconds')));
+			this.autoIncrement();
 		}
 
 	});
