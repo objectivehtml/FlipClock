@@ -1738,8 +1738,6 @@ var FlipClock;
 
 			this.base(options);
 
-			console.log(this.options);
-
 			this.lists = [];
 			
 			this.$el = $el.addClass(this.getOption('classes').wrapper);
