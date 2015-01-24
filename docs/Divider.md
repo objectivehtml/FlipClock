@@ -8,7 +8,9 @@
  
 <a name="$el"></a>
 #$el
-The jQuery object
+**Properties**
+
+-  `object` - The jQuery object  
 
 <a name="options"></a>
 #options

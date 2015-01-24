@@ -20,7 +20,7 @@
 	FlipClock.Divider = FlipClock.Base.extend({
 
 		/**
-		 * The jQuery object
+		 * @property {object} - The jQuery object
 		 */		
 		
 		$el: false,
@@ -30,7 +30,7 @@
 		 */		
 		
 		options: {
-			
+
 			// The available options for this class
 			className: false,
 		
