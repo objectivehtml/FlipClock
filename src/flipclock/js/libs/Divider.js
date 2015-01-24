@@ -16,20 +16,15 @@
 	 * The FlipClock.Divider class makes visual dividers on clocks
 	 * easy to create and manipulate.
 	 * @class
+	 * @property {object} - The jQuery object		
+	 * @property {object} - The available options for this class
+	 * @property {object} - The FlipClock.Translator instance
 	*/
 
 	FlipClock.Divider = FlipClock.Base.extend({
 
-		/**
-		 * @property {object} - The jQuery object
-		 */		
-		
 		$el: false,
 
-		/**
-		 * @property {object} - The available options for this class
-		 */		
-		
 		options: {
 
 			// The available options for this class
@@ -48,10 +43,6 @@
 			// The label for the divider
 			label: false
 		},
-
-		/**
-		 * @property {object} - The FlipClock.Translator instance
-		 */		
 		
 		translator: false,
 
