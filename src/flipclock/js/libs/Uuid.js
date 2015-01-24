@@ -28,7 +28,7 @@
 		/*
 		 * Constructor
 		 * 
-		 * @return 
+		 * @param  string  value 
 		*/
 
 		constructor: function(value) {

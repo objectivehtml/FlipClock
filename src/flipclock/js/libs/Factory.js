@@ -71,7 +71,6 @@
 		 * @param   object  The wrapping jQuery object
 		 * @param	object  Number of seconds used to start the clock
 		 * @param	object 	An object override options
-		 * @return
 		 */
 		 
 		constructor: function($el, value, options) {			
@@ -175,6 +174,21 @@
 		},
 		
 		/**
+		 * Destroy the clock
+		 *
+		 * @return  object
+		 */
+		 
+		destroy: function() {
+			this.face.destroy();
+			this.face = false;
+			this.$el.removeClass(this.getOption('classes').wrapper);
+			this.$el.html('');
+			
+			return this;
+		},
+
+		/**
 		 * Starts the clock
 		 *
 		 * @return  object
@@ -235,7 +249,7 @@
 		/*
 		 * The onDestroy callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onDestroy: function() {},
@@ -243,7 +257,7 @@
 		/*
 		 * The onInit callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onInit: function() {},
@@ -251,7 +265,7 @@
 		/*
 		 * The onInterval callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onInterval: function() {},
@@ -259,7 +273,7 @@
 		/*
 		 * The onStart callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onStart: function() {},
@@ -267,7 +281,7 @@
 		/*
 		 * The onStop callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onStop: function() {},
@@ -275,7 +289,7 @@
 		/*
 		 * The onReset callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onReset: function() {}

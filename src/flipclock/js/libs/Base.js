@@ -17,9 +17,9 @@ var FlipClock;
 	/**
 	 * FlipFlock Helper
 	 *
-	 * @param  object  A jQuery object or CSS select
-	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
+	 * @param  {object} obj - A jQuery object or CSS select
+	 * @param  {int} digit - An integer used to start the clock (no. seconds)
+	 * @param  {object} options - An object of properties to override the default	
 	 */
 	 
 	FlipClock = function(obj, digit, options) {
@@ -45,31 +45,31 @@ var FlipClock;
 	FlipClock.Base = Base.extend({
 		
 		/**
-		 * Build Date
+		 * @param {string} buildDate - The last official build date
 		 */
 		 
 		buildDate: '2014-12-12',
 		
 		/**
-		 * Version
+		 * @param {string} version - The current version
 		 */
 		 
 		version: '0.7.7',
 		
 		/**
-		 * The available options for this class
+		 * @param {object} options - The available options for this class
 		 */		
 		
 		options: {},
 
 		/**
-		 * The bound events to this object
+		 * @param {object} _events - The bound events to this object
 		 */
 
 		_events: {},
 
 		/**
-		 * The bound events to this object
+		 * @param {object} _uid - The Flipclock.Uuid object instance
 		 */
 
 		_uid: false,
@@ -77,11 +77,10 @@ var FlipClock;
 		/**
 		 * Sets the default options
 		 *
-		 * @param  object 	The default options
-		 * @param  object 	The override options
+		 * @param  {mixed} options - The default options
 		 */
 		 
-		constructor: function(_default, options) {
+		constructor: function(options) {
 			if(typeof _default !== "object") {
 				_default = {};
 			}
@@ -90,14 +89,13 @@ var FlipClock;
 			}
 			this._events = {};
 			this._uid = (new FlipClock.Uuid()).toString();		
-			this.setOptions($.extend(true, {}, _default, options));
+			this.setOptions(options);
 		},
 		
 		/**
 		 * Delegates the callback to the defined method
 		 *
-		 * @param  object 	The default options
-		 * @param  object 	The override options
+		 * @param  {function} method - The callback function
 		 * @return object
 		 */
 		 
@@ -120,7 +118,7 @@ var FlipClock;
 		/**
 		 * Log a string into the console if it exists
 		 *
-		 * @param  string  The name of the option
+		 * @param  {string} str - The string to log
 		 * @return mixed
 		 */		
 		 
@@ -135,7 +133,7 @@ var FlipClock;
 		/**
 		 * Get an single option value. Returns false if option does not exist
 		 *
-		 * @param  string  The name of the option
+		 * @param  {string} index - The name of the option
 		 * @return mixed
 		 */		
 		 
@@ -159,8 +157,9 @@ var FlipClock;
 		/**
 		 * Set a single option value
 		 *
-		 * @param 	string 	The name of the option
-		 * @param 	mixed 	The value of the option
+		 * @param  {string} index - The name of the option
+		 * @param  {string} value - The value of the option
+		 * @return object
 		 */		
 		 
 		setOption: function(index, value) {
@@ -177,8 +176,8 @@ var FlipClock;
 		/**
 		 * Set a multiple options by passing a JSON object
 		 *
-		 * @param 	object 	The object with the options
-		 * @param 	mixed 	The value of the option
+		 * @param  {object} options - An object of options to set
+		 * @return object
 		 */		
 		
 		setOptions: function(options) {
@@ -194,8 +193,9 @@ var FlipClock;
 		/*
 		 * Bind an event
 		 *
-		 * @param  string
-		 * @param  callback
+		 * @param  {string} name - The name of the event
+		 * @param  {function} callback - The event callback function or method
+		 * @return object
 		*/
 
 		on: function(name, callback) {
@@ -213,8 +213,9 @@ var FlipClock;
 		/*
 		 * Bind an event to be called once
 		 *
-		 * @param  string
-		 * @param  callback
+		 * @param  {string} name - The name of the event
+		 * @param  {function} callback - The event callback function or method
+		 * @return object
 		*/
 
 		once: function(name, callback) {
@@ -228,7 +229,7 @@ var FlipClock;
 		/*
 		 * Remove all bound events for a specific trigger
 		 *
-		 * @param  string
+		 * @param  {string} name - The name of the event
 		 * @return object
 		*/
 
@@ -243,8 +244,8 @@ var FlipClock;
 		/*
 		 * Remove all bound events for a specific trigger
 		 *
-		 * @param  string
-		 * @return mixed
+		 * @param  {string} name - The name of the event
+		 * @return object
 		*/
 
 		trigger: function(name) {
@@ -260,8 +261,6 @@ var FlipClock;
 				for(var i in this._events[name]) {
 					this._events[name][i].fire(this, params);
 				}
-
-				return this._events[name];
 			}
 
 			return this;
@@ -270,7 +269,7 @@ var FlipClock;
 		/*
 		 * Translate a string to the localized locale
 		 *
-		 * @param  string
+		 * @param  {string} name - The name of the string to localize
 		 * @return string
 		*/
 
@@ -285,7 +284,7 @@ var FlipClock;
 		/*
 		 * Helper method for localize. t() is just short.
 		 *
-		 * @param  string
+		 * @param  {string} name - The name of the string to localize
 		 * @return string
 		*/
 

@@ -30,33 +30,21 @@
 		 */		
 		
 		options: {
-					
-			/**
-			 * The available options for this class
-			 */		
 			
+			// The available options for this class
 			className: false,
 		
-			/**
-			 * An object of available CSS classes
-			 */		
-			 
+			// An object of available CSS classes		 
 			classes: {
 				divider: 'flip-clock-divider',
 				dot: 'flip-clock-dot',
 				label: 'flip-clock-label'
 			},
 
-			/**
-			 * If true the dots will not be displayed in the divider
-			 */		
-
+			// If true the dots will not be displayed in the divider
 			excludeDots: false,
 
-			/**
-			 * The label for the divider
-			 */		
-			
+			// The label for the divider
 			label: false
 		},
 
@@ -69,9 +57,7 @@
 		/*
 		 * Constructor
 		 *
-		 * @param  string
-		 * @param  mixed
-		 * @return
+		 * @param  mixed  options
 		*/
 
 		constructor: function(options) {
@@ -93,8 +79,13 @@
 					dots,
 				'</span>'
 			].join(''));
-
 		},
+
+		/*
+		 * Output object instance as a string
+		 *
+		 * @return string
+		*/
 
 		toString: function() {
 			return this.$el.html();

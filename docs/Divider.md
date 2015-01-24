@@ -4,10 +4,6 @@
 
 * [$el](#$el)
 * [options](#options)
-  * [options.className](#options.className)
-  * [options.classes](#options.classes)
-  * [options.excludeDots](#options.excludeDots)
-  * [options.label](#options.label)
 * [translator](#translator)
  
 <a name="$el"></a>

@@ -47,8 +47,7 @@
 		/*
 		 * Constructor
 		 *
-		 * @param  string
-		 * @return 
+		 * @param  mixed  options
 		*/
 
 		constructor: function(options) {
@@ -60,6 +59,7 @@
 		 * Load the FlipClock.Lang object
 		 *
 		 * @param	object  The name of the language to load
+		 * @return	object
 		 */
 		 
 		loadLanguage: function(name) {	
@@ -83,6 +83,7 @@
 		 *
 		 * @param	string  The index of the localized string
 		 * @param	object  Optionally pass a lang object
+		 * @return	string
 		 */
 
 		localize: function(index, obj) {

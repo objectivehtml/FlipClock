@@ -61,7 +61,6 @@
 		 *
 		 * @param  string
 		 * @param  mixed
-		 * @return
 		*/
 
 		constructor: function(name, callback) {
@@ -97,8 +96,7 @@
 		/*
 		 * Prevent the event from firing. This method is chainable.
 		 *
-		 * @param  
-		 * @return 
+		 * @return object
 		*/
 
 		off: function() {

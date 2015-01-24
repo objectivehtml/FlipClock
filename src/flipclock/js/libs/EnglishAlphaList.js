@@ -37,7 +37,6 @@
 		 *
 		 * @param  string
 		 * @param  mixed
-		 * @return 
 		*/
 
 		constructor: function(value, options) {

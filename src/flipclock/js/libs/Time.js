@@ -64,8 +64,8 @@
 		/**
 		 * Convert a string or integer to an array of digits
 		 *
-		 * @param   mixed  String or Integer of digits	 
-		 * @return  array  An array of digits 
+		 * @param   mixed  str	 
+		 * @return  array
 		 */
 		 
 		convertDigitsToArray: function(str) {

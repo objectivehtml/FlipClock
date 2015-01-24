@@ -1358,9 +1358,9 @@ var FlipClock;
 		/*
 		 * Attach the FlipClock.List to the DOM of the clock face
 		 *
-		 * @param  object  A jQuery object
-		 * @param  object  A FlipClock.List object
-		 * @return 
+		 * @param  object  $el
+		 * @param  object  list
+		 * @return null
 		*/
 
 		attachList: function($el, list) {
@@ -1368,7 +1368,9 @@ var FlipClock;
 		},
 			
 		/**
-		 * Build the clock face
+		 * Build the clock face. This method is chainable.
+		 *
+		 * @return object
 		 */
 		 
 		build: function() {
@@ -1377,26 +1379,32 @@ var FlipClock;
 			}
 
 			this.trigger('build');
+
+			return this;
 		},
 	
 		/**
 		 * Perform arbirtrary logic when the clock face instantiated.
-		 * The factor object is passed in the first argument
+		 * The factor object is passed in the first argument. This
+		 * method is chainable.
 		 *
-		 * @param  object
+		 * @param  object factory
+		 * @return object
 		 */
 
 		init: function(factory) {
 			this.setTimeObject(this.value);
 			this.trigger('init');
+
+			return this;
 		},
 		
 		/**
 		 * Creates a jQuery object used for the digit divider
 		 *
-		 * @param	mixed 	The divider label text
-		 * @param	mixed	Set true to exclude the dots in the divider. 
-		 *					If not set, is false.
+		 * @param  mixed  label
+		 * @param  mixed  className
+		 * @param  mixed  excludeDots
 		 */
 		 
 		createDivider: function(label, className, excludeDots) {
@@ -1422,8 +1430,9 @@ var FlipClock;
 		/**
 		 * Creates a FlipClock.List object and appends it to the DOM
 		 *
-		 * @param	mixed 	The value to select in the list
-		 * @param	object  An object to override the default properties
+		 * @param  mixed  value
+		 * @param  object  options
+		 * @return object
 		 */
 		 
 		createList: function(value, options) {
@@ -1443,7 +1452,7 @@ var FlipClock;
 		/*
 		 * Get the list class object
 		 *
-		 * @return  object
+		 * @return object
 		*/
 
 		getListClass: function() {
@@ -1453,7 +1462,8 @@ var FlipClock;
 		/*
 		 * Get a new list class instance
 		 *
-		 * @return  object
+		 * @param  mixed  value
+		 * @return object
 		*/
 
 		getListObject: function(value) {
@@ -1465,7 +1475,10 @@ var FlipClock;
 		},
 		
 		/**
-		 * Triggers when the clock is reset
+		 * Reset the clock. This method is chainable.
+		 *
+		 * @param  function  callback
+		 * @return object
 		 */
 
 		reset: function(callback) {
@@ -1473,10 +1486,15 @@ var FlipClock;
 			this.flip();
 			this.trigger('reset');
 			this.callback(callback);
+
+			return this;
 		},
 
 		/**
-		 * Starts the clock
+		 * Starts the clock. This method is chainable.
+		 *
+		 * @param  function  callback
+		 * @return object
 		 */
 		 
 		start: function(callback) {
@@ -1486,10 +1504,15 @@ var FlipClock;
 				this.trigger('start');
 				this.callback(callback);
 			}
+
+			return this;
 		},
 		
 		/**
-		 * Stops the clock
+		 * Stops the clock. This method is chainable.
+		 *
+		 * @param  function  callback
+		 * @return object
 		 */
 		 
 		stop: function(callback) {
@@ -1501,10 +1524,15 @@ var FlipClock;
 					t.callback(callback);
 				});
 			}
+
+			return this;
 		},
 		
 		/**
-		 * Auto increments/decrements the value of the clock face
+		 * Auto increments/decrements the value of the clock face.
+		 * This method is chainable;
+		 *
+		 * @return object
 		 */
 		 
 		autoIncrement: function() {
@@ -1516,10 +1544,14 @@ var FlipClock;
 			}
 
 			this.trigger('auto:increment', this.getOption('countdown'));
+
+			return this;
 		},
 
 		/**
-		 * Increments the value of the clock face
+		 * Increments the value of the clock face. This method is chainable.
+		 *
+		 * @return object
 		 */
 		 
 		increment: function() {
@@ -1530,10 +1562,14 @@ var FlipClock;
 			}
 
 			this.trigger('increment');
+
+			return this;
 		},
 
 		/**
-		 * Decrements the value of the clock face
+		 * Decrements the value of the clock face. This method is chainable.
+		 *
+		 * @return object
 		 */
 
 		decrement: function() {
@@ -1549,10 +1585,15 @@ var FlipClock;
 			}
 
 			this.trigger('decrement');
+
+			return this;
 		},
 		
 		/**
-		 * Triggers when the numbers on the clock flip
+		 * Triggers when the numbers on the clock flip. This method is chainable.
+		 *
+		 * @param  array  time
+		 * @return object
 		 */
 		 
 		flip: function(time) {
@@ -1569,40 +1610,56 @@ var FlipClock;
 			}
 
 			this.trigger('flip');
+
+			return this;
 		},
 
 		/**
-		 * Sets the clock time
+		 * Sets the clock time. This method is chainable.
+		 *
+		 * @param  mixed  time
+		 * @return object
 		 */
 		 
 		setTime: function(time) {
 			this.time.time = time;
 			this.flip();
-			this.trigger('set:time', time);	
+			this.trigger('set:time', time);
+
+			return this;
 		},
 		
 		/**
 		 * Get the clock time
 		 *
-		 * @return  object  Returns a FlipClock.Time object
+		 * @return object
 		 */
 		 
-		getTime: function(time) {
+		getTime: function() {
 			return this.time;		
 		},
 
 		/**
-		 * Set the time attribute with a new FlipClock.Time object
+		 * Set the time attribute with a new FlipClock.Time object.
+		 * This method is chainable.
+		 *
+		 * @param  object  time
+		 * @return object
 		 */
 		 
 		setTimeObject: function(time) {
 			this.time = new FlipClock.Time(time, {
 				minimumDigits: this.getOption('minimumDigits')
 			});
+
+			return this;
 		},
 		
 		/**
-		 * Sets the clock face's time
+		 * Sets the clock face's time. This method is chainable.
+		 *
+		 * @param  mixed  value
+		 * @return object
 		 */
 		 
 		setValue: function(value) {
@@ -1614,13 +1671,15 @@ var FlipClock;
 
 			this.flip();
 
-			this.trigger('set:value', this.value);		
+			this.trigger('set:value', this.value);
+
+			return this;
 		},
 
 		/**
 		 * Get the clock face's value
 		 *
-		 * @return  object
+		 * @return mixed
 		 */
 		 
 		getValue: function() {
@@ -1628,7 +1687,11 @@ var FlipClock;
 		},
 
 		/**
-		 * Changes the increment of time to up or down (add/sub)
+		 * Changes the increment of time to up or down (add/sub).
+		 * This method is chainable.
+		 *
+		 * @param  bool  value
+		 * @return object
 		 */
 		
 		setCountdown: function(value) {			
@@ -1640,14 +1703,31 @@ var FlipClock;
 			}
 
 			this.trigger('set:countdown', this.getOption('countdown'));
+
+			return this;
 		},
 
 		/**
 		 * Get the current countdown option value
+		 *
+		 * @return bool
 		 */
 		
-		getCountdown: function(value) {			
+		getCountdown: function() {			
 			return this.getOption('countdown');
+		},
+
+		/**
+		 * Destroy the clock face. This method is chainable.
+		 *
+		 * @return object
+		 */
+		
+		destroy: function() {
+			this.timer.destroy();
+			this.trigger('destroy');
+
+			return this;
 		}	
 
 	});
@@ -1830,6 +1910,21 @@ var FlipClock;
 			return this.face.getCountdown();
 		},
 		
+		/**
+		 * Destroy the clock
+		 *
+		 * @return  object
+		 */
+		 
+		destroy: function() {
+			this.face.destroy();
+			this.face = false;
+			this.$el.removeClass(this.getOption('classes').wrapper);
+			this.$el.html('');
+			
+			return this;
+		},
+
 		/**
 		 * Starts the clock
 		 *
@@ -2534,7 +2629,7 @@ var FlipClock;
 		},
 		
 		/**
-		 * This method gets the elapsed the time as an interger
+		 * Gets the elapsed the time as an interger
 		 *
 		 * @return	void
 		 */		
@@ -2544,7 +2639,7 @@ var FlipClock;
 		},
 		
 		/**
-		 * This method gets the elapsed the time as a Date object
+		 * Gets the elapsed the time as a Date object
 		 *
 		 * @return	void
 		 */		
@@ -2554,9 +2649,9 @@ var FlipClock;
 		},
 		
 		/**
-		 * This method is resets the timer
+		 * Resets the timer
 		 *
-		 * @param 	callback  This method resets the timer back to 0
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 
@@ -2568,9 +2663,9 @@ var FlipClock;
 		},
 				
 		/**
-		 * This method is starts the timer
+		 * Starts the timer
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 
@@ -2580,9 +2675,9 @@ var FlipClock;
 		},
 		
 		/**
-		 * This method is stops the timer
+		 * Stops the timer
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 
@@ -2594,10 +2689,23 @@ var FlipClock;
 
 			setTimeout(function() {
 				t.callback(callback);
+				t.trigger('stop');
 			}, this.getOption('interval'));
-
-			t.trigger('stop');
 		},
+
+
+		/**
+		 * Destroy the timer
+		 *
+		 * @param 	function callback
+		 * @return	void
+		 */		
+		 
+		destroy: function(callback) {
+			this._destroyTimer(callback);
+			this.trigger('destroy');
+		},
+		
 		
 		/**
 		 * Clear the timer interval
@@ -2612,7 +2720,7 @@ var FlipClock;
 		/**
 		 * Create the timer object
 		 *
-		 * @param 	callback  A function that is called once the timer is created
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 
@@ -2623,11 +2731,11 @@ var FlipClock;
 		/**
 		 * Destroy the timer object
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 	
-		destroyTimer: function(callback) {
+		_destroyTimer: function(callback) {
 			this._clearInterval();
 			this.running = false;		
 			this.timer = false;
@@ -2638,7 +2746,7 @@ var FlipClock;
 		/**
 		 * This method is called each time the timer interval is ran
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 
@@ -2649,9 +2757,9 @@ var FlipClock;
 		},
 		
 		/**
-		 * This sets the timer interval
+		 * Sets the timer interval
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 

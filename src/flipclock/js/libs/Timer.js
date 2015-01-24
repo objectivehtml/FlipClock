@@ -52,7 +52,7 @@
 		/**
 		 * Constructor
 		 *
-		 * @return	void
+		 * @param  mixed  mixed
 		 */		
 		 
 		constructor: function(options) {
@@ -61,9 +61,9 @@
 		},
 		
 		/**
-		 * This method gets the elapsed the time as an interger
+		 * Gets the elapsed the time as an interger
 		 *
-		 * @return	void
+		 * @return	int
 		 */		
 		 
 		getElapsed: function() {
@@ -71,9 +71,9 @@
 		},
 		
 		/**
-		 * This method gets the elapsed the time as a Date object
+		 * Gets the elapsed the time as a Date object
 		 *
-		 * @return	void
+		 * @return	object
 		 */		
 		 
 		getElapsedTime: function() {
@@ -81,10 +81,10 @@
 		},
 		
 		/**
-		 * This method is resets the timer
+		 * Resets the timer. This method is chainable.
 		 *
-		 * @param 	callback  This method resets the timer back to 0
-		 * @return	void
+		 * @param 	function callback
+		 * @return	object
 		 */		
 		 
 		reset: function(callback) {
@@ -92,25 +92,29 @@
 			this.count = 0;
 			this._setInterval(callback);
 			this.trigger('reset');
+
+			return this;
 		},
 				
 		/**
-		 * This method is starts the timer
+		 * Starts the timer. This method is chainable.
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
-		 * @return	void
+		 * @param 	function callback
+		 * @return	object
 		 */		
 		 
 		start: function(callback) {	
 			this.running = true;	
 			this._createTimer(callback);
+
+			return this;
 		},
 		
 		/**
-		 * This method is stops the timer
+		 * Stops the timer. This method is chainable.
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
-		 * @return	void
+		 * @param 	function callback
+		 * @return	object
 		 */		
 		 
 		stop: function(callback) {
@@ -121,10 +125,27 @@
 
 			setTimeout(function() {
 				t.callback(callback);
+				t.trigger('stop');
 			}, this.getOption('interval'));
 
-			t.trigger('stop');
+			return this;
 		},
+
+
+		/**
+		 * Destroy the timer. This method is chainable.
+		 *
+		 * @param 	function callback
+		 * @return	object
+		 */		
+		 
+		destroy: function(callback) {
+			this._destroyTimer(callback);
+			this.trigger('destroy');
+
+			return this;
+		},
+		
 		
 		/**
 		 * Clear the timer interval
@@ -139,7 +160,7 @@
 		/**
 		 * Create the timer object
 		 *
-		 * @param 	callback  A function that is called once the timer is created
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 
@@ -150,11 +171,11 @@
 		/**
 		 * Destroy the timer object
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 	
-		destroyTimer: function(callback) {
+		_destroyTimer: function(callback) {
 			this._clearInterval();
 			this.running = false;		
 			this.timer = false;
@@ -165,7 +186,7 @@
 		/**
 		 * This method is called each time the timer interval is ran
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 
@@ -176,9 +197,9 @@
 		},
 		
 		/**
-		 * This sets the timer interval
+		 * Sets the timer interval
 		 *
-		 * @param 	callback  A function that is called once the timer is destroyed
+		 * @param 	function callback
 		 * @return	void
 		 */		
 		 

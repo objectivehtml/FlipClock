@@ -85,7 +85,8 @@
 		/**
 		 * Select the value in the list
 		 *
-		 * @param  int  A value 0-9	 
+		 * @param  int  value
+		 * @return object
 		 */
 		 
 		select: function(value) {
@@ -116,30 +117,40 @@
 
 				this.trigger('select', this.value);
 			}	
+
+			return this;
 		},
 
 		/*
 		 * Add the play class to the list
 		 *
-		 * @return 
+		 * @return object
 		*/
 
 		addPlayClass: function() {
 			this.$el.addClass(this.getOption('classes').play);
+
+			return this;
 		},
 		
 		/*
 		 * Remove the play class to the list
 		 *
-		 * @return 
+		 * @return object
 		*/
 
 		removePlayClass: function() {
 			this.$el.removeClass(this.getOption('classes').play);
+
+			return this;
 		},
 		
 		/**
 		 * Creates the list item HTML and returns as a string 
+		 *
+		 * @param  mixed  value
+		 * @param  string  css
+		 * @return object
 		 */
 		 
 		createListItem: function(value, css) {
@@ -158,6 +169,8 @@
 
 		/**
 		 * Create the list of values and appends it to the DOM object 
+		 *
+		 * @return object
 		 */
 		 
 		createList: function() {

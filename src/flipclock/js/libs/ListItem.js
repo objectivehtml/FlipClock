@@ -60,7 +60,6 @@
 		 *
 		 * @param  mixed
 		 * @param  mixed
-		 * @return 
 		*/
 
 		constructor: function(value, options) {
