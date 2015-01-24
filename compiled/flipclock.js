@@ -163,9 +163,9 @@ var FlipClock;
 	/**
 	 * FlipFlock Helper
 	 *
-	 * @param  object  A jQuery object or CSS select
-	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
+	 * @param  {object} obj - A jQuery object or CSS select
+	 * @param  {int} digit - An integer used to start the clock (no. seconds)
+	 * @param  {object} options - An object of properties to override the default	
 	 */
 	 
 	FlipClock = function(obj, digit, options) {
@@ -191,31 +191,31 @@ var FlipClock;
 	FlipClock.Base = Base.extend({
 		
 		/**
-		 * Build Date
+		 * @param {string} buildDate - The last official build date
 		 */
 		 
 		buildDate: '2014-12-12',
 		
 		/**
-		 * Version
+		 * @param {string} version - The current version
 		 */
 		 
 		version: '0.7.7',
 		
 		/**
-		 * The available options for this class
+		 * @param {object} options - The available options for this class
 		 */		
 		
 		options: {},
 
 		/**
-		 * The bound events to this object
+		 * @param {object} _events - The bound events to this object
 		 */
 
 		_events: {},
 
 		/**
-		 * The bound events to this object
+		 * @param {object} _uid - The Flipclock.Uuid object instance
 		 */
 
 		_uid: false,
@@ -223,11 +223,10 @@ var FlipClock;
 		/**
 		 * Sets the default options
 		 *
-		 * @param  object 	The default options
-		 * @param  object 	The override options
+		 * @param  {mixed} options - The default options
 		 */
 		 
-		constructor: function(_default, options) {
+		constructor: function(options) {
 			if(typeof _default !== "object") {
 				_default = {};
 			}
@@ -236,14 +235,13 @@ var FlipClock;
 			}
 			this._events = {};
 			this._uid = (new FlipClock.Uuid()).toString();		
-			this.setOptions($.extend(true, {}, _default, options));
+			this.setOptions(options);
 		},
 		
 		/**
 		 * Delegates the callback to the defined method
 		 *
-		 * @param  object 	The default options
-		 * @param  object 	The override options
+		 * @param  {function} method - The callback function
 		 * @return object
 		 */
 		 
@@ -266,7 +264,7 @@ var FlipClock;
 		/**
 		 * Log a string into the console if it exists
 		 *
-		 * @param  string  The name of the option
+		 * @param  {string} str - The string to log
 		 * @return mixed
 		 */		
 		 
@@ -281,7 +279,7 @@ var FlipClock;
 		/**
 		 * Get an single option value. Returns false if option does not exist
 		 *
-		 * @param  string  The name of the option
+		 * @param  {string} index - The name of the option
 		 * @return mixed
 		 */		
 		 
@@ -305,8 +303,9 @@ var FlipClock;
 		/**
 		 * Set a single option value
 		 *
-		 * @param 	string 	The name of the option
-		 * @param 	mixed 	The value of the option
+		 * @param  {string} index - The name of the option
+		 * @param  {string} value - The value of the option
+		 * @return object
 		 */		
 		 
 		setOption: function(index, value) {
@@ -323,8 +322,8 @@ var FlipClock;
 		/**
 		 * Set a multiple options by passing a JSON object
 		 *
-		 * @param 	object 	The object with the options
-		 * @param 	mixed 	The value of the option
+		 * @param  {object} options - An object of options to set
+		 * @return object
 		 */		
 		
 		setOptions: function(options) {
@@ -340,8 +339,9 @@ var FlipClock;
 		/*
 		 * Bind an event
 		 *
-		 * @param  string
-		 * @param  callback
+		 * @param  {string} name - The name of the event
+		 * @param  {function} callback - The event callback function or method
+		 * @return object
 		*/
 
 		on: function(name, callback) {
@@ -359,8 +359,9 @@ var FlipClock;
 		/*
 		 * Bind an event to be called once
 		 *
-		 * @param  string
-		 * @param  callback
+		 * @param  {string} name - The name of the event
+		 * @param  {function} callback - The event callback function or method
+		 * @return object
 		*/
 
 		once: function(name, callback) {
@@ -374,7 +375,7 @@ var FlipClock;
 		/*
 		 * Remove all bound events for a specific trigger
 		 *
-		 * @param  string
+		 * @param  {string} name - The name of the event
 		 * @return object
 		*/
 
@@ -389,8 +390,8 @@ var FlipClock;
 		/*
 		 * Remove all bound events for a specific trigger
 		 *
-		 * @param  string
-		 * @return mixed
+		 * @param  {string} name - The name of the event
+		 * @return object
 		*/
 
 		trigger: function(name) {
@@ -406,8 +407,6 @@ var FlipClock;
 				for(var i in this._events[name]) {
 					this._events[name][i].fire(this, params);
 				}
-
-				return this._events[name];
 			}
 
 			return this;
@@ -416,7 +415,7 @@ var FlipClock;
 		/*
 		 * Translate a string to the localized locale
 		 *
-		 * @param  string
+		 * @param  {string} name - The name of the string to localize
 		 * @return string
 		*/
 
@@ -431,7 +430,7 @@ var FlipClock;
 		/*
 		 * Helper method for localize. t() is just short.
 		 *
-		 * @param  string
+		 * @param  {string} name - The name of the string to localize
 		 * @return string
 		*/
 
@@ -577,7 +576,8 @@ var FlipClock;
 		/**
 		 * Select the value in the list
 		 *
-		 * @param  int  A value 0-9	 
+		 * @param  int  value
+		 * @return object
 		 */
 		 
 		select: function(value) {
@@ -608,30 +608,40 @@ var FlipClock;
 
 				this.trigger('select', this.value);
 			}	
+
+			return this;
 		},
 
 		/*
 		 * Add the play class to the list
 		 *
-		 * @return 
+		 * @return object
 		*/
 
 		addPlayClass: function() {
 			this.$el.addClass(this.getOption('classes').play);
+
+			return this;
 		},
 		
 		/*
 		 * Remove the play class to the list
 		 *
-		 * @return 
+		 * @return object
 		*/
 
 		removePlayClass: function() {
 			this.$el.removeClass(this.getOption('classes').play);
+
+			return this;
 		},
 		
 		/**
 		 * Creates the list item HTML and returns as a string 
+		 *
+		 * @param  mixed  value
+		 * @param  string  css
+		 * @return object
 		 */
 		 
 		createListItem: function(value, css) {
@@ -650,6 +660,8 @@ var FlipClock;
 
 		/**
 		 * Create the list of values and appends it to the DOM object 
+		 *
+		 * @return object
 		 */
 		 
 		createList: function() {
@@ -731,7 +743,6 @@ var FlipClock;
 		 *
 		 * @param  mixed
 		 * @param  mixed
-		 * @return 
 		*/
 
 		constructor: function(value, options) {
@@ -806,7 +817,6 @@ var FlipClock;
 		 *
 		 * @param  string
 		 * @param  mixed
-		 * @return 
 		*/
 
 		constructor: function(value, options) {
@@ -959,9 +969,7 @@ var FlipClock;
 		/*
 		 * Constructor
 		 *
-		 * @param  string
-		 * @param  mixed
-		 * @return
+		 * @param  mixed  options
 		*/
 
 		constructor: function(options) {
@@ -983,8 +991,13 @@ var FlipClock;
 					dots,
 				'</span>'
 			].join(''));
-
 		},
+
+		/*
+		 * Output object instance as a string
+		 *
+		 * @return string
+		*/
 
 		toString: function() {
 			return this.$el.html();
@@ -1056,7 +1069,6 @@ var FlipClock;
 		 *
 		 * @param  string
 		 * @param  mixed
-		 * @return
 		*/
 
 		constructor: function(name, callback) {
@@ -1092,8 +1104,7 @@ var FlipClock;
 		/*
 		 * Prevent the event from firing. This method is chainable.
 		 *
-		 * @param  
-		 * @return 
+		 * @return object
 		*/
 
 		off: function() {
@@ -1807,7 +1818,6 @@ var FlipClock;
 		 * @param   object  The wrapping jQuery object
 		 * @param	object  Number of seconds used to start the clock
 		 * @param	object 	An object override options
-		 * @return
 		 */
 		 
 		constructor: function($el, value, options) {			
@@ -1986,7 +1996,7 @@ var FlipClock;
 		/*
 		 * The onDestroy callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onDestroy: function() {},
@@ -1994,7 +2004,7 @@ var FlipClock;
 		/*
 		 * The onInit callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onInit: function() {},
@@ -2002,7 +2012,7 @@ var FlipClock;
 		/*
 		 * The onInterval callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onInterval: function() {},
@@ -2010,7 +2020,7 @@ var FlipClock;
 		/*
 		 * The onStart callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onStart: function() {},
@@ -2018,7 +2028,7 @@ var FlipClock;
 		/*
 		 * The onStop callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onStop: function() {},
@@ -2026,7 +2036,7 @@ var FlipClock;
 		/*
 		 * The onReset callback
 		 *
-		 * @return 
+		 * @return undefined
 		*/
 
 		onReset: function() {}
@@ -2154,8 +2164,8 @@ var FlipClock;
 		/**
 		 * Convert a string or integer to an array of digits
 		 *
-		 * @param   mixed  String or Integer of digits	 
-		 * @return  array  An array of digits 
+		 * @param   mixed  str	 
+		 * @return  array
 		 */
 		 
 		convertDigitsToArray: function(str) {
@@ -2620,7 +2630,7 @@ var FlipClock;
 		/**
 		 * Constructor
 		 *
-		 * @return	void
+		 * @param  mixed  mixed
 		 */		
 		 
 		constructor: function(options) {
@@ -2631,7 +2641,7 @@ var FlipClock;
 		/**
 		 * Gets the elapsed the time as an interger
 		 *
-		 * @return	void
+		 * @return	int
 		 */		
 		 
 		getElapsed: function() {
@@ -2641,7 +2651,7 @@ var FlipClock;
 		/**
 		 * Gets the elapsed the time as a Date object
 		 *
-		 * @return	void
+		 * @return	object
 		 */		
 		 
 		getElapsedTime: function() {
@@ -2649,10 +2659,10 @@ var FlipClock;
 		},
 		
 		/**
-		 * Resets the timer
+		 * Resets the timer. This method is chainable.
 		 *
 		 * @param 	function callback
-		 * @return	void
+		 * @return	object
 		 */		
 		 
 		reset: function(callback) {
@@ -2660,25 +2670,29 @@ var FlipClock;
 			this.count = 0;
 			this._setInterval(callback);
 			this.trigger('reset');
+
+			return this;
 		},
 				
 		/**
-		 * Starts the timer
+		 * Starts the timer. This method is chainable.
 		 *
 		 * @param 	function callback
-		 * @return	void
+		 * @return	object
 		 */		
 		 
 		start: function(callback) {	
 			this.running = true;	
 			this._createTimer(callback);
+
+			return this;
 		},
 		
 		/**
-		 * Stops the timer
+		 * Stops the timer. This method is chainable.
 		 *
 		 * @param 	function callback
-		 * @return	void
+		 * @return	object
 		 */		
 		 
 		stop: function(callback) {
@@ -2691,19 +2705,23 @@ var FlipClock;
 				t.callback(callback);
 				t.trigger('stop');
 			}, this.getOption('interval'));
+
+			return this;
 		},
 
 
 		/**
-		 * Destroy the timer
+		 * Destroy the timer. This method is chainable.
 		 *
 		 * @param 	function callback
-		 * @return	void
+		 * @return	object
 		 */		
 		 
 		destroy: function(callback) {
 			this._destroyTimer(callback);
 			this.trigger('destroy');
+
+			return this;
 		},
 		
 		
@@ -2826,8 +2844,7 @@ var FlipClock;
 		/*
 		 * Constructor
 		 *
-		 * @param  string
-		 * @return 
+		 * @param  mixed  options
 		*/
 
 		constructor: function(options) {
@@ -2839,6 +2856,7 @@ var FlipClock;
 		 * Load the FlipClock.Lang object
 		 *
 		 * @param	object  The name of the language to load
+		 * @return	object
 		 */
 		 
 		loadLanguage: function(name) {	
@@ -2862,6 +2880,7 @@ var FlipClock;
 		 *
 		 * @param	string  The index of the localized string
 		 * @param	object  Optionally pass a lang object
+		 * @return	string
 		 */
 
 		localize: function(index, obj) {
@@ -2917,7 +2936,7 @@ var FlipClock;
 		/*
 		 * Constructor
 		 * 
-		 * @return 
+		 * @param  string  value 
 		*/
 
 		constructor: function(value) {
@@ -2977,233 +2996,6 @@ var FlipClock;
 	});
 
 }(jQuery));
-/*jshint smarttabs:true */
-
-/**
- * FlipClock.js
- *
- * @author     Justin Kimbrell
- * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
- */
-
-(function($) {
-	
-	"use strict";
-	
-	/**
-	 * The FlipClock.List class is used to build the list used to create 
-	 * the card flip effect. This object fascilates selecting the correct
-	 * node by passing a specific value.
-	 */
-	 	
-	FlipClock.List = FlipClock.Base.extend({
-			
-		/**
-		 * The jQuery object
-		 */		
-		 
-		$el: false,
-		
-		/**
-		 * The items in the list
-		 */		
-		 
-		items: [],
-		
-		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The CSS classes
-			 */		
-			 
-			classes: {
-				active: 'flip-clock-active',
-				before: 'flip-clock-before',
-				flip: 'flip',
-				play: 'play'
-			},
-				
-			/**
-			 * The last value selected in the list
-			 */		
-			 
-			lastValue: 0
-		},
-
-		/**
-		 * The selected value in the list
-		 */		
-		 
-		value: 0,
-		
-		/**
-		 * Constructor
-		 *
-		 * @param  object  A FlipClock.Factory object
-		 * @param  int     An string or integer use to select the correct value
-		 * @param  object  An object to override the default properties	 
-		 */
-		 
-		constructor: function(value, options) {
-			this.base(options);
-
-			this.value = value;
-
-			var t = this;
-
-			this.createList();
-
-			this.trigger('init');
-		},
-		
-		/**
-		 * Select the value in the list
-		 *
-		 * @param  int  A value 0-9	 
-		 */
-		 
-		select: function(value) {
-			var _afterListItem = this._afterListItem;
-
-			this.setOption('lastValue', this.value);
-
-			if(typeof value === "undefined") {
-				value = this.value;
-			}
-			else {
-				this.value = value;
-			}
-
-			if(this.value != this.getOption('lastValue')) {
-				this._beforeListItem.$el.removeClass(this.getOption('classes').before);
-
-				this.$el.find('.'+this.getOption('classes').active)
-					.removeClass(this.getOption('classes').active)
-					.addClass(this.getOption('classes').before);
-
-				this.items.splice(0, 1);
-
-				this._afterListItem = this.createListItem(this.value, this.getOption('classes').active);
-
-				this._beforeListItem.$el.remove();
-				this._beforeListItem = _afterListItem;
-
-				this.trigger('select', this.value);
-			}	
-		},
-
-		/*
-		 * Add the play class to the list
-		 *
-		 * @return 
-		*/
-
-		addPlayClass: function() {
-			this.$el.addClass(this.getOption('classes').play);
-		},
-		
-		/*
-		 * Remove the play class to the list
-		 *
-		 * @return 
-		*/
-
-		removePlayClass: function() {
-			this.$el.removeClass(this.getOption('classes').play);
-		},
-		
-		/**
-		 * Creates the list item HTML and returns as a string 
-		 */
-		 
-		createListItem: function(value, css) {
-			var item = new FlipClock.ListItem(value, {
-				className: css
-			});
-
-			this.items.push(item);
-
-			this.$el.append(item.$el);
-
-			this.trigger('create:item', item);
-
-			return item;
-		},
-
-		/**
-		 * Create the list of values and appends it to the DOM object 
-		 */
-		 
-		createList: function() {
-			var $el = this.$el = $('<ul class="'+this.getOption('classes').flip+'"></ul>');
-
-			this._beforeListItem = this.createListItem(this.getPrevValue(), this.getOption('classes').before);
-			this._afterListItem = this.createListItem(this.value, this.getOption('classes').active);
-
-			$el.append(this._beforeListItem.el);
-			$el.append(this._afterListItem.el);
-			
-			this.trigger('create:list', $el);		
-
-			return $el;
-		}
-
-	});
-		
-}(jQuery));
-/*jshint smarttabs:true */
-
-/**
- * FlipClock.js
- *
- * @author     Justin Kimbrell
- * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
- */
-
-(function($) {
-	
-	"use strict";
-	
-	/**
-	 * Capitalize the first letter in a string
-	 *
-	 * @return string
-	 */
-	 
-	String.prototype.ucfirst = function() {
-		return this.substr(0, 1).toUpperCase() + this.substr(1);
-	};
-	
-	/**
-	 * jQuery helper method
-	 *
-	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
-	 */
-	 
-	$.fn.FlipClock = function(digit, options) {	
-		return new FlipClock($(this), digit, options);
-	};
-	
-	/**
-	 * jQuery helper method
-	 *
-	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
-	 */
-	 
-	$.fn.flipClock = function(digit, options) {
-		return $.fn.FlipClock(digit, options);
-	};
-	
-}(jQuery));
-
 (function($) {
 	
 	/**

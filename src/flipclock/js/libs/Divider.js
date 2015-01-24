@@ -15,49 +15,53 @@
 	/*
 	 * The FlipClock.Divider class makes visual dividers on clocks
 	 * easy to create and manipulate.
-	 *
-	 * @class
 	*/
 
 	FlipClock.Divider = FlipClock.Base.extend({
 
 		/**
 		 * The jQuery object
-		 *
-		 * @instance jQuery
 		 */		
 		
 		$el: false,
 
 		/**
 		 * The available options for this class
-		 *
-		 * @memberof object
 		 */		
 		
 		options: {
-
-			// The available options for this class
+					
+			/**
+			 * The available options for this class
+			 */		
+			
 			className: false,
 		
-			// An object of available CSS classes		 
+			/**
+			 * An object of available CSS classes
+			 */		
+			 
 			classes: {
 				divider: 'flip-clock-divider',
 				dot: 'flip-clock-dot',
 				label: 'flip-clock-label'
 			},
 
-			// If true the dots will not be displayed in the divider
+			/**
+			 * If true the dots will not be displayed in the divider
+			 */		
+
 			excludeDots: false,
 
-			// The label for the divider
+			/**
+			 * The label for the divider
+			 */		
+			
 			label: false
 		},
 
 		/**
 		 * The FlipClock.Translator instance
-		 *
-		 * @instance FlipClock.Translator
 		 */		
 		
 		translator: false,

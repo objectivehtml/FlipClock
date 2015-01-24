@@ -47,6 +47,10 @@ module.exports = function(grunt) {
       css: {
         files: ['<%= concat.css.src %>'],
         tasks: ['concat'],
+      },
+      docs: {
+        files: ['<%= concat.js.src %>'],
+        tasks: ['jsdoc2md']
       }
     },
     jsdoc2md : {
@@ -65,5 +69,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'watch']);
+  grunt.registerTask('default', ['concat', 'uglify', 'watch', 'jsdoc2md']);
 };
