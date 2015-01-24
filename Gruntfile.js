@@ -50,9 +50,18 @@ module.exports = function(grunt) {
       },
       docs: {
         files: ['<%= concat.js.src %>'],
-        tasks: ['jsdoc2md']
+        tasks: ['jsdoc']
       }
     },
+    jsdoc : {
+        dist : {
+            src: ['src/flipclock/js/libs/Divider.js'], 
+            options: {
+                destination: 'docs'
+            }
+        }
+    }
+    /*
     jsdoc2md : {
       separateOutputFilePerInput: {
         files: [
@@ -61,13 +70,14 @@ module.exports = function(grunt) {
         ]
       },
     }
+    */
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'watch', 'jsdoc2md']);
+  grunt.registerTask('default', ['concat', 'uglify', 'watch', 'jsdoc']);
 };
