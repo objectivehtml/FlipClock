@@ -14,9 +14,13 @@
 
 <a name="options"></a>
 #options
-The available options for this class
+**Properties**
+
+-  `object` - The available options for this class  
 
 <a name="translator"></a>
 #translator
-The FlipClock.Translator instance
+**Properties**
+
+-  `object` - The FlipClock.Translator instance  
 

@@ -15,6 +15,7 @@
 	/*
 	 * The FlipClock.Divider class makes visual dividers on clocks
 	 * easy to create and manipulate.
+	 * @class
 	*/
 
 	FlipClock.Divider = FlipClock.Base.extend({
@@ -26,7 +27,7 @@
 		$el: false,
 
 		/**
-		 * The available options for this class
+		 * @property {object} - The available options for this class
 		 */		
 		
 		options: {
@@ -49,7 +50,7 @@
 		},
 
 		/**
-		 * The FlipClock.Translator instance
+		 * @property {object} - The FlipClock.Translator instance
 		 */		
 		
 		translator: false,
