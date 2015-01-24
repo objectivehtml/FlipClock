@@ -3,20 +3,13 @@
 **Members**
 
 * [$el](#$el)
-* [options](#options)
 * [translator](#translator)
  
 <a name="$el"></a>
 #$el
-<a name="options"></a>
-#options
-**Properties**
-
--  `object` - The available options for this class  
+The jQuery object
 
 <a name="translator"></a>
 #translator
-**Properties**
-
--  `object` - The FlipClock.Translator instance  
+The FlipClock.Translator instance
 
