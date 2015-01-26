@@ -81,9 +81,6 @@ var FlipClock;
 		 */
 		 
 		constructor: function(options) {
-			if(typeof _default !== "object") {
-				_default = {};
-			}
 			if(typeof options !== "object") {
 				options = {};
 			}
