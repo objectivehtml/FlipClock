@@ -10,7 +10,7 @@
 	FlipClock.Lang.Portuguese = {
 
 		'years'   : 'Lat',
-		'months'  : 'Miesiêcy',
+		'months'  : 'MiesiÄ™cy',
 		'days'    : 'Dni',
 		'hours'   : 'Godzin',
 		'minutes' : 'Minut',
