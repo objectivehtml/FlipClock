@@ -224,7 +224,7 @@
 
 .flip-clock-wrapper ul.play li.flip-clock-active .down {
     z-index: 2;
-    @include animation(turn .5s .5s linear both);
+    @include animation(turn .25s .5s linear both);
 }
 
 @include keyframes(turn) {
@@ -238,7 +238,7 @@
 
 .flip-clock-wrapper ul.play li.flip-clock-before .up {
     z-index: 2;
-    @include animation(turn2 .5s linear both);
+    @include animation(turn2 .5s cubic-bezier(0.55, 0.055, 0.675, 0.19) both);
 }
 
 @include keyframes(turn2) {
