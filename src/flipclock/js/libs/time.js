@@ -177,6 +177,27 @@
 		},
 
 		/**
+		 * Gets a digitized weekly counter
+		 *
+		 * @return  object  Returns a digitized object
+		 */
+
+		getWeekCounter: function(includeSeconds) {
+			var digits = [
+				this.getWeeks(),
+				(this.getWeeks() + 1) * 7 - this.getDays(),
+				this.getHours(true),
+				this.getMinutes(true)
+			];
+
+			if(includeSeconds) {
+				digits.push(this.getSeconds(true));
+			}
+
+			return this.digitize(digits);
+		},
+
+		/**
 		 * Gets number of days
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
