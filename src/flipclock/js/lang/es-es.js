@@ -1,23 +1,23 @@
 (function($) {
-		
+
 	/**
 	 * FlipClock Spanish Language Pack
 	 *
 	 * This class will used to translate tokens into the Spanish language.
-	 *	
+	 *
 	 */
-	 
+
 	FlipClock.Lang.Spanish = {
-		
-		'years'   : 'A&#241;os',
+
+		'years'   : 'Años',
 		'months'  : 'Meses',
-		'days'    : 'D&#205;as',
+		'days'    : 'Días',
 		'hours'   : 'Horas',
 		'minutes' : 'Minutos',
-		'seconds' : 'Segundo'	
+		'seconds' : 'Segundos'
 
 	};
-	
+
 	/* Create various aliases for convenience */
 
 	FlipClock.Lang['es']      = FlipClock.Lang.Spanish;
