@@ -4,6 +4,7 @@
   "email": "support@objectivehtml.com",
   "author": "Objective HTML, LLC <support@objectivehtml.com>",
   "license": "MIT",
+  "main": "compiled/flipclock.js",
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-concat": "~0.3.0",
