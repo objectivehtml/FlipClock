@@ -242,9 +242,13 @@
 		 * @param	object  The name of the language to load
 		 */
 		 
-		loadLanguage: function(name) {	
+		loadLanguage: function(name) {
 			var lang;
-			
+
+			if (typeof name === "object" && name !== null) {
+				return this.lang = Base.extend(FlipClock.Lang[this.defaultLanguage], name);
+			}
+
 			if(FlipClock.Lang[name.ucfirst()]) {
 				lang = FlipClock.Lang[name.ucfirst()];
 			}
@@ -274,7 +278,7 @@
 
 			var lindex = index.toLowerCase();
 
-			if(typeof obj == "object") {
+			if(typeof obj === "object" && obj !== null) {
 				lang = obj;
 			}
 
