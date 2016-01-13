@@ -7,7 +7,7 @@
 	 * 
 	 */
 
-	FlipClock.Lang.Portuguese = {
+	FlipClock.Lang.Polish = {
 
 		'years'   : 'Lat',
 		'months'  : 'Miesięcy',
