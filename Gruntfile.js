@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         src: [
           'src/flipclock/css/flipclock.css'
         ],
-        dest: 'compiled/flipclock.css',
+        dest: 'dist/flipclock.css',
       },
       js: {
         src: [     
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
           'src/flipclock/js/faces/*.js',
           'src/flipclock/js/lang/*.js',
         ],
-        dest: 'compiled/flipclock.js',
+        dest: 'dist/flipclock.js',
       }
     },
     uglify: {
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'compiled/flipclock.min.js': ['<%= concat.js.dest %>']
+          'dist/flipclock.min.js': ['<%= concat.js.dest %>']
         }
       }
     },
