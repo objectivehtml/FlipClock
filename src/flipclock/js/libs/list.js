@@ -43,8 +43,8 @@
 			 */		
 			 
 			classes: {
-				active: 'flip-clock-active',
-				before: 'flip-clock-before',
+				active: 'flipclock-active',
+				before: 'flipclock-before',
 				flip: 'flip',
 				play: 'play'
 			},

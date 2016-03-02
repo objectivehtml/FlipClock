@@ -42,9 +42,9 @@
 			 */		
 			 
 			classes: {
-				divider: 'flip-clock-divider',
-				dot: 'flip-clock-dot',
-				label: 'flip-clock-label'
+				divider: 'flipclock-divider',
+				dot: 'flipclock-dot',
+				label: 'flipclock-label'
 			},
 
 			/**

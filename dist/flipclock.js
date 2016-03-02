@@ -531,8 +531,8 @@ var FlipClock;
 			 */		
 			 
 			classes: {
-				active: 'flip-clock-active',
-				before: 'flip-clock-before',
+				active: 'flipclock-active',
+				before: 'flipclock-before',
 				flip: 'flip',
 				play: 'play'
 			},
@@ -939,9 +939,9 @@ var FlipClock;
 			 */		
 			 
 			classes: {
-				divider: 'flip-clock-divider',
-				dot: 'flip-clock-dot',
-				label: 'flip-clock-label'
+				divider: 'flipclock-divider',
+				dot: 'flipclock-dot',
+				label: 'flipclock-label'
 			},
 
 			/**
@@ -1786,7 +1786,7 @@ var FlipClock;
 			 */		
 			 
 			classes: {
-				wrapper: 'flip-clock-wrapper'
+				wrapper: 'flipclock-wrapper'
 			},
 			
 			/**
@@ -3038,8 +3038,8 @@ var FlipClock;
 			 */		
 			 
 			classes: {
-				active: 'flip-clock-active',
-				before: 'flip-clock-before',
+				active: 'flipclock-active',
+				before: 'flipclock-before',
 				flip: 'flip',
 				play: 'play'
 			},
@@ -3737,7 +3737,7 @@ var FlipClock;
 			this.meridiumText = this.getMeridium();
 
 			this.$meridium = $([
-				'<ul class="flip-clock-meridium">',
+				'<ul class="flipclock-meridium">',
 					'<li>',
 						'<a href="#">'+this.meridiumText+'</a>',
 					'</li>',
