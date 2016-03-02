@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../dist/flipclock.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<script src="../dist/flipclock.js"></script>
+		
+		<style>
+  		body {
+    		padding: 2em;
+  		}
+  		.well {
+    		min-height: 20em;
+  		}
+		</style>
+		
+	</head>
+	<body>
+  	<div class="container">
+    	      	
+      	<div class="col-md-7">
+        	<div class="well">
+          	<div id="clock"></div>
+        	</div>
+      	</div>
+      	
+      	<div class="col-md-5">
+        	<div class="well">
+          	
+        	</div>
+      	</div>
+      	    	
+  	</div>
+  	
+  	<div class="message"></div>
+  
+  	<script type="text/javascript">
+  		var clock;
+  		
+  		$(document).ready(function() {
+  			var clock;
+  
+  			clock = $('#clock').FlipClock({
+  		        clockFace: 'DailyCounter',
+  		        autoStart: false,
+  		        callbacks: {
+  		        	stop: function() {
+  		        		$('.message').html('The clock has stopped!')
+  		        	}
+  		        }
+  		    });
+  				    
+  		    clock.setTime(220880);
+  		    clock.setCountdown(true);
+  		    clock.start();
+  
+  		});
+  	</script>
+	
+	</body>
+</html>
