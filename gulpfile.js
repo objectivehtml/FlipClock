@@ -51,9 +51,9 @@ gulp.task('dist', function () {
     ]) //select all javascript files 
     .pipe(concat('flipclock.js')) //the name of the resulting file
     .pipe(gulp.dest('dist')) //the destination folder
-    .pipe(rename('flipclock.min.js'))
+    .pipe(rename('flipclock.min.js')) //minify the compiled js
     .pipe(uglify())
-    .pipe(header(banner, {pkg: pkg}))
+    .pipe(header(banner, {pkg: pkg})) //add a small version banner to the minified js
     .pipe(gulp.dest('dist'))
     .pipe(notify({ message: 'Finished minifying JavaScript'}));
 });
@@ -69,7 +69,8 @@ gulp.task('sass', function() {
       }))
     .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("dist"))
-    .pipe(browserSync.stream());
+    .pipe(browserSync.stream())
+    .pipe(notify({ message: 'Styles recompiled'}));
 });
 
 gulp.task('default', ['dev']);
