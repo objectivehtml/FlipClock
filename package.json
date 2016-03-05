@@ -31,13 +31,14 @@
     "gulp-strip-css-comments": "^1.2.0",
     "gulp-uglify": "^1.4.2"
   },
+  "main": "dist/flipclock.js",
   "homepage": "http://flipclockjs.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/objectivehtml/FlipClock"
   },
   "bugs": {
-    "url": "https://github.com/nodejitsu/browsenpm.org/issues"
+    "url": "https://github.com/objectivehtml/FlipClock/issues"
   },
   "dependencies": {
     "jquery": ">=1.7"
