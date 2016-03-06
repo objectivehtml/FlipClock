@@ -26,6 +26,18 @@
 		options: {
 
 			/**
+			 * The CSS classes
+			 */
+
+			classes: {
+				active: 'flip-clock-active',
+				before: 'flip-clock-before',
+				flip: 'flip',
+				play: 'play'
+			},
+
+
+			/**
 			 * Tells the list to use capital letters if true
 			 */		
 			
