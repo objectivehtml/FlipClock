@@ -1,0 +1,249 @@
+//
+// Imports
+//
+
+// Project Variables
+@import "fc-variables";
+
+// Project Mixins
+@import "mixins";
+
+// Flipclock Base Styles
+@import "fc-base";
+
+// Theme Styles
+@import "theme-default";
+
+$fc-face-font-size:       4.5em !default;
+$fc-face-width:           4em !default;
+$fc-face-height:          6em !default;
+
+$fc-flip-shadow-color:    #000 !default;
+
+.fc-wrapper {
+//  background: red;
+  display: inline-flex;
+  font-size: 1vw;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  box-sizing: border-box;
+  align-items: flex-end;
+  
+  .fc-group {
+    
+    .fc-label {
+      font-size: .875em;
+      height: 2em;
+      line-height: 2em;
+    }
+    
+    .fc-face {
+      float: left;
+      width: $fc-face-width;
+      height: $fc-face-height;
+      background: $fc-face-background;
+      position: relative;
+      border-radius: .75rem;
+      margin: 0 .125em;
+      @include material-shadow(1);
+      
+      font-weight: bold;
+      color: $fc-face-color;
+      
+      .fc-number {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        perspective: 15em;
+        
+        &:first-child {
+          z-index: 2;
+        }
+        
+        &.before {
+          z-index: 3;
+          
+          .top {
+            z-index: 2;
+            animation: flip-top .5s linear both;
+            transform-origin: bottom center;
+            
+            &:after {
+              background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,.1) 0%, rgba($fc-flip-shadow-color,1) 100%);
+              animation: show-shadow .5s linear both;
+            }
+          }
+          
+          .bottom {
+            
+            &:after {
+              background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,1) 0%, rgba($fc-flip-shadow-color,.1) 100%);
+              animation: show-shadow .5s linear both;
+            }
+          }
+        }
+        
+        &.active {
+          animation: indexing .5s .5s linear both;
+          z-index: 2;
+          
+          .top {
+            
+            &:after {
+              background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,.1) 0%, rgba($fc-flip-shadow-color,1) 100%);
+              animation: hide-shadow .5s .3s linear both;
+            }
+          }
+          
+          .bottom {
+            z-index: 2;
+            animation: flip-bottom .5s .5s linear both;
+            transform-origin: top center;
+            
+            &:after {
+              background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,1) 0%, rgba($fc-flip-shadow-color,.1) 100%);
+              animation: hide-shadow .5s .3s linear both;
+            }
+          }
+        }
+        
+        > .top,
+        > .bottom {
+          background: $fc-face-background;
+          width: 100%;
+          height: 50%;
+          font-size: $fc-face-font-size;
+          overflow: hidden;
+          backface-visibility: hidden;
+          position: relative;
+          
+          box-shadow: inset 0 0 .2em rgba(#000,.5);
+          
+          &:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+          }
+          
+          &:before {
+            content: " ";
+            display: block;
+            width: 100%;
+            height: 1px;
+            position: absolute;
+          }
+        }
+                
+        .top {
+          border-radius: .75rem .75rem 0 0;
+          line-height: $fc-face-height/$fc-face-font-size;
+          
+          &:after {
+            border-radius: .75rem .75rem 0 0;
+          }
+          
+          &:before {
+            background: $fc-face-background;
+            opacity: .4;
+            bottom: 0;
+          }
+        }
+        
+        .bottom {
+          border-radius: 0 0 .75rem .75rem;
+          line-height: 0;
+          
+          &:after {
+            border-radius: 0 0 .75rem .75rem;
+          }
+          
+          &:before {
+            background: $fc-face-color;
+            opacity: .1;
+          }
+        }
+      }
+    }
+  }
+  
+  .fc-divider {
+    position: relative;
+    width: 1.5em;
+    height: $fc-face-height;
+    
+    &:before,
+    &:after {
+      content: " ";
+      display: block;
+      width: .75em;
+      height: .75em;
+      background: $fc-face-background;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+    
+    &:before {
+      transform: translate(-50%, 75%);
+    }
+    
+    &:after {
+      transform: translate(-50%, -175%);
+    }
+    
+  }
+  
+}
+
+@keyframes indexing {
+  0% {
+    z-index: 2;
+  }
+  1% {
+    z-index: 4;
+  }
+  100% {
+    z-index: 4;
+  }
+}
+
+@keyframes flip-bottom {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+@keyframes flip-top {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes show-shadow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide-shadow {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

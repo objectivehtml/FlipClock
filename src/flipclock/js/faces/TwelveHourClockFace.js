@@ -32,7 +32,7 @@
 			this.meridiumText = this.getMeridium();
 
 			this.$meridium = $([
-				'<ul class="flip-clock-meridium">',
+				'<ul class="flipclock-meridium">',
 					'<li>',
 						'<a href="#">'+this.meridiumText+'</a>',
 					'</li>',

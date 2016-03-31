@@ -42,7 +42,7 @@
 			 */		
 			 
 			classes: {
-				wrapper: 'flip-clock-wrapper'
+				wrapper: 'flipclock-wrapper'
 			},
 			
 			/**

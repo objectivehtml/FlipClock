@@ -3,20 +3,42 @@
   "version": "0.7.8",
   "email": "support@objectivehtml.com",
   "author": "Objective HTML, LLC <support@objectivehtml.com>",
+  "contributors": [
+    "Objective HTML, LLC <support@objectivehtml.com>",
+    "Brian Espinosa <b@bje.co>"
+  ],
+  "description": "A fully featured countdown clock.",
+  "keywords": ["clock", "countdown", "time", "javascript", "html", "css", "sass", "scss"],
   "license": "MIT",
+  "engines": {
+    "node": "^0.12.x",
+    "npm": "^2.1.x"
+  },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-jshint": "~0.6.3",
     "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-watch": "^0.6.1"
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-header": "^1.7.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.x",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-strip-css-comments": "^1.2.0",
+    "gulp-uglify": "^1.4.2"
   },
+  "main": "dist/flipclock.js",
+  "homepage": "http://flipclockjs.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/objectivehtml/FlipClock"
   },
   "bugs": {
-    "url": "https://github.com/nodejitsu/browsenpm.org/issues"
+    "url": "https://github.com/objectivehtml/FlipClock/issues"
   },
   "dependencies": {
     "jquery": ">=1.7"
