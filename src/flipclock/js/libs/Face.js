@@ -38,59 +38,6 @@
 		lists: [],
 
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The clock's animation rate.
-			 * 
-			 * Note, currently this property doesn't do anything.
-			 * This property is here to be used in the future to
-			 * programmaticaly set the clock's animation speed
-			 */		
-
-			animationRate: 1000,
-
-			/**
-			 * Sets whether or not the clock should automatically add the play class
-			 */
-			 
-			autoPlay: true,
-
-			/**
-			 * Sets whether or not the clock should start ticking upon instantiation
-			 */
-			 
-			autoStart: true,
-
-			/**
-			 * Sets whether or not the clock should countdown
-			 */
-			 
-			countdown: false,
-
-			/**
-			 * The default language
-			 */	
-			 
-			defaultLanguage: 'english',
-			 
-			/**
-			 * The language being used to display labels (string)
-			 */	
-			 
-			language: 'english',
-
-			/**
-			 * The minimum digits the clock must have
-			 */		
-
-			minimumDigits: 0
-		},
-
-		/**
 		 * The original starting value of the clock face.
 		 */		
 		 
@@ -140,6 +87,8 @@
 			this.originalValue = value;
 			this.value = value;
 
+			this.base(options);
+
 			this.translator = new FlipClock.Translator({
 				defaultLanguage: this.getOption('defaultLanguage'),
 				language: this.getOption('language')
@@ -151,8 +100,6 @@
 				t.flip();
 				t.trigger('interval');
 			});
-
-			this.base(options);
 
 			this.on('add:digit', function(list) {
 				if(this.dividers.length) {
@@ -167,6 +114,62 @@
 			});
 		},
 		
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The clock's animation rate.
+				 * 
+				 * Note, currently this property doesn't do anything.
+				 * This property is here to be used in the future to
+				 * programmaticaly set the clock's animation speed
+				 */		
+
+				animationRate: 1000,
+
+				/**
+				 * Sets whether or not the clock should automatically add the play class
+				 */
+				 
+				autoPlay: true,
+
+				/**
+				 * Sets whether or not the clock should start ticking upon instantiation
+				 */
+				 
+				autoStart: true,
+
+				/**
+				 * Sets whether or not the clock should countdown
+				 */
+				 
+				countdown: false,
+
+				/**
+				 * The default language
+				 */	
+				 
+				defaultLanguage: 'english',
+				 
+				/**
+				 * The language being used to display labels (string)
+				 */	
+				 
+				language: 'english',
+
+				/**
+				 * The minimum digits the clock must have
+				 */
+
+				minimumDigits: 0
+			};
+		},
+
 		/**
 		 * Add a digit to the clock face
 		 */
@@ -307,6 +310,7 @@
 
 		reset: function(callback) {
 			this.value = this.originalValue;
+			this.time.time = this.value;
 			this.flip();
 			this.trigger('reset');
 			this.callback(callback);
@@ -472,6 +476,8 @@
 		 */
 		 
 		setTimeObject: function(time) {
+			console.log(this.getOption('minimumDigits'));
+			
 			this.time = new FlipClock.Time(time, {
 				minimumDigits: this.getOption('minimumDigits')
 			});
@@ -490,7 +496,7 @@
 			this.value = value;
 
 			if(this.time) {
-				this.setTimeObject(new FlipClock.Time(value));
+				this.setTimeObject(value);
 			}
 
 			this.flip();

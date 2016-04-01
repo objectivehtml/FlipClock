@@ -19,19 +19,6 @@
 
 	FlipClock.EnglishAlphaList = FlipClock.List.extend({
 
-		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * Tells the list to use capital letters if true
-			 */		
-			
-			capitalLetters: true
-		},
-
 		/*
 		 * Constructor
 		 *
@@ -40,15 +27,31 @@
 		*/
 
 		constructor: function(value, options) {
+			this.options = this.getDefaultOptions();
+			this.setOptions(options);
+
 			if(!value) {
 				value = String.fromCharCode(this.getMinCharCode());
 			}
 
 			this.base(value, options);
+		},
 
-			if(!this.value) {
-				this.value = String.fromCharCode(this.getMinCharCode());
-			}
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			var options = this.base();
+			
+			/**
+			 * Tells the list to use capital letters if true
+			 */				
+			options.capitalLetters = true;
+			
+			return options;
 		},
 
 		/*

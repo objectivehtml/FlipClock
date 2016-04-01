@@ -48,13 +48,13 @@ var FlipClock;
 		 * @param {string} buildDate - The last official build date
 		 */
 		 
-		buildDate: '2014-12-12',
+		buildDate: '2016-04-01',
 		
 		/**
 		 * @param {string} version - The current version
 		 */
 		 
-		version: '0.7.7',
+		version: '1.0.0',
 		
 		/**
 		 * @param {object} options - The available options for this class
@@ -85,7 +85,8 @@ var FlipClock;
 				options = {};
 			}
 			this._events = {};
-			this._uid = (new FlipClock.Uuid()).toString();		
+			this._uid = (new FlipClock.Uuid()).toString();
+			this.options = this.getDefaultOptions();
 			this.setOptions(options);
 		},
 		
@@ -160,7 +161,10 @@ var FlipClock;
 		 */		
 		 
 		setOption: function(index, value) {
-			if(this.hasOwnProperty(index) || typeof this[index] === "function") {
+			if( this.hasOwnProperty(index) || 
+				typeof this[index] === "function" || 
+				index in this
+			) {
 				this[index] = value;
 			}
 			else {
@@ -185,6 +189,16 @@ var FlipClock;
 		  	}
 
 		  	return this;
+		},
+
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {};
 		},
 
 		/*
@@ -272,7 +286,7 @@ var FlipClock;
 
 		localize: function(name) {
 			if(this.translator) {
-				this.translator.localize(name);
+				return this.translator.localize(name);
 			}
 
 			return name;

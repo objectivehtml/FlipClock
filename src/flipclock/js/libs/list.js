@@ -33,30 +33,6 @@
 		items: [],
 		
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The CSS classes
-			 */		
-			 
-			classes: {
-				active: 'flipclock-active',
-				before: 'flipclock-before',
-				flip: 'flip',
-				play: 'play'
-			},
-				
-			/**
-			 * The last value selected in the list
-			 */		
-			 
-			lastValue: 0
-		},
-
-		/**
 		 * The selected value in the list
 		 */		
 		 
@@ -71,17 +47,42 @@
 		 */
 		 
 		constructor: function(value, options) {
-			this.base(options);
-
+			this.items = [];
 			this.value = value;
+			this.$el = false;
 
-			var t = this;
-
+			this.base(options);
 			this.createList();
-
 			this.trigger('init');
 		},
 		
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The CSS classes
+				 */		
+				 
+				classes: {
+					active: 'flipclock-active',
+					before: 'flipclock-before',
+					flip: 'flip',
+					play: 'play'
+				},
+					
+				/**
+				 * The last value selected in the list
+				 */		
+				 
+				lastValue: 0
+			};
+		},
+
 		/**
 		 * Select the value in the list
 		 *

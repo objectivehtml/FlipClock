@@ -25,25 +25,6 @@
 		 
 		lang: false,
 
-		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The default language
-			 */	
-			 
-			defaultLanguage: 'english',
-			 
-			/**
-			 * The language being used to display labels (string)
-			 */	
-			 
-			language: 'english'
-		},
-
 		/*
 		 * Constructor
 		 *
@@ -53,6 +34,28 @@
 		constructor: function(options) {
 			this.base(options);
 			this.loadLanguage(this.getOption('language'));
+		},
+
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The default language
+				 */	
+				 
+				defaultLanguage: 'english',
+				 
+				/**
+				 * The language being used to display labels (string)
+				 */	
+				 
+				language: 'english'
+			};
 		},
 
 		/**

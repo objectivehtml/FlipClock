@@ -32,40 +32,6 @@
 		face: false,		 
 		 
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * An object of available CSS classes
-			 */		
-			 
-			classes: {
-				wrapper: 'flipclock-wrapper'
-			},
-			
-			/**
-			 * The name of the clock face class in use
-			 */	
-			 
-			clockFace: 'HourlyCounter',
-			 
-			/**
-			 * The FlipClock.Face options object
-			 */	
-			 
-			clockFaceOptions: {},
-			 
-			/**
-			 * The name of the default clock face class to use if the defined
-			 * clockFace variable is not a valid FlipClock.Face object
-			 */	
-			 
-			defaultClockFace: 'HourlyCounter'
-		},
-
-		/**
 		 * Constructor
 		 *
 		 * @param   object  The wrapping jQuery object
@@ -90,6 +56,43 @@
 			this.trigger('init');
 		},
 		
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * An object of available CSS classes
+				 */		
+				 
+				classes: {
+					wrapper: 'flipclock-wrapper'
+				},
+				
+				/**
+				 * The name of the clock face class in use
+				 */	
+				 
+				clockFace: 'HourlyCounter',
+				 
+				/**
+				 * The FlipClock.Face options object
+				 */	
+				 
+				clockFaceOptions: {},
+				 
+				/**
+				 * The name of the default clock face class to use if the defined
+				 * clockFace variable is not a valid FlipClock.Face object
+				 */	
+				 
+				defaultClockFace: 'HourlyCounter'
+			};
+		},
+
 		/**
 		 * Load the FlipClock.Face object
 		 *

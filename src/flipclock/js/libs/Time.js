@@ -26,19 +26,6 @@
 		time: 0,
 		
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The minimum number of digits the clock face must have
-			 */		
-			 
-			minimumDigits: 0
-		},
-
-		/**
 		 * Constructor
 		 *
 		 * @param  int     An integer use to select the correct digit
@@ -58,7 +45,22 @@
 			}
 
 			this.base(options);
+		},
 
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The minimum number of digits the clock face must have
+				 */		
+				 
+				minimumDigits: 0
+			};
 		},
 
 		/**

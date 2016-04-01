@@ -25,25 +25,6 @@
 		count: 0,
 
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The rate of the animation in milliseconds (not currently in use)
-			 */		
-			 
-			animationRate: 1000,
-
-			/**
-			 * Timer interval (1 second by default)
-			 */		
-			 
-			interval: 1000
-		},
-		
-		/**
 		 * Is the timer running?
 		 */		
 		 
@@ -60,6 +41,28 @@
 			this.trigger('init');
 		},
 		
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The rate of the animation in milliseconds (not currently in use)
+				 */		
+				 
+				animationRate: 1000,
+
+				/**
+				 * Timer interval (1 second by default)
+				 */		
+				 
+				interval: 1000
+			};
+		},
+
 		/**
 		 * Gets the elapsed the time as an interger
 		 *

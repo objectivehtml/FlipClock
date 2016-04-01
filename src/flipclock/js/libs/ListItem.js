@@ -26,30 +26,6 @@
 		$el: false,
 		
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * An object of available CSS classes
-			 */		
-			 
-			classes: {
-				down: 'down',
-				inn: 'inn',
-				shadow: 'shadow',
-				up: 'up'
-			},
-
-			/**
-			 * The css class appended to the parent DOM node
-			 */		
-
-			className: null
-		},
-
-		/**
 		 * The list item value
 		 */		
 		
@@ -80,6 +56,33 @@
 					'</a>',
 				'</li>'
 			].join(''));
+		},
+
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * An object of available CSS classes
+				 */		
+				 
+				classes: {
+					down: 'down',
+					inn: 'inn',
+					shadow: 'shadow',
+					up: 'up'
+				},
+
+				/**
+				 * The css class appended to the parent DOM node
+				 */		
+
+				className: null
+			};
 		},
 
 		/*

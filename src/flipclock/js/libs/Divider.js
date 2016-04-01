@@ -26,41 +26,6 @@
 		$el: false,
 
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-					
-			/**
-			 * The available options for this class
-			 */		
-			
-			className: false,
-		
-			/**
-			 * An object of available CSS classes
-			 */		
-			 
-			classes: {
-				divider: 'flipclock-divider',
-				dot: 'flipclock-dot',
-				label: 'flipclock-label'
-			},
-
-			/**
-			 * If true the dots will not be displayed in the divider
-			 */		
-
-			excludeDots: false,
-
-			/**
-			 * The label for the divider
-			 */		
-			
-			label: false
-		},
-
-		/**
 		 * The FlipClock.Translator instance
 		 */		
 		
@@ -75,7 +40,7 @@
 		constructor: function(options) {
 			this.base(options);
 
-			// Tranlate the label
+			// Translate the label
 			if(this.getOption('label')) {
 				this.setOption('label', this.t(this.getOption('label')));
 			}
@@ -91,6 +56,44 @@
 					dots,
 				'</span>'
 			].join(''));
+		},
+
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {					
+				/**
+				 * The available options for this class
+				 */		
+				
+				className: false,
+			
+				/**
+				 * An object of available CSS classes
+				 */		
+				 
+				classes: {
+					divider: 'flipclock-divider',
+					dot: 'flipclock-dot',
+					label: 'flipclock-label'
+				},
+
+				/**
+				 * If true the dots will not be displayed in the divider
+				 */		
+
+				excludeDots: false,
+
+				/**
+				 * The label for the divider
+				 */		
+				
+				label: false
+			};
 		},
 
 		/*
