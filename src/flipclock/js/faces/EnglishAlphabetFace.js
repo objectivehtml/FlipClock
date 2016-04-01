@@ -13,7 +13,7 @@
 		 * Tells the clock face if it should auto-increment
 		 */
 
-		shouldAutoIncrement: false,
+		// shouldAutoIncrement: false,
 
 		/**
 		 * Tells the clock face if it should use capital letters
@@ -21,18 +21,16 @@
 
 		capitalLetters: true,
 
+		getDefaultOptions: function() {
+			var options = this.base();
+
+			options.capitalLetters = true;
+
+			return options;
+		},
+
 		init: function(factory) {
 			this.base(factory);
-
-			this.on('before:start', function() {
-				console.log('before');
-
-				this.shouldAutoIncrement = true;
-			});
-			
-			this.on('before:stop', function() {
-				this.shouldAutoIncrement = false;
-			});
 
 			if(!this.value) {
 				this.value = this.getListObject(this.value).value;
@@ -41,6 +39,12 @@
 
 		build: function() {
 			var values = this.value.split('');
+
+			/*
+			for(var x = values.length + 1; x <= this.getOption('minimumDigits'); x++) {
+				values.unshift(String.fromCharCode(this.getListObject(false).getMinCharCode()));
+			}
+			*/
 
 			for(var i in values) {
 				this.createList(values[i]);
@@ -106,10 +110,13 @@
 		},
 
 		flip: function() {
+			/*
 			if(this.shouldAutoIncrement) {
 				this.autoIncrement();
 			}
+			*/
 
+			this.autoIncrement();
 			this.base(this.value.split(''));
 		},
 

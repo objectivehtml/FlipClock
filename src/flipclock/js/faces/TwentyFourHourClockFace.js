@@ -15,7 +15,7 @@
 		 */
 		 
 		build: function(time) {
-			var time = time ? time : this.time.getMilitaryTime(false, this.showSeconds);
+			var time = time ? time : this.time.getMilitaryTime(false, this.getOption('showSeconds'));
 
 			for(var i in time) {
 				this.createList(time[i]);
@@ -34,7 +34,7 @@
 		flip: function(time, doNotAddPlayClass) {
 			this.autoIncrement();
 			
-			time = time ? time : this.time.getMilitaryTime(false, this.showSeconds);
+			time = time ? time : this.time.getMilitaryTime(false, this.getOption('showSeconds'));
 			
 			this.base(time);	
 		}

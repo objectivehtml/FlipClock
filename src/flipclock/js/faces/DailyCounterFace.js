@@ -11,8 +11,6 @@
 
 	FlipClock.DailyCounterFace = FlipClock.Face.extend({
 
-		showSeconds: true,
-
 		/**
 		 * Build the clock face
 		 */
@@ -20,13 +18,13 @@
 		build: function() {	
 			var offset = 0;
 
-			var time = this.time.getDayCounter(this.showSeconds)
+			var time = this.time.getDayCounter(this.getOption('showSeconds'));
 
 			for(var i in time) {
 				this.createList(time[i]);
 			}
 
-			if(this.showSeconds) {
+			if(this.getOption('showSeconds')) {
 				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
 			}
 			else
@@ -43,12 +41,16 @@
 
 		/**
 		 * Flip the clock face
-		 */
+		 */		 
+		flip: function(time) {
+			if(!time) {
+				time = this.time.getDayCounter(this.getOption('showSeconds'));
+			}
 
-		flip: function() {
-			this.base(this.time.getDayCounter(this.showSeconds));
+			this.base(time);
 			this.autoIncrement();
-		}
+		},
+
 
 	});
 

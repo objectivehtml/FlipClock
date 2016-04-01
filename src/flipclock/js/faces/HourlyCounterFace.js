@@ -21,8 +21,8 @@
 		constructor: function(value, options) {
 			this.base(value, options);
 
-			if(this.getOption('includeSeconds') === null) {
-				this.setOption('includeSeconds', true);
+			if(this.getOption('showSeconds') === null) {
+				this.setOption('showSeconds', true);
 			}
 		},
 
@@ -31,13 +31,13 @@
 		 */
 		
 		build: function(time) {
-			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('includeSeconds'));
+			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('showSeconds'));
 			
 			for(var i in time) {
 				this.createList(time[i]);
 			}
 
-			if(this.getOption('includeSeconds') === true) {
+			if(this.getOption('showSeconds') === true) {
 				offset = 2;
 				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - offset].$el);
 			}
@@ -54,7 +54,7 @@
 		 
 		flip: function(time) {
 			if(!time) {
-				time = this.time.getHourCounter(this.getOption('includeSeconds'));
+				time = this.time.getHourCounter(this.getOption('showSeconds'));
 			}
 
 			this.base(time);

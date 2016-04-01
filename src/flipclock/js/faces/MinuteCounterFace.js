@@ -17,13 +17,13 @@
 		 */
 		 
 		build: function() {
-			var time = this.time.getMinuteCounter(this.getOption('includeSeconds'));
+			var time = this.time.getMinuteCounter(this.getOption('showSeconds'));
 			
 			for(var i in time) {
 				this.createList(time[i]);
 			}
 
-			if(this.getOption('includeSeconds')) {
+			if(this.getOption('showSeconds')) {
 				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
 			}
 
@@ -37,7 +37,7 @@
 		 */
 		 
 		flip: function() {
-			this.base(this.time.getMinuteCounter(this.getOption('includeSeconds')));
+			this.base(this.time.getMinuteCounter(this.getOption('showSeconds')));
 		}
 
 	});

@@ -12,14 +12,14 @@
 		 * The meridium jQuery DOM object
 		 */
 		 
-		meridium: false,
+		$meridium: false,
 		
 		/**
 		 * The meridium text as string for easy access
 		 */
 		 
 		meridiumText: 'AM',
-					
+			
 		/**
 		 * Build the clock face
 		 *
@@ -27,7 +27,7 @@
 		 */
 		 
 		build: function() {
-			var t = this, time = this.time.getTime(false, this.showSeconds);
+			var t = this, time = this.time.getTime(false, this.getOption('showSeconds'));
 		
 			this.meridiumText = this.getMeridium();
 
@@ -54,7 +54,7 @@
 				this.$meridium.find('a').html(this.meridiumText);	
 			}
 
-			this.base(this.time.getTime(false, this.showSeconds));	
+			this.base(this.time.getTime(false, this.getOption('showSeconds')));	
 		},
 		
 		/**

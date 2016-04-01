@@ -10,12 +10,6 @@
 	FlipClock.CounterFace = FlipClock.Face.extend({
 		
 		/**
-		 * Tells the counter clock face if it should auto-increment
-		 */
-
-		shouldAutoIncrement: false,
-
-		/**
 		 * Constructor
 		 *
 		 * @param  object  The parent FlipClock.Factory object
@@ -27,14 +21,6 @@
 			this.base(value, options);
 
 			this.timer.off('stop');
-
-			this.on('before:start', function() {
-				this.shouldAutoIncrement = true;
-			});
-
-			this.on('before:stop', function() {
-				this.shouldAutoIncrement = false;
-			});
 
 			this.on('create:list', function(list) {
 				list.addPlayClass();
@@ -53,10 +39,6 @@
 			for(var i in time) {
 				t.createList(time[i]);
 			}
-			
-			if(this.autoStart) {
-				this.shouldAutoIncrement = true;
-			}
 
 			this.base();
 		},
@@ -68,7 +50,7 @@
 		 */
 		 
 		flip: function(time) {
-			if(this.shouldAutoIncrement) {
+			if(this.getOption('autoStart')) {
 				this.autoIncrement();
 			}
 
