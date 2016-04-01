@@ -25,7 +25,10 @@
 
 				// Instantiate a coutdown FlipClock
 				clock = $('.clock').FlipClock(diff, {
-					clockFace: 'DailyCounter'
+					clockFace: 'DailyCounter',
+					clockFaceOptions:  {
+						showSeconds: true
+					}
 				});
 			});
 		</script>

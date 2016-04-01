@@ -8,9 +8,9 @@
 	</head>
 	<body>
 
-	<div class="clock-1" style="margin:2em;"></div>
+	<div style="clear:both;padding:20px;"><div class="clock-1"></div></div>
 	
-	<div class="clock-2" style="margin:2em;"></div>
+	<div style="clear:both;padding:20px"><div class="clock-2"></div></div>
 	
 	<div class="message"></div>
 
@@ -20,11 +20,11 @@
 		$(document).ready(function() {
 			
 			clocks.push($('.clock-1').FlipClock({
-		        clockFace: 'MinuteCounter'
+		        clockFace: 'Counter'
 		    }));
 
-			clocks.push($('.clock-2').FlipClock({
-		        clockFace: 'HourlyCounter'
+			clocks.push($('.clock-2').FlipClock(15000, {
+		        clockFace: 'Counter'
 		    }));
 
 		});
