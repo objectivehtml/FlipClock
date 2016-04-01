@@ -476,8 +476,6 @@
 		 */
 		 
 		setTimeObject: function(time) {
-			console.log(this.getOption('minimumDigits'));
-			
 			this.time = new FlipClock.Time(time, {
 				minimumDigits: this.getOption('minimumDigits')
 			});
