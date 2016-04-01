@@ -194,13 +194,13 @@ var FlipClock;
 		 * @param {string} buildDate - The last official build date
 		 */
 		 
-		buildDate: '2014-12-12',
+		buildDate: '2016-04-01',
 		
 		/**
 		 * @param {string} version - The current version
 		 */
 		 
-		version: '0.7.7',
+		version: '1.0.0',
 		
 		/**
 		 * @param {object} options - The available options for this class
@@ -231,7 +231,8 @@ var FlipClock;
 				options = {};
 			}
 			this._events = {};
-			this._uid = (new FlipClock.Uuid()).toString();		
+			this._uid = (new FlipClock.Uuid()).toString();
+			this.options = this.getDefaultOptions();
 			this.setOptions(options);
 		},
 		
@@ -306,7 +307,10 @@ var FlipClock;
 		 */		
 		 
 		setOption: function(index, value) {
-			if(this.hasOwnProperty(index) || typeof this[index] === "function") {
+			if( this.hasOwnProperty(index) || 
+				typeof this[index] === "function" || 
+				index in this
+			) {
 				this[index] = value;
 			}
 			else {
@@ -331,6 +335,16 @@ var FlipClock;
 		  	}
 
 		  	return this;
+		},
+
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {};
 		},
 
 		/*
@@ -418,7 +432,7 @@ var FlipClock;
 
 		localize: function(name) {
 			if(this.translator) {
-				this.translator.localize(name);
+				return this.translator.localize(name);
 			}
 
 			return name;
@@ -521,30 +535,6 @@ var FlipClock;
 		items: [],
 		
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The CSS classes
-			 */		
-			 
-			classes: {
-				active: 'flipclock-active',
-				before: 'flipclock-before',
-				flip: 'flip',
-				play: 'play'
-			},
-				
-			/**
-			 * The last value selected in the list
-			 */		
-			 
-			lastValue: 0
-		},
-
-		/**
 		 * The selected value in the list
 		 */		
 		 
@@ -559,17 +549,42 @@ var FlipClock;
 		 */
 		 
 		constructor: function(value, options) {
-			this.base(options);
-
+			this.items = [];
 			this.value = value;
+			this.$el = false;
 
-			var t = this;
-
+			this.base(options);
 			this.createList();
-
 			this.trigger('init');
 		},
 		
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The CSS classes
+				 */		
+				 
+				classes: {
+					active: 'flipclock-active',
+					before: 'flipclock-before',
+					flip: 'flip',
+					play: 'play'
+				},
+					
+				/**
+				 * The last value selected in the list
+				 */		
+				 
+				lastValue: 0
+			};
+		},
+
 		/**
 		 * Select the value in the list
 		 *
@@ -706,30 +721,6 @@ var FlipClock;
 		$el: false,
 		
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * An object of available CSS classes
-			 */		
-			 
-			classes: {
-				down: 'down',
-				inn: 'inn',
-				shadow: 'shadow',
-				up: 'up'
-			},
-
-			/**
-			 * The css class appended to the parent DOM node
-			 */		
-
-			className: null
-		},
-
-		/**
 		 * The list item value
 		 */		
 		
@@ -760,6 +751,33 @@ var FlipClock;
 					'</a>',
 				'</li>'
 			].join(''));
+		},
+
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * An object of available CSS classes
+				 */		
+				 
+				classes: {
+					down: 'down',
+					inn: 'inn',
+					shadow: 'shadow',
+					up: 'up'
+				},
+
+				/**
+				 * The css class appended to the parent DOM node
+				 */		
+
+				className: null
+			};
 		},
 
 		/*
@@ -796,19 +814,6 @@ var FlipClock;
 
 	FlipClock.EnglishAlphaList = FlipClock.List.extend({
 
-		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * Tells the list to use capital letters if true
-			 */		
-			
-			capitalLetters: true
-		},
-
 		/*
 		 * Constructor
 		 *
@@ -817,15 +822,31 @@ var FlipClock;
 		*/
 
 		constructor: function(value, options) {
+			this.options = this.getDefaultOptions();
+			this.setOptions(options);
+
 			if(!value) {
 				value = String.fromCharCode(this.getMinCharCode());
 			}
 
 			this.base(value, options);
+		},
 
-			if(!this.value) {
-				this.value = String.fromCharCode(this.getMinCharCode());
-			}
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			var options = this.base();
+			
+			/**
+			 * Tells the list to use capital letters if true
+			 */				
+			options.capitalLetters = true;
+			
+			return options;
 		},
 
 		/*
@@ -923,41 +944,6 @@ var FlipClock;
 		$el: false,
 
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-					
-			/**
-			 * The available options for this class
-			 */		
-			
-			className: false,
-		
-			/**
-			 * An object of available CSS classes
-			 */		
-			 
-			classes: {
-				divider: 'flipclock-divider',
-				dot: 'flipclock-dot',
-				label: 'flipclock-label'
-			},
-
-			/**
-			 * If true the dots will not be displayed in the divider
-			 */		
-
-			excludeDots: false,
-
-			/**
-			 * The label for the divider
-			 */		
-			
-			label: false
-		},
-
-		/**
 		 * The FlipClock.Translator instance
 		 */		
 		
@@ -972,7 +958,7 @@ var FlipClock;
 		constructor: function(options) {
 			this.base(options);
 
-			// Tranlate the label
+			// Translate the label
 			if(this.getOption('label')) {
 				this.setOption('label', this.t(this.getOption('label')));
 			}
@@ -988,6 +974,44 @@ var FlipClock;
 					dots,
 				'</span>'
 			].join(''));
+		},
+
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {					
+				/**
+				 * The available options for this class
+				 */		
+				
+				className: false,
+			
+				/**
+				 * An object of available CSS classes
+				 */		
+				 
+				classes: {
+					divider: 'flipclock-divider',
+					dot: 'flipclock-dot',
+					label: 'flipclock-label'
+				},
+
+				/**
+				 * If true the dots will not be displayed in the divider
+				 */		
+
+				excludeDots: false,
+
+				/**
+				 * The label for the divider
+				 */		
+				
+				label: false
+			};
 		},
 
 		/*
@@ -1222,59 +1246,6 @@ var FlipClock;
 		lists: [],
 
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The clock's animation rate.
-			 * 
-			 * Note, currently this property doesn't do anything.
-			 * This property is here to be used in the future to
-			 * programmaticaly set the clock's animation speed
-			 */		
-
-			animationRate: 1000,
-
-			/**
-			 * Sets whether or not the clock should automatically add the play class
-			 */
-			 
-			autoPlay: true,
-
-			/**
-			 * Sets whether or not the clock should start ticking upon instantiation
-			 */
-			 
-			autoStart: true,
-
-			/**
-			 * Sets whether or not the clock should countdown
-			 */
-			 
-			countdown: false,
-
-			/**
-			 * The default language
-			 */	
-			 
-			defaultLanguage: 'english',
-			 
-			/**
-			 * The language being used to display labels (string)
-			 */	
-			 
-			language: 'english',
-
-			/**
-			 * The minimum digits the clock must have
-			 */		
-
-			minimumDigits: 0
-		},
-
-		/**
 		 * The original starting value of the clock face.
 		 */		
 		 
@@ -1324,6 +1295,8 @@ var FlipClock;
 			this.originalValue = value;
 			this.value = value;
 
+			this.base(options);
+
 			this.translator = new FlipClock.Translator({
 				defaultLanguage: this.getOption('defaultLanguage'),
 				language: this.getOption('language')
@@ -1335,8 +1308,6 @@ var FlipClock;
 				t.flip();
 				t.trigger('interval');
 			});
-
-			this.base(options);
 
 			this.on('add:digit', function(list) {
 				if(this.dividers.length) {
@@ -1351,6 +1322,62 @@ var FlipClock;
 			});
 		},
 		
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The clock's animation rate.
+				 * 
+				 * Note, currently this property doesn't do anything.
+				 * This property is here to be used in the future to
+				 * programmaticaly set the clock's animation speed
+				 */		
+
+				animationRate: 1000,
+
+				/**
+				 * Sets whether or not the clock should automatically add the play class
+				 */
+				 
+				autoPlay: true,
+
+				/**
+				 * Sets whether or not the clock should start ticking upon instantiation
+				 */
+				 
+				autoStart: true,
+
+				/**
+				 * Sets whether or not the clock should countdown
+				 */
+				 
+				countdown: false,
+
+				/**
+				 * The default language
+				 */	
+				 
+				defaultLanguage: 'english',
+				 
+				/**
+				 * The language being used to display labels (string)
+				 */	
+				 
+				language: 'english',
+
+				/**
+				 * The minimum digits the clock must have
+				 */
+
+				minimumDigits: 0
+			};
+		},
+
 		/**
 		 * Add a digit to the clock face
 		 */
@@ -1491,6 +1518,7 @@ var FlipClock;
 
 		reset: function(callback) {
 			this.value = this.originalValue;
+			this.time.time = this.value;
 			this.flip();
 			this.trigger('reset');
 			this.callback(callback);
@@ -1656,6 +1684,8 @@ var FlipClock;
 		 */
 		 
 		setTimeObject: function(time) {
+			console.log(this.getOption('minimumDigits'));
+			
 			this.time = new FlipClock.Time(time, {
 				minimumDigits: this.getOption('minimumDigits')
 			});
@@ -1674,7 +1704,7 @@ var FlipClock;
 			this.value = value;
 
 			if(this.time) {
-				this.setTimeObject(new FlipClock.Time(value));
+				this.setTimeObject(value);
 			}
 
 			this.flip();
@@ -1776,40 +1806,6 @@ var FlipClock;
 		face: false,		 
 		 
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * An object of available CSS classes
-			 */		
-			 
-			classes: {
-				wrapper: 'flipclock-wrapper'
-			},
-			
-			/**
-			 * The name of the clock face class in use
-			 */	
-			 
-			clockFace: 'HourlyCounter',
-			 
-			/**
-			 * The FlipClock.Face options object
-			 */	
-			 
-			clockFaceOptions: {},
-			 
-			/**
-			 * The name of the default clock face class to use if the defined
-			 * clockFace variable is not a valid FlipClock.Face object
-			 */	
-			 
-			defaultClockFace: 'HourlyCounter'
-		},
-
-		/**
 		 * Constructor
 		 *
 		 * @param   object  The wrapping jQuery object
@@ -1834,6 +1830,43 @@ var FlipClock;
 			this.trigger('init');
 		},
 		
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * An object of available CSS classes
+				 */		
+				 
+				classes: {
+					wrapper: 'flipclock-wrapper'
+				},
+				
+				/**
+				 * The name of the clock face class in use
+				 */	
+				 
+				clockFace: 'HourlyCounter',
+				 
+				/**
+				 * The FlipClock.Face options object
+				 */	
+				 
+				clockFaceOptions: {},
+				 
+				/**
+				 * The name of the default clock face class to use if the defined
+				 * clockFace variable is not a valid FlipClock.Face object
+				 */	
+				 
+				defaultClockFace: 'HourlyCounter'
+			};
+		},
+
 		/**
 		 * Load the FlipClock.Face object
 		 *
@@ -2123,19 +2156,6 @@ var FlipClock;
 		time: 0,
 		
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The minimum number of digits the clock face must have
-			 */		
-			 
-			minimumDigits: 0
-		},
-
-		/**
 		 * Constructor
 		 *
 		 * @param  int     An integer use to select the correct digit
@@ -2155,7 +2175,22 @@ var FlipClock;
 			}
 
 			this.base(options);
+		},
 
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The minimum number of digits the clock face must have
+				 */		
+				 
+				minimumDigits: 0
+			};
 		},
 
 		/**
@@ -2600,25 +2635,6 @@ var FlipClock;
 		count: 0,
 
 		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The rate of the animation in milliseconds (not currently in use)
-			 */		
-			 
-			animationRate: 1000,
-
-			/**
-			 * Timer interval (1 second by default)
-			 */		
-			 
-			interval: 1000
-		},
-		
-		/**
 		 * Is the timer running?
 		 */		
 		 
@@ -2635,6 +2651,28 @@ var FlipClock;
 			this.trigger('init');
 		},
 		
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The rate of the animation in milliseconds (not currently in use)
+				 */		
+				 
+				animationRate: 1000,
+
+				/**
+				 * Timer interval (1 second by default)
+				 */		
+				 
+				interval: 1000
+			};
+		},
+
 		/**
 		 * Gets the elapsed the time as an interger
 		 *
@@ -2819,25 +2857,6 @@ var FlipClock;
 		 
 		lang: false,
 
-		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The default language
-			 */	
-			 
-			defaultLanguage: 'english',
-			 
-			/**
-			 * The language being used to display labels (string)
-			 */	
-			 
-			language: 'english'
-		},
-
 		/*
 		 * Constructor
 		 *
@@ -2847,6 +2866,28 @@ var FlipClock;
 		constructor: function(options) {
 			this.base(options);
 			this.loadLanguage(this.getOption('language'));
+		},
+
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The default language
+				 */	
+				 
+				defaultLanguage: 'english',
+				 
+				/**
+				 * The language being used to display labels (string)
+				 */	
+				 
+				language: 'english'
+			};
 		},
 
 		/**
@@ -2993,246 +3034,6 @@ var FlipClock;
 	});
 
 }(jQuery));
-/*jshint smarttabs:true */
-
-/**
- * FlipClock.js
- *
- * @author     Justin Kimbrell
- * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
- */
-
-(function($) {
-	
-	"use strict";
-	
-	/**
-	 * The FlipClock.List class is used to build the list used to create 
-	 * the card flip effect. This object fascilates selecting the correct
-	 * node by passing a specific value.
-	 */
-	 	
-	FlipClock.List = FlipClock.Base.extend({
-			
-		/**
-		 * The jQuery object
-		 */		
-		 
-		$el: false,
-		
-		/**
-		 * The items in the list
-		 */		
-		 
-		items: [],
-		
-		/**
-		 * The available options for this class
-		 */		
-		
-		options: {
-
-			/**
-			 * The CSS classes
-			 */		
-			 
-			classes: {
-				active: 'flipclock-active',
-				before: 'flipclock-before',
-				flip: 'flip',
-				play: 'play'
-			},
-				
-			/**
-			 * The last value selected in the list
-			 */		
-			 
-			lastValue: 0
-		},
-
-		/**
-		 * The selected value in the list
-		 */		
-		 
-		value: 0,
-		
-		/**
-		 * Constructor
-		 *
-		 * @param  object  A FlipClock.Factory object
-		 * @param  int     An string or integer use to select the correct value
-		 * @param  object  An object to override the default properties	 
-		 */
-		 
-		constructor: function(value, options) {
-			this.base(options);
-
-			this.value = value;
-
-			var t = this;
-
-			this.createList();
-
-			this.trigger('init');
-		},
-		
-		/**
-		 * Select the value in the list
-		 *
-		 * @param  int  value
-		 * @return object
-		 */
-		 
-		select: function(value) {
-			var _afterListItem = this._afterListItem;
-
-			this.setOption('lastValue', this.value);
-
-			if(typeof value === "undefined") {
-				value = this.value;
-			}
-			else {
-				this.value = value;
-			}
-
-			if(this.value != this.getOption('lastValue')) {
-				this._beforeListItem.$el.removeClass(this.getOption('classes').before);
-
-				this.$el.find('.'+this.getOption('classes').active)
-					.removeClass(this.getOption('classes').active)
-					.addClass(this.getOption('classes').before);
-
-				this.items.splice(0, 1);
-
-				this._afterListItem = this.createListItem(this.value, this.getOption('classes').active);
-
-				this._beforeListItem.$el.remove();
-				this._beforeListItem = _afterListItem;
-
-				this.trigger('select', this.value);
-			}	
-
-			return this;
-		},
-
-		/*
-		 * Add the play class to the list
-		 *
-		 * @return object
-		*/
-
-		addPlayClass: function() {
-			this.$el.addClass(this.getOption('classes').play);
-
-			return this;
-		},
-		
-		/*
-		 * Remove the play class to the list
-		 *
-		 * @return object
-		*/
-
-		removePlayClass: function() {
-			this.$el.removeClass(this.getOption('classes').play);
-
-			return this;
-		},
-		
-		/**
-		 * Creates the list item HTML and returns as a string 
-		 *
-		 * @param  mixed  value
-		 * @param  string  css
-		 * @return object
-		 */
-		 
-		createListItem: function(value, css) {
-			var item = new FlipClock.ListItem(value, {
-				className: css
-			});
-
-			this.items.push(item);
-
-			this.$el.append(item.$el);
-
-			this.trigger('create:item', item);
-
-			return item;
-		},
-
-		/**
-		 * Create the list of values and appends it to the DOM object 
-		 *
-		 * @return object
-		 */
-		 
-		createList: function() {
-			var $el = this.$el = $('<ul class="'+this.getOption('classes').flip+'"></ul>');
-
-			this._beforeListItem = this.createListItem(this.getPrevValue(), this.getOption('classes').before);
-			this._afterListItem = this.createListItem(this.value, this.getOption('classes').active);
-
-			$el.append(this._beforeListItem.el);
-			$el.append(this._afterListItem.el);
-			
-			this.trigger('create:list', $el);		
-
-			return $el;
-		}
-
-	});
-		
-}(jQuery));
-/*jshint smarttabs:true */
-
-/**
- * FlipClock.js
- *
- * @author     Justin Kimbrell
- * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
- */
-
-(function($) {
-	
-	"use strict";
-	
-	/**
-	 * Capitalize the first letter in a string
-	 *
-	 * @return string
-	 */
-	 
-	String.prototype.ucfirst = function() {
-		return this.substr(0, 1).toUpperCase() + this.substr(1);
-	};
-	
-	/**
-	 * jQuery helper method
-	 *
-	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
-	 */
-	 
-	$.fn.FlipClock = function(digit, options) {	
-		return new FlipClock($(this), digit, options);
-	};
-	
-	/**
-	 * jQuery helper method
-	 *
-	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
-	 */
-	 
-	$.fn.flipClock = function(digit, options) {
-		return $.fn.FlipClock(digit, options);
-	};
-	
-}(jQuery));
-
 (function($) {
 	
 	/**
@@ -3250,7 +3051,7 @@ var FlipClock;
 		 */
 		 
 		build: function(time) {
-			var time = time ? time : this.time.getMilitaryTime(false, this.showSeconds);
+			var time = time ? time : this.time.getMilitaryTime(false, this.getOption('showSeconds'));
 
 			for(var i in time) {
 				this.createList(time[i]);
@@ -3269,7 +3070,7 @@ var FlipClock;
 		flip: function(time, doNotAddPlayClass) {
 			this.autoIncrement();
 			
-			time = time ? time : this.time.getMilitaryTime(false, this.showSeconds);
+			time = time ? time : this.time.getMilitaryTime(false, this.getOption('showSeconds'));
 			
 			this.base(time);	
 		}
@@ -3289,12 +3090,6 @@ var FlipClock;
 	FlipClock.CounterFace = FlipClock.Face.extend({
 		
 		/**
-		 * Tells the counter clock face if it should auto-increment
-		 */
-
-		shouldAutoIncrement: false,
-
-		/**
 		 * Constructor
 		 *
 		 * @param  object  The parent FlipClock.Factory object
@@ -3306,14 +3101,6 @@ var FlipClock;
 			this.base(value, options);
 
 			this.timer.off('stop');
-
-			this.on('before:start', function() {
-				this.shouldAutoIncrement = true;
-			});
-
-			this.on('before:stop', function() {
-				this.shouldAutoIncrement = false;
-			});
 
 			this.on('create:list', function(list) {
 				list.addPlayClass();
@@ -3332,10 +3119,6 @@ var FlipClock;
 			for(var i in time) {
 				t.createList(time[i]);
 			}
-			
-			if(this.autoStart) {
-				this.shouldAutoIncrement = true;
-			}
 
 			this.base();
 		},
@@ -3347,7 +3130,7 @@ var FlipClock;
 		 */
 		 
 		flip: function(time) {
-			if(this.shouldAutoIncrement) {
+			if(this.getOption('autoStart')) {
 				this.autoIncrement();
 			}
 
@@ -3398,8 +3181,6 @@ var FlipClock;
 
 	FlipClock.DailyCounterFace = FlipClock.Face.extend({
 
-		showSeconds: true,
-
 		/**
 		 * Build the clock face
 		 */
@@ -3407,13 +3188,13 @@ var FlipClock;
 		build: function() {	
 			var offset = 0;
 
-			var time = this.time.getDayCounter(this.showSeconds)
+			var time = this.time.getDayCounter(this.getOption('showSeconds'));
 
 			for(var i in time) {
 				this.createList(time[i]);
 			}
 
-			if(this.showSeconds) {
+			if(this.getOption('showSeconds')) {
 				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
 			}
 			else
@@ -3430,12 +3211,16 @@ var FlipClock;
 
 		/**
 		 * Flip the clock face
-		 */
+		 */		 
+		flip: function(time) {
+			if(!time) {
+				time = this.time.getDayCounter(this.getOption('showSeconds'));
+			}
 
-		flip: function() {
-			this.base(this.time.getDayCounter(this.showSeconds));
+			this.base(time);
 			this.autoIncrement();
-		}
+		},
+
 
 	});
 
@@ -3455,7 +3240,7 @@ var FlipClock;
 		 * Tells the clock face if it should auto-increment
 		 */
 
-		shouldAutoIncrement: false,
+		// shouldAutoIncrement: false,
 
 		/**
 		 * Tells the clock face if it should use capital letters
@@ -3463,18 +3248,16 @@ var FlipClock;
 
 		capitalLetters: true,
 
+		getDefaultOptions: function() {
+			var options = this.base();
+
+			options.capitalLetters = true;
+
+			return options;
+		},
+
 		init: function(factory) {
 			this.base(factory);
-
-			this.on('before:start', function() {
-				console.log('before');
-
-				this.shouldAutoIncrement = true;
-			});
-			
-			this.on('before:stop', function() {
-				this.shouldAutoIncrement = false;
-			});
 
 			if(!this.value) {
 				this.value = this.getListObject(this.value).value;
@@ -3483,6 +3266,12 @@ var FlipClock;
 
 		build: function() {
 			var values = this.value.split('');
+
+			/*
+			for(var x = values.length + 1; x <= this.getOption('minimumDigits'); x++) {
+				values.unshift(String.fromCharCode(this.getListObject(false).getMinCharCode()));
+			}
+			*/
 
 			for(var i in values) {
 				this.createList(values[i]);
@@ -3548,10 +3337,13 @@ var FlipClock;
 		},
 
 		flip: function() {
+			/*
 			if(this.shouldAutoIncrement) {
 				this.autoIncrement();
 			}
+			*/
 
+			this.autoIncrement();
 			this.base(this.value.split(''));
 		},
 
@@ -3606,8 +3398,8 @@ var FlipClock;
 		constructor: function(value, options) {
 			this.base(value, options);
 
-			if(this.getOption('includeSeconds') === null) {
-				this.setOption('includeSeconds', true);
+			if(this.getOption('showSeconds') === null) {
+				this.setOption('showSeconds', true);
 			}
 		},
 
@@ -3616,13 +3408,13 @@ var FlipClock;
 		 */
 		
 		build: function(time) {
-			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('includeSeconds'));
+			var offset = 0, time = time ? time : this.time.getHourCounter(this.getOption('showSeconds'));
 			
 			for(var i in time) {
 				this.createList(time[i]);
 			}
 
-			if(this.getOption('includeSeconds') === true) {
+			if(this.getOption('showSeconds') === true) {
 				offset = 2;
 				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - offset].$el);
 			}
@@ -3639,7 +3431,7 @@ var FlipClock;
 		 
 		flip: function(time) {
 			if(!time) {
-				time = this.time.getHourCounter(this.getOption('includeSeconds'));
+				time = this.time.getHourCounter(this.getOption('showSeconds'));
 			}
 
 			this.base(time);
@@ -3677,13 +3469,13 @@ var FlipClock;
 		 */
 		 
 		build: function() {
-			var time = this.time.getMinuteCounter(this.getOption('includeSeconds'));
+			var time = this.time.getMinuteCounter(this.getOption('showSeconds'));
 			
 			for(var i in time) {
 				this.createList(time[i]);
 			}
 
-			if(this.getOption('includeSeconds')) {
+			if(this.getOption('showSeconds')) {
 				this.createDivider('Seconds').$el.insertBefore(this.lists[this.lists.length - 2].$el);
 			}
 
@@ -3697,7 +3489,7 @@ var FlipClock;
 		 */
 		 
 		flip: function() {
-			this.base(this.time.getMinuteCounter(this.getOption('includeSeconds')));
+			this.base(this.time.getMinuteCounter(this.getOption('showSeconds')));
 		}
 
 	});
@@ -3717,14 +3509,14 @@ var FlipClock;
 		 * The meridium jQuery DOM object
 		 */
 		 
-		meridium: false,
+		$meridium: false,
 		
 		/**
 		 * The meridium text as string for easy access
 		 */
 		 
 		meridiumText: 'AM',
-					
+			
 		/**
 		 * Build the clock face
 		 *
@@ -3732,7 +3524,7 @@ var FlipClock;
 		 */
 		 
 		build: function() {
-			var t = this, time = this.time.getTime(false, this.showSeconds);
+			var t = this, time = this.time.getTime(false, this.getOption('showSeconds'));
 		
 			this.meridiumText = this.getMeridium();
 
@@ -3759,7 +3551,7 @@ var FlipClock;
 				this.$meridium.find('a').html(this.meridiumText);	
 			}
 
-			this.base(this.time.getTime(false, this.showSeconds));	
+			this.base(this.time.getTime(false, this.getOption('showSeconds')));	
 		},
 		
 		/**
@@ -3820,6 +3612,35 @@ var FlipClock;
     FlipClock.Lang['ar']      = FlipClock.Lang.Arabic;
     FlipClock.Lang['ar-ar']   = FlipClock.Lang.Arabic;
     FlipClock.Lang['arabic']  = FlipClock.Lang.Arabic;
+
+}(jQuery));
+(function($) {
+
+    /**
+     * FlipClock Czech Language Pack
+     *
+     * This class will used to translate tokens into the Czech language.
+     *
+     */
+
+    FlipClock.Lang.Czech = {
+
+        'years'   : 'Roky',
+        'months'  : 'Měsíce',
+        'days'    : 'Dny',
+        'hours'   : 'Hodiny',
+        'minutes' : 'Minuty',
+        'seconds' : 'Sekundy'
+
+    };
+
+    /* Create various aliases for convenience */
+
+    FlipClock.Lang['cs']    = FlipClock.Lang.Czech;
+    FlipClock.Lang['cs-cz'] = FlipClock.Lang.Czech;
+    FlipClock.Lang['cz']    = FlipClock.Lang.Czech;
+    FlipClock.Lang['cz-cs'] = FlipClock.Lang.Czech;
+    FlipClock.Lang['czech'] = FlipClock.Lang.Czech;
 
 }(jQuery));
 (function($) {
@@ -3933,6 +3754,34 @@ var FlipClock;
 (function($) {
 		
 	/**
+	 * FlipClock English Language Pack
+	 *
+	 * This class will used to translate tokens into the English language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Persian = {
+		
+		'years'   : 'سال',
+		'months'  : 'ماه',
+		'days'    : 'روز',
+		'hours'   : 'ساعت',
+		'minutes' : 'دقیقه',
+		'seconds' : 'ثانیه'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['fa']      = FlipClock.Lang.Persian;
+	FlipClock.Lang['fa-ir']   = FlipClock.Lang.Persian;
+	FlipClock.Lang['persian'] = FlipClock.Lang.Persian;
+
+}(jQuery));
+
+(function($) {
+		
+	/**
 	 * FlipClock Finnish Language Pack
 	 *
 	 * This class will used to translate tokens into the Finnish language.
@@ -3987,6 +3836,57 @@ var FlipClock;
 }(jQuery));
 
 (function($) {
+
+	/**
+	FlipClock Hebrew Language Pack *
+	This class will used to translate tokens into the Hebrew language. *
+	Laurent HADJADJ - 10/09/2015
+	*/
+
+	FlipClock.Lang.Hebrew = {
+		'years' : 'שנים',
+		'months' : 'חודש',
+		'days' : 'ימים',
+		'hours' : 'שעות',
+		'minutes' : 'דקות',
+		'seconds' : 'שניות'
+
+	};
+
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['il'] = FlipClock.Lang.Hebrew;
+	FlipClock.Lang['he-il'] = FlipClock.Lang.Hebrew;
+	FlipClock.Lang['hebrew'] = FlipClock.Lang.Hebrew;
+
+}(jQuery));
+(function($) {
+		
+	/**
+	 * FlipClock Hungarian Language Pack
+	 *
+	 * This class will used to translate tokens into the Hungarian language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Hungarian = {
+		'years'   : 'Év',
+	    'months'  : 'Hónap',
+	    'days'    : 'Nap',
+	    'hours'   : 'Óra',
+	    'minutes' : 'Perc',
+	    'seconds' : 'Másodperc'	
+	};
+	
+	/* Create various aliases for convenience */
+ 
+	FlipClock.Lang['hu']     = FlipClock.Lang.Hungarian;
+	FlipClock.Lang['hu-hu']  = FlipClock.Lang.Hungarian;
+	FlipClock.Lang['hungarian'] = FlipClock.Lang.Hungarian;
+ 
+}(jQuery));
+
+(function($) {
 		
 	/**
 	 * FlipClock Italian Language Pack
@@ -4012,6 +3912,34 @@ var FlipClock;
 	FlipClock.Lang['it-it']   = FlipClock.Lang.Italian;
 	FlipClock.Lang['italian'] = FlipClock.Lang.Italian;
 	
+}(jQuery));
+
+(function($) {
+		
+	/**
+	 * FlipClock Korean Language Pack
+	 *
+	 * This class will used to translate tokens into the Korean language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Korean = {
+		
+		'years'   : '년',
+		'months'  : '월',
+		'days'    : '일',
+		'hours'   : '시',
+		'minutes' : '분',
+		'seconds' : '초'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['ko']      = FlipClock.Lang.Korean;
+	FlipClock.Lang['ko-kr']   = FlipClock.Lang.Korean;
+	FlipClock.Lang['korean']  = FlipClock.Lang.Korean;
+
 }(jQuery));
 
 (function($) {
@@ -4100,6 +4028,34 @@ var FlipClock;
 (function($) {
 
 	/**
+	 * FlipClock Polish Language Pack
+	 *
+	 * This class will used to translate tokens into the Polish language.
+	 *
+	 */
+
+	FlipClock.Lang.Polish = {
+
+		'years'   : 'lat',
+		'months'  : 'miesięcy',
+		'days'    : 'dni',
+		'hours'   : 'godzin',
+		'minutes' : 'minut',
+		'seconds' : 'sekund'
+
+	};
+
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['pl']         = FlipClock.Lang.Polish;
+	FlipClock.Lang['pl-pl']      = FlipClock.Lang.Polish;
+	FlipClock.Lang['polish'] = FlipClock.Lang.Polish;
+
+}(jQuery));
+
+(function($) {
+
+	/**
 	 * FlipClock Portuguese Language Pack
 	 *
 	 * This class will used to translate tokens into the Portuguese language.
@@ -4152,6 +4108,34 @@ var FlipClock;
 
 }(jQuery));
 (function($) {
+
+	/**
+	 * FlipClock Slovak Language Pack
+	 *
+	 * This class will used to translate tokens into the Slovak language.
+	 *
+	 */
+
+	FlipClock.Lang.Slovak = {
+
+		'years'   : 'Roky',
+		'months'  : 'Mesiace',
+		'days'    : 'Dni',
+		'hours'   : 'Hodiny',
+		'minutes' : 'Minúty',
+		'seconds' : 'Sekundy'
+
+	};
+
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['sk']      = FlipClock.Lang.Slovak;
+	FlipClock.Lang['sk-sk']   = FlipClock.Lang.Slovak;
+	FlipClock.Lang['slovak'] = FlipClock.Lang.Slovak;
+
+}(jQuery));
+
+(function($) {
 		
 	/**
 	 * FlipClock Swedish Language Pack
@@ -4182,6 +4166,60 @@ var FlipClock;
 (function($) {
 		
 	/**
+	 * FlipClock Thai Language Pack
+	 *
+	 * This class will used to translate tokens into the Thai language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Thai = {
+		
+		'years'   : 'ปี',
+		'months'  : 'เดือน',
+		'days'    : 'วัน',
+		'hours'   : 'ชั่วโมง',
+		'minutes' : 'นาที',
+		'seconds' : 'วินาที'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['th']      = FlipClock.Lang.Thai;
+	FlipClock.Lang['th-th']   = FlipClock.Lang.Thai;
+	FlipClock.Lang['thai'] = FlipClock.Lang.Thai;
+
+}(jQuery));
+(function($) {
+
+    /**
+     * FlipClock Russian Language Pack
+     *
+     * This class will used to translate tokens into the Russian language.
+     *
+     */
+
+    FlipClock.Lang.Ukrainian = {
+
+        'years'   : 'роки',
+        'months'  : 'місяці',
+        'days'    : 'дні',
+        'hours'   : 'години',
+        'minutes' : 'хвилини',
+        'seconds' : 'секунди'
+
+    };
+
+    /* Create various aliases for convenience */
+
+    FlipClock.Lang['ua']      = FlipClock.Lang.Ukrainian;
+    FlipClock.Lang['ua-ua']   = FlipClock.Lang.Ukrainian;
+    FlipClock.Lang['ukraine']  = FlipClock.Lang.Ukrainian;
+
+}(jQuery));
+(function($) {
+		
+	/**
 	 * FlipClock Chinese Language Pack
 	 *
 	 * This class will used to translate tokens into the Chinese language.
@@ -4204,5 +4242,30 @@ var FlipClock;
 	FlipClock.Lang['zh']      = FlipClock.Lang.Chinese;
 	FlipClock.Lang['zh-cn']   = FlipClock.Lang.Chinese;
 	FlipClock.Lang['chinese'] = FlipClock.Lang.Chinese;
+
+}(jQuery));
+(function($) {
+		
+	/**
+	 * FlipClock Traditional Chinese Language Pack
+	 *
+	 * This class will used to translate tokens into the Traditional Chinese.
+	 *	
+	 */
+	 
+	FlipClock.Lang.TraditionalChinese = {
+		
+		'years'   : '年',
+		'months'  : '月',
+		'days'    : '日',
+		'hours'   : '時',
+		'minutes' : '分',
+		'seconds' : '秒'
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['zh-tw']   = FlipClock.Lang.TraditionalChinese;
 
 }(jQuery));
