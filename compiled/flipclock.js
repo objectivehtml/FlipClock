@@ -1087,7 +1087,7 @@ var FlipClock;
 		createListItem: function(css, value) {
 			return [
 				'<li class="'+(css ? css : '')+'">',
-					'<a href="#">',
+					'<div class="faces-wrapper">',
 						'<div class="up">',
 							'<div class="shadow"></div>',
 							'<div class="inn">'+(value ? value : '')+'</div>',
@@ -1096,7 +1096,7 @@ var FlipClock;
 							'<div class="shadow"></div>',
 							'<div class="inn">'+(value ? value : '')+'</div>',
 						'</div>',
-					'</a>',
+					'</div>',
 				'</li>'
 			].join('');
 		},
