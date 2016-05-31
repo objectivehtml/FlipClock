@@ -323,6 +323,20 @@
 			}	
 		},
 		
+				 * Stops the clock
+		 */
+		 
+		pause: function(callback) {
+			this.face.stop();
+			this.timer.stop(callback);
+			
+			for(var x in this.lists) {
+				if (this.lists.hasOwnProperty(x)) {
+					this.lists[x].stop();
+				}
+			}	
+		},
+		
 		/**
 		 * Reset the clock
 		 */
