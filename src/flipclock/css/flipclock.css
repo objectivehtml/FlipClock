@@ -67,14 +67,13 @@
 .flip-clock-wrapper ul {
   position: relative;
   float: left;
-  margin: 5px;
-  width: 60px;
-  height: 90px;
-  font-size: 80px;
+  width: 2em;
+  height: 3em;
   font-weight: bold;
-  line-height: 87px;
   border-radius: 6px;
   background: #000;
+  padding: 0;
+  margin: 0 .15em;
 }
 
 .flip-clock-wrapper ul li {
@@ -84,7 +83,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  line-height: 87px;
+  line-height: 3em;
   text-decoration: none !important;
 }
 
@@ -107,8 +106,7 @@
   left: 0;
   width: 100%;
   height: 50%;
-  font-size: 80px;
-  overflow: hidden; 
+  overflow: hidden;
   outline: 1px solid transparent; }
 
 .flip-clock-wrapper ul li a div .shadow {
@@ -128,11 +126,12 @@
 .flip-clock-wrapper ul li a div.up:after {
   content: "";
   position: absolute;
-  top: 44px;
+  top: 100%;
   left: 0;
   z-index: 5;
   width: 100%;
-  height: 3px;
+  height: .05em;
+  margin-top: -.05em;
   background-color: #000;
   background-color: rgba(0, 0, 0, 0.4); }
 
@@ -158,7 +157,7 @@
   text-align: center;
   background-color: #333;
   border-radius: 6px;
-  font-size: 70px; }
+  font-size: 2.5em; }
 
 .flip-clock-wrapper ul li a div.up div.inn {
   top: 0; }
@@ -182,8 +181,8 @@
   float: left;
   display: inline-block;
   position: relative;
-  width: 20px;
-  height: 100px; }
+  width: .5em;
+  height: 3em; }
 
 .flip-clock-divider:first-child {
   width: 0; }
@@ -191,31 +190,27 @@
 .flip-clock-dot {
   display: block;
   background: #323434;
-  width: 10px;
-  height: 10px;
+  width: .3em;
+  height: .3em;
   position: absolute;
   border-radius: 50%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  left: 5px; }
+  left: 0.1em; }
 
 .flip-clock-divider .flip-clock-label {
   position: absolute;
   top: -1.5em;
-  right: -86px;
+  right: -5em;
   color: black;
-  text-shadow: none; }
-
-.flip-clock-divider.minutes .flip-clock-label {
-  right: -88px; }
-
-.flip-clock-divider.seconds .flip-clock-label {
-  right: -91px; }
+  text-shadow: none;
+  font-size: .6em;
+}
 
 .flip-clock-dot.top {
-  top: 30px; }
+  top: 0.9em; }
 
 .flip-clock-dot.bottom {
-  bottom: 30px; }
+  bottom: 0.9em; }
 
 @-webkit-keyframes asd {
   0% {
