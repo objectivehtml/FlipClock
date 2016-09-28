@@ -8,7 +8,16 @@
     "Brian Espinosa <b@bje.co>"
   ],
   "description": "A fully featured countdown clock.",
-  "keywords": ["clock", "countdown", "time", "javascript", "html", "css", "sass", "scss"],
+  "keywords": [
+    "clock",
+    "countdown",
+    "time",
+    "javascript",
+    "html",
+    "css",
+    "sass",
+    "scss"
+  ],
   "license": "MIT",
   "engines": {
     "node": "^0.12.x",
@@ -41,6 +50,7 @@
     "url": "https://github.com/objectivehtml/FlipClock/issues"
   },
   "dependencies": {
+    "gulp-util": "^3.0.7",
     "jquery": ">=1.7"
   }
 }
