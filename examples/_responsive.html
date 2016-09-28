@@ -6,7 +6,7 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 		<script src="../dist/flipclock.js"></script>
-		
+
 		<style>
   		body {
     		padding: 2em;
@@ -15,20 +15,20 @@
     		min-height: 20em;
   		}
 		</style>
-		
+
 	</head>
 	<body>
   	<div class="container">
-    	      	
+
       	<div class="col-md-12">
         	<div class="well">
           	<div id="clock"></div>
         	</div>
       	</div>
-      	
+
       	<div class="col-md-12">
         	<div class="well" style="text-align: center;">
-          	
+
           	<div class="fc-wrapper">
             	<div class="fc-group">
               	<div class="fc-label">Days</div>
@@ -142,24 +142,24 @@
               	</div>
             	</div>
           	</div>
-          	
+
         	</div>
       	</div>
-      	    	
+
   	</div>
-  	
+
   	<div class="message"></div>
-  
+
   	<script type="text/javascript">
-    	
+
     	setInterval(function () {
         flipTest()
       }, 1000);
-    	
+
     	function flipTest() {
         $("#test").removeClass("play");
         var n = $("#test .fc-number.active");
-    
+
         if (n.html() == undefined) {
             n = $("#test .fc-number").eq(0);
             n.addClass("before")
@@ -187,12 +187,12 @@
              .addClass("play");
         }
       }
-    	
+
   		var clock;
-  		
+
   		$(document).ready(function() {
   			var clock;
-  
+
   			clock = $('#clock').FlipClock({
   		        clockFace: 'DailyCounter',
   		        autoStart: false,
@@ -202,13 +202,13 @@
   		        	}
   		        }
   		    });
-  				    
-  		    clock.setTime(220880);
+
+  		    clock.setFaceValue(220880);
   		    clock.setCountdown(true);
   		    clock.start();
-  
+
   		});
   	</script>
-	
+
 	</body>
 </html>
