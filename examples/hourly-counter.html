@@ -1,10 +1,10 @@
 <html>
 	<head>
-		<link rel="stylesheet" href="../compiled/flipclock.css">
+		<link rel="stylesheet" href="../dist/flipclock.css">
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-		<script src="../compiled/flipclock.js"></script>		
+		<script src="../dist/flipclock.js"></script>		
 	</head>
 	<body>
 	<div class="clock" style="margin:2em;"></div>
@@ -15,8 +15,11 @@
 		
 		$(document).ready(function() {
 			
-			clock = $('.clock').FlipClock({
-		        clockFace: 'HourlyCounter'
+			clock = $('.clock').FlipClock(1018, {
+		        clockFace: 'HourlyCounter',
+		        clockFaceOptions: {
+		        	showSeconds: true
+		        }
 		    });
 		});
 	</script>

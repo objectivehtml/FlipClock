@@ -8,18 +8,22 @@ module.exports = function(grunt) {
         src: [
           'src/flipclock/css/flipclock.css'
         ],
-        dest: 'compiled/flipclock.css',
+        dest: 'dist/flipclock.css',
       },
       js: {
         src: [     
           'src/flipclock/js/vendor/*.js',
-          'src/flipclock/js/libs/core.js',
+          'src/flipclock/js/libs/Base.js',
+          'src/flipclock/js/libs/Plugins.js',
+          'src/flipclock/js/libs/List.js',
+          'src/flipclock/js/libs/ListItem.js',
+          'src/flipclock/js/libs/EnglishAlphaList.js',
           'src/flipclock/js/libs/*.js',
-          'src/flipclock/js/faces/twentyfourhourclock.js',
+          'src/flipclock/js/faces/TwentyFourHourClockFace.js',
           'src/flipclock/js/faces/*.js',
           'src/flipclock/js/lang/*.js',
         ],
-        dest: 'compiled/flipclock.js',
+        dest: 'dist/flipclock.js',
       }
     },
     uglify: {
@@ -28,7 +32,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'compiled/flipclock.min.js': ['<%= concat.js.dest %>']
+          'dist/flipclock.min.js': ['<%= concat.js.dest %>']
         }
       }
     },
@@ -43,14 +47,37 @@ module.exports = function(grunt) {
       css: {
         files: ['<%= concat.css.src %>'],
         tasks: ['concat'],
+      },
+      docs: {
+        files: ['<%= concat.js.src %>'],
+        tasks: ['jsdoc']
       }
     },
+    jsdoc : {
+        dist : {
+            src: ['src/flipclock/js/libs/Divider.js'], 
+            options: {
+                destination: 'docs'
+            }
+        }
+    }
+    /*
+    jsdoc2md : {
+      separateOutputFilePerInput: {
+        files: [
+            { src: "src/flipclock/js/libs/Base.js", dest: "docs/Base.md" },
+            { src: "src/flipclock/js/libs/Divider.js", dest: "docs/Divider.md" },
+        ]
+      },
+    }
+    */
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'watch']);
+  grunt.registerTask('default', ['concat', 'uglify', 'watch', 'jsdoc']);
 };
