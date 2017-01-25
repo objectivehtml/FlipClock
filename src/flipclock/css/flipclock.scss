@@ -1,5 +1,4 @@
-@import 'bourbon/bourbon';
-/* Get the bourbon mixin from http://bourbon.io */
+@import 'bourbon';
 
 /* Reset */
 .flip-clock-wrapper * {
@@ -7,16 +6,13 @@
     padding: 0;
     line-height: normal;
     @include box-sizing(border-box);
+    backface-visibility: hidden;
 }
 
-.flip-clock-wrapper a {
+.flip-clock-wrapper .faces-wrapper {
     cursor: pointer;
     text-decoration: none;
     color: #ccc;
-}
-
-.flip-clock-wrapper a:hover {
-    color: #fff;
 }
 
 .flip-clock-wrapper ul {
@@ -53,7 +49,6 @@
 	bottom: 10px;
 }
 
-
 .flip-clock-wrapper {
     text-align: center;
     position: relative;
@@ -72,8 +67,7 @@
     font-size: 80px;
     font-weight: bold;
     line-height: 87px;
-    border-radius: 6px_prefixed
-    ;
+    border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
 }
 
@@ -84,14 +78,14 @@
     top: 0;
     width: 100%;
     height: 100%;
-	line-height: 87px;
+    line-height: 87px;
 }
 
 .flip-clock-wrapper ul li:first-child {
     z-index: 2;
 }
 
-.flip-clock-wrapper ul li a {
+.flip-clock-wrapper ul li .faces-wrapper {
     display: block;
     height: 100%;
     @include perspective(200px);
@@ -99,7 +93,7 @@
     overflow: visible !important;
 }
 
-.flip-clock-wrapper ul li a div {
+.flip-clock-wrapper ul li .faces-wrapper div {
     z-index: 1;
     position: absolute;
     left: 0;
@@ -108,19 +102,19 @@
     overflow: hidden;
 }
 
-.flip-clock-wrapper ul li a div .shadow {
+.flip-clock-wrapper ul li .faces-wrapper div .shadow {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 2;
 }
 
-.flip-clock-wrapper ul li a div.up {
+.flip-clock-wrapper ul li .faces-wrapper div.up {
     @include transform-origin(50% 100%);
     top: 0;
 }
 
-.flip-clock-wrapper ul li a div.up:after {
+.flip-clock-wrapper ul li .faces-wrapper div.up:after {
   content: "";
   position:absolute;
   top:44px;
@@ -132,12 +126,12 @@
   background-color: rgba(0,0,0,.4);
 }
 
-.flip-clock-wrapper ul li a div.down {
+.flip-clock-wrapper ul li .faces-wrapper div.down {
     @include transform-origin(50% 0);
     bottom: 0;
 }
 
-.flip-clock-wrapper ul li a div div.inn {
+.flip-clock-wrapper ul li .faces-wrapper div div.inn {
     position: absolute;
     left: 0;
     z-index: 1;
@@ -151,12 +145,12 @@
     font-size: 70px;
 }
 
-.flip-clock-wrapper ul li a div.up div.inn {
+.flip-clock-wrapper ul li .faces-wrapper div.up div.inn {
     top: 0;
 
 }
 
-.flip-clock-wrapper ul li a div.down div.inn {
+.flip-clock-wrapper ul li .faces-wrapper div.down div.inn {
     bottom: 0;
 }
 
@@ -255,21 +249,11 @@
 /* SHADOW */
 
 .flip-clock-wrapper ul.play li.flip-clock-before .up .shadow {
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
-    background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     @include animation(show .5s linear both);
 }
 
 .flip-clock-wrapper ul.play li.flip-clock-active .up .shadow {
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
-    background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     @include animation(hide .5s .3s linear both);
 }
@@ -277,21 +261,11 @@
 /*DOWN*/
 
 .flip-clock-wrapper ul.play li.flip-clock-before .down .shadow {
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
-    background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     @include animation(show .5s linear both);
 }
 
 .flip-clock-wrapper ul.play li.flip-clock-active .down .shadow {
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
-    background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     @include animation(hide .5s .3s linear both);
 }
