@@ -20,8 +20,8 @@
 	
 	/* Create various aliases for convenience */
 
-	FlipClock.Lang['he']      = FlipClock.Lang.English;
-	FlipClock.Lang['he-he']   = FlipClock.Lang.English;
-	FlipClock.Lang['hebrew'] = FlipClock.Lang.English;
+	FlipClock.Lang['he']      = FlipClock.Lang.Hebrew;
+	FlipClock.Lang['he-he']   = FlipClock.Lang.Hebrew;
+	FlipClock.Lang['hebrew'] = FlipClock.Lang.Hebrew;
 
 }(jQuery));
