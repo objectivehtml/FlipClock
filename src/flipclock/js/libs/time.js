@@ -330,7 +330,7 @@
 				date = this.getDateObject();
 			}
 
-			console.log(date);
+			this.log(date);
 
 			
 			var hours = date.getHours();
