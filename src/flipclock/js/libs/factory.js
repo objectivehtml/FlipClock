@@ -169,7 +169,6 @@
 				options = {};
 			}
 
-			this.lists = [];
 			this.running = false;
 			this.base(options);	
 
@@ -316,9 +315,9 @@
 			this.face.stop();
 			this.timer.stop(callback);
 			
-			for(var x in this.lists) {
-				if (this.lists.hasOwnProperty(x)) {
-					this.lists[x].stop();
+			for(var x in this.face.lists) {
+				if (this.face.lists.hasOwnProperty(x)) {
+					this.face.lists[x].stop();
 				}
 			}	
 		},
