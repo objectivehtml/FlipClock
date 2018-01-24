@@ -12,7 +12,8 @@ export default class Component {
 	 * @param  ....
 	*/
 	constructor() {
-		this.el = null;
+		this.$el = null;
+		this.translator = false;
 		this.channel = 'flipclock';
 		this.options = this.defaultOptions();
 		this.properties.apply(this, arguments);
@@ -31,7 +32,7 @@ export default class Component {
 	}
 
 	/**
-	 * Set the default properties for the class
+	 * Define the default properties for the class
 	 *
 	 * @param 	null|Object  An object of options
 	*/
@@ -188,10 +189,10 @@ export default class Component {
 	 * @param  {string} name - The name of the string to localize
 	 * @return string
 	*/
-	$el(html) {
+	el(html) {
 		const template = document.createElement('template');
 	    template.innerHTML = (isArray(html) ? html.join('') : '').trim();
-	    this.el = template.content.firstChild;
+	    return this.$el = template.content.firstChild;
 	}
 
 };

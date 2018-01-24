@@ -24,7 +24,7 @@ const plugins = [
     babel({
         exclude: 'node_modules/**',
         presets: ['es2015-rollup'],
-        plugins: ['lodash'],
+        plugins: ['lodash', 'dynamic-import-node'],
         babelrc: false
     })
 ];

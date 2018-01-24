@@ -1,0 +1,14 @@
+{
+    "name": "Czech",
+
+    "aliases": ["czech", "cs", "cs-cs", "cz", "cz-cs"],
+
+    "dictionary": {
+        "years"   : "Roky",
+        "months"  : "Měsíce",
+        "days"    : "Dny",
+        "hours"   : "Hodiny",
+        "minutes" : "Minuty",
+        "seconds" : "Sekundy"
+    }
+}

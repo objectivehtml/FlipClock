@@ -1,4 +1,4 @@
-import Component from '../Components/Component';
+import Component from './Component';
 
 export default class Uuid extends Component {
 

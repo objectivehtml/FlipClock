@@ -1,4 +1,4 @@
-import Component from '../Components/Component';
+import Component from './Component';
 
 export default class Timer extends Component {
 
@@ -7,7 +7,7 @@ export default class Timer extends Component {
      *
      * @param 	null|Object  An object of options
     */
-    properties() {
+    properties(options) {
         this.count = 0;
         this.running = false;
     }

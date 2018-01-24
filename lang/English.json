@@ -1,0 +1,14 @@
+{
+    "name": "English",
+
+    "aliases": ["english", "en", "en-us"],
+
+    "dictionary": {
+        "years"   : "Years",
+        "months"  : "Months",
+        "days"    : "Days",
+        "hours"   : "Hours",
+        "minutes" : "Minutes",
+        "seconds" : "Seconds"
+    }
+}

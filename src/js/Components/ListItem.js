@@ -1,4 +1,4 @@
-import Component from '../Components/Component';
+import Component from './Component';
 
 export default class ListItem extends Component {
 
@@ -8,7 +8,7 @@ export default class ListItem extends Component {
      * @param  mixed  A single digit value used for the label
     */
 	properties(value) {
-		this.el = null;
+		this.$el = null;
 		this.value = value || null;
 	}
 
@@ -21,7 +21,7 @@ export default class ListItem extends Component {
 		return {
 			// The css class appended to the parent DOM node
 			className: null,
-			
+
 			// An object of available CSS classes
 			classes: {
 				down: 'down',
@@ -33,7 +33,7 @@ export default class ListItem extends Component {
 	}
 
 	initialize() {
-		this.$el([
+		this.el([
 			'<li class="'+(this.getOption('className') ? this.getOption('className') : '')+'">',
 				'<a href="#">',
 					'<div class="'+this.getOption('classes').up+'">',
@@ -55,7 +55,7 @@ export default class ListItem extends Component {
 	 * @return string
 	*/
 	toString() {
-		return this.el.outerHTML;
+		return this.$el.outerHTML;
 	}
 
 }

@@ -1,8 +1,4 @@
-import jsdom from 'jsdom';
 import ListItem from '../../src/js/Components/ListItem.js';
-
-global.document = jsdom();
-global.window = document.defaultView;
 
 test('Settings/Getters', () => {
     const instance = new ListItem(1, {

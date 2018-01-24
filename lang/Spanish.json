@@ -1,0 +1,14 @@
+{
+    "name": "Spanish",
+
+    "aliases": ["spanish", "es", "es-es"],
+
+    "dictionary": {
+        "years"   : "Años",
+        "months"  : "Meses",
+        "days"    : "Días",
+        "hours"   : "Horas",
+        "minutes" : "Minutos",
+        "seconds" : "Segundos"
+    }
+}

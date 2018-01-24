@@ -1,0 +1,14 @@
+{
+    "name": "Arabic",
+
+    "aliases": ["arabic", "ar", "ar-ar"],
+
+    "dictionary": {
+        "years"   : "سنوات",
+        "months"  : "شهور",
+        "days"    : "أيام",
+        "hours"   : "ساعات",
+        "minutes" : "دقائق",
+        "seconds" : "ثواني"
+    }
+}
