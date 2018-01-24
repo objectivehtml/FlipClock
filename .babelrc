@@ -1,0 +1,14 @@
+{
+    "presets": [
+        "es2015",
+        "babel-preset-env"
+    ],
+    "plugins": [
+        "transform-es2015-modules-commonjs"
+    ],
+    "env": {
+        "development": {
+            "sourceMaps": "inline"
+        }
+    }
+}

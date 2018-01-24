@@ -11,24 +11,24 @@
 (function($) {
 
 	"use strict";
-	
+
 	/**
 	 * The FlipClock.Uuid object generates a uuid instance and return
 	 * the uuid as string.
 	 */
-	
+
 	FlipClock.Uuid = FlipClock.Base.extend({
-		
+
 		/**
 		 * The actual uuid value as a string
-		 */	
+		 */
 
 		value: false,
 
 		/*
 		 * Constructor
-		 * 
-		 * @param  string  value 
+		 *
+		 * @param  string  value
 		*/
 
 		constructor: function(value) {
@@ -37,7 +37,7 @@
 
 		/*
 		 * Generate a new Uuid
-		 * 
+		 *
 		 * @return string
 		*/
 
