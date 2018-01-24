@@ -1,50 +1,49 @@
-import test from 'ava';
 import Timer from '../../src/js/Components/Timer.js';
 
-test('Start/Stop', t => {
+test('Start/Stop', () => {
     const instance = new Timer({
         interval: 500,
         animationRate: 500
     });
 
-    t.true(instance.getOption('interval') === 500);
-    t.true(instance.getOption('animationRate') === 500);
-    t.true(instance.isStopped());
+    expect(instance.getOption('interval') === 500).toBe(true);
+    expect(instance.getOption('animationRate') === 500).toBe(true);
+    expect(instance.isStopped()).toBe(true);
 
     instance.start();
 
-    t.true(instance.isRunning());
+    expect(instance.isRunning()).toBe(true);
 
     instance.stop(() => {
-        t.false(instance.isStopped());
+        expect(instance.isStopped()).toBe(false);
     });
 
-    t.false(instance.isStopped());
+    expect(instance.isStopped()).toBe(false);
 });
 
-test('Interval/Reset', t => {
+test('Interval/Reset', () => {
     const instance = new Timer();
 
-    t.true(instance.getElapsed() === 0);
+    expect(instance.getElapsed() === 0).toBe(true);
 
     instance.start(() => {
-        t.true(instance.isRunning());
+        expect(instance.isRunning()).toBe(true);
     });
 
-    t.true(instance.isRunning());
+    expect(instance.isRunning()).toBe(true);
 
     instance.stop(() => {
-        t.false(instance.isRunning());
+        expect(instance.isRunning()).toBe(false);
 
         instance.reset();
 
-        t.true(instance.count === 0);
-        t.true(instance.isStopped())
+        expect(instance.count === 0).toBe(true);
+        expect(instance.isStopped()).toBe(true)
 
         instance.destroy(() => {
-            t.true('destroy', instance.timer);
+            expect('destroy').toBe(true);
         });
     });
 
-    t.true(instance.isRunning());
+    expect(instance.isRunning()).toBe(true);
 });

@@ -1,14 +1,14 @@
 import Uuid from '../../src/js/Components/Uuid.js';
 
-test('Setters/Getters', t => {
+test('Setters/Getters', () => {
     const instance = new Uuid();
 
-    t.false(new Uuid('test').isUuid());
-    t.false(new Uuid().isUuid('test'));
-    t.true(new Uuid().isUuid(instance));
-    t.true(instance.equals(instance));
-    t.false(instance.equals(new Uuid));
-    t.true(new Uuid().isUuid(instance.value));
-    t.true(new Uuid('test').value === 'test');
-    t.true(new Uuid().isUuid(instance.generate()));
+    expect(new Uuid('test').isUuid()).toBe(false);
+    expect(new Uuid().isUuid('test')).toBe(false);
+    expect(new Uuid().isUuid(instance)).toBe(true);
+    expect(instance.equals(instance)).toBe(true);
+    expect(instance.equals(new Uuid)).toBe(false);
+    expect(new Uuid().isUuid(instance.value)).toBe(true);
+    expect(new Uuid('test').value === 'test').toBe(true);
+    expect(new Uuid().isUuid(instance.generate())).toBe(true);
 });

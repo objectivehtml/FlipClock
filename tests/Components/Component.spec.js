@@ -1,62 +1,82 @@
-import test from 'ava';
 import Component from '../../src/js/Components/Component.js';
 
-test('Option Setters/Getters', t => {
+test('Test the option setters/getters', () => {
     const instance = new Component();
 
-    t.true(instance.getOptions() instanceof Object);
+    expect(instance.getOptions() instanceof Object).toBe(true);
 
     instance.setOption('first', 'John');
 
-    t.true(instance.getOption('first') === 'John');
-    t.false(!!instance.getOption('last'));
+    expect(instance.getOption('first') === 'John').toBe(true);
+    expect(!!instance.getOption('last')).toBe(false);
 
     instance.setOptions({
         first: 'James',
         last: 'Smith'
     });
 
-    t.true(instance.getOptions().first === 'James');
-    t.true(instance.getOptions().last === 'Smith');
+    expect(instance.getOptions().first === 'James').toBe(true);
+    expect(instance.getOptions().last === 'Smith').toBe(true);
 });
 
-test('Callback', t => {
+test('Test callback()', done => {
     const instance = new Component();
-    let pass = false;
 
     instance.callback(() => {
-        pass = true;
+        done();
     });
-
-    pass ? t.pass() : t.fail();
 });
 
-test('Event Dispatcher', t => {
-    let event, pass = false;
-
+test('Test listening to events', () => {
+    let emissions = 0;
     const instance = new Component();
-    const testHandler = () => {
-        pass = true;
-    };
 
-    instance.once('test-once', testHandler);
-
-    t.true(typeof (event = instance.on('test', testHandler)).handle === "function");
+    instance.on('test', () => {
+        emissions++;
+    });
 
     instance.emit('test');
+    instance.emit('test');
+    instance.emit('test');
 
-    t.true(pass);
-    pass = false;
+    expect(emissions).toBe(3);
+});
 
+test('Test listening to an event once', done => {
+    let emissions = 0;
+    const instance = new Component();
+
+    instance.once('test', value => {
+        emissions++;
+        done();
+    });
+
+    instance.emit('test');
+    instance.emit('test');
+    instance.emit('test');
+
+    expect(emissions).toBe(1);
+});
+
+test('Test turning an event off', done => {
+    let emissions = 0;
+    const instance = new Component();
+
+    instance.on('test', () => {
+        emissions++;
+        done();
+    });
+
+    const event = instance.on('test', () => {
+        emissions++;
+        done();
+    });
+
+    instance.emit('test');
     instance.off(event);
     instance.emit('test');
-
-    t.false(pass);
-
-    instance.once('test', testHandler);
+    instance.off('test');
     instance.emit('test');
 
-    t.true(pass);
-    pass = false;
-    t.false(pass);
+    expect(emissions).toBe(3);
 });
