@@ -1,4 +1,3 @@
-/*jshint smarttabs:true */
 
 /**
  * FlipClock.js
@@ -297,7 +296,7 @@
 				t.face.start(t.time);
 				t.timer.start(function() {
 					t.flip();
-					
+
 					if(typeof callback === "function") {
 						callback();
 					}	

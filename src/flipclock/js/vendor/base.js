@@ -13,7 +13,7 @@ Base.extend = function(_instance, _static) { // subclass
 	"use strict";
 	
 	var extend = Base.prototype.extend;
-	
+
 	// build the prototype
 	Base._prototyping = true;
 	
