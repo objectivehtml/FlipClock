@@ -2880,6 +2880,33 @@ var _FlipClock;
 (function ($) {
 
 	/**
+  * FlipClock Turkish Language Pack
+  *
+  * This class will used to translate tokens into the Turkish language.
+  *	
+  */
+
+	_FlipClock.Lang.Turkish = {
+
+		'years': 'Yıl',
+		'months': 'Ay',
+		'days': 'Gün',
+		'hours': 'Saat',
+		'minutes': 'Dakika',
+		'seconds': 'Saniye'
+
+	};
+
+	/* Create various aliases for convenience */
+
+	_FlipClock.Lang['tr'] = _FlipClock.Lang.Turkish;
+	_FlipClock.Lang['tr-tr'] = _FlipClock.Lang.Turkish;
+	_FlipClock.Lang['turkish'] = _FlipClock.Lang.Turkish;
+})(jQuery);
+
+(function ($) {
+
+	/**
   * FlipClock Chinese Language Pack
   *
   * This class will used to translate tokens into the Chinese language.
