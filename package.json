@@ -6,7 +6,10 @@
   "license": "MIT",
   "main": "compiled/flipclock.js",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "grunt": "~0.4.2",
+    "grunt-babel": "^7.0.0",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-jshint": "~0.6.3",
     "grunt-contrib-uglify": "~0.2.7",

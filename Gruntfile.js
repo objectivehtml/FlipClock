@@ -18,8 +18,20 @@ module.exports = function(grunt) {
           'src/flipclock/js/faces/twentyfourhourclock.js',
           'src/flipclock/js/faces/*.js',
           'src/flipclock/js/lang/*.js',
+          'src/flipclock/js/es6.js'
         ],
         dest: 'compiled/flipclock.js',
+      }
+    },
+    babel: {
+      options: {
+        sourceMap: false,
+        presets: ['env']
+      },
+      dist: {
+        files: {
+          'compiled/flipclock.js': ['<%= concat.js.dest %>']
+        }
       }
     },
     uglify: {
@@ -48,9 +60,10 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'watch']);
+  grunt.registerTask('default', ['concat', 'babel', 'uglify', 'watch']);
 };
