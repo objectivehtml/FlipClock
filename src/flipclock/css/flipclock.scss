@@ -72,8 +72,7 @@
     font-size: 80px;
     font-weight: bold;
     line-height: 87px;
-    border-radius: 6px_prefixed
-    ;
+    border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
 }
 
@@ -224,12 +223,12 @@
 
 .flip-clock-wrapper ul.play li.flip-clock-active .down {
     z-index: 2;
-    @include animation(turn .5s .5s linear both);
+    @include animation(turn .3s .5s linear both);
 }
 
 @include keyframes(turn) {
   0% {
-    @include transform(rotateX(90deg));
+    @include transform(rotateX(91deg));
   }
   100% {
     @include transform(rotateX(0deg));
@@ -238,7 +237,7 @@
 
 .flip-clock-wrapper ul.play li.flip-clock-before .up {
     z-index: 2;
-    @include animation(turn2 .5s linear both);
+    @include animation(turn2 .5s cubic-bezier(.34,.13,.93,.24) both);
 }
 
 @include keyframes(turn2) {
