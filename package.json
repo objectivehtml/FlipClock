@@ -1,6 +1,6 @@
 {
   "name": "flipclock",
-  "version": "0.7.8",
+  "version": "0.8.0",
   "email": "support@objectivehtml.com",
   "author": "Objective HTML, LLC <support@objectivehtml.com>",
   "contributors": [
@@ -8,7 +8,16 @@
     "Brian Espinosa <b@bje.co>"
   ],
   "description": "A fully featured countdown clock.",
-  "keywords": ["clock", "countdown", "time", "javascript", "html", "css", "sass", "scss"],
+  "keywords": [
+    "clock",
+    "countdown",
+    "time",
+    "javascript",
+    "html",
+    "css",
+    "sass",
+    "scss"
+  ],
   "license": "MIT",
   "engines": {
     "node": "^0.12.x",
