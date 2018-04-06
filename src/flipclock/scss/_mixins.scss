@@ -1,0 +1,31 @@
+//
+// Material Shadow Mixin
+// Brian Espinosa <b@bje.co>
+//
+// Based on http://www.google.com/design/spec/what-is-material/elevation-shadows.html
+//
+
+$material-shadow-color: #000 !default;
+
+@mixin material-shadow($z-height) {
+  @if $z-height == 1 {
+    box-shadow: 0 1.5px 3px rgba($material-shadow-color, 0.24),
+                0 3px 8px rgba($material-shadow-color, 0.05);
+  }
+  @if $z-height == 2 {
+    box-shadow: 0 4px 7px rgba($material-shadow-color, 0.23),
+                0 8px 25px rgba($material-shadow-color, 0.05);
+  }
+  @if $z-height == 3 {
+    box-shadow: 0 7px 10px rgba($material-shadow-color, 0.30),
+                0 10px 50px rgba($material-shadow-color, 0.12);
+  }
+  @if $z-height == 4 {
+    box-shadow: 0 10px 15px rgba($material-shadow-color, 0.28),
+                0 15px 60px rgba($material-shadow-color, 0.18);
+  }
+  @if $z-height == 5 {
+    box-shadow: 0 16px 20px rgba($material-shadow-color, 0.29),
+                0 20px 65px rgba($material-shadow-color, 0.18);
+  }
+}

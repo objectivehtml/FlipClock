@@ -4,9 +4,6 @@
 	 * Twelve Hour Clock Face
 	 *
 	 * This class will generate a twelve hour clock for FlipClock.js
-	 *
-	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
 	 */
 	 
 	FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
@@ -15,14 +12,14 @@
 		 * The meridium jQuery DOM object
 		 */
 		 
-		meridium: false,
+		$meridium: false,
 		
 		/**
 		 * The meridium text as string for easy access
 		 */
 		 
 		meridiumText: 'AM',
-					
+			
 		/**
 		 * Build the clock face
 		 *
@@ -30,33 +27,34 @@
 		 */
 		 
 		build: function() {
-			var t = this;
+			var t = this, time = this.time.getTime(false, this.getOption('showSeconds'));
+		
+			this.meridiumText = this.getMeridium();
 
-			var time = this.factory.time.getTime(false, this.showSeconds);
-
-			this.base(time);			
-			this.meridiumText = this.getMeridium();			
-			this.meridium = $([
-				'<ul class="flip-clock-meridium">',
+			this.$meridium = $([
+				'<ul class="flipclock-meridium">',
 					'<li>',
 						'<a href="#">'+this.meridiumText+'</a>',
 					'</li>',
 				'</ul>'
 			].join(''));
+
+			this.base(time);	
 						
-			this.meridium.insertAfter(this.lists[this.lists.length-1].$el);
+			this.$meridium.insertAfter(this.lists[this.lists.length-1].$el);
 		},
 		
 		/**
 		 * Flip the clock face
 		 */
 		 
-		flip: function(time, doNotAddPlayClass) {			
+		flip: function(time) {			
 			if(this.meridiumText != this.getMeridium()) {
 				this.meridiumText = this.getMeridium();
-				this.meridium.find('a').html(this.meridiumText);	
+				this.$meridium.find('a').html(this.meridiumText);	
 			}
-			this.base(this.factory.time.getTime(false, this.showSeconds), doNotAddPlayClass);	
+
+			this.base(this.time.getTime(false, this.getOption('showSeconds')));	
 		},
 		
 		/**
@@ -66,7 +64,7 @@
 		 */
 		 
 		getMeridium: function() {
-			return new Date().getHours() >= 12 ? 'PM' : 'AM';
+			return new Date().getHours() >= 12 ? this.t('PM') : this.t('AM');
 		},
 		
 		/**

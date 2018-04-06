@@ -1,5 +1,32 @@
 # FlipClock.js
 
+#### 0.8.0
+##### 01/09/2014
+
+*This update is a major refactor and contains a few breaking API changes.*
+
+- (API) Added new Flipclock.Uuid generator classes which is used for "cid", a unique id assigned to all objects created by FlipClock
+- (API) Added FlipClock.Translator classes to provide an abstraction for translating strings in FlipClock
+- (API) Added FlipClock.NumericList for numeric based clocks
+- (API) Added new FlipClock.ListItem class handle all the list items instead of using jQuery and strings
+- (API) Drastically simplified the FlipClock.Factory object. No longer passing the object to child classes as a property
+- (API) Added new FlipClock.Event classes to facilitate event handling
+- (API) Added new EnglishAlphaFace to handle alphabetical clocks
+- (API) Added FlipClock.Divider class to handle the dividers instead of using strings and jQuery
+- (API) Added new event handling to all application objects instead of using callbacks in properties
+- (API) Added new event handling to all application objects instead of using callbacks in properties
+- (API) Renamed Twenty Four Hour Clock source file
+- (API) Renamed Twelve Hour Clock file
+- (API) Renamed Minute Counter Face file
+- (API) Renamed Hourly Clock Face file
+- (API) Renamed Daily Counter File
+- (Bug Fix) Removed leaky abstractions in FlipClock.Timer
+- (Bug Fix) Removed leaky abstractions in FlipClock.Time
+- (Bug Fix) Removed leaky abstractions in FlipClock.List
+- (Bug Fix) Removed leaky abstractions in FlipClock.Face
+- (Examples) Updated example to match all the new code changes
+
+
 #### 0.7.8
 ##### 12/12/2014
 

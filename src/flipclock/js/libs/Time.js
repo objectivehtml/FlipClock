@@ -7,21 +7,16 @@
  * @copyright  2013 - Objective HTML, LLC
  * @licesnse   http://www.opensource.org/licenses/mit-license.php
  */
-	
+
 (function($) {
 	
 	"use strict";
-			
-	/**
-	 * The FlipClock Time class is used to manage all the time 
-	 * calculations.
-	 *
-	 * @param 	object  A FlipClock.Factory object
-	 * @param 	mixed   This is the digit used to set the clock. If an 
-	 *				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
-	 */
-	 	
+	
+	/*
+	 * The FlipClock.Time class is a helper classes to digitize clock
+	 * values and help calculate time.
+	*/
+
 	FlipClock.Time = FlipClock.Base.extend({
 		
 		/**
@@ -31,47 +26,48 @@
 		time: 0,
 		
 		/**
-		 * The parent FlipClock.Factory object
-		 */		
-		 
-		factory: false,
-		
-		/**
-		 * The minimum number of digits the clock face must have
-		 */		
-		 
-		minimumDigits: 0,
-
-		/**
 		 * Constructor
 		 *
-		 * @param  object  A FlipClock.Factory object
 		 * @param  int     An integer use to select the correct digit
 		 * @param  object  An object to override the default properties	 
 		 */
 		 
-		constructor: function(factory, time, options) {
+		constructor: function(time, options) {
 			if(typeof options != "object") {
 				options = {};
 			}
 
-			if(!options.minimumDigits) {
-				options.minimumDigits = factory.minimumDigits;
+			if(time instanceof Date) {
+				this.time = time;
+			}
+			else if(time) {
+				this.time = Math.round(time);
 			}
 
 			this.base(options);
-			this.factory = factory;
+		},
 
-			if(time) {
-				this.time = time;
-			}
+		/*
+		 * Get the default options for the class
+		 *
+		 * @return object
+		*/
+
+		getDefaultOptions: function() {
+			return {
+				/**
+				 * The minimum number of digits the clock face must have
+				 */		
+				 
+				minimumDigits: 0
+			};
 		},
 
 		/**
 		 * Convert a string or integer to an array of digits
 		 *
-		 * @param   mixed  String or Integer of digits	 
-		 * @return  array  An array of digits 
+		 * @param   mixed  str	 
+		 * @return  array
 		 */
 		 
 		convertDigitsToArray: function(str) {
@@ -117,8 +113,8 @@
 		digitize: function(obj) {
 			var data = [];
 
-			$.each(obj, function(i, value) {
-				value = value.toString();
+			for(var i in obj) {
+				var value = obj[i].toString();
 				
 				if(value.length == 1) {
 					value = '0'+value;
@@ -126,15 +122,15 @@
 				
 				for(var x = 0; x < value.length; x++) {
 					data.push(value.charAt(x));
-				}				
-			});
+				}
+			}
 
-			if(data.length > this.minimumDigits) {
-				this.minimumDigits = data.length;
+			if(data.length > this.getOption('minimumDigits')) {
+				this.setOption('minimumDigits', data.length);
 			}
 			
-			if(this.minimumDigits > data.length) {
-				for(var x = data.length; x < this.minimumDigits; x++) {
+			if(this.getOption('minimumDigits') > data.length) {
+				for(var x = data.length; x < this.getOption('minimumDigits'); x++) {
 					data.unshift('0');
 				}
 			}
@@ -196,34 +192,39 @@
 		/**
 		 * Gets an hourly breakdown
 		 *
+		 * @param   mixed   includeSeconds
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getHourCounter: function() {
-			var obj = this.digitize([
+		getHourCounter: function(includeSeconds) {
+			var data = [
 				this.getHours(),
-				this.getMinutes(true),
-				this.getSeconds(true)
-			]);
-			
-			return obj;
+				this.getMinutes(true)
+			];
+
+			if(includeSeconds !== false) {
+				data.push(this.getSeconds(true));
+			}
+
+			return this.digitize(data);
 		},
 		
 		/**
 		 * Gets an hourly breakdown
 		 *
+		 * @param   mixed   includeSeconds
 		 * @return  object  Returns a digitized object
 		 */
 		 
-		getHourly: function() {
-			return this.getHourCounter();
+		getHourly: function(includeSeconds) {
+			return this.getHourCounter(includeSeconds);
 		},
 		
 		/**
 		 * Gets number of hours
 		 *
-		 * @param   bool  Should perform a modulus? If not sent, then no.
-		 * @return  int   Retuns a floored integer
+		 * @param   bool  mod
+		 * @return  int
 		 */
 		 
 		getHours: function(mod) {
@@ -284,13 +285,16 @@
 		 * Gets a minute breakdown
 		 */
 		 
-		getMinuteCounter: function() {
-			var obj = this.digitize([
-				this.getMinutes(),
-				this.getSeconds(true)
-			]);
+		getMinuteCounter: function(includeSeconds) {
+			var data = [
+				this.getMinutes()
+			];
 
-			return obj;
+			if(includeSeconds !== false) {
+				data.push(this.getSeconds(true));
+			}
+
+			return this.digitize(data);
 		},
 		
 		/**
@@ -299,19 +303,19 @@
 		 * @return  int   Returns a floored integer
 		 */
 		 
-		getTimeSeconds: function(date) {
+		getTimeSeconds: function(countdown, date) {
 			if(!date) {
 				date = new Date();
 			}
 
 			if (this.time instanceof Date) {
-				if (this.factory.countdown) {
-					return Math.max(this.time.getTime()/1000 - date.getTime()/1000,0);
+				if (countdown) {
+					return Math.round(Math.max(this.time.getTime()/1000 - date.getTime()/1000,0));
 				} else {
-					return date.getTime()/1000 - this.time.getTime()/1000 ;
+					return Math.round(date.getTime()/1000 - this.time.getTime()/1000);
 				}
 			} else {
-				return this.time;
+				return Math.round(this.time);
 			}
 		},
 		
@@ -330,9 +334,6 @@
 				date = this.getDateObject();
 			}
 
-			console.log(date);
-
-			
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
 			var data   = [
@@ -399,15 +400,15 @@
 			var total    = 0;
 			var newArray = [];
 			
-			$.each(digits, function(i, digit) {
+			for(var i in digits) {
 				if(i < totalDigits) {
 					total += parseInt(digits[i], 10);
 				}
 				else {
 					newArray.push(digits[i]);
 				}
-			});
-			
+			}
+
 			if(total === 0) {
 				return newArray;
 			}

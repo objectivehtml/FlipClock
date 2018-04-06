@@ -1,0 +1,214 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../dist/flipclock.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<script src="../dist/flipclock.js"></script>
+		
+		<style>
+  		body {
+    		padding: 2em;
+  		}
+  		.well {
+    		min-height: 20em;
+  		}
+		</style>
+		
+	</head>
+	<body>
+  	<div class="container">
+    	      	
+      	<div class="col-md-12">
+        	<div class="well">
+          	<div id="clock"></div>
+        	</div>
+      	</div>
+      	
+      	<div class="col-md-12">
+        	<div class="well" style="text-align: center;">
+          	
+          	<div class="fc-wrapper">
+            	<div class="fc-group">
+              	<div class="fc-label">Days</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+            	</div>
+            	<div class="fc-divider"></div>
+            	<div class="fc-group">
+              	<div class="fc-label">Hours</div>
+              	<div class="fc-face" id="test">
+                	<div class="fc-number active">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">1</div>
+                  	<div class="bottom">1</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">2</div>
+                  	<div class="bottom">2</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">3</div>
+                  	<div class="bottom">3</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">4</div>
+                  	<div class="bottom">4</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">5</div>
+                  	<div class="bottom">5</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">6</div>
+                  	<div class="bottom">6</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">7</div>
+                  	<div class="bottom">7</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">8</div>
+                  	<div class="bottom">8</div>
+                	</div>
+                	<div class="fc-number">
+                  	<div class="top">9</div>
+                  	<div class="bottom">9</div>
+                	</div>
+              	</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+            	</div>
+            	<div class="fc-divider"></div>
+            	<div class="fc-group">
+              	<div class="fc-label">Minutes</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+            	</div>
+            	<div class="fc-divider"></div>
+            	<div class="fc-group">
+              	<div class="fc-label">Seconds</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+              	<div class="fc-face">
+                	<div class="fc-number">
+                  	<div class="top">0</div>
+                  	<div class="bottom">0</div>
+                	</div>
+              	</div>
+            	</div>
+          	</div>
+          	
+        	</div>
+      	</div>
+      	    	
+  	</div>
+  	
+  	<div class="message"></div>
+  
+  	<script type="text/javascript">
+    	
+    	setInterval(function () {
+        flipTest()
+      }, 1000);
+    	
+    	function flipTest() {
+        $("#test").removeClass("play");
+        var n = $("#test .fc-number.active");
+    
+        if (n.html() == undefined) {
+            n = $("#test .fc-number").eq(0);
+            n.addClass("before")
+             .removeClass("active")
+             .next(".fc-number")
+             .addClass("active")
+             .closest("#test")
+             .addClass("play");
+        }
+        else if (n.is(":last-child")) {
+            $("#test .fc-number").removeClass("before");
+            n.addClass("before").removeClass("active");
+            n = $("#test .fc-number").eq(0);
+            n.addClass("active")
+             .closest("#test")
+             .addClass("play");
+        }
+        else {
+            $("#test .fc-number").removeClass("before");
+            n.addClass("before")
+             .removeClass("active")
+             .next(".fc-number")
+             .addClass("active")
+             .closest("#test")
+             .addClass("play");
+        }
+      }
+    	
+  		var clock;
+  		
+  		$(document).ready(function() {
+  			var clock;
+  
+  			clock = $('#clock').FlipClock({
+  		        clockFace: 'DailyCounter',
+  		        autoStart: false,
+  		        callbacks: {
+  		        	stop: function() {
+  		        		$('.message').html('The clock has stopped!')
+  		        	}
+  		        }
+  		    });
+  				    
+  		    clock.setTime(220880);
+  		    clock.setCountdown(true);
+  		    clock.start();
+  
+  		});
+  	</script>
+	
+	</body>
+</html>

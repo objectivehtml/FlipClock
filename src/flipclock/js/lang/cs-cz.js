@@ -20,8 +20,10 @@
 
     /* Create various aliases for convenience */
 
-    FlipClock.Lang['cs']      = FlipClock.Lang.Czech;
-    FlipClock.Lang['cs-cz']   = FlipClock.Lang.Czech;
+    FlipClock.Lang['cs']    = FlipClock.Lang.Czech;
+    FlipClock.Lang['cs-cz'] = FlipClock.Lang.Czech;
+    FlipClock.Lang['cz']    = FlipClock.Lang.Czech;
+    FlipClock.Lang['cz-cs'] = FlipClock.Lang.Czech;
     FlipClock.Lang['czech'] = FlipClock.Lang.Czech;
 
 }(jQuery));
