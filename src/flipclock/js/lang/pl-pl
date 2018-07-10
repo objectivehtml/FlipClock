@@ -1,0 +1,27 @@
+(function($) {
+		
+	/**
+	 * FlipClock Danish Language Pack
+	 *
+	 * This class will used to translate tokens into the Danish language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Poland = {
+		
+		'years'   : 'Lat',
+		'months'  : 'Miesięcy',
+		'days'    : 'Dzień',
+		'hours'   : 'Godzina',
+		'minutes' : 'Minuta',
+		'seconds' : 'Sekunda'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['da']     = FlipClock.Lang.Poland;
+	FlipClock.Lang['da-dk']  = FlipClock.Lang.Poland;
+	FlipClock.Lang['danish'] = FlipClock.Lang.Poland;
+
+}(jQuery));
