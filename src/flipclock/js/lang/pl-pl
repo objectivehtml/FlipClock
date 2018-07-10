@@ -7,7 +7,7 @@
 	 *	
 	 */
 	 
-	FlipClock.Lang.Poland = {
+	FlipClock.Lang.Polish = {
 		
 		'years'   : 'Lat',
 		'months'  : 'Miesięcy',
@@ -20,8 +20,8 @@
 	
 	/* Create various aliases for convenience */
 
-	FlipClock.Lang['pl']     = FlipClock.Lang.Poland;
-	FlipClock.Lang['pl-pl']  = FlipClock.Lang.Poland;
-	FlipClock.Lang['poland'] = FlipClock.Lang.Poland;
+	FlipClock.Lang['pl']     = FlipClock.Lang.Polish;
+	FlipClock.Lang['pl-pl']  = FlipClock.Lang.Polish;
+	FlipClock.Lang['polish'] = FlipClock.Lang.Polish;
 
 }(jQuery));
