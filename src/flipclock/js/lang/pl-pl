@@ -11,10 +11,10 @@
 		
 		'years'   : 'Lat',
 		'months'  : 'Miesięcy',
-		'days'    : 'Dzień',
-		'hours'   : 'Godzina',
-		'minutes' : 'Minuta',
-		'seconds' : 'Sekunda'	
+		'days'    : 'Dni',
+		'hours'   : 'Godziny',
+		'minutes' : 'Minuty',
+		'seconds' : 'Sekundy'	
 
 	};
 	
