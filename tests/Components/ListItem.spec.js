@@ -1,10 +1,11 @@
 import ListItem from '../../src/js/Components/ListItem.js';
 
-test('Settings/Getters', () => {
-    const instance = new ListItem(1, {
-        className: 'some-class-name'
-    });
+test('if list item is rendered with the specified value', () => {
+    const value = 1;
 
-    expect(instance.value === 1).toBe(true);
-    expect(instance.getOption('className') === 'some-class-name').toBe(true);
+    const item = ListItem.make(value);
+
+    expect(item.value).toBe(value);
+    expect(item.render()).toBeInstanceOf(HTMLElement);
+    expect(item.render().querySelector('.inn').innerHTML).toBe(value.toString());
 });

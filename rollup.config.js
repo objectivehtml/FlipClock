@@ -1,54 +1,142 @@
+import pkg from "./package.json";
+import { kebabCase } from 'lodash';
+import { camelCase } from 'lodash';
+import { upperFirst } from 'lodash';
 import json from 'rollup-plugin-json';
-import sass from 'rollup-plugin-sass';
 import babel from 'rollup-plugin-babel';
 import serve from 'rollup-plugin-serve';
+import replace from 'rollup-plugin-replace';
+import progress from 'rollup-plugin-progress';
 import commonjs from 'rollup-plugin-commonjs';
+import { eslint } from "rollup-plugin-eslint";
+import globals from 'rollup-plugin-node-globals';
 import resolve from 'rollup-plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
+import builtins from 'rollup-plugin-node-builtins';
+import rootImport from 'rollup-plugin-root-import';
 
+// import postcss from 'rollup-plugin-postcss';
+
+// The type of package Rollup should create
+const PACKAGE_FORMAT = 'umd';
+
+// This is global variable used in UMD packages
+const NAMESPACE = 'FlipClock';
+
+// The directory of the package source code files
+const SRC = `${__dirname}/src/`;
+
+// The directory to ouput the compiled files
+const DIST = `${__dirname}/dist/`;
+
+// The main.js or entry point of your package
+const MAINJS = `${SRC}main.js`;
+
+// The base filename of the compiled files (no ex)
+const FILENAME = kebabCase(pkg.name);
+
+// The node_modules directory path
+const NODE_MODULES = `${__dirname}/node_modules/**`;
+
+// The options for the serve() plugin
+const SERVE_OPTIONS = {
+    open: true,
+    verbose: true,
+    port: 10001,
+    contentBase: './',
+    host: 'localhost',
+    historyApiFallback: 'examples/test.html',
+};
+
+// The options for the watch plugin
+const WATCH_OPTIONS = {
+    include: `${SRC}**`,
+    port: 35730
+};
+
+// The options for the livereload plugin (undefined or object).
+const LIVERELOAD_OPTIONS = {
+    watch: DIST,
+    port: 35730
+};
+
+// Define the list of output globals
+const OUTPUT_GLOBALS = {
+    // 'lodash': 'lodash'
+};
+
+// Define an array of external packages to not include in the bundle
+const EXTERNAL = [
+    // 'lodash'
+];
+
+// Define the plugins used for the rollup process
 const plugins = [
+    progress(),
+    replace({
+        'process.env.SERVE_OPTIONS': JSON.stringify(SERVE_OPTIONS),
+        'process.env.LIVERELOAD_OPTIONS': JSON.stringify(LIVERELOAD_OPTIONS),
+        'process.env.NODE_ENV': JSON.stringify(process.env.ROLLUP_WATCH == 'true' ? 'development' : 'production')
+    }),
     json(),
-    commonjs({
-        //include: 'node_modules/**'
+    rootImport({
+        // Will first look in `client/src/*` and then `common/src/*`.
+        root: SRC,
+        useEntry: 'prepend',
+        // If we don't find the file verbatim, try adding these extensions
+        extensions: ['.js']
     }),
     resolve({
-        sourceMap: true,
-        extensions: [ '.js', '.scss']
+        main: true,
+        jsnext: true,
+        browser: true,
+        extensions: [ '.js']
     }),
-    sass({
-        output: 'dist/flipclock.css',
-        options: {
-            // outputStyle: 'compressed'
+    commonjs({
+        include: NODE_MODULES,
+        namedExports: {
+
         }
     }),
     babel({
-        exclude: 'node_modules/**',
-        presets: ['es2015-rollup'],
-        plugins: ['lodash', 'dynamic-import-node'],
-        babelrc: false
-    })
+        exclude: NODE_MODULES
+    }),
+    globals(),
+    builtins(),
+    eslint()
 ];
 
-if(process.env.ROLLUP_WATCH == 'true') {
-    plugins.push([
-        serve(),
-        livereload()
-    ]);
+// Add the serve/livereload plugins if watch argument has been passed
+if(process.env.ROLLUP_WATCH === 'true') {
+    plugins.push(serve(SERVE_OPTIONS));
+    plugins.push(livereload(LIVERELOAD_OPTIONS));
 }
 
-export default {
-    input: 'src/main.js',
+// Export the config object
+export default [{
+    input: MAINJS,
     output: {
-        file: 'dist/flipclock.js',
-        format: 'umd',
-        name: 'FlipClock'
+        name: NAMESPACE,
+        format: PACKAGE_FORMAT,
+        file: `${DIST}${FILENAME}.js`,
+        sourcemap: (process.env.ROLLUP_WATCH ? 'inline' : true),
+        globals: OUTPUT_GLOBALS,
+        exports: 'named',
     },
-    external: [],
-    globals: {},
-    sourcemap: true,
-    sourcemapFile: './dist/flipclock.js.map',
-    watch: {
-        include: './src/**'
-    },
+    watch: WATCH_OPTIONS,
+    external: EXTERNAL,
     plugins: plugins
-};
+}, (process.env.NODE_ENV  === 'production' ? {
+    input: MAINJS,
+    output: {
+        name: NAMESPACE,
+        format: 'es',
+        file: `${DIST}${FILENAME}.es.js`,
+        sourcemap: (process.env.ROLLUP_WATCH ? 'inline' : true),
+        globals: OUTPUT_GLOBALS,
+        exports: 'named',
+    },
+    watch: WATCH_OPTIONS,
+    external: EXTERNAL,
+    plugins: plugins
+} : null)].filter(value => value !== null);

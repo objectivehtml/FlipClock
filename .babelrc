@@ -1,14 +1,24 @@
 {
-    "presets": [
-        "es2015",
-        "babel-preset-env"
-    ],
-    "plugins": [
-        "transform-es2015-modules-commonjs"
-    ],
     "env": {
+        "test": {
+            "presets": [
+                ["@babel/env", {
+                    "targets": {
+                        "node": 8
+                    }
+                }]
+            ]
+        },
         "development": {
-            "sourceMaps": "inline"
+            "presets": [
+                ["@babel/env", {
+                    "modules": false
+                }]
+            ]
         }
-    }
+    },
+    "plugins": [
+        "@babel/plugin-proposal-export-default-from",
+        "lodash"
+    ]
 }
