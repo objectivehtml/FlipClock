@@ -2,6 +2,7 @@ import pkg from "./package.json";
 import { kebabCase } from 'lodash';
 import { camelCase } from 'lodash';
 import { upperFirst } from 'lodash';
+import scss from 'rollup-plugin-scss';
 import json from 'rollup-plugin-json';
 import babel from 'rollup-plugin-babel';
 import serve from 'rollup-plugin-serve';
@@ -98,6 +99,9 @@ const plugins = [
 
         }
     }),
+    scss({
+        output: `${DIST}flipclock.css`
+    }),
     babel({
         exclude: NODE_MODULES
     }),
@@ -121,7 +125,6 @@ export default [{
         file: `${DIST}${FILENAME}.js`,
         sourcemap: (process.env.ROLLUP_WATCH ? 'inline' : true),
         globals: OUTPUT_GLOBALS,
-        exports: 'named',
     },
     watch: WATCH_OPTIONS,
     external: EXTERNAL,
@@ -134,7 +137,7 @@ export default [{
         file: `${DIST}${FILENAME}.es.js`,
         sourcemap: (process.env.ROLLUP_WATCH ? 'inline' : true),
         globals: OUTPUT_GLOBALS,
-        exports: 'named',
+        //exports: 'named',
     },
     watch: WATCH_OPTIONS,
     external: EXTERNAL,

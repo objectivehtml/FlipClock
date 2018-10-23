@@ -1,12 +1,15 @@
-import Divider from '../../src/js/Components/Divider.js';
+import Divider from '../../src/js/Components/Divider';
+import FlipClock from '../../src/js/Components/FlipClock';
 
-test('if divder is rendered', () => {
-    const withLabel = Divider.make({
-        label: 'years'
-    });
-    
-    expect(withLabel.render()).toBeInstanceOf(HTMLElement);
-    expect(withLabel.render().classList.contains('flip-clock-divider')).toBe(true);
-    expect(withLabel.render().querySelector('.flip-clock-label')).toBeInstanceOf(HTMLElement);
-    expect(withLabel.render().querySelector('.flip-clock-label').innerHTML).toBe('Years');
+const defaults = {
+    theme: FlipClock.defaults.theme,
+    language: FlipClock.defaults.language
+};
+
+test('rendering a divider', () => {
+    const divider = Divider.make(defaults);
+
+    expect(divider.el).toBeInstanceOf(HTMLElement);
+    expect(divider.el.classList.contains('flip-clock-divider')).toBe(true);
+    expect(divider.el).toBe(divider.render());
 });

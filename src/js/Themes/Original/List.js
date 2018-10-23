@@ -1,18 +1,24 @@
-import { prev } from '../../Helpers/Value';
-import element from '../../Helpers/Element';
+import { next, prev } from '../../Helpers/Value';
 import ListItem from '../../Components/ListItem';
+import { createElement, appendChildren } from '../../Helpers/Template';
 
-export default function(instance) {
+export default function(el, instance) {
+    const beforeValue = instance.domValue || (
+        !instance.countdown ? prev(instance.value) : next(instance.value)
+    );
+
+    if( instance.domValue && instance.domValue !== instance.value) {
+        el.classList.add('flip');
+    }
+
     instance.items = [
-        ListItem.make(prev(instance.value)),
-        ListItem.make(instance.value)
+        instance.createListItem(instance.value, {
+            active: true
+        }),
+        instance.createListItem(beforeValue, {
+            active: false
+        })
     ];
 
-    return element([
-        '<div class="flip-clock-list">',
-        instance.items.map(item => {
-            return item.render().outerHTML;
-        }),
-        '</div>'
-    ]);
+    appendChildren(el, instance.items.map(item => item.render()));
 }

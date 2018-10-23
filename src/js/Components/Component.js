@@ -1,10 +1,58 @@
-import { callback } from '../Helpers/Functions';
-import { isObject } from '../Helpers/Functions';
+import { chain, callback, isObject } from '../Helpers/Functions';
 
 export default class Component {
 
     constructor(attributes) {
-        this.setAttribute(attributes);
+        this.setAttribute(Object.assign({
+            events: {}
+        }, attributes));
+    }
+
+    get events() {
+        return this.$events;
+    }
+
+    set events(value) {
+        this.$events = value;
+    }
+
+    emit(key, ...args) {
+        if(this.events[key]) {
+            this.events[key].forEach(event => {
+                event.apply(this, args);
+            });
+        }
+
+        return this;
+    }
+
+    on(key, fn, once = false) {
+        if(!this.events[key]) {
+            this.events[key] = [];
+        }
+
+        this.events[key].push(fn);
+
+        return this;
+    }
+
+    off(key, fn) {
+        if(this.events[key] && fn) {
+            this.events[key] = this.events[key].filter(event => {
+                return event !== fn;
+            });
+        }
+        else {
+            this.events[key] = [];
+        }
+
+        return this;
+    }
+
+    once(key, fn) {
+        fn = chain(fn, () => this.off(key, fn));
+
+        this.on(key, fn, true);
     }
 
     getAttribute(key) {
@@ -12,9 +60,13 @@ export default class Component {
     }
 
     getAttributes() {
-        return Object.getOwnPropertyNames(this).map(key => {
-            return this.getAttribute(key);
+        const attributes = {};
+
+        Object.getOwnPropertyNames(this).forEach(key => {
+            attributes[key] = this.getAttribute(key);
         });
+
+        return attributes;
     }
 
     setAttribute(key, value) {

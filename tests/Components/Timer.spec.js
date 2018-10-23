@@ -1,4 +1,4 @@
-import Timer from '../../src/js/Components/Timer.js';
+import Timer from '../../src/js/Components/Timer';
 
 test('if can the timer be started and stopped.', () => {
     const instance = Timer.make(500);

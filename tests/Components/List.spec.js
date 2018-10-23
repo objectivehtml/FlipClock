@@ -1,13 +1,35 @@
-import List from '../../src/js/Components/List.js';
+import List from '../../src/js/Components/List';
+import FlipClock from '../../src/js/Components/FlipClock';
 
-test('if list is rendered with children', () => {
-    const list = List.make('a');
+const defaults = {
+    theme: FlipClock.defaults.theme,
+    language: FlipClock.defaults.language
+};
+
+test('if list is rendered with string', () => {
+    const list = List.make('a', defaults);
 
     const el = list.render();
 
     expect(list.items).toHaveLength(2);
+
     expect(el).toBeInstanceOf(HTMLElement);
     expect(el.children).toHaveLength(2);
-    expect(el.querySelector('.flip-clock-list-item:first-child .inn').innerHTML).toBe('z');
-    expect(el.querySelector('.flip-clock-list-item:last-child .inn').innerHTML).toBe('a');
+    expect(el.querySelector('.flip-clock-list-item:first-child .top').innerHTML).toBe('a');
+    expect(el.querySelector('.flip-clock-list-item:last-child .bottom').innerHTML).toBe('z');
+});
+
+test('if list is rendered with object', () => {
+    const list = List.make(Object.assign({
+        value: 'a',
+    }, defaults));
+
+    const el = list.render();
+
+    expect(list.items).toHaveLength(2);
+
+    expect(el).toBeInstanceOf(HTMLElement);
+    expect(el.children).toHaveLength(2);
+    expect(el.querySelector('.flip-clock-list-item:first-child .top').innerHTML).toBe('a');
+    expect(el.querySelector('.flip-clock-list-item:last-child .bottom').innerHTML).toBe('z');
 });

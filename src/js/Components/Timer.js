@@ -1,16 +1,16 @@
 import Component from './Component';
-import { callback } from '../Helpers/Function';
+import { isObject, callback } from '../Helpers/Functions';
 
-export default class Timer {
+export default class Timer extends Component {
 
     constructor(interval) {
-        super();
-
-        this.count = 0;
-        this.handle = null;
-        this.started = null;
-        this.running = false;
-        this.interval = interval;
+        super(Object.assign({
+            count: 0,
+            handle: null,
+            started: null,
+            running: false,
+            interval: interval
+        }, isObject(interval) ? interval : null));
     }
 
     /**
@@ -18,25 +18,25 @@ export default class Timer {
      *
      * @return Integer
      */
-    getElapsed() {
+    get elapsed() {
         return this.count * this.interval;
     }
 
     /**
-     * Returns true is the timer is running, and false if it's not
+     * Returns true is the timer is running.
      *
      * @return Boolean
      */
-    isRunning() {
+    get isRunning() {
         return this.running === true;
     }
 
     /**
-     * Returns true is the timer is not running, and false if it is
+     * Returns true is the timer is not running.
      *
      * @return Boolean
      */
-    isStopped() {
+    get isStopped() {
         return this.running === false;
     }
 
@@ -87,7 +87,7 @@ export default class Timer {
      * @return this
      */
     stop(fn) {
-        if(this.isRunning()) {
+        if(this.isRunning) {
             setTimeout(() => {
                 window.cancelAnimationFrame(this.handle);
 

@@ -6,6 +6,14 @@
 		<div class="clock" style="margin:2em;"></div>
 
 		<script src="../dist/flipclock.js"></script>
+		<script>
+			const el = document.querySelector('.clock');
+			const clock = FlipClock.make(el, -3, {
+				stopAt: 0
+			});
+
+			clock.start();
+		</script>
 
 	</body>
 </html>

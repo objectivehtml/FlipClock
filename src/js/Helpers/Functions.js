@@ -12,6 +12,10 @@ export function noop(value) {
     return !isUndefined(value) && !isNull(value);
 }
 
+export function chain(before, after) {
+    return () => after(before());
+}
+
 export function concatMap(fn) {
     return x => {
         return x.map(fn).reduce((x, y) => x.concat(y), []);
@@ -30,8 +34,12 @@ export function ucfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+export function length(digits) {
+    return deepFlatten(digits).length;
+}
+
 export function isNull(value) {
-    return typeof value === 'null';
+    return value === null;// || typeof value === 'null';
 }
 
 export function isUndefined(value) {
@@ -51,9 +59,20 @@ export function isArray(value) {
 }
 
 export function isObject(value) {
-    return value instanceof Object;
+    const type = typeof value;
+    return value != null && !isArray(value) && (
+        type == 'object' || type == 'function'
+    );
 }
 
 export function isFunction(value) {
     return value instanceof Function;
+}
+
+export function isNumber(value) {
+    return !isNaN(value);
+}
+
+export function kebabCase(str) {
+    return str.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase();
 }

@@ -1,14 +1,16 @@
+import Divider from './Divider';
 import ListItem from './ListItem';
 import DomComponent from './DomComponent';
-import { next, prev } from '../Helpers/Value';
+import { next, prev,  } from '../Helpers/Value';
+import { isObject,  } from '../Helpers/Functions';
 
 export default class List extends DomComponent {
 
     constructor(value, attributes) {
         super(Object.assign({
+            value: value,
             items: [],
-            value: value
-        }, attributes));
+        }, isObject(value) ? value : null, attributes));
     }
 
     get value() {
@@ -27,12 +29,15 @@ export default class List extends DomComponent {
         this.$items = value;
     }
 
-    nextValue() {
-        return next(this.value)
-    }
+    createListItem(value, attributes) {
+        const item = new ListItem(value, Object.assign({
+            theme: this.theme,
+            language: this.language
+        }, attributes));
+        
+        this.$items.push(item);
 
-    prevValue() {
-        return prev(this.value)
+        return item;
     }
 
 }

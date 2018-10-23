@@ -4,7 +4,7 @@ import { deepFlatten } from './Functions';
 export default function digitize(value, options = {}) {
     options = Object.assign({
         minimumDigits: 0,
-        prependLeadingZero: false
+        prependLeadingZero: true
     }, options);
 
     function prepend(number) {
