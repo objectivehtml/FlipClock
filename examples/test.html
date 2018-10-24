@@ -8,11 +8,17 @@
 		<script src="../dist/flipclock.js"></script>
 		<script>
 			const el = document.querySelector('.clock');
-			const clock = FlipClock.make(el, -3, {
-				stopAt: 0
+
+			const clock = FlipClock.make(el, new Date, {
+				face: 'TwelveHourClock',
+				//showSeconds: true,
+				//showLabels: true,
+				//showMeridium: false,
+				autoStart: true
 			});
 
-			clock.start();
+
+			//clock.start();
 		</script>
 
 	</body>

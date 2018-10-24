@@ -11,6 +11,9 @@ export default function(el, instance) {
         el.classList.add('flip');
     }
 
+    el.style.animationDelay = `${instance.animationRate / 2}ms`;
+    el.style.animationDuration = `${instance.animationRate / 2}ms`;
+
     instance.items = [
         instance.createListItem(instance.value, {
             active: true

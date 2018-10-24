@@ -50,6 +50,7 @@ export default class Timer extends Component {
         this.stop(() => {
             this.count = 0;
             this.start(() => callback.call(this, fn));
+            this.emit('reset');
         });
 
         return this;
@@ -64,11 +65,13 @@ export default class Timer extends Component {
     start(fn) {
         this.started = Date.now();
         this.running = true;
+        this.emit('start');
 
         const loop = () => {
             if(Date.now() - this.started >= this.interval) {
                 this.started = Date.now();
                 callback.call(this, fn);
+                this.emit('interval');
                 this.count++;
             }
 
@@ -94,6 +97,8 @@ export default class Timer extends Component {
                 this.running = false;
 
                 callback.call(this, fn);
+
+                this.emit('stop');
             });
         }
 

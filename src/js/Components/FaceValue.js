@@ -7,10 +7,14 @@ export default class FaceValue extends Component {
 
     constructor(value, attributes) {
         super(Object.assign({
+            format: value => value,
             prependLeadingZero: true,
-            minimumDigits: 0,
-            value: value
+            minimumDigits: 0
         }, attributes));
+
+        if(!this.value) {
+            this.value = value;
+        }
     }
 
     set digits(value) {
@@ -27,7 +31,8 @@ export default class FaceValue extends Component {
     }
 
     set value(value) {
-        this.digits = digitize(this.$value = value, {
+        this.$value = value;
+        this.digits = digitize(this.format(value), {
             minimumDigits: this.minimumDigits,
             prependLeadingZero: this.prependLeadingZero
         });
@@ -38,7 +43,7 @@ export default class FaceValue extends Component {
     }
 
     isNumber() {
-        return isNumber(this.value);
+        return isNumber()
     }
 
 }

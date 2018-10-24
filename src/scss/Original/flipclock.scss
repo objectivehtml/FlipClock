@@ -30,24 +30,10 @@
             top: 0;
             left: 0;
             width: 100%;
-            font-size: 1em;
+            font-size: .875em;
             height: 2em;
             line-height: 2em;
-            font-weight: 400;
-            text-transform: capitalize;
             transform: translateY(-100%);
-
-            &.flip-clock-meridium {
-                font-size: 1.75em;
-                line-height: 1.75em;
-                top: 50%;
-                left: 100%;
-                flex: 0;
-                width: auto;
-                text-transform: uppercase;
-                font-weight: 200;
-                transform: translate(.5em, -50%);
-            }
         }
 
         .flip-clock-list {

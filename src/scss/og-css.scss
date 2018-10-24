@@ -8,6 +8,12 @@
 // Project Mixins
 @import "mixins";
 
+// Flipclock Base Styles
+// @import "fc-base";
+
+// Theme Styles
+@import "theme-default";
+
 .flip-clock {
     font-family: $fc-font-family;
     font-size: 16px;
@@ -20,34 +26,15 @@
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     box-sizing: border-box;
     align-items: flex-end;
+    animation-duration: 500ms;
 
     .flip-clock-group {
         display: flex;
-        position: relative;
 
         .flip-clock-label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            font-size: 1em;
+            font-size: .875em;
             height: 2em;
             line-height: 2em;
-            font-weight: 400;
-            text-transform: capitalize;
-            transform: translateY(-100%);
-
-            &.flip-clock-meridium {
-                font-size: 1.75em;
-                line-height: 1.75em;
-                top: 50%;
-                left: 100%;
-                flex: 0;
-                width: auto;
-                text-transform: uppercase;
-                font-weight: 200;
-                transform: translate(.5em, -50%);
-            }
         }
 
         .flip-clock-list {
@@ -62,11 +49,11 @@
             color: $fc-face-color;
 
             &:not(.flip) {
-                .active .flip-clock-list-item-inner {
-                    z-index: 4;
-                }
-
                 .flip-clock-list-item-inner {
+                    &.active {
+                        z-index: 4;
+                    }
+
                     .top,
                     .bottom {
                         &:after {
@@ -80,12 +67,31 @@
                 animation-delay: 500ms;
                 animation-duration: 500ms;
 
+                .before {
+                    animation-delay: 0s;
+                }
+
+
+                .before {
+                    .top {
+                        animation: flip-top .5s linear both;
+
+                        &:after {
+                            animation: show-shadow .5s linear both;
+                        }
+                    }
+
+                    .bottom {
+                        &:after {
+                            animation: show-shadow .5s linear both;
+                        }
+                    }
+                }
+
                 .top,
                 .bottom,
                 .active,
-                .active > div,
-                .before,
-                .before > div {
+                & > div {
                     animation-delay: inherit;
                     animation-duration: inherit;
                     animation-fill-mode: both;
@@ -98,9 +104,19 @@
                     }
                 }
 
-                .before {
-                    animation-delay: 0s;
+                /*
+                .top,
+                .top:after,
+                .bottom,
+                .bottom:after,
+                .active {
+                    animation-duration: 500ms;
+                    animation-fill-mode: both;
+                    animation-timing-function: linear;
+                }
+                */
 
+                .before {
                     .top {
                         animation-name: flip-top;
                     }
@@ -112,9 +128,7 @@
                 }
 
                 .active {
-                    & > div {
-                        animation-name: indexing;
-                    }
+                    animation-name: indexing;
 
                     .top:after,
                     .bottom:after {
@@ -126,45 +140,41 @@
                         animation-name: flip-bottom;
                     }
                 }
-            }
 
+                /*
+                .before {
+                    .top {
+                        animation: flip-top .5s linear both;
 
-            .active {
-                z-index: 2;
+                        &:after {
+                            animation: show-shadow .5s linear both;
+                        }
+                    }
 
-                .top {
-                    &:after {
-                        background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,.1) 0%, rgba($fc-flip-shadow-color,1) 100%);
+                    .bottom {
+                        &:after {
+                            animation: show-shadow .5s linear both;
+                        }
                     }
                 }
+                .active {
+                    //animation: indexing .5s .5s linear both;
 
-                .bottom {
-                    z-index: 2;
-                    transform-origin: top center;
+                    .top {
+                        &:after {
+                            //animation: hide-shadow .5s (.5s * .15) linear both;
+                        }
+                    }
 
-                    &:after {
-                        background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,1) 0%, rgba($fc-flip-shadow-color,.1) 100%);
+                    .bottom {
+                        //animation: flip-bottom .5s .5s linear both;
+
+                        &:after {
+                            //animation: hide-shadow .5s (.5s * .15) linear both;
+                        }
                     }
                 }
-            }
-
-            .before {
-                z-index: 3;
-
-                .top {
-                    z-index: 2;
-                    transform-origin: bottom center;
-
-                    &:after {
-                        background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,.1) 0%, rgba($fc-flip-shadow-color,1) 100%);
-                    }
-                }
-
-                .bottom {
-                    &:after {
-                        background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,1) 0%, rgba($fc-flip-shadow-color,.1) 100%);
-                    }
-                }
+                */
             }
 
             .flip-clock-list-item-inner {
@@ -175,6 +185,44 @@
 
                 &:first-child {
                     z-index: 2;
+                }
+
+                &.before {
+                    z-index: 3;
+
+                    .top {
+                        z-index: 2;
+                        transform-origin: bottom center;
+
+                        &:after {
+                            background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,.1) 0%, rgba($fc-flip-shadow-color,1) 100%);
+                        }
+                    }
+
+                    .bottom {
+                        &:after {
+                            background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,1) 0%, rgba($fc-flip-shadow-color,.1) 100%);
+                        }
+                    }
+                }
+
+                &.active {
+                    z-index: 2;
+
+                    .top {
+                        &:after {
+                            background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,.1) 0%, rgba($fc-flip-shadow-color,1) 100%);
+                        }
+                    }
+
+                    .bottom {
+                        z-index: 2;
+                        transform-origin: top center;
+
+                        &:after {
+                            background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,1) 0%, rgba($fc-flip-shadow-color,.1) 100%);
+                        }
+                    }
                 }
 
                 > .top,

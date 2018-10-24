@@ -1,39 +1,38 @@
 import Timer from './Timer';
 import Component from './Component';
 import FaceValue from './FaceValue';
+import validate from '../Helpers/Validate';
+import ConsoleMessages from '../Config/ConsoleMessages';
 import { isObject, isFunction, callback } from '../Helpers/Functions';
 
 export default class Face extends Component {
 
     constructor(value, attributes) {
-        super(Object.assign({
-            // clock: clock,
-            value: value,
-            delay: 1000,
-            countdown: false
-        }, isObject(value) ? value : null, attributes));
+        const delay = attributes.delay || 1000;
 
-        if(!this.timer) {
-            this.timer = Timer.make(this.delay);
-        }
-    }
+        super({
+            autoStart: true,
+            countdown: false,
+            animationRate: delay / 2,
+            timer: Timer.make(delay)
+        });
 
-    /*
-    get clock() {
-        return this.$clock;
-    }
+        this.setAttributes(Object.assign(
+            this.defaultAttributes(), attributes
+        ));
 
-    set clock(clock) {
-        this.$clock = clock;
+        this.value = value;
     }
-    */
 
     get value() {
         return this.$value;
     }
 
     set value(value) {
-        this.emit('updated', this.$value = value instanceof FaceValue ? value : FaceValue.make(value));
+        this.$value = value instanceof FaceValue ?
+            value : this.createFaceValue(value);
+
+        this.emit('updated', this.value);
     }
 
     get timer() {
@@ -41,7 +40,11 @@ export default class Face extends Component {
     }
 
     set timer(timer) {
-        this.$timer = timer instanceof Timer ? timer : Timer.make(this.delay);
+        if(!validate(timer, Timer)) {
+            error(ConsoleMessages.timer);
+        }
+
+        this.$timer = timer;
     }
 
     interval(fn) {
@@ -75,6 +78,20 @@ export default class Face extends Component {
         return this.emit('reset');
     }
 
+    createFaceValue(value) {
+        return FaceValue.make(value, {
+            format: value => this.format(value)
+        });
+    }
+
+    format(value) {
+        return value;
+    }
+
+    defaultAttributes() {
+        //
+    }
+
     increment(value) {
         //
     }
@@ -83,16 +100,18 @@ export default class Face extends Component {
         //
     }
 
-    initialized(clock) {
+    initialized(instance) {
         //
     }
 
-    rendered(clock) {
+    rendered(instance) {
         //
     }
 
-    mounted(clock) {
-        //
+    mounted(instance) {
+        if(this.autoStart && this.timer.isStopped) {
+            this.start();
+        }
     }
 
 }

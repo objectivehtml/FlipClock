@@ -5,10 +5,12 @@ export default function(el, instance) {
         instance.active === false ? 'before' : null
     );
 
+    el.classList.add(className);
+
     appendChildren(el, [
         createElement('div', [
             createElement('div', instance.value, {class: 'top'}),
             createElement('div', instance.value, {class: 'bottom'})
-        ], {class: `flip-clock-list-item-inner ${className}`})
+        ], {class: 'flip-clock-list-item-inner'})
     ]);
 }

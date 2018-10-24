@@ -1,3 +1,4 @@
+import * as Faces from '../Faces';
 import Face from '../Components/Face';
 import List from '../Components/List';
 import Group from '../Components/Group';
@@ -7,7 +8,7 @@ import validate from '../Helpers/Validate';
 import Divider from '../Components/Divider';
 import DefaultValues from '../Config/DefaultValues';
 import ConsoleMessages from '../Config/ConsoleMessages';
-import { isObject, isFunction, error } from '../Helpers/Functions';
+import { isString, isObject, isFunction, error } from '../Helpers/Functions';
 
 export default class FlipClock extends DomComponent {
 
@@ -16,13 +17,17 @@ export default class FlipClock extends DomComponent {
             error(ConsoleMessages.element);
         }
 
+        const face = attributes.face || DefaultValues.face;
+
+        delete attributes.face;
+
         super(Object.assign({
             originalValue: value,
             theme: DefaultValues.theme,
             language: DefaultValues.language
         }, isObject(value) ? value : null, attributes));
 
-        this.face = DefaultValues.face;
+        this.face = face;
         this.face.initialized(this);
         this.mount(el);
     }
@@ -32,12 +37,16 @@ export default class FlipClock extends DomComponent {
     }
 
     set face(value) {
-        if(!validate(value, [Face, 'function'])) {
+        if(!validate(value, [Face, 'string', 'function'])) {
             error(ConsoleMessages.face);
         }
 
-        this.$face = value instanceof Function ?
-            new value(this.originalValue, this.faceOptions) : value;
+        if(isString(value) && Faces[value]) {
+            this.$face = new Faces[value](this.originalValue, this.getPublicAttributes());
+        }
+        else {
+            this.$face = new value(this.originalValue, this.getPublicAttributes());
+        }
 
         this.bindFaceEvents();
         this.el && this.render();
@@ -98,7 +107,7 @@ export default class FlipClock extends DomComponent {
     }
 
     render() {
-        this.face.rendered(super.render());
+        this.face.rendered(super.render(), this);
 
         return this.el;
     }

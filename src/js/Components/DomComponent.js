@@ -105,13 +105,18 @@ export default class DomComponent extends Component {
         return this.el;
 	}
 
-    mount(parent) {
-        const el = this.render();
-
+    mount(parent, before) {
+        this.render();
         this.parent = parent;
-        this.parent.appendChild(el);
+        
+        if(!before) {
+            this.parent.appendChild(this.el);
+        }
+        else {
+            this.parent.insertBefore(this.el, before);
+        }
 
-        return el;
+        return this.el;
     }
 
 }

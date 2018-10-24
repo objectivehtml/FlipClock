@@ -69,6 +69,17 @@ export default class Component {
         return attributes;
     }
 
+    getPublicAttributes() {
+        return Object.keys(this.getAttributes())
+            .filter(key => {
+                return !key.match(/^\$/);
+            })
+            .reduce((obj, key) => {
+                obj[key] = this.getAttribute(key);
+                return obj;
+            }, {});
+    }
+
     setAttribute(key, value) {
         if(isObject(key)) {
             this.setAttributes(key)
