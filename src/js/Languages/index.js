@@ -23,6 +23,7 @@ import * as Swedish from './sv-se';
 import * as Thai from './th-th';
 import * as Turkish from './tr-tr';
 import * as Ukrainian from './ua-ua';
+import * as Vietnamese from './vn-vn';
 import * as Chinese from './zh-cn';
 import * as TraditionalChinese from './zh-tw';
 
@@ -52,6 +53,7 @@ export {
     Thai,
     Turkish,
     Ukrainian,
+    Vietnamese,
     Chinese,
     TraditionalChinese
 }
