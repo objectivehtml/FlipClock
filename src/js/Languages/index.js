@@ -17,6 +17,7 @@ import * as Dutch from './nl-be';
 import * as Norwegian from './no-nb';
 import * as Polish from './pl-pl';
 import * as Portuguese from './pt-br';
+import * as Romanian from './ro-ro';
 import * as Russian from './ru-ru';
 import * as Slovak from './sk-sk';
 import * as Swedish from './sv-se';
@@ -47,6 +48,7 @@ export {
     Norwegian,
     Polish,
     Portuguese,
+    Romanian,
     Russian,
     Slovak,
     Swedish,
