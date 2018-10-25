@@ -14,8 +14,13 @@ export default class MinuteCounter extends Face {
         };
     }
 
-    initialized(instance) {
+    started(instance) {
         this.originalValue = instance.originalValue;
+    }
+
+    initialized(instance) {
+        instance.on('off', () => this.started(instance));
+        instance.on('start', () => this.started(instance));
     }
 
     interval(instance, fn) {

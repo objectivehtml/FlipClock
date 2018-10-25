@@ -9,9 +9,16 @@
 
 		<script type="text/javascript">
 			var el = document.querySelector('.clock');
-			
-			var clock = new FlipClock(el, new Date, {
-				face: 'DayCounter'
+
+			// Grab the current date
+			var currentDate = new Date();
+
+			// Set some date in the past. In this case, it's always been since Jan 1
+			var pastDate  = new Date(currentDate.getFullYear(), 0, 1);
+
+			var clock = new FlipClock(el, pastDate, {
+				face: 'DayCounter',
+				showSeconds: false
 			});
 		</script>
 

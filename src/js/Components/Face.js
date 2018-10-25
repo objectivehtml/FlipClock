@@ -3,7 +3,7 @@ import Component from './Component';
 import FaceValue from './FaceValue';
 import validate from '../Helpers/Validate';
 import ConsoleMessages from '../Config/ConsoleMessages';
-import { error, isNull, isFunction, callback } from '../Helpers/Functions';
+import { error, isNull, isArray, isFunction, callback } from '../Helpers/Functions';
 
 export default class Face extends Component {
 
@@ -33,14 +33,21 @@ export default class Face extends Component {
     }
 
     set value(value) {
-        if(this.dataType && !validate(value, [this.dataType])) {
+        if(isFunction(value) && !value.name) {
+            value = value();
+        }
+
+        const types = isArray(this.dataType) ? this.dataType : [this.dataType];
+
+        types.push(FaceValue);
+
+        if(this.dataType && !validate(value, types)) {
             error(`The face value must be an instance of a ${this.dataType.name}`);
         }
 
-        this.$value = value instanceof FaceValue ?
-            value : this.createFaceValue(value);
-
-        this.emit('updated', this.value);
+        this.emit('updated',
+            this.$value = !(value instanceof FaceValue) ? this.createFaceValue(value) : value
+        );
     }
 
     get timer() {
@@ -69,6 +76,8 @@ export default class Face extends Component {
     }
 
     start(instance, fn) {
+        // this.interval(instance, fn);
+
         this.timer.start(() => this.interval(instance, fn));
 
         return this.emit('start');

@@ -183,7 +183,7 @@
                     height: 50%;
                     overflow: hidden;
                     position: relative;
-                    backface-visibility: hidden;
+                    //backface-visibility: hidden;
                     font-size: $fc-face-font-size;
                     background: $fc-face-background;
                     box-shadow: inset 0 0 .2em rgba(#000,.5);

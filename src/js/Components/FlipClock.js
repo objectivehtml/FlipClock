@@ -78,8 +78,20 @@ export default class FlipClock extends DomComponent {
     }
 
     set value(value) {
+        //this.originalValue = value;
         this.face.reset(this, value);
         this.face.value = value;
+        this.render();
+    }
+
+    get originalValue() {
+        return (
+            isFunction(this.$originalValue) && !this.$originalValue.name
+        ) ? this.$originalValue() : this.$originalValue;
+    }
+
+    set originalValue(value) {
+        this.$originalValue = value;
     }
 
     bindFaceEvents() {

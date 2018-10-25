@@ -2,24 +2,18 @@
 	<head>
 		<link rel="stylesheet" href="../dist/flipclock.css">
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-		<script src="../dist/flipclock.js"></script>		
+		<script src="../dist/flipclock.js"></script>
 	</head>
 	<body>
-	<div class="clock" style="margin:2em;"></div>
-	<div class="message"></div>
+		<div class="clock" style="margin:2em;"></div>
 
-	<script type="text/javascript">
-		var clock;
-		
-		$(document).ready(function() {
-			
-			clock = $('.clock').FlipClock({
-		        clockFace: 'MinuteCounter'
-		    });
-		});
-	</script>
-	
+		<script type="text/javascript">
+			var el = document.querySelector('.clock');
+
+			var clock = new FlipClock(el, new Date, {
+				face: 'MinuteCounter'
+			});
+		</script>
+
 	</body>
 </html>

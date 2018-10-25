@@ -2,36 +2,25 @@
 	<head>
 		<link rel="stylesheet" href="../dist/flipclock.css">
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
 		<script src="../dist/flipclock.js"></script>
 	</head>
 	<body>
-	<div class="clock" style="margin:2em;"></div>
-	<div class="message"></div>
+		<div class="clock" style="margin:2em;"></div>
 
-	<script type="text/javascript">
-		var clock;
-		
-		$(document).ready(function() {
-			var clock;
+		<script type="text/javascript">
+			var el = document.querySelector('.clock');
 
-			clock = $('.clock').FlipClock({
-		        clockFace: 'HourlyCounter',
-				clockFaceOptions: {
-		        	autoStart: false,
-				},
-				onStop: function() {
-	        		$('.message').html('The clock has stopped!');
-				}
-		    });
-				    
-		    clock.face.setCountdown(true);
-		    clock.setFaceValue(10);
-		    clock.start();
+			// Grab the current date
+			var currentDate = new Date();
 
-		});
-	</script>
-	
+			// Set some date in the past. In this case, it's always been since Jan 1
+			var date  = new Date(currentDate.getFullYear() + 1, 0, 1);
+
+			var clock = new FlipClock(el, date, {
+				face: 'DayCounter',
+				countdown: true
+			});
+		</script>
+
 	</body>
 </html>

@@ -1,4 +1,5 @@
 import * as Arabic from './ar-ar';
+import * as Catalan from './ca-es';
 import * as Czech from './cs-cz';
 import * as Danish from './da-dk';
 import * as German from './de-de';
@@ -30,6 +31,7 @@ import * as TraditionalChinese from './zh-tw';
 
 export {
     Arabic,
+    Catalan,
     Czech,
     Danish,
     German,

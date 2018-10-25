@@ -18,6 +18,12 @@ FlipClock.js can be installed in the following ways:
 
 ---
 
+### Full Documentation
+
+http://flipclockjs.com/
+
+---
+
 ### New in v1.0
 
 FlipClock originally was developed an example library for a computer science class that I taught. I never actually thought people would use it, let alone imagine how people would use it. It's been a long time coming, but FlipClock.js has been rewritten for a modern age with no dependencies.
@@ -31,14 +37,19 @@ FlipClock originally was developed an example library for a computer science cla
 - All new CSS themes for different flip effects
 - All new clock faces
 - Extensible and customizable
+- Unit testing with Jest
 
 ---
 
-### Demo & Documentation
+### Basic Usage
 
-Website and documentation at http://flipclockjs.com/
+	import FlipClock from 'flipclock';
 
----
+	const el = document.querySelector('.clock');
+
+	const clock = new FlipClock(el, new Date, {
+		face: 'HourCounter'
+	});
 
 ### License
 

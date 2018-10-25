@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../dist/flipclock.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<script src="../dist/flipclock.js"></script>
+	</head>
+	<body>
+	<div class="clock" style="margin:2em;"></div>
+	<div class="message"></div>
+
+	<button class="start">Start Clock</button>
+	<button class="stop">Stop Clock</button>
+
+	<script type="text/javascript">
+		var el = document.querySelector('.clock');
+
+		function date(offset) {
+			return new Date(new Date().setSeconds(new Date().getSeconds() + offset));
+		}
+
+		var clock = new FlipClock(el, () => date(100), {
+			face: 'MinuteCounter',
+			autoStart: false,
+			countdown: true,
+			stopAt: 0
+		});
+
+		clock.on('start', () => {
+			document.querySelector('.message').innerHTML = 'Clock started!';
+		});
+
+		clock.on('stop', () => {
+			document.querySelector('.message').innerHTML = 'Clock stopped!';
+		});
+
+		document.querySelector('.start').addEventListener('click', event => {
+			clock.timer.isStopped && clock.start();
+		});
+
+		document.querySelector('.stop').addEventListener('click', event => {
+			clock.timer.isRunning && clock.stop();
+		});
+	</script>
+
+	</body>
+</html>

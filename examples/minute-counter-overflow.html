@@ -2,25 +2,21 @@
 	<head>
 		<link rel="stylesheet" href="../dist/flipclock.css">
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-		<script src="../dist/flipclock.js"></script>		
+		<script src="../dist/flipclock.js"></script>
 	</head>
 	<body>
-	<div class="clock" style="margin:2em;"></div>
-	
-	<script type="text/javascript">
-		var clock;
-		
-		$(document).ready(function() {
-			
-			clock = $('.clock').FlipClock({
-                clockFace: 'MinuteCounter'
-            });
+		<div class="clock" style="margin:2em;"></div>
 
-            clock.setFaceValue(60*100-5);
-		});
-	</script>
-	
+		<script type="text/javascript">
+			var el = document.querySelector('.clock');
+
+			var clock = new FlipClock(el, new Date, {
+				face: 'MinuteCounter',
+				countdown: true
+			});
+
+			clock.value = new Date(new Date().getFullYear() + 1);
+		</script>
+
 	</body>
 </html>
