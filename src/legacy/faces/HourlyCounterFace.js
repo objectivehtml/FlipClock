@@ -9,7 +9,7 @@
 	 * created.
 	 */
 	 
-	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
+	FlipClock.HourCounterFace = FlipClock.Face.extend({
 			
 		/**
 		 * Constructor

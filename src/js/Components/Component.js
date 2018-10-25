@@ -1,4 +1,4 @@
-import { chain, callback, isObject } from '../Helpers/Functions';
+import { chain, callback, isObject, kebabCase } from '../Helpers/Functions';
 
 export default class Component {
 
@@ -6,6 +6,14 @@ export default class Component {
         this.setAttribute(Object.assign({
             events: {}
         }, attributes));
+    }
+
+    get name() {
+        return this.constructor.name;
+    }
+
+    get className() {
+        return kebabCase(this.name);
     }
 
     get events() {

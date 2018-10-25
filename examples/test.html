@@ -9,14 +9,12 @@
 		<script>
 			const el = document.querySelector('.clock');
 
-			const clock = FlipClock.make(el, new Date, {
-				face: 'TwelveHourClock',
-				//showSeconds: true,
-				//showLabels: true,
-				//showMeridium: false,
-				autoStart: true
+			const clock = FlipClock.make(el, new Date(2018, 11, 26), {
+				face: 'YearCounter',
+				countdown: false,
+				showSeconds: true,
+				showLabels: true
 			});
-
 
 			//clock.start();
 		</script>

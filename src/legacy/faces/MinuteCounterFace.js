@@ -8,7 +8,7 @@
 	 * reached, the counter will reset back to 0. (4 digits max)
 	 */
 	 
-	FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({
+	FlipClock.MinuteCounterFace = FlipClock.HourCounterFace.extend({
 
 		/**
 		 * Build the clock face

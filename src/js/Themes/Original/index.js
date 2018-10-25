@@ -4,6 +4,7 @@ import Group from './Group';
 import Label from './Label';
 import List from './List';
 import ListItem from './ListItem';
+import * as faces from './Faces';
 
 export default {
     Divider,
@@ -11,5 +12,6 @@ export default {
     Group,
     Label,
     List,
-    ListItem
+    ListItem,
+    faces
 };

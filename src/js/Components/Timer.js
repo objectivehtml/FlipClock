@@ -63,13 +63,14 @@ export default class Timer extends Component {
      * @return this
      */
     start(fn) {
-        this.started = Date.now();
+        this.started = new Date;
+        this.lastLoop = Date.now();
         this.running = true;
         this.emit('start');
 
         const loop = () => {
-            if(Date.now() - this.started >= this.interval) {
-                this.started = Date.now();
+            if(Date.now() - this.lastLoop >= this.interval) {
+                this.lastLoop = Date.now();
                 callback.call(this, fn);
                 this.emit('interval');
                 this.count++;

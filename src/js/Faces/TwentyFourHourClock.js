@@ -1,6 +1,24 @@
 import Face from '../Components/Face';
+import { callback } from '../Helpers/Functions';
 
 export default class TwentyFourHourClock extends Face {
+
+    /*
+    defaultDataType() {
+        return Date;
+    }
+    */
+
+    defaultValue() {
+        return new Date;
+    }
+
+    defaultAttributes() {
+        return {
+            showSeconds: true,
+            showLabels: false
+        };
+    }
 
     format(value) {
         const groups = [
@@ -15,36 +33,12 @@ export default class TwentyFourHourClock extends Face {
         return groups;
     }
 
-    increment(value) {
-        this.value = this.createDate(value);
-    }
+    interval(instance, fn) {
+        this.value = new Date;
 
-    decrement(value) {
-        this.value = this.createDate(-value);
-    }
+        callback.call(this, fn);
 
-    createDate(modifier = 0) {
-        return new Date(new Date().getTime() + modifier);
-    }
-
-    rendered(el, instance) {
-        instance.createDivider().mount(el, el.childNodes[1]);
-
-        this.showSeconds && instance.createDivider().mount(el, el.childNodes[3]);
-
-        if(this.showLabels) {
-            instance.createLabel('hours').mount(el.childNodes[0]);
-            instance.createLabel('minutes').mount(el.childNodes[2]);
-
-            this.showSeconds && instance.createLabel('seconds').mount(el.childNodes[4]);
-        }
-    }
-
-    defaultAttributes() {
-        return {
-            showSeconds: true,
-            showLabels: false
-        };
+        return this.emit('interval');
     }
 
 }

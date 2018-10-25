@@ -2,6 +2,18 @@ import TwentyFourHourClock from './TwentyFourHourClock';
 
 export default class TwelveHourClock extends TwentyFourHourClock {
 
+    defaultDataType() {
+        return Date;
+    }
+
+    defaultAttributes() {
+        return {
+            showLabels: false,
+            showSeconds: true,
+            showMeridium: true
+        };
+    }
+
     format(value) {
         const hours = value.getHours();
 
@@ -17,25 +29,6 @@ export default class TwelveHourClock extends TwentyFourHourClock {
 		}
 
 		return groups;
-    }
-
-    rendered(el, instance) {
-        super.rendered(el, instance);
-
-        if(this.showMeridium) {
-            instance.createLabel(this.meridium)
-                .mount(el.childNodes[el.childNodes.length - 1])
-                .classList
-                .add('flip-clock-meridium');
-        }
-    }
-
-    defaultAttributes() {
-        return {
-            showLabels: false,
-            showSeconds: true,
-            showMeridium: true
-        };
     }
 
 }

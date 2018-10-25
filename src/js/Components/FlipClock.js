@@ -17,6 +17,11 @@ export default class FlipClock extends DomComponent {
             error(ConsoleMessages.element);
         }
 
+        if(isObject(value) && !attributes) {
+            attributes = value;
+            value = null;
+        }
+
         const face = attributes.face || DefaultValues.face;
 
         delete attributes.face;
@@ -28,7 +33,6 @@ export default class FlipClock extends DomComponent {
         }, isObject(value) ? value : null, attributes));
 
         this.face = face;
-        this.face.initialized(this);
         this.mount(el);
     }
 
@@ -49,6 +53,7 @@ export default class FlipClock extends DomComponent {
         }
 
         this.bindFaceEvents();
+        this.face.initialized(this);
         this.el && this.render();
     }
 
@@ -73,7 +78,7 @@ export default class FlipClock extends DomComponent {
     }
 
     set value(value) {
-        this.face.reset();
+        this.face.reset(this, value);
         this.face.value = value;
     }
 
@@ -107,25 +112,39 @@ export default class FlipClock extends DomComponent {
     }
 
     render() {
-        this.face.rendered(super.render(), this);
+        // Call the parent render function
+        super.render();
 
+        // Check to see if the face has a render function defined in the theme.
+        // This allows a face to completely re-render or add to the theme.
+        // This allows face specific interfaces for a theme.
+        if(this.theme.faces[this.face.name]) {
+            this.theme.faces[this.face.name](this.el, this);
+        }
+
+        // Pass the clock instance to the rendered() function on the face.
+        // This allows global modifications to the rendered templates not
+        // theme specific.
+        this.face.rendered(this);
+
+        // Return the rendered element.
         return this.el;
     }
 
     reset(fn) {
-        this.face.reset(fn);
+        this.face.reset(this, fn);
 
         return this;
     }
 
     start(fn) {
-        this.face.start(fn);
+        this.face.start(this, fn);
 
         return this;
     }
 
     stop(fn) {
-        this.face.stop(fn);
+        this.face.stop(this, fn);
 
         return this;
     }

@@ -76,7 +76,7 @@
 				 * The name of the clock face class in use
 				 */	
 				 
-				clockFace: 'HourlyCounter',
+				clockFace: 'HourCounter',
 				 
 				/**
 				 * The FlipClock.Face options object
@@ -89,7 +89,7 @@
 				 * clockFace variable is not a valid FlipClock.Face object
 				 */	
 				 
-				defaultClockFace: 'HourlyCounter'
+				defaultClockFace: 'HourCounter'
 			};
 		},
 

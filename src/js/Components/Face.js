@@ -3,7 +3,7 @@ import Component from './Component';
 import FaceValue from './FaceValue';
 import validate from '../Helpers/Validate';
 import ConsoleMessages from '../Config/ConsoleMessages';
-import { isObject, isFunction, callback } from '../Helpers/Functions';
+import { error, isNull, isFunction, callback } from '../Helpers/Functions';
 
 export default class Face extends Component {
 
@@ -18,10 +18,14 @@ export default class Face extends Component {
         });
 
         this.setAttributes(Object.assign(
-            this.defaultAttributes(), attributes
+            (this.defaultAttributes() || {}), (attributes || {})
         ));
 
-        this.value = value;
+        this.value = !isNull(value) ? value : this.defaultValue();
+    }
+
+    get dataType() {
+        return this.defaultDataType();
     }
 
     get value() {
@@ -29,6 +33,10 @@ export default class Face extends Component {
     }
 
     set value(value) {
+        if(this.dataType && !validate(value, [this.dataType])) {
+            error(`The face value must be an instance of a ${this.dataType.name}`);
+        }
+
         this.$value = value instanceof FaceValue ?
             value : this.createFaceValue(value);
 
@@ -47,12 +55,12 @@ export default class Face extends Component {
         this.$timer = timer;
     }
 
-    interval(fn) {
+    interval(instance, fn) {
         if(this.countdown) {
-            this.decrement();
+            this.decrement(instance);
         }
         else {
-            this.increment();
+            this.increment(instance);
         }
 
         callback.call(this, fn);
@@ -60,20 +68,20 @@ export default class Face extends Component {
         return this.emit('interval');
     }
 
-    start(fn) {
-        this.timer.start(() => this.interval(fn));
+    start(instance, fn) {
+        this.timer.start(() => this.interval(instance, fn));
 
         return this.emit('start');
     }
 
-    stop(fn) {
+    stop(instance, fn) {
         this.timer.stop(fn);
 
         return this.emit('stop');
     }
 
-    reset(fn) {
-        this.timer.reset(() => this.interval(fn));
+    reset(instance, fn) {
+        this.timer.reset(() => this.interval(instance, fn));
 
         return this.emit('reset');
     }
@@ -88,15 +96,23 @@ export default class Face extends Component {
         return value;
     }
 
+    defaultValue() {
+        //
+    }
+
     defaultAttributes() {
         //
     }
 
-    increment(value) {
+    defaultDataType() {
         //
     }
 
-    decrement(value) {
+    increment(instance) {
+        //
+    }
+
+    decrement(instance) {
         //
     }
 
@@ -110,7 +126,7 @@ export default class Face extends Component {
 
     mounted(instance) {
         if(this.autoStart && this.timer.isStopped) {
-            this.start();
+            this.start(instance);
         }
     }
 

@@ -2,7 +2,6 @@ import Component from './Component';
 import validate from '../Helpers/Validate';
 import translate from '../Helpers/Translate';
 import { error } from '../Helpers/Functions';
-import { kebabCase } from '../Helpers/Functions';
 import ConsoleMessages from '../Config/ConsoleMessages';
 import { swap, createElement } from '../Helpers/Template';
 
@@ -72,14 +71,6 @@ export default class DomComponent extends Component {
         this.$language = value;
     }
 
-    get name() {
-        return this.constructor.name;
-    }
-
-    get className() {
-        return kebabCase(this.name);
-    }
-
     translate(key) {
         return translate(key, this.language);
     }
@@ -108,7 +99,7 @@ export default class DomComponent extends Component {
     mount(parent, before) {
         this.render();
         this.parent = parent;
-        
+
         if(!before) {
             this.parent.appendChild(this.el);
         }
