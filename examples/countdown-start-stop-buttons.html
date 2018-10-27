@@ -16,15 +16,15 @@
 	<script type="text/javascript">
 		var el = document.querySelector('.clock');
 
-		function date(offset) {
+		function date(offset = 0) {
 			return new Date(new Date().setSeconds(new Date().getSeconds() + offset));
 		}
 
-		var clock = new FlipClock(el, () => date(100), {
+		var clock = new FlipClock(el, () => date(), {
 			face: 'MinuteCounter',
 			autoStart: false,
-			countdown: true,
-			stopAt: 0
+			//countdown: true,
+			stopAt: 5
 		});
 
 		clock.on('start', () => {

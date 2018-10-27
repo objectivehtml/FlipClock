@@ -1,27 +1,28 @@
-import Timer from './Timer';
 import Component from './Component';
 import FaceValue from './FaceValue';
 import validate from '../Helpers/Validate';
 import ConsoleMessages from '../Config/ConsoleMessages';
-import { error, isNull, isArray, isFunction, callback } from '../Helpers/Functions';
+import { error, isNull, isUndefined, isObject, isArray, isFunction, callback } from '../Helpers/Functions';
 
 export default class Face extends Component {
 
-    constructor(value, attributes) {
-        const delay = attributes.delay || 1000;
+    constructor(value, attributes = {}) {
+        if(!(value instanceof FaceValue) && isObject(value)) {
+            attributes = value;
+            value = null;
+        }
 
-        super({
+        super();
+
+        this.setAttributes(Object.assign({
             autoStart: true,
             countdown: false,
-            animationRate: delay / 2,
-            timer: Timer.make(delay)
-        });
+            animationRate: 500
+        }, this.defaultAttributes(), attributes || {}));
 
-        this.setAttributes(Object.assign(
-            (this.defaultAttributes() || {}), (attributes || {})
-        ));
-
-        this.value = !isNull(value) ? value : this.defaultValue();
+        if(value) {
+            this.value = !isNull(value) ? value : this.defaultValue();
+        }
     }
 
     get dataType() {
@@ -33,33 +34,27 @@ export default class Face extends Component {
     }
 
     set value(value) {
-        if(isFunction(value) && !value.name) {
-            value = value();
+        if(!(value instanceof FaceValue)) {
+            value = this.createFaceValue(value);
         }
 
-        const types = isArray(this.dataType) ? this.dataType : [this.dataType];
-
-        types.push(FaceValue);
-
-        if(this.dataType && !validate(value, types)) {
-            error(`The face value must be an instance of a ${this.dataType.name}`);
-        }
-
-        this.emit('updated',
-            this.$value = !(value instanceof FaceValue) ? this.createFaceValue(value) : value
-        );
+        this.$value = value;
     }
 
-    get timer() {
-        return this.$timer;
+    get stopAt() {
+        return this.$stopAt;
     }
 
-    set timer(timer) {
-        if(!validate(timer, Timer)) {
-            error(ConsoleMessages.timer);
-        }
+    set stopAt(value) {
+        this.$stopAt = value;
+    }
 
-        this.$timer = timer;
+    get originalValue() {
+        return this.$originalValue;
+    }
+
+    set originalValue(value) {
+        this.$originalValue = value;
     }
 
     interval(instance, fn) {
@@ -72,36 +67,18 @@ export default class Face extends Component {
 
         callback.call(this, fn);
 
+        if(this.shouldStop(instance)) {
+            instance.stop();
+        }
+
         return this.emit('interval');
     }
 
-    start(instance, fn) {
-        // this.interval(instance, fn);
-
-        this.timer.start(() => this.interval(instance, fn));
-
-        return this.emit('start');
+    shouldStop(instance) {
+        return !isUndefined(this.stopAt) ? this.stopAt === instance.value.value : false;
     }
 
-    stop(instance, fn) {
-        this.timer.stop(fn);
-
-        return this.emit('stop');
-    }
-
-    reset(instance, fn) {
-        this.timer.reset(() => this.interval(instance, fn));
-
-        return this.emit('reset');
-    }
-
-    createFaceValue(value) {
-        return FaceValue.make(value, {
-            format: value => this.format(value)
-        });
-    }
-
-    format(value) {
+    format(instance, value) {
         return value;
     }
 
@@ -125,6 +102,18 @@ export default class Face extends Component {
         //
     }
 
+    started(instance) {
+        //
+    }
+
+    stopped(instance) {
+        //
+    }
+
+    reset(instance) {
+        //
+    }
+
     initialized(instance) {
         //
     }
@@ -134,9 +123,17 @@ export default class Face extends Component {
     }
 
     mounted(instance) {
-        if(this.autoStart && this.timer.isStopped) {
-            this.start(instance);
+        if(this.autoStart && instance.timer.isStopped) {
+            window.requestAnimationFrame(() => instance.start(instance));
         }
+    }
+
+    createFaceValue(instance, value) {
+        return FaceValue.make(
+            isFunction(value) && !value.name ? value() : value, {
+                format: value => this.format(instance, value)
+            }
+        );
     }
 
 }

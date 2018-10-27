@@ -1,14 +1,16 @@
+import Face from './Face';
+import List from './List';
+import Group from './Group';
+import Label from './Label';
+import Timer from './Timer';
+import Divider from './Divider';
 import * as Faces from '../Faces';
-import Face from '../Components/Face';
-import List from '../Components/List';
-import Group from '../Components/Group';
-import Label from '../Components/Label';
+import FaceValue from './FaceValue';
 import DomComponent from './DomComponent';
 import validate from '../Helpers/Validate';
-import Divider from '../Components/Divider';
 import DefaultValues from '../Config/DefaultValues';
 import ConsoleMessages from '../Config/ConsoleMessages';
-import { isString, isObject, isFunction, error } from '../Helpers/Functions';
+import { flatten, isString, isObject, isUndefined, isFunction, error } from '../Helpers/Functions';
 
 export default class FlipClock extends DomComponent {
 
@@ -29,10 +31,14 @@ export default class FlipClock extends DomComponent {
         super(Object.assign({
             originalValue: value,
             theme: DefaultValues.theme,
-            language: DefaultValues.language
-        }, isObject(value) ? value : null, attributes));
+            language: DefaultValues.language,
+            timer: Timer.make(attributes.interval || 1000),
+        }, attributes));
 
-        this.face = face;
+        if(!this.face) {
+            this.face = face;
+        }
+
         this.mount(el);
     }
 
@@ -45,15 +51,13 @@ export default class FlipClock extends DomComponent {
             error(ConsoleMessages.face);
         }
 
-        if(isString(value) && Faces[value]) {
-            this.$face = new Faces[value](this.originalValue, this.getPublicAttributes());
-        }
-        else {
-            this.$face = new value(this.originalValue, this.getPublicAttributes());
+        this.$face = (Faces[value] || value).make(this.getPublicAttributes());
+
+        if(!this.value) {
+            this.value = this.originalValue;
         }
 
-        this.bindFaceEvents();
-        this.face.initialized(this);
+        this.$face.initialized(this);
         this.el && this.render();
     }
 
@@ -66,11 +70,15 @@ export default class FlipClock extends DomComponent {
     }
 
     get timer() {
-        return this.face.timer;
+        return this.$timer;
     }
 
-    set timer(value) {
-        this.face.timer = value;
+    set timer(timer) {
+        if(!validate(timer, Timer)) {
+            error(ConsoleMessages.timer);
+        }
+
+        this.$timer = timer;
     }
 
     get value() {
@@ -78,10 +86,21 @@ export default class FlipClock extends DomComponent {
     }
 
     set value(value) {
-        //this.originalValue = value;
-        this.face.reset(this, value);
-        this.face.value = value;
-        this.render();
+        if(!this.face) {
+            throw new Error('A face must be set before setting a value.')
+        }
+
+        if(value instanceof FaceValue) {
+            this.face.value = value;
+        }
+        else if(this.value) {
+            this.face.value = this.face.value.clone(value);
+        }
+        else {
+            this.face.value = this.face.createFaceValue(this, value);
+        }
+
+        this.el && this.render();
     }
 
     get originalValue() {
@@ -94,6 +113,7 @@ export default class FlipClock extends DomComponent {
         this.$originalValue = value;
     }
 
+    /*
     bindFaceEvents() {
         const fn = () => this.updated();
 
@@ -105,14 +125,12 @@ export default class FlipClock extends DomComponent {
             this.face.off(event, fn).on(event, fn);
         });
     }
+    */
 
     updated() {
         this.render();
 
-        if( this.stopAt !== undefined &&
-            this.stopAt === this.face.value.value) {
-            this.stop();
-        }
+        console.log('dated');
     }
 
     mount(el) {
@@ -143,22 +161,43 @@ export default class FlipClock extends DomComponent {
         return this.el;
     }
 
-    reset(fn) {
-        this.face.reset(this, fn);
-
-        return this;
-    }
-
     start(fn) {
-        this.face.start(this, fn);
+        if(!this.timer.started) {
+            this.value = this.originalValue;
+        }
 
-        return this;
+        isUndefined(this.face.stopAt) && (this.face.stopAt = this.stopAt);
+        isUndefined(this.face.originalValue) && (this.face.originalValue = this.originalValue);
+
+        this.timer.start(() => {
+            this.face.interval(this, fn)
+        });
+
+        this.face.started(this);
+
+        return this.emit('start');
     }
 
     stop(fn) {
-        this.face.stop(this, fn);
+        this.timer.stop(fn);
+        this.face.stopped(this);
 
-        return this;
+        return this.emit('stop');
+    }
+
+    reset(fn) {
+        this.timer.reset(() => this.interval(this, fn));
+        this.face.reset(this);
+
+        return this.emit('reset');
+    }
+
+    increment(value) {
+        this.face.increment(this, value);
+    }
+
+    decrement(value) {
+        this.face.decrement(this, value);
     }
 
     createDivider(attributes) {
@@ -194,11 +233,11 @@ export default class FlipClock extends DomComponent {
     }
 
     static setDefaultFace(value) {
-        validate(value, [Face, 'function']).then(() => {
-            DefaultValues.face = value;
-        }, () => {
+        if(!validate(value, Face)) {
             error(ConsoleMessages.face);
-        });
+        }
+
+        DefaultValues.face = value;
     }
 
     static setDefaultTheme(value) {

@@ -11,11 +11,16 @@
 			var el = document.querySelector('.clock');
 
 			var clock = new FlipClock(el, new Date, {
-				face: 'MinuteCounter',
-				countdown: true
+				face: 'MinuteCounter'
 			});
 
-			clock.value = new Date(new Date().getFullYear() + 1);
+			clock.on('start', () => {
+				const date = new Date;
+
+				date.setMinutes(date.getMinutes() + 10);
+
+				clock.value = date;
+			});
 		</script>
 
 	</body>

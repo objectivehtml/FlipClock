@@ -14,13 +14,9 @@
 			face: 'HourCounter'
 		});
 
-		setTimeout(function() {
-			// Set the options before you set the face. Setting the face triggers
-			// a the render functions. If you set the option after face, you have
-			// to re-render twice.
-			clock.showSeconds = true;
-			clock.face = 'MinuteCounter';
-		}, 3000);
+		clock.on('interval', () => {
+			console.log('interval', clock.value);
+		});
 	</script>
 
 	</body>

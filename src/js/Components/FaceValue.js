@@ -46,4 +46,10 @@ export default class FaceValue extends Component {
         return isNumber()
     }
 
+    clone(value, attributes = {}) {
+        return new this.constructor(value, Object.assign(
+            this.getPublicAttributes(), attributes
+        ));
+    }
+
 }

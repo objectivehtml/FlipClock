@@ -3,11 +3,9 @@ import { callback } from '../Helpers/Functions';
 
 export default class TwentyFourHourClock extends Face {
 
-    /*
     defaultDataType() {
         return Date;
     }
-    */
 
     defaultValue() {
         return new Date;
@@ -20,7 +18,7 @@ export default class TwentyFourHourClock extends Face {
         };
     }
 
-    format(value) {
+    format(instance, value) {
         const groups = [
             [value.getHours()],
             [value.getMinutes()]
@@ -34,7 +32,7 @@ export default class TwentyFourHourClock extends Face {
     }
 
     interval(instance, fn) {
-        this.value = new Date;
+        instance.value = new Date;
 
         callback.call(this, fn);
 

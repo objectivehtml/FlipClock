@@ -1,5 +1,5 @@
 import Face from '../Components/Face';
-import { callback } from '../Helpers/Functions';
+import { isNull, isUndefined, isNumber, callback } from '../Helpers/Functions';
 
 export default class MinuteCounter extends Face {
 
@@ -14,32 +14,39 @@ export default class MinuteCounter extends Face {
         };
     }
 
-    started(instance) {
-        this.originalValue = instance.originalValue;
+    shouldStop(instance) {
+        if(isNull(instance.stopAt) || isUndefined(instance.stopAt)) {
+            return false;
+        }
+
+        if(this.stopAt instanceof Date) {
+            return this.countdown ?
+                this.stopAt.getTime() >= this.value.value.getTime():
+                this.stopAt.getTime() <= this.value.value.getTime();
+        }
+        else if(isNumber(this.stopAt)) {
+            const diff = Math.floor((this.value.value.getTime() - this.originalValue.getTime()) / 1000);
+
+            return this.countdown ?
+                this.stopAt >= diff:
+                this.stopAt <= diff;
+        }
+
+        throw new Error(`the stopAt property must be an instance of Date or Number.`);
     }
 
-    initialized(instance) {
-        instance.on('off', () => this.started(instance));
-        instance.on('start', () => this.started(instance));
+    increment(instance, value) {
+        instance.value = new Date(this.value.value.getTime() + (new Date().getTime() - instance.timer.lastLoop));
     }
 
-    interval(instance, fn) {
-        this.value = new Date;
-
-        callback.call(this, fn);
-
-        return this.emit('interval');
+    decrement(instance, value) {
+        instance.value = new Date(this.value.value.getTime() - (new Date().getTime() - instance.timer.lastLoop));
     }
 
-    format(value) {
-        const now = !this.timer.started ? new Date : value;
-        const originalValue = this.originalValue || value;
-        const a = !this.countdown ? now : originalValue;
-        const b = !this.countdown ? originalValue : now;
-
+    format(instance, value) {
         return [
-            [this.getMinutes(a, b)],
-            [this.getSeconds(a, b)]
+            [this.getMinutes(value, instance.timer.isRunning ? this.originalValue : instance.originalValue)],
+            [this.getSeconds(value, instance.timer.isRunning ? this.originalValue : instance.originalValue)]
         ];
     }
 

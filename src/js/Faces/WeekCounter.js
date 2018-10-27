@@ -2,9 +2,9 @@ import DayCounter from './DayCounter';
 
 export default class WeekCounter extends DayCounter {
 
-    format(value) {
-        const now = !this.timer.started ? new Date : value;
-        const originalValue = this.originalValue || value;
+    format(instance, value) {
+        const now = !instance.timer.started ? new Date : value;
+        const originalValue = instance.originalValue || value;
         const a = !this.countdown ? now : originalValue;
         const b = !this.countdown ? originalValue : now;
 

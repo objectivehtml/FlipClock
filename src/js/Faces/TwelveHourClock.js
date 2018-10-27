@@ -2,10 +2,6 @@ import TwentyFourHourClock from './TwentyFourHourClock';
 
 export default class TwelveHourClock extends TwentyFourHourClock {
 
-    defaultDataType() {
-        return Date;
-    }
-
     defaultAttributes() {
         return {
             showLabels: false,
@@ -14,7 +10,7 @@ export default class TwelveHourClock extends TwentyFourHourClock {
         };
     }
 
-    format(value) {
+    format(instance, value) {
         const hours = value.getHours();
 
 		const groups = [

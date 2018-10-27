@@ -19,7 +19,9 @@ export default class Timer extends Component {
      * @return Integer
      */
     get elapsed() {
-        return this.count * this.interval;
+        return !this.lastLoop ? 0 : this.lastLoop - (
+            this.started ? this.started.getTime() : new Date().getTime()
+        );
     }
 
     /**
@@ -70,8 +72,8 @@ export default class Timer extends Component {
 
         const loop = () => {
             if(Date.now() - this.lastLoop >= this.interval) {
-                this.lastLoop = Date.now();
                 callback.call(this, fn);
+                this.lastLoop = Date.now();
                 this.emit('interval');
                 this.count++;
             }

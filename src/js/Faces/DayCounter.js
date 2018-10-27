@@ -2,9 +2,9 @@ import HourCounter from './HourCounter';
 
 export default class DayCounter extends HourCounter {
 
-    format(value) {
-        const now = !this.timer.started ? new Date : value;
-        const originalValue = this.originalValue || value;
+    format(instance, value) {
+        const now = !instance.started ? new Date : value;
+        const originalValue = instance.originalValue || value;
         const a = !this.countdown ? now : originalValue;
         const b = !this.countdown ? originalValue : now;
 
