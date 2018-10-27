@@ -1,5 +1,5 @@
 import Face from '../Components/Face';
-import { isNull, isUndefined, isNumber, callback } from '../Helpers/Functions';
+import { noop, isNull, isUndefined, isNumber, callback } from '../Helpers/Functions';
 
 export default class MinuteCounter extends Face {
 
@@ -44,10 +44,12 @@ export default class MinuteCounter extends Face {
     }
 
     format(instance, value) {
+        const originalValue = instance.timer.isRunning ? this.originalValue : instance.originalValue;
+
         return [
-            [this.getMinutes(value, instance.timer.isRunning ? this.originalValue : instance.originalValue)],
-            [this.getSeconds(value, instance.timer.isRunning ? this.originalValue : instance.originalValue)]
-        ];
+            [this.getMinutes(value, originalValue)],
+            this.showSeconds ? [this.getSeconds(value, originalValue)] : null
+        ].filter(noop);
     }
 
     getMinutes(a, b) {

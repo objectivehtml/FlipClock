@@ -51,9 +51,16 @@ export default class FlipClock extends DomComponent {
             error(ConsoleMessages.face);
         }
 
-        this.$face = (Faces[value] || value).make(this.getPublicAttributes());
+        const currentFaceValue = this.value;
 
-        if(!this.value) {
+        this.$face = (Faces[value] || value).make(Object.assign(this.getPublicAttributes(), {
+            originalValue: this.face ? this.face.originalValue : undefined
+        }));
+
+        if(currentFaceValue) {
+            this.$face.value = this.face.createFaceValue(this, currentFaceValue.value);
+        }
+        else if(!this.value) {
             this.value = this.originalValue;
         }
 
@@ -82,7 +89,7 @@ export default class FlipClock extends DomComponent {
     }
 
     get value() {
-        return this.face.value;
+        return this.face ? this.face.value : null;
     }
 
     set value(value) {
