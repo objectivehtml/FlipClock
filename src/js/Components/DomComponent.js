@@ -1,7 +1,9 @@
 import Component from './Component';
+import language from '../Helpers/Language';
 import validate from '../Helpers/Validate';
 import translate from '../Helpers/Translate';
 import { error } from '../Helpers/Functions';
+import { isString } from '../Helpers/Functions';
 import ConsoleMessages from '../Config/ConsoleMessages';
 import { swap, createElement } from '../Helpers/Template';
 
@@ -64,6 +66,10 @@ export default class DomComponent extends Component {
     }
 
     set language(value) {
+        if(isString(value)) {
+            value = language(value);
+        }
+
         if(!validate(value, 'object')) {
             error(ConsoleMessages.language);
         }

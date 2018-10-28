@@ -2,12 +2,12 @@ import Face from '../Components/Face';
 
 export default class Counter extends Face {
 
-    increment(instance) {
-        instance.value = this.value.value + 1;
+    increment(instance, value = 1) {
+        instance.value = this.value.value + value;
     }
 
-    decrement(instance) {
-        instance.value = this.value.value - 1;
+    decrement(instance, value = 1) {
+        instance.value = this.value.value - value;
     }
 
 }

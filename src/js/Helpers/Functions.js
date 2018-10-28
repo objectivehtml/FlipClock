@@ -8,6 +8,12 @@ export function callback(fn) {
     }
 }
 
+export function round(value) {
+    return isNegativeZero(
+        value = isNegative(value) ? Math.ceil(value) : Math.floor(value)
+    ) ? ('-' + value).toString() : value;
+}
+
 export function noop(value) {
     return !isUndefined(value) && !isNull(value);
 }
@@ -36,6 +42,14 @@ export function ucfirst(string) {
 
 export function length(digits) {
     return deepFlatten(digits).length;
+}
+
+export function isNegativeZero(value) {
+    return 1 / Math.round(value) === -Infinity;
+}
+
+export function isNegative(value) {
+    return isNegativeZero(value) || value < 0;
 }
 
 export function isNull(value) {

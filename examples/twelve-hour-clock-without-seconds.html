@@ -2,25 +2,19 @@
 	<head>
 		<link rel="stylesheet" href="../dist/flipclock.css">
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-		<script src="../dist/flipclock.js"></script>		
+		<script src="../dist/flipclock.js"></script>
 	</head>
 	<body>
 		<div class="clock" style="margin:2em;"></div>
 
 		<script type="text/javascript">
-			var clock;
-			
-			$(document).ready(function() {
-				clock = $('.clock').FlipClock({
-					clockFace: 'TwelveHourClock',
-					clockFaceOptions: {
-						showSeconds: false
-					}
-				});
+			const el = document.querySelector('.clock');
+
+			const clock = new FlipClock(el, {
+				face: 'TwelveHourClock',
+				showSeconds: false
 			});
 		</script>
-		
+
 	</body>
 </html>

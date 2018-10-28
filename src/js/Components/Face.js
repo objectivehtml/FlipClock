@@ -20,8 +20,8 @@ export default class Face extends Component {
             animationRate: 500
         }, this.defaultAttributes(), attributes || {}));
 
-        if(value) {
-            this.value = !isNull(value) ? value : this.defaultValue();
+        if(value || this.defaultValue()) {
+            this.value = !isNull(value) && !isUndefined(value) ? value : this.defaultValue();
         }
     }
 
@@ -131,6 +131,7 @@ export default class Face extends Component {
     createFaceValue(instance, value) {
         return FaceValue.make(
             isFunction(value) && !value.name ? value() : value, {
+                minimumDigits: this.minimumDigits,
                 format: value => this.format(instance, value)
             }
         );

@@ -1,5 +1,8 @@
+import language from './Language';
 import { isString } from './Functions';
 
 export default function(value, from) {
-    return (isString(from || 'en-us') ? language(from) : from).dictionary[value] || value;
+    const lang = isString(from) ? language(from) : from;
+    const dictionary = lang.dictionary || lang;
+    return dictionary[value] || value;
 };

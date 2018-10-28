@@ -11,8 +11,11 @@ export default class TwelveHourClock extends TwentyFourHourClock {
     }
 
     format(instance, value) {
-        const hours = value.getHours();
+        if(!value) {
+            value = new Date;
+        }
 
+        const hours = value.getHours();
 		const groups = [
 			hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours),
 			value.getMinutes()

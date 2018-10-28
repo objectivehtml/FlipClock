@@ -1,5 +1,6 @@
 import Face from '../Components/Face';
-import { noop, isNull, isUndefined, isNumber, callback } from '../Helpers/Functions';
+import { noop, round, isNull, isUndefined, isNumber, callback } from '../Helpers/Functions';
+
 
 export default class MinuteCounter extends Face {
 
@@ -35,25 +36,25 @@ export default class MinuteCounter extends Face {
         throw new Error(`the stopAt property must be an instance of Date or Number.`);
     }
 
-    increment(instance, value) {
-        instance.value = new Date(this.value.value.getTime() + (new Date().getTime() - instance.timer.lastLoop));
+    increment(instance, value = 0) {
+        instance.value = new Date(this.value.value.getTime() + value + (new Date().getTime() - instance.timer.lastLoop));
     }
 
-    decrement(instance, value) {
-        instance.value = new Date(this.value.value.getTime() - (new Date().getTime() - instance.timer.lastLoop));
+    decrement(instance, value = 0) {
+        instance.value = new Date(this.value.value.getTime() - value - (new Date().getTime() - instance.timer.lastLoop));
     }
 
     format(instance, value) {
-        const originalValue = instance.timer.isRunning ? this.originalValue : instance.originalValue;
+        const started = instance.timer.isRunning ? instance.timer.started : new Date(Date.now() - 50);
 
         return [
-            [this.getMinutes(value, originalValue)],
-            this.showSeconds ? [this.getSeconds(value, originalValue)] : null
+            [this.getMinutes(value, started)],
+            this.showSeconds ? [this.getSeconds(value, started)] : null
         ].filter(noop);
     }
 
     getMinutes(a, b) {
-        return Math.floor(this.getTotalSeconds(a, b) / 60);
+        return round(this.getTotalSeconds(a, b) / 60);
     }
 
     getSeconds(a, b) {
@@ -63,7 +64,7 @@ export default class MinuteCounter extends Face {
     }
 
     getTotalSeconds(a, b) {
-        return Math.round((a.getTime() - b.getTime()) / 1000);
+        return a.getTime() === b.getTime() ? 0 : Math.round((a.getTime() - b.getTime()) / 1000);
     }
 
 }

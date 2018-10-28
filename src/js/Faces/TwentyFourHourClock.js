@@ -19,6 +19,10 @@ export default class TwentyFourHourClock extends Face {
     }
 
     format(instance, value) {
+        if(!value) {
+            value = new Date;
+        }
+        
         const groups = [
             [value.getHours()],
             [value.getMinutes()]
@@ -31,12 +35,12 @@ export default class TwentyFourHourClock extends Face {
         return groups;
     }
 
-    interval(instance, fn) {
-        instance.value = new Date;
+    increment(instance, offset = 0) {
+        instance.value = new Date(this.value.value.getTime() + offset + (new Date().getTime() - instance.timer.lastLoop));
+    }
 
-        callback.call(this, fn);
-
-        return this.emit('interval');
+    decrement(instance, offset = 0) {
+        instance.value = new Date(this.value.value.getTime() - offset - (new Date().getTime() - instance.timer.lastLoop));
     }
 
 }

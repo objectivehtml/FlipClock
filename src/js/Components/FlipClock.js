@@ -51,20 +51,19 @@ export default class FlipClock extends DomComponent {
             error(ConsoleMessages.face);
         }
 
-        const currentFaceValue = this.value;
-
         this.$face = (Faces[value] || value).make(Object.assign(this.getPublicAttributes(), {
             originalValue: this.face ? this.face.originalValue : undefined
         }));
 
-        if(currentFaceValue) {
-            this.$face.value = this.face.createFaceValue(this, currentFaceValue.value);
+        this.$face.initialized(this);
+
+        if(this.value) {
+            this.$face.value = this.face.createFaceValue(this, this.value.value);
         }
         else if(!this.value) {
             this.value = this.originalValue;
         }
 
-        this.$face.initialized(this);
         this.el && this.render();
     }
 
@@ -113,31 +112,11 @@ export default class FlipClock extends DomComponent {
     get originalValue() {
         return (
             isFunction(this.$originalValue) && !this.$originalValue.name
-        ) ? this.$originalValue() : this.$originalValue;
+        ) ? this.$originalValue() : (this.$originalValue || (this.face ? this.face.defaultValue() : null));
     }
 
     set originalValue(value) {
         this.$originalValue = value;
-    }
-
-    /*
-    bindFaceEvents() {
-        const fn = () => this.updated();
-
-        this.$face.off('updated', fn).on('updated', fn);
-
-        ['updated', 'start', 'stop', 'reset', 'interval'].forEach(event => {
-            const fn = () => this.emit(event);
-
-            this.face.off(event, fn).on(event, fn);
-        });
-    }
-    */
-
-    updated() {
-        this.render();
-
-        console.log('dated');
     }
 
     mount(el) {
@@ -193,6 +172,7 @@ export default class FlipClock extends DomComponent {
     }
 
     reset(fn) {
+        this.value = this.originalValue;
         this.timer.reset(() => this.interval(this, fn));
         this.face.reset(this);
 
