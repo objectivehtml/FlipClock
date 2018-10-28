@@ -167,7 +167,7 @@
 }
 
 .flip-clock-wrapper ul.play li.flip-clock-active {
-    @include animation(asd .5s .5s linear both);
+    @include animation(asd .01s .49s linear both);
     z-index: 2;
 }
 
@@ -213,9 +213,6 @@
 @include keyframes(asd) {
   0% {
     z-index:2;
-  }
-  20% {
-    z-index:4;
   }
   100% {
     z-index:4;
