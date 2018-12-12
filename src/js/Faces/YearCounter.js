@@ -1,5 +1,15 @@
 import WeekCounter from './WeekCounter';
 
+/**
+ * @class YearCounter
+ * @classdesc This face is meant to display a clock that shows years, weeks,
+ *     days, hours, minutes, and seconds.
+ * @extends Components.Face
+ * @param {(FaceValue|object)} value - The `Face` value. If not an instance
+ *     of FaceValue, this argument is assumed to be the instance attributes.
+ * @param {(object|undefined)} [attributes] - The instance attributes.
+ * @memberof Faces
+ */
 export default class YearCounter extends WeekCounter {
 
     format(instance, value) {

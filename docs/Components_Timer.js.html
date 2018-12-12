@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/Timer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/Timer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Component from './Component';
+import { isObject, isNumber, callback } from '../Helpers/Functions';
+
+export default class Timer extends Component {
+
+    /**
+     * Create a new `Timer` instance.
+     *
+     * @memberof Components
+     * @class Timer
+     * @extends Components.Component
+     * @param {(Object|Number)} interval - The interval passed as a `Number`,
+     *     or can set the attribute of the class with an object.
+     */
+    constructor(interval) {
+        super(Object.assign({
+            count: 0,
+            handle: null,
+            started: null,
+            running: false,
+            interval: isNumber(interval) ? interval : null,
+        }, isObject(interval) ? interval : null));
+    }
+
+    /**
+     * Gets the elapsed the time as an interger.
+     *
+     * @memberof Components.Timer
+     * @return {Number} The `elapsed` attribute.
+     */
+    get elapsed() {
+        return !this.lastLoop ? 0 : this.lastLoop - (
+            this.started ? this.started.getTime() : new Date().getTime()
+        );
+    }
+
+    /**
+     * Returns true is the timer is running.
+     *
+     * @memberof Components.Timer
+     * @return {boolean} - Returns `true` the `running` property is `true`
+     */
+    get isRunning() {
+        return this.running === true;
+    }
+
+    /**
+     * Returns true is the timer is not running.
+     *
+     * @memberof Components.Timer
+     * @return {boolean} - Returns `true` the `running` property is `false`
+     */
+    get isStopped() {
+        return this.running === false;
+    }
+
+    /**
+     * Resets the timer.
+     *
+     * @memberof Components.Timer
+     * @param  {(Function|undefined)} fn - The interval callback.
+     * @return {Timer} - The `Timer` instance.
+     */
+    reset(fn) {
+        this.stop(() => {
+            this.count = 0;
+            this.start(() => callback.call(this, fn));
+            this.emit('reset');
+        });
+
+        return this;
+    }
+
+    /**
+     * Starts the timer.
+     *
+     * @memberof Components.Timer
+     * @param  {Function} fn - The interval callback.
+     * @return {Timer} - The `Timer` instance.
+     */
+    start(fn) {
+        this.started = new Date;
+        this.lastLoop = Date.now();
+        this.running = true;
+        this.emit('start');
+
+        const loop = () => {
+            if(Date.now() - this.lastLoop >= this.interval) {
+                callback.call(this, fn);
+                this.lastLoop = Date.now();
+                this.emit('interval');
+                this.count++;
+            }
+
+            this.handle = window.requestAnimationFrame(loop);
+
+            return this;
+        };
+
+        return loop();
+    }
+
+    /**
+     * Stops the timer.
+     *
+     * @memberof Components.Timer
+     * @param  {Function} fn - The stop callback.
+     * @return {Timer} - The `Timer` instance.
+     */
+    stop(fn) {
+        if(this.isRunning) {
+            setTimeout(() => {
+                window.cancelAnimationFrame(this.handle);
+
+                this.running = false;
+
+                callback.call(this, fn);
+
+                this.emit('stop');
+            });
+        }
+
+        return this;
+    }
+
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Components.Component.html">Component</a></li><li><a href="Components.Divider.html">Divider</a></li><li><a href="Components.DomComponent.html">DomComponent</a></li><li><a href="Components.Face.html">Face</a></li><li><a href="Components.FaceValue.html">FaceValue</a></li><li><a href="Components.FlipClock.html">FlipClock</a></li><li><a href="Components.Group.html">Group</a></li><li><a href="Components.Label.html">Label</a></li><li><a href="Components.List.html">List</a></li><li><a href="Components.ListItem.html">ListItem</a></li><li><a href="Components.Timer.html">Timer</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li></ul><h3>Namespaces</h3><ul><li><a href="Components.html">Components</a></li><li><a href="Config.html">Config</a></li><li><a href="Faces.html">Faces</a></li><li><a href="Helpers.html">Helpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#dictionary">dictionary</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Dec 11 2018 17:57:10 GMT-0700 (Mountain Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

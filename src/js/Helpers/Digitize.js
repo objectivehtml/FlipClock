@@ -1,7 +1,18 @@
 import { flatten } from './Functions';
 import { deepFlatten } from './Functions';
 
-export default function digitize(value, options = {}) {
+/**
+ * Digitize a number, string, or an array into a digitized array. This function
+ * use by the `Face`, which convert the digitized array into an array of `List`
+ * instances.
+ *
+ * @function digitize
+ * @param  {*} value - The value to digitize.
+ * @param  {(Object|undefined)} [options] - The digitizer options.
+ * @return {Array} - The digitized array.
+ * @memberof Helpers
+ */
+export default function digitize(value, options) {
     options = Object.assign({
         minimumDigits: 0,
         prependLeadingZero: true

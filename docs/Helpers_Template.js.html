@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Helpers/Template.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Helpers/Template.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**  @namespace Helpers */
+
+import { noop } from './Functions';
+import { isArray } from './Functions';
+import { isObject } from './Functions';
+import { isString } from './Functions';
+import { deepFlatten } from './Functions';
+
+/**
+ * Swap a new DOM node with an existing one.
+ *
+ * @function swap
+ * @param  {HTMLElement} subject - The new DOM node.
+ * @param  {HTMLElement} existing - The existing DOM node.
+ * @return {HTMLElement} - Returns the new element if it was mounted, otherwise
+ *    the existing node is returned.
+ * @memberof Helpers
+ */
+export function swap(subject, existing) {
+	if(existing.parentNode) {
+		existing.parentNode.replaceChild(subject, existing);
+
+		return subject;
+	}
+
+	return existing;
+}
+
+/**
+ * Set the attribute of an element.
+ *
+ * @function setAttributes
+ * @param  {HTMLElement} el - The DOM node that will receive the attributes.
+ * @param  {Object|undefined} [attributes] - The attribute object, or if no object
+ *     is passed, then the action is ignored.
+ * @return {HTMLElement} el - The DOM node that received the attributes.
+ * @memberof Helpers
+ */
+export function setAttributes(el, attributes) {
+	if(isObject(attributes)) {
+		for(const i in attributes) {
+			el.setAttribute(i, attributes[i]);
+		}
+	}
+
+	return el;
+}
+
+/**
+ * Append an array of DOM nodes to a parent.
+ *
+ * @function appendChildren
+ * @param  {HTMLElement} el - The parent DOM node.
+ * @param  {Array|undefined} [children] - The array of children. If no array
+ *     is passed, then the method silently fails to run.
+ * @return {HTMLElement} el - The DOM node that received the attributes.
+ * @memberof Helpers
+ */
+export function appendChildren(el, children) {
+	if(isArray(children)) {
+		children.filter(noop).forEach(child => {
+			if(child instanceof HTMLElement) {
+				el.appendChild(child);
+			}
+		});
+	}
+
+	return el;
+}
+
+/**
+ * Create a new HTMLElement instance.
+ *
+ * @function createElement
+ * @param  {HTMLElement} el - The parent DOM node.
+ * @param  {Array|undefined} [children] - The array of children. If no array
+ *     is passed, then the method silently fails to run.
+ * @param  {Object|undefined} [attributes] - The attributes object.
+ * @return {HTMLElement} el - The DOM node that received the attributes.
+ * @memberof Helpers
+ */
+export function createElement(el, children, attributes) {
+	if(!(el instanceof HTMLElement)) {
+		el = document.createElement(el);
+	}
+
+	setAttributes(el, isObject(children) ? children : attributes);
+
+	if(!isObject(children) &amp;&amp; !isArray(children)) {
+		el.innerHTML = children;
+	}
+	else {
+		appendChildren(el, children)
+	}
+
+	return el;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Components.Component.html">Component</a></li><li><a href="Components.Divider.html">Divider</a></li><li><a href="Components.DomComponent.html">DomComponent</a></li><li><a href="Components.Face.html">Face</a></li><li><a href="Components.FaceValue.html">FaceValue</a></li><li><a href="Components.FlipClock.html">FlipClock</a></li><li><a href="Components.Group.html">Group</a></li><li><a href="Components.Label.html">Label</a></li><li><a href="Components.List.html">List</a></li><li><a href="Components.ListItem.html">ListItem</a></li><li><a href="Components.Timer.html">Timer</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li></ul><h3>Namespaces</h3><ul><li><a href="Components.html">Components</a></li><li><a href="Config.html">Config</a></li><li><a href="Faces.html">Faces</a></li><li><a href="Helpers.html">Helpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#dictionary">dictionary</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Dec 11 2018 17:57:10 GMT-0700 (Mountain Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

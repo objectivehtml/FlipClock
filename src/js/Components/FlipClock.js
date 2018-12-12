@@ -14,6 +14,16 @@ import { flatten, isString, isObject, isUndefined, isFunction, error } from '../
 
 export default class FlipClock extends DomComponent {
 
+    /**
+     * Create a new `FlipClock` instance.
+     *
+     * @memberof Components
+     * @class FlipClock
+     * @extends Components.DomComponent
+     * @param {HTMLElement} el - The HTML element used to bind clock DOM node.
+     * @param {*} value - The value that is passed to the clock face.
+     * @param {object|undefined} [attributes] - The instance attributes.
+     */
     constructor(el, value, attributes) {
         if(!validate(el, HTMLElement)) {
             error(ConsoleMessages.element);
@@ -42,10 +52,23 @@ export default class FlipClock extends DomComponent {
         this.mount(el);
     }
 
+    /**
+     * Get the clock `Face`.
+     *
+     * @memberof Components.FlipClock
+     * @return {Face} The `face` attribute.
+     */
     get face() {
         return this.$face;
     }
 
+    /**
+     * Sets the clock `Face`.
+     *
+     * @memberof Components.FlipClock
+     * @param  {Function|Face|string} value - The `Face` value.
+     * @return {void}
+     */
     set face(value) {
         if(!validate(value, [Face, 'string', 'function'])) {
             error(ConsoleMessages.face);
@@ -67,18 +90,44 @@ export default class FlipClock extends DomComponent {
         this.el && this.render();
     }
 
+    /**
+     * Get the `stopAt` attribute.
+     *
+     * @memberof Components.FlipClock
+     * @return {*} The `stopAt` value.
+     */
     get stopAt() {
         return isFunction(this.$stopAt) ? this.$stopAt(this) : this.$stopAt;
     }
 
+    /**
+     * Set the `stopAt` attribute.
+     *
+     * @memberof Components.FlipClock
+     * @param  {*} value - The `stopAt` value.
+     * @return {void}
+     */
     set stopAt(value) {
         this.$stopAt = value;
     }
 
+    /**
+     * Get the `Timer` instance.
+     *
+     * @memberof Components.FlipClock
+     * @return {Timer} The `timer` attribute.
+     */
     get timer() {
         return this.$timer;
     }
 
+    /**
+     * Set the `Timer` instance.
+     *
+     * @memberof Components.FlipClock
+     * @param  {Timer} timer - The `timer` attribute.
+     * @return {void}
+     */
     set timer(timer) {
         if(!validate(timer, Timer)) {
             error(ConsoleMessages.timer);
@@ -87,10 +136,23 @@ export default class FlipClock extends DomComponent {
         this.$timer = timer;
     }
 
+    /**
+     * Helper method to get the clock's `FaceValue` instance.
+     *
+     * @memberof Components.FlipClock
+     * @return {FaceValue|null} The `FaceValue` if set, otherwise `null`.
+     */
     get value() {
         return this.face ? this.face.value : null;
     }
 
+    /**
+     * Helper method to set the clock's `FaceValue` instance.
+     *
+     * @memberof Components.FlipClock
+     * @param  {*} value - The `value` attribute.
+     * @return {void}
+     */
     set value(value) {
         if(!this.face) {
             throw new Error('A face must be set before setting a value.')
@@ -109,16 +171,36 @@ export default class FlipClock extends DomComponent {
         this.el && this.render();
     }
 
+    /**
+     * Get the original value attribute.
+     *
+     * @memberof Components.FlipClock
+     * @return {*} - The `originalValue` attribute.
+     */
     get originalValue() {
         return (
             isFunction(this.$originalValue) && !this.$originalValue.name
         ) ? this.$originalValue() : (this.$originalValue || (this.face ? this.face.defaultValue() : null));
     }
 
+    /**
+     * Set the original value attribute.
+     *
+     * @memberof Components.FlipClock
+     * @param  {*} value - The `originalValue` attribute.
+     * @return {void}
+     */
     set originalValue(value) {
         this.$originalValue = value;
     }
 
+    /**
+     * Mount the clock to the parent DOM element.
+     *
+     * @memberof Components.FlipClock
+     * @param {HTMLElement} el - The parent `HTMLElement`.
+     * @return {FlipClock} - The `FlipClock` instance.
+     */
     mount(el) {
         super.mount(el);
 
@@ -127,6 +209,12 @@ export default class FlipClock extends DomComponent {
         return this;
     }
 
+    /**
+     * Render the clock's DOM nodes.
+     *
+     * @memberof Components.FlipClock
+     * @return {HTMLElement} The parent `HTMLElement`.
+     */
     render() {
         // Call the parent render function
         super.render();
@@ -143,10 +231,17 @@ export default class FlipClock extends DomComponent {
         // theme specific.
         this.face.rendered(this);
 
-        // Return the rendered element.
+        // Return the rendered `HTMLElement`.
         return this.el;
     }
 
+    /**
+     * Start the clock.
+     *
+     * @memberof Components.FlipClock
+     * @param  {Function} fn - The interval callback.
+     * @return {FlipClock} - The `FlipClock` instance.
+     */
     start(fn) {
         if(!this.timer.started) {
             this.value = this.originalValue;
@@ -164,6 +259,13 @@ export default class FlipClock extends DomComponent {
         return this.emit('start');
     }
 
+    /**
+     * Stop the clock.
+     *
+     * @memberof Components.FlipClock
+     * @param  {Function} fn - The stop callback.
+     * @return {FlipClock} - The `FlipClock` instance.
+     */
     stop(fn) {
         this.timer.stop(fn);
         this.face.stopped(this);
@@ -171,6 +273,13 @@ export default class FlipClock extends DomComponent {
         return this.emit('stop');
     }
 
+    /**
+     * Reset the clock to the original value.
+     *
+     * @memberof Components.FlipClock
+     * @param  {Function} fn - The interval callback.
+     * @return {FlipClock} - The `FlipClock` instance.
+     */
     reset(fn) {
         this.value = this.originalValue;
         this.timer.reset(() => this.interval(this, fn));
@@ -179,14 +288,44 @@ export default class FlipClock extends DomComponent {
         return this.emit('reset');
     }
 
+    /**
+     * Helper method to increment the clock's value.
+     *
+     * @memberof Components.FlipClock
+     * @param  {*|undefined} value - Increment the clock by the specified value.
+     *     If no value is passed, then the default increment is determined by
+     *     the Face, which is usually `1`.     *
+     * @return {FlipClock} - The `FlipClock` instance.
+     */
     increment(value) {
         this.face.increment(this, value);
+
+        return this;
     }
 
+    /**
+     * Helper method to decrement the clock's value.
+     *
+     * @memberof Components.FlipClock
+     * @param  {*|undefined} value - Decrement the clock by the specified value.
+     *     If no value is passed, then the default decrement is determined by
+     *     the `Face`, which is usually `1`.
+     * @return {FlipClock} - The `FlipClock` instance.
+     */
     decrement(value) {
         this.face.decrement(this, value);
+
+        return this;
     }
 
+    /**
+     * Helper method to instantiate a new `Divider`.
+     *
+     * @memberof Components.FlipClock
+     * @param  {object|undefined} [attributes] - The attributes passed to the
+     *     `Divider` instance.
+     * @return {Divider} - The instantiated Divider.
+     */
     createDivider(attributes) {
         return Divider.make(Object.assign({
             theme: this.theme,
@@ -194,6 +333,15 @@ export default class FlipClock extends DomComponent {
         }, attributes));
     }
 
+    /**
+     * Helper method to instantiate a new `List`.
+     *
+     * @memberof Components.FlipClock
+     * @param  {*} value - The `List` value.
+     * @param  {object|undefined} [attributes] - The attributes passed to the
+     *     `List` instance.
+     * @return {List} - The instantiated `List`.
+     */
     createList(value, attributes) {
         return List.make(value, Object.assign({
             theme: this.theme,
@@ -201,6 +349,15 @@ export default class FlipClock extends DomComponent {
         }, attributes));
     }
 
+    /**
+     * Helper method to instantiate a new `Label`.
+     *
+     * @memberof Components.FlipClock
+     * @param  {*} value - The `Label` value.
+     * @param  {object|undefined} [attributes] - The attributes passed to the
+     *     `Label` instance.
+     * @return {Label} - The instantiated `Label`.
+     */
     createLabel(value, attributes) {
         return Label.make(value, Object.assign({
             theme: this.theme,
@@ -208,6 +365,15 @@ export default class FlipClock extends DomComponent {
         }, attributes));
     }
 
+    /**
+     * Helper method to instantiate a new `Group`.
+     *
+     * @memberof Components.FlipClock
+     * @param  {Array} items - An array of `List` items to group.
+     * @param  {Group|undefined} [attributes] - The attributes passed to the
+     *     `Group` instance.
+     * @return {Group} - The instantiated `Group`.
+     */
     createGroup(items, attributes) {
         return Group.make(items, Object.assign({
             theme: this.theme,
@@ -215,10 +381,24 @@ export default class FlipClock extends DomComponent {
         }, attributes));
     }
 
+    /**
+     * Get the global default values.
+     *
+     * @memberof Components.FlipClock
+     * @return {object}
+     */
     static get defaults() {
         return DefaultValues;
     }
 
+    /**
+     * Helper method to set the default `Face` value.
+     *
+     * @memberof Components.FlipClock
+     * @param  {Face} value - The default `Face` class.This should be a
+     *     constructor.
+     * @return {void}
+     */
     static setDefaultFace(value) {
         if(!validate(value, Face)) {
             error(ConsoleMessages.face);
@@ -227,6 +407,13 @@ export default class FlipClock extends DomComponent {
         DefaultValues.face = value;
     }
 
+    /**
+     * Helper method to set the default theme.
+     *
+     * @memberof Components.FlipClock
+     * @param {object} value - The default theme.
+     * @return {void}
+     */
     static setDefaultTheme(value) {
         if(!validate(value, 'object')) {
             error(ConsoleMessages.theme);
@@ -235,6 +422,13 @@ export default class FlipClock extends DomComponent {
         DefaultValues.theme = value
     }
 
+    /**
+     * Helper method to set the default language.
+     *
+     * @memberof Components.FlipClock
+     * @param {object} value - The default language.
+     * @return {void}
+     */
     static setDefaultLanguage(value) {
         if(!validate(value, 'object')) {
             error(ConsoleMessages.language);

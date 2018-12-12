@@ -1,3 +1,8 @@
+/**
+ * @alias ConsoleMessages
+ * @type {object}
+ * @memberof Config
+ */
 export default {
     items: 'The items property must be an array.',
     theme: 'The theme property must be an object.',

@@ -1,3 +1,11 @@
+/**
+ * Faces are classes that hook into the core of Flipclock to provide unique
+ * functionality. The core doesn't do a lot, except facilitate the interaction
+ * between all the components. The Face is what makes the clock "tick".
+ *
+ * @namespace Faces
+ */
+
 import Counter from './Counter';
 import DayCounter from './DayCounter';
 import HourCounter from './HourCounter';

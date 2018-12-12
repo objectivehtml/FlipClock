@@ -1,7 +1,16 @@
 import Face from '../Components/Face';
 import { noop, round, isNull, isUndefined, isNumber, callback } from '../Helpers/Functions';
 
-
+/**
+ * @class MinuteCounter
+ * @classdesc This face is meant to display a clock that shows minutes, and
+ *     seconds.
+ * @extends Components.Face
+ * @param {(FaceValue|object)} value - The `Face` value. If not an instance
+ *     of FaceValue, this argument is assumed to be the instance attributes.
+ * @param {(object|undefined)} [attributes] - The instance attributes.
+ * @memberof Faces
+ */
 export default class MinuteCounter extends Face {
 
     defaultDataType() {

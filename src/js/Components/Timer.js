@@ -1,22 +1,32 @@
 import Component from './Component';
-import { isObject, callback } from '../Helpers/Functions';
+import { isObject, isNumber, callback } from '../Helpers/Functions';
 
 export default class Timer extends Component {
 
+    /**
+     * Create a new `Timer` instance.
+     *
+     * @memberof Components
+     * @class Timer
+     * @extends Components.Component
+     * @param {(Object|Number)} interval - The interval passed as a `Number`,
+     *     or can set the attribute of the class with an object.
+     */
     constructor(interval) {
         super(Object.assign({
             count: 0,
             handle: null,
             started: null,
             running: false,
-            interval: interval
+            interval: isNumber(interval) ? interval : null,
         }, isObject(interval) ? interval : null));
     }
 
     /**
-     * Gets the elapsed the time as an interger
+     * Gets the elapsed the time as an interger.
      *
-     * @return Integer
+     * @memberof Components.Timer
+     * @return {Number} The `elapsed` attribute.
      */
     get elapsed() {
         return !this.lastLoop ? 0 : this.lastLoop - (
@@ -27,7 +37,8 @@ export default class Timer extends Component {
     /**
      * Returns true is the timer is running.
      *
-     * @return Boolean
+     * @memberof Components.Timer
+     * @return {boolean} - Returns `true` the `running` property is `true`
      */
     get isRunning() {
         return this.running === true;
@@ -36,17 +47,19 @@ export default class Timer extends Component {
     /**
      * Returns true is the timer is not running.
      *
-     * @return Boolean
+     * @memberof Components.Timer
+     * @return {boolean} - Returns `true` the `running` property is `false`
      */
     get isStopped() {
         return this.running === false;
     }
 
     /**
-     * Resets the timer. This method is chainable.
+     * Resets the timer.
      *
-     * @param  Function  fn
-     * @return this
+     * @memberof Components.Timer
+     * @param  {(Function|undefined)} fn - The interval callback.
+     * @return {Timer} - The `Timer` instance.
      */
     reset(fn) {
         this.stop(() => {
@@ -59,10 +72,11 @@ export default class Timer extends Component {
     }
 
     /**
-     * Starts the timer. This method is chainable.
+     * Starts the timer.
      *
-     * @param  Function  fn
-     * @return this
+     * @memberof Components.Timer
+     * @param  {Function} fn - The interval callback.
+     * @return {Timer} - The `Timer` instance.
      */
     start(fn) {
         this.started = new Date;
@@ -87,10 +101,11 @@ export default class Timer extends Component {
     }
 
     /**
-     * Stops the timer. This method is chainable.
+     * Stops the timer.
      *
-     * @param  Function fn
-     * @return this
+     * @memberof Components.Timer
+     * @param  {Function} fn - The stop callback.
+     * @return {Timer} - The `Timer` instance.
      */
     stop(fn) {
         if(this.isRunning) {

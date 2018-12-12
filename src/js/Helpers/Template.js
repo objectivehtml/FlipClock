@@ -1,23 +1,41 @@
+/**  @namespace Helpers */
+
 import { noop } from './Functions';
 import { isArray } from './Functions';
 import { isObject } from './Functions';
 import { isString } from './Functions';
 import { deepFlatten } from './Functions';
 
-export function when(condition, html) {
-	return condition === true ? html : '';
-}
-
-export function swap(el, existing) {
+/**
+ * Swap a new DOM node with an existing one.
+ *
+ * @function swap
+ * @param  {HTMLElement} subject - The new DOM node.
+ * @param  {HTMLElement} existing - The existing DOM node.
+ * @return {HTMLElement} - Returns the new element if it was mounted, otherwise
+ *    the existing node is returned.
+ * @memberof Helpers
+ */
+export function swap(subject, existing) {
 	if(existing.parentNode) {
-		existing.parentNode.replaceChild(el, existing);
-		
-		return el;
+		existing.parentNode.replaceChild(subject, existing);
+
+		return subject;
 	}
 
 	return existing;
 }
 
+/**
+ * Set the attribute of an element.
+ *
+ * @function setAttributes
+ * @param  {HTMLElement} el - The DOM node that will receive the attributes.
+ * @param  {Object|undefined} [attributes] - The attribute object, or if no object
+ *     is passed, then the action is ignored.
+ * @return {HTMLElement} el - The DOM node that received the attributes.
+ * @memberof Helpers
+ */
 export function setAttributes(el, attributes) {
 	if(isObject(attributes)) {
 		for(const i in attributes) {
@@ -28,6 +46,16 @@ export function setAttributes(el, attributes) {
 	return el;
 }
 
+/**
+ * Append an array of DOM nodes to a parent.
+ *
+ * @function appendChildren
+ * @param  {HTMLElement} el - The parent DOM node.
+ * @param  {Array|undefined} [children] - The array of children. If no array
+ *     is passed, then the method silently fails to run.
+ * @return {HTMLElement} el - The DOM node that received the attributes.
+ * @memberof Helpers
+ */
 export function appendChildren(el, children) {
 	if(isArray(children)) {
 		children.filter(noop).forEach(child => {
@@ -40,6 +68,17 @@ export function appendChildren(el, children) {
 	return el;
 }
 
+/**
+ * Create a new HTMLElement instance.
+ *
+ * @function createElement
+ * @param  {HTMLElement} el - The parent DOM node.
+ * @param  {Array|undefined} [children] - The array of children. If no array
+ *     is passed, then the method silently fails to run.
+ * @param  {Object|undefined} [attributes] - The attributes object.
+ * @return {HTMLElement} el - The DOM node that received the attributes.
+ * @memberof Helpers
+ */
 export function createElement(el, children, attributes) {
 	if(!(el instanceof HTMLElement)) {
 		el = document.createElement(el);
@@ -56,20 +95,3 @@ export function createElement(el, children, attributes) {
 
 	return el;
 }
-
-/*
-export default function(value, attributes) {
-	const template = document.createElement('template');
-
-    template.innerHTML = isArray(value) ?
-		deepFlatten(value).filter(noop).join('') : value;
-
-	if(isObject(attributes)) {
-		for(const i in attributes) {
-			template.content.firstChild.setAttribute(i, attributes[i]);
-		}
-	}
-
-    return template.content.firstChild;
-}
-*/

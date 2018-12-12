@@ -18,7 +18,6 @@
         }
     },
     "plugins": [
-        "@babel/plugin-proposal-export-default-from",
-        "lodash"
+        "@babel/plugin-proposal-export-default-from"
     ]
 }

@@ -9,6 +9,14 @@ import { swap, createElement } from '../Helpers/Template';
 
 export default class DomComponent extends Component {
 
+    /**
+     * An abstract class that all other DOM components can extend.
+     *
+     * @memberof Components
+     * @class DomComponent
+     * @extends Components.Component
+     * @param {(object|undefined)} [attributes] - The instance attributes.
+     */
     constructor(attributes) {
         super(Object.assign({
             parent: null
@@ -29,10 +37,23 @@ export default class DomComponent extends Component {
         }
     }
 
+    /**
+     * Get the component's top level DOM node.
+     *
+     * @memberof Components.DomComponent
+     * @return {HTMLElement} - The `el` attribute.
+     */
     get el() {
         return this.$el;
     }
 
+    /**
+     * Set the component's top level DOM node.
+     *
+     * @memberof Components.DomComponent
+     * @param  {(null|HTMLElement)} value - The `el` attribute.
+     * @return {void}
+     */
     set el(value) {
         if(!validate(value, null, HTMLElement)) {
             error(ConsoleMessages.element);
@@ -41,18 +62,45 @@ export default class DomComponent extends Component {
         this.$el = value;
     }
 
+    /**
+     * Get the `parent` attribute. Parent is set when `DomComponent` instances are
+     * mounted.
+     *
+     * @memberof Components.DomComponent
+     * @return {DomComponent} - The `parent` attribute.
+     */
     get parent() {
         return this.$parent;
     }
 
+    /**
+     * Set the parent attribute.
+     *
+     * @memberof Components.DomComponent
+     * @param  {DomComponent} parent - The `parent` attribute value.
+     * @return {DomComponent} - The `parent` attribute.
+     */
     set parent(parent) {
         this.$parent = parent;
     }
 
+    /**
+     * Get the `theme` attribute.
+     *
+     * @memberof Components.DomComponent
+     * @return {DomComponent} - The `theme` attribute.
+     */
     get theme() {
         return this.$theme;
     }
 
+    /**
+     * Set the `theme` attribute.
+     *
+     * @memberof Components.DomComponent
+     * @param  {object} value - The `theme` attribute.
+     * @return {void}
+     */
     set theme(value) {
         if(!validate(value, 'object')) {
             error(ConsoleMessages.value);
@@ -61,10 +109,23 @@ export default class DomComponent extends Component {
         this.$theme = value;
     }
 
+    /**
+     * Get the language attribute.
+     *
+     * @memberof Components.DomComponent
+     * @return {object} - The `language` attribute.
+     */
     get language() {
         return this.$language;
     }
 
+    /**
+     * Set the language attribute.
+     *
+     * @memberof Components.DomComponent
+     * @param  {object} value - The `language` attribute.
+     * @return {object} - The `language` attribute.
+     */
     set language(value) {
         if(isString(value)) {
             value = language(value);
@@ -77,14 +138,34 @@ export default class DomComponent extends Component {
         this.$language = value;
     }
 
-    translate(key) {
-        return translate(key, this.language);
+    /**
+     * Translate a string.
+     *
+     * @memberof Components.DomComponent
+     * @param  {string} string - The string to translate.
+     * @return {string} - The translated string. If no tranlation found, the
+     *     untranslated string is returned.
+     */
+    translate(string) {
+        return translate(string, this.language);
     }
 
-    t(key) {
-        return this.translate(key);
+    /**
+     * Alias to translate(string);
+     *
+     * @memberof Components.DomComponent
+     * @alias DomComponent.translate
+     */
+    t(string) {
+        return this.translate(string);
     }
 
+    /**
+     * Render the DOM component.
+     *
+     * @memberof Components.DomComponent
+     * @return {HTMLElement} - The `el` attribute.
+     */
 	render() {
         const el = createElement('div', {
             class: this.className === 'flip-clock' ? this.className : 'flip-clock-' + this.className
@@ -102,7 +183,17 @@ export default class DomComponent extends Component {
         return this.el;
 	}
 
-    mount(parent, before) {
+    /**
+     * Mount a DOM component to a parent node.
+     *
+     * @memberof Components.DomComponent
+     * @param  {HTMLElement} parent - The parent DOM node.
+     * @param  {(false|HTMLElement)} [before=false] - If `false`, element is
+     *     appended to the parent node. If an instance of an `HTMLElement`,
+     *     the component will be inserted before the specified element.
+     * @return {HTMLElement} - The `el` attribute.
+     */
+    mount(parent, before = false) {
         this.render();
         this.parent = parent;
 

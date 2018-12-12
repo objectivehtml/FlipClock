@@ -1,4 +1,6 @@
-import pkg from "./package.json";
+import rollup from 'rollup';
+import { exec } from 'child_process';
+import pkg from './package.json';
 import { kebabCase } from 'lodash';
 import { camelCase } from 'lodash';
 import { upperFirst } from 'lodash';
@@ -9,7 +11,7 @@ import serve from 'rollup-plugin-serve';
 import replace from 'rollup-plugin-replace';
 import progress from 'rollup-plugin-progress';
 import commonjs from 'rollup-plugin-commonjs';
-import { eslint } from "rollup-plugin-eslint";
+import { eslint } from 'rollup-plugin-eslint';
 import globals from 'rollup-plugin-node-globals';
 import resolve from 'rollup-plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
@@ -117,7 +119,7 @@ if(process.env.ROLLUP_WATCH === 'true') {
 }
 
 // Export the config object
-export default [{
+const config = [{
     input: MAINJS,
     output: {
         name: NAMESPACE,
@@ -137,9 +139,22 @@ export default [{
         file: `${DIST}${FILENAME}.es.js`,
         sourcemap: (process.env.ROLLUP_WATCH ? 'inline' : true),
         globals: OUTPUT_GLOBALS,
-        //exports: 'named',
     },
     watch: WATCH_OPTIONS,
     external: EXTERNAL,
     plugins: plugins
 } : null)].filter(value => value !== null);
+
+const watcher = rollup.watch(config);
+
+watcher.on('event', event => {
+    if(event.code === 'END') {
+        exec('npm run docs;', function(error, stdout, stderr) {
+            if (error) {
+                console.log(error.code);
+            }
+        });
+    }
+});
+
+export default config;
