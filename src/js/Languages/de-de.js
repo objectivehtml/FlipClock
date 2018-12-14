@@ -1,7 +1,13 @@
 /**
- * FlipClock German Language Pack
- *
- * This class will used to translate tokens into the German language.
+ * @classdesc German Language Pack
+ * @desc This class will used to translate tokens into the German language.
+ * @namespace Languages.German
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.German
  */
 export const dictionary = {
 	'years'   : 'Jahre',
@@ -12,4 +18,9 @@ export const dictionary = {
 	'seconds' : 'Sekunden'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.German
+ */
 export const aliases = ['de', 'de-de', 'german'];

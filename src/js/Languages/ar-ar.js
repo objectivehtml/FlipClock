@@ -1,7 +1,13 @@
 /**
- * FlipClock Arabic Language Pack
- *
- * This class will be used to translate tokens into the Arabic language.
+ * @classdesc Arabic Language Pack
+ * @desc This class will be used to translate tokens into the Arabic language.
+ * @namespace Languages.Arabic
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.Arabic
  */
 export const dictionary = {
     'years'   : 'سنوات',
@@ -12,4 +18,9 @@ export const dictionary = {
     'seconds' : 'ثواني'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.Arabic
+ */
 export const aliases = ['ar', 'ar-ar', 'arabic'];

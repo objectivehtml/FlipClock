@@ -1,7 +1,13 @@
 /**
- * FlipClock Chinese Language Pack
- *
- * This class will used to translate tokens into the Chinese language.
+ * @classdesc Chinese Language Pack
+ * @desc This class will used to translate tokens into the Chinese language.
+ * @namespace Languages.Chinese
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.Chinese
  */
 export const dictionary = {
 	'years'   : '年',
@@ -12,4 +18,9 @@ export const dictionary = {
 	'seconds' : '秒'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.Chinese
+ */
 export const aliases = ['zh', 'zh-cn', 'chinese'];

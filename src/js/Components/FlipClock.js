@@ -17,9 +17,8 @@ export default class FlipClock extends DomComponent {
     /**
      * Create a new `FlipClock` instance.
      *
-     * @memberof Components
      * @class FlipClock
-     * @extends Components.DomComponent
+     * @extends DomComponent
      * @param {HTMLElement} el - The HTML element used to bind clock DOM node.
      * @param {*} value - The value that is passed to the clock face.
      * @param {object|undefined} [attributes] - The instance attributes.
@@ -33,7 +32,7 @@ export default class FlipClock extends DomComponent {
             attributes = value;
             value = null;
         }
-
+        
         const face = attributes.face || DefaultValues.face;
 
         delete attributes.face;
@@ -55,7 +54,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Get the clock `Face`.
      *
-     * @memberof Components.FlipClock
      * @return {Face} The `face` attribute.
      */
     get face() {
@@ -65,7 +63,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Sets the clock `Face`.
      *
-     * @memberof Components.FlipClock
      * @param  {Function|Face|string} value - The `Face` value.
      * @return {void}
      */
@@ -93,7 +90,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Get the `stopAt` attribute.
      *
-     * @memberof Components.FlipClock
      * @return {*} The `stopAt` value.
      */
     get stopAt() {
@@ -103,7 +99,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Set the `stopAt` attribute.
      *
-     * @memberof Components.FlipClock
      * @param  {*} value - The `stopAt` value.
      * @return {void}
      */
@@ -114,7 +109,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Get the `Timer` instance.
      *
-     * @memberof Components.FlipClock
      * @return {Timer} The `timer` attribute.
      */
     get timer() {
@@ -124,7 +118,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Set the `Timer` instance.
      *
-     * @memberof Components.FlipClock
      * @param  {Timer} timer - The `timer` attribute.
      * @return {void}
      */
@@ -139,7 +132,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to get the clock's `FaceValue` instance.
      *
-     * @memberof Components.FlipClock
      * @return {FaceValue|null} The `FaceValue` if set, otherwise `null`.
      */
     get value() {
@@ -149,7 +141,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to set the clock's `FaceValue` instance.
      *
-     * @memberof Components.FlipClock
      * @param  {*} value - The `value` attribute.
      * @return {void}
      */
@@ -174,7 +165,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Get the original value attribute.
      *
-     * @memberof Components.FlipClock
      * @return {*} - The `originalValue` attribute.
      */
     get originalValue() {
@@ -186,7 +176,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Set the original value attribute.
      *
-     * @memberof Components.FlipClock
      * @param  {*} value - The `originalValue` attribute.
      * @return {void}
      */
@@ -197,7 +186,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Mount the clock to the parent DOM element.
      *
-     * @memberof Components.FlipClock
      * @param {HTMLElement} el - The parent `HTMLElement`.
      * @return {FlipClock} - The `FlipClock` instance.
      */
@@ -212,7 +200,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Render the clock's DOM nodes.
      *
-     * @memberof Components.FlipClock
      * @return {HTMLElement} The parent `HTMLElement`.
      */
     render() {
@@ -238,7 +225,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Start the clock.
      *
-     * @memberof Components.FlipClock
      * @param  {Function} fn - The interval callback.
      * @return {FlipClock} - The `FlipClock` instance.
      */
@@ -262,7 +248,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Stop the clock.
      *
-     * @memberof Components.FlipClock
      * @param  {Function} fn - The stop callback.
      * @return {FlipClock} - The `FlipClock` instance.
      */
@@ -276,7 +261,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Reset the clock to the original value.
      *
-     * @memberof Components.FlipClock
      * @param  {Function} fn - The interval callback.
      * @return {FlipClock} - The `FlipClock` instance.
      */
@@ -291,7 +275,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to increment the clock's value.
      *
-     * @memberof Components.FlipClock
      * @param  {*|undefined} value - Increment the clock by the specified value.
      *     If no value is passed, then the default increment is determined by
      *     the Face, which is usually `1`.     *
@@ -306,7 +289,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to decrement the clock's value.
      *
-     * @memberof Components.FlipClock
      * @param  {*|undefined} value - Decrement the clock by the specified value.
      *     If no value is passed, then the default decrement is determined by
      *     the `Face`, which is usually `1`.
@@ -321,7 +303,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to instantiate a new `Divider`.
      *
-     * @memberof Components.FlipClock
      * @param  {object|undefined} [attributes] - The attributes passed to the
      *     `Divider` instance.
      * @return {Divider} - The instantiated Divider.
@@ -336,7 +317,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to instantiate a new `List`.
      *
-     * @memberof Components.FlipClock
      * @param  {*} value - The `List` value.
      * @param  {object|undefined} [attributes] - The attributes passed to the
      *     `List` instance.
@@ -352,7 +332,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to instantiate a new `Label`.
      *
-     * @memberof Components.FlipClock
      * @param  {*} value - The `Label` value.
      * @param  {object|undefined} [attributes] - The attributes passed to the
      *     `Label` instance.
@@ -368,8 +347,7 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to instantiate a new `Group`.
      *
-     * @memberof Components.FlipClock
-     * @param  {Array} items - An array of `List` items to group.
+     * @param  {array} items - An array of `List` items to group.
      * @param  {Group|undefined} [attributes] - The attributes passed to the
      *     `Group` instance.
      * @return {Group} - The instantiated `Group`.
@@ -384,7 +362,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Get the global default values.
      *
-     * @memberof Components.FlipClock
      * @return {object}
      */
     static get defaults() {
@@ -394,7 +371,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to set the default `Face` value.
      *
-     * @memberof Components.FlipClock
      * @param  {Face} value - The default `Face` class.This should be a
      *     constructor.
      * @return {void}
@@ -410,7 +386,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to set the default theme.
      *
-     * @memberof Components.FlipClock
      * @param {object} value - The default theme.
      * @return {void}
      */
@@ -425,7 +400,6 @@ export default class FlipClock extends DomComponent {
     /**
      * Helper method to set the default language.
      *
-     * @memberof Components.FlipClock
      * @param {object} value - The default language.
      * @return {void}
      */

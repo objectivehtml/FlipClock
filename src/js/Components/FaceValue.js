@@ -8,9 +8,8 @@ export default class FaceValue extends Component {
     /**
      * The `FaceValue` class handles all the digitizing for the `Face`.
      *
-     * @memberof Components
      * @class FaceValue
-     * @extends Components.Component
+     * @extends Component
      * @param {*} value - The `FaceValue`'s actual value. Most likely should
      *     string, number, or Date. But since the Face handles the value, it
      *     could be anything.
@@ -31,7 +30,6 @@ export default class FaceValue extends Component {
     /**
      * Get the `digits` attribute.
      *
-     * @memberof Components.FaceValue
      * @return {(Array|undefined)} - The `digits` attribute.
      */
     get digits() {
@@ -41,8 +39,7 @@ export default class FaceValue extends Component {
     /**
      * Set `digits` attribute.
      *
-     * @memberof Components.FaceValue
-     * @param  {Array} value - An array of digits/characters.
+     * @param  {array} value - An array of digits/characters.
      * @return {void}
      */
     set digits(value) {
@@ -53,7 +50,6 @@ export default class FaceValue extends Component {
     /**
      * Get the `value` attribute.
      *
-     * @memberof Components.FaceValue
      * @return {*} - The `value` attribute.
      */
     get value() {
@@ -64,7 +60,6 @@ export default class FaceValue extends Component {
      * Set `value` attribute. Also digitizes the new value, and sets the
      * `digits` attributes
      *
-     * @memberof Components.FaceValue
      * @param  {*} value - The `value` attribute.
      * @return {void}
      */
@@ -79,7 +74,6 @@ export default class FaceValue extends Component {
     /**
      * Returns `true` if the `value` attribute is not a number.
      *
-     * @memberof Components.FaceValue
      * @return {boolean} - `true` is the value is not a number.
      */
     isNaN() {
@@ -89,7 +83,6 @@ export default class FaceValue extends Component {
     /**
      * Returns `true` if the `value` attribute is a number.
      *
-     * @memberof Components.FaceValue
      * @return {boolean} - `true` is the value is a number.
      */
     isNumber() {
@@ -101,7 +94,6 @@ export default class FaceValue extends Component {
      * cloned instance. Used for copying the current instance options and
      * methods, but setting a new value.
      *
-     * @memberof Components.FaceValue
      * @param  {*} value - The n
      * @param {(object|undefined)} [attributes] - The instance attributes.
      * @return {FaceValue} - The cloned `FaceValue`.

@@ -1,7 +1,13 @@
 /**
- * FlipClock Italian Language Pack
- *
- * This class will used to translate tokens into the Italian language.
+ * @classdesc Italian Language Pack
+ * @desc This class will used to translate tokens into the Italian language.
+ * @namespace Languages.Italian
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.Italian
  */
 export const dictionary = {
 	'years'   : 'Anni',
@@ -12,4 +18,9 @@ export const dictionary = {
 	'seconds' : 'Secondi'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.Italian
+ */
 export const aliases = ['da', 'da-dk', 'danish'];

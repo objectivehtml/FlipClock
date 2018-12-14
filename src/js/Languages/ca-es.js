@@ -1,7 +1,13 @@
 /**
- * FlipClock Catalan Language Pack
- *
- * This class will used to translate tokens into the Catalan language.
+ * @classdesc Catalan Language Pack
+ * @desc This class will used to translate tokens into the Catalan language.
+ * @namespace Languages.Catalan
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.Catalan
  */
 export const dictionary = {
     'years' : 'Anys',
@@ -12,4 +18,9 @@ export const dictionary = {
     'seconds' : 'Segons'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.Catalan
+ */
 export const aliases = ['ca', 'ca-es', 'catalan'];

@@ -5,7 +5,7 @@ import { English } from '../Languages';
 /**
  * @alias DefaultValues
  * @type {object}
- * @memberof Config
+ * @memberof module:Config/DefaultValues
  */
 export default {
     face: Counter,

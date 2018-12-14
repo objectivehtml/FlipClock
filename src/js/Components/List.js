@@ -12,9 +12,8 @@ export default class List extends DomComponent {
      * create flip effects. In the context of FlipClock.js a `List` represents
      * one single digit.
      *
-     * @memberof Components
      * @class List
-     * @extends Components.DomComponent
+     * @extends DomComponent
      * @param {Number|String|Object} label - The active value. If an object, it
      * is assumed that it is the instance attributes.
      * @param {object|undefined} [attributes] - The instance attributes.
@@ -29,7 +28,6 @@ export default class List extends DomComponent {
     /**
      * Get the `value` attribute.
      *
-     * @memberof Components.List
      * @return {(Number|String)} - The `value` attribute.
      */
     get value() {
@@ -39,8 +37,7 @@ export default class List extends DomComponent {
     /**
      * Set the `value` attribute.
      *
-     * @memberof Components.List
-     * @param  {Array} value - The `value` attribute.
+     * @param  {array} value - The `value` attribute.
      * @return {(Number|String)} - The `value` attribute.
      */
     set value(value) {
@@ -50,7 +47,6 @@ export default class List extends DomComponent {
     /**
      * Get the `items` attribute.
      *
-     * @memberof Components.List
      * @return {(Number|String)} - The `items` attribute.
      */
     get items() {
@@ -60,8 +56,7 @@ export default class List extends DomComponent {
     /**
      * Set the `items` attribute.
      *
-     * @memberof Components.List
-     * @param  {Array} value - The `items` attribute.
+     * @param  {array} value - The `items` attribute.
      * @return {(Number|String)} - The `items` attribute.
      */
     set items(value) {
@@ -71,7 +66,6 @@ export default class List extends DomComponent {
     /**
      * Helper method to instantiate a new `ListItem`.
      *
-     * @memberof Components.List
      * @param  {(Number|String)} value - The `ListItem` value.
      * @param  {(Object|undefined)} [attributes] - The instance attributes.
      * @return {ListItem} - The instantiated `ListItem`.

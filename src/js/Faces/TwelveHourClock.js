@@ -1,10 +1,9 @@
 import TwentyFourHourClock from './TwentyFourHourClock';
 
 /**
- * @class TwelveHourClock
  * @classdesc This face shows the current time in twelve hour format, with AM
  *     and PM.
- * @extends Components.Face
+ * @extends Face
  * @param {(FaceValue|object)} value - The `Face` value. If not an instance
  *     of FaceValue, this argument is assumed to be the instance attributes.
  * @param {(object|undefined)} [attributes] - The instance attributes.

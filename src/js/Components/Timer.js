@@ -6,9 +6,8 @@ export default class Timer extends Component {
     /**
      * Create a new `Timer` instance.
      *
-     * @memberof Components
      * @class Timer
-     * @extends Components.Component
+     * @extends Component
      * @param {(Object|Number)} interval - The interval passed as a `Number`,
      *     or can set the attribute of the class with an object.
      */
@@ -25,7 +24,6 @@ export default class Timer extends Component {
     /**
      * Gets the elapsed the time as an interger.
      *
-     * @memberof Components.Timer
      * @return {Number} The `elapsed` attribute.
      */
     get elapsed() {
@@ -37,7 +35,6 @@ export default class Timer extends Component {
     /**
      * Returns true is the timer is running.
      *
-     * @memberof Components.Timer
      * @return {boolean} - Returns `true` the `running` property is `true`
      */
     get isRunning() {
@@ -47,7 +44,6 @@ export default class Timer extends Component {
     /**
      * Returns true is the timer is not running.
      *
-     * @memberof Components.Timer
      * @return {boolean} - Returns `true` the `running` property is `false`
      */
     get isStopped() {
@@ -57,7 +53,6 @@ export default class Timer extends Component {
     /**
      * Resets the timer.
      *
-     * @memberof Components.Timer
      * @param  {(Function|undefined)} fn - The interval callback.
      * @return {Timer} - The `Timer` instance.
      */
@@ -74,7 +69,6 @@ export default class Timer extends Component {
     /**
      * Starts the timer.
      *
-     * @memberof Components.Timer
      * @param  {Function} fn - The interval callback.
      * @return {Timer} - The `Timer` instance.
      */
@@ -103,7 +97,6 @@ export default class Timer extends Component {
     /**
      * Stops the timer.
      *
-     * @memberof Components.Timer
      * @param  {Function} fn - The stop callback.
      * @return {Timer} - The `Timer` instance.
      */

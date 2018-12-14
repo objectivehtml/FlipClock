@@ -1,5 +1,8 @@
-/**  @namespace Helpers */
-
+/**
+ * A collection of functions to manage DOM nodes and theme templates.
+ *
+ * @namespace Helpers.Template
+ */
 import { noop } from './Functions';
 import { isArray } from './Functions';
 import { isObject } from './Functions';
@@ -14,7 +17,7 @@ import { deepFlatten } from './Functions';
  * @param  {HTMLElement} existing - The existing DOM node.
  * @return {HTMLElement} - Returns the new element if it was mounted, otherwise
  *    the existing node is returned.
- * @memberof Helpers
+ * @memberof Helpers.Template
  */
 export function swap(subject, existing) {
 	if(existing.parentNode) {
@@ -34,7 +37,7 @@ export function swap(subject, existing) {
  * @param  {Object|undefined} [attributes] - The attribute object, or if no object
  *     is passed, then the action is ignored.
  * @return {HTMLElement} el - The DOM node that received the attributes.
- * @memberof Helpers
+ * @memberof Helpers.Template
  */
 export function setAttributes(el, attributes) {
 	if(isObject(attributes)) {
@@ -54,7 +57,7 @@ export function setAttributes(el, attributes) {
  * @param  {Array|undefined} [children] - The array of children. If no array
  *     is passed, then the method silently fails to run.
  * @return {HTMLElement} el - The DOM node that received the attributes.
- * @memberof Helpers
+ * @memberof Helpers.Template
  */
 export function appendChildren(el, children) {
 	if(isArray(children)) {
@@ -77,7 +80,7 @@ export function appendChildren(el, children) {
  *     is passed, then the method silently fails to run.
  * @param  {Object|undefined} [attributes] - The attributes object.
  * @return {HTMLElement} el - The DOM node that received the attributes.
- * @memberof Helpers
+ * @memberof Helpers.Template
  */
 export function createElement(el, children, attributes) {
 	if(!(el instanceof HTMLElement)) {

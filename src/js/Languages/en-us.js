@@ -1,7 +1,13 @@
 /**
- * FlipClock English Language Pack
- *
- * This class will used to translate tokens into the English language.
+ * @classdesc English Language Pack
+ * @desc This class will used to translate tokens into the English language.
+ * @namespace Languages.English
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.English
  */
 export const dictionary = {
 	'years'   : 'Years',
@@ -12,4 +18,9 @@ export const dictionary = {
 	'seconds' : 'Seconds'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.English
+ */
 export const aliases = ['en', 'en-us', 'english'];

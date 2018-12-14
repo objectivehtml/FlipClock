@@ -1,3 +1,6 @@
+/**
+ * @namespace Helpers.Digitize
+ */
 import { flatten } from './Functions';
 import { deepFlatten } from './Functions';
 
@@ -9,8 +12,8 @@ import { deepFlatten } from './Functions';
  * @function digitize
  * @param  {*} value - The value to digitize.
  * @param  {(Object|undefined)} [options] - The digitizer options.
- * @return {Array} - The digitized array.
- * @memberof Helpers
+ * @return {array} - The digitized array.
+ * @memberof Helpers.Digitize
  */
 export default function digitize(value, options) {
     options = Object.assign({

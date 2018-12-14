@@ -1,7 +1,9 @@
 /**
- * @namespace Components
+ * The core classes that makeup the FlipClock library. All components that
+ * interact with the DOM should extend `Faces.DomComponent`.
+ *
+ * @private
  */
-
 import Component from './Component';
 import Divider from './Divider';
 import DomComponent from './DomComponent';

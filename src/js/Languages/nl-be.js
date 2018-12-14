@@ -1,7 +1,13 @@
 /**
- * FlipClock Dutch Language Pack
- *
- * This class will used to translate tokens into the Dutch language.
+ * @classdesc Dutch Language Pack
+ * @desc This class will used to translate tokens into the Dutch language.
+ * @namespace Languages.Dutch
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.Dutch
  */
 export const dictionary = {
     'years'   : 'Jaren',
@@ -12,4 +18,9 @@ export const dictionary = {
     'seconds' : 'Seconden'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.Dutch
+ */
 export const aliases = ['nl', 'nl-be', 'dutch'];

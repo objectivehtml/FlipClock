@@ -1,10 +1,9 @@
 import HourCounter from './HourCounter';
 
 /**
- * @class DayCounter
  * @classdesc This face is meant to display a clock that shows days, hours,
  *     minutes, and seconds.
- * @extends Components.Face
+ * @extends HourCounter
  * @param {(FaceValue|object)} value - The `Face` value. If not an instance
  *     of FaceValue, this argument is assumed to be the instance attributes.
  * @param {(object|undefined)} [attributes] - The instance attributes.

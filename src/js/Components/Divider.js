@@ -7,9 +7,8 @@ import DomComponent from './DomComponent';
  * render it appropriately, since each `DomComponent` can receive its own template
  * from the theme.
  *
- * @memberof Components
  * @class Divider
- * @extends Components.DomComponent
+ * @extends DomComponent
  * @param {(object|undefined)} [attributes] - The instance attributes.
  */
 export default class Divider extends DomComponent {

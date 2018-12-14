@@ -1,7 +1,7 @@
 /**
  * @alias ConsoleMessages
  * @type {object}
- * @memberof Config
+ * @memberof module:Config/ConsoleMessages
  */
 export default {
     items: 'The items property must be an array.',

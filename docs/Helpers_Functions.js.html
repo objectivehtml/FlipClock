@@ -26,7 +26,14 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**  @namespace Helpers */
+            <pre class="prettyprint source linenums"><code>/**
+ * These are a collection of helper functions, some borrowed from Lodash,
+ * Underscore, etc, to provide common functionality without the need for using
+ * a dependency. All of this is an attempt to reduce the file size of the
+ * library.
+ *
+ * @namespace Helpers.Functions
+ */
 
 /**
  * Throw a string as an Error exception.
@@ -34,7 +41,7 @@
  * @function error
  * @param  {string} string - The error message.
  * @return {void}
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function error(string) {
     throw Error(string);
@@ -48,7 +55,7 @@ export function error(string) {
  * @param  {string} string - The callback fn.
  * @param  {...*} args - The arguments to pass.
  * @return {void}
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function callback(fn, ...args) {
     if(isFunction(fn)) {
@@ -62,7 +69,7 @@ export function callback(fn, ...args) {
  * @function round
  * @param  {value} string - The value to round.
  * @return {string} - The rounded value.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function round(value) {
     return isNegativeZero(
@@ -76,7 +83,7 @@ export function round(value) {
  * @function noop
  * @param  {value} string - The value to check.
  * @return {boolean} - `true` if `undefined or `null`.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function noop(value) {
     return !isUndefined(value) &amp;&amp; !isNull(value);
@@ -90,7 +97,7 @@ export function noop(value) {
  * @param  {function} before - The first function to execute.
  * @param  {function} after - The subsequent function to execute.
  * @return {function} - A function that executes the chain.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function chain(before, after) {
     return () => after(before());
@@ -102,7 +109,7 @@ export function chain(before, after) {
  * @function concatMap
  * @param  {function} fn - The map callback function.
  * @return {function} - A function that executes the map and concatenation.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function concatMap(fn) {
     return x => {
@@ -116,7 +123,7 @@ export function concatMap(fn) {
  * @function flatten
  * @param  {array} value - The array to flatten.
  * @return {array} - The flattened array.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function flatten(value) {
     return concatMap(value => value)(value)
@@ -128,7 +135,7 @@ export function flatten(value) {
  * @function deepFlatten
  * @param  {array} value - The array to flatten.
  * @return {array} - The flattened array.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function deepFlatten(x) {
     return concatMap(x => Array.isArray(x) ? deepFlatten (x) : x)(x);
@@ -140,7 +147,7 @@ export function deepFlatten(x) {
  * @function ucfirst
  * @param  {string} string - The string to capitalize.
  * @return {string} - The capitalized string.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function ucfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -152,7 +159,7 @@ export function ucfirst(string) {
  * @function length
  * @param  {array} value - The array to count.
  * @return {number} - The length of the deep flattened array.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function length(value) {
     return deepFlatten(value).length;
@@ -164,7 +171,7 @@ export function length(value) {
  * @function isNegativeZero
  * @param  {number} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a negative zero (`-0`).
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isNegativeZero(value) {
     return 1 / Math.round(value) === -Infinity;
@@ -176,7 +183,7 @@ export function isNegativeZero(value) {
  * @function isNegative
  * @param  {number} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a negative.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isNegative(value) {
     return isNegativeZero(value) || value &lt; 0;
@@ -188,7 +195,7 @@ export function isNegative(value) {
  * @function isNull
  * @param  {*} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a `null`.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isNull(value) {
     return value === null;// || typeof value === 'null';
@@ -200,7 +207,7 @@ export function isNull(value) {
  * @function isNull
  * @param  {*} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a `undefined`.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isUndefined(value) {
     return typeof value === 'undefined';
@@ -212,7 +219,7 @@ export function isUndefined(value) {
  * @function isConstructor
  * @param  {*} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a constructor.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isConstructor(value) {
     return (value instanceof Function) &amp;&amp; !!value.name;
@@ -224,7 +231,7 @@ export function isConstructor(value) {
  * @function isString
  * @param  {*} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a string.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isString(value) {
     return typeof value === 'string';
@@ -236,7 +243,7 @@ export function isString(value) {
  * @function isString
  * @param  {*} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a string.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isArray(value) {
     return value instanceof Array;
@@ -248,7 +255,7 @@ export function isArray(value) {
  * @function isObject
  * @param  {*} value - The value to check.
  * @return {boolean} - Returns `true` if the value is an object.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isObject(value) {
     const type = typeof value;
@@ -263,7 +270,7 @@ export function isObject(value) {
  * @function isObject
  * @param  {*} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a function.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isFunction(value) {
     return value instanceof Function;
@@ -275,7 +282,7 @@ export function isFunction(value) {
  * @function isObject
  * @param  {*} value - The value to check.
  * @return {boolean} - Returns `true` if the value is a number.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function isNumber(value) {
     return !isNaN(value);
@@ -287,7 +294,7 @@ export function isNumber(value) {
  * @function kebabCase
  * @param  {string} string - The string to convert.
  * @return {string} - The converted string.
- * @memberof Helpers
+ * @memberof Helpers.Functions
  */
 export function kebabCase(string) {
     return string.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase();
@@ -302,13 +309,13 @@ export function kebabCase(string) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Components.Component.html">Component</a></li><li><a href="Components.Divider.html">Divider</a></li><li><a href="Components.DomComponent.html">DomComponent</a></li><li><a href="Components.Face.html">Face</a></li><li><a href="Components.FaceValue.html">FaceValue</a></li><li><a href="Components.FlipClock.html">FlipClock</a></li><li><a href="Components.Group.html">Group</a></li><li><a href="Components.Label.html">Label</a></li><li><a href="Components.List.html">List</a></li><li><a href="Components.ListItem.html">ListItem</a></li><li><a href="Components.Timer.html">Timer</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li></ul><h3>Namespaces</h3><ul><li><a href="Components.html">Components</a></li><li><a href="Config.html">Config</a></li><li><a href="Faces.html">Faces</a></li><li><a href="Helpers.html">Helpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#dictionary">dictionary</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul><h3>Namespaces</h3><ul><li><a href="Faces.html">Faces</a></li><li><a href="Helpers.html">Helpers</a></li><li><a href="Helpers.Digitize.html">Digitize</a></li><li><a href="Helpers.Functions.html">Functions</a></li><li><a href="Helpers.Language.html">Language</a></li><li><a href="Helpers.Template.html">Template</a></li><li><a href="Helpers.Translate.html">Translate</a></li><li><a href="Helpers.Validate.html">Validate</a></li><li><a href="Helpers.Value.html">Value</a></li><li><a href="Languages.html">Languages</a></li><li><a href="Languages.Arabic.html">Arabic</a></li><li><a href="Languages.CanadianFrench.html">CanadianFrench</a></li><li><a href="Languages.Catalan.html">Catalan</a></li><li><a href="Languages.Chinese.html">Chinese</a></li><li><a href="Languages.Czech.html">Czech</a></li><li><a href="Languages.Danish.html">Danish</a></li><li><a href="Languages.Dutch.html">Dutch</a></li><li><a href="Languages.English.html">English</a></li><li><a href="Languages.Finnish.html">Finnish</a></li><li><a href="Languages.German.html">German</a></li><li><a href="Languages.Hebrew.html">Hebrew</a></li><li><a href="Languages.Hungarian.html">Hungarian</a></li><li><a href="Languages.Italian.html">Italian</a></li><li><a href="Languages.Japanese.html">Japanese</a></li><li><a href="Languages.Korean.html">Korean</a></li><li><a href="Languages.Latvian.html">Latvian</a></li><li><a href="Languages.Norwegian.html">Norwegian</a></li><li><a href="Languages.Persian.html">Persian</a></li><li><a href="Languages.Polish.html">Polish</a></li><li><a href="Languages.Portuguese.html">Portuguese</a></li><li><a href="Languages.Romanian.html">Romanian</a></li><li><a href="Languages.Russian.html">Russian</a></li><li><a href="Languages.Slovak.html">Slovak</a></li><li><a href="Languages.Spanish.html">Spanish</a></li><li><a href="Languages.Swedish.html">Swedish</a></li><li><a href="Languages.Thai.html">Thai</a></li><li><a href="Languages.TraditionalChinese.html">TraditionalChinese</a></li><li><a href="Languages.Turkish.html">Turkish</a></li><li><a href="Languages.Ukrainian.html">Ukrainian</a></li><li><a href="Languages.Vietnamese.html">Vietnamese</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Dec 11 2018 17:57:10 GMT-0700 (Mountain Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Dec 13 2018 22:12:13 GMT-0700 (Mountain Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

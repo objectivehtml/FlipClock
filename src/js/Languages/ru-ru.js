@@ -1,7 +1,13 @@
 /**
- * FlipClock Russian Language Pack
- *
- * This class will used to translate tokens into the Russian language.
+ * @classdesc Russian Language Pack
+ * @desc This class will used to translate tokens into the Russian language.
+ * @namespace Languages.Russian
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.Russian
  */
 export const dictionary = {
     'years'   : 'лет',
@@ -12,4 +18,9 @@ export const dictionary = {
     'seconds' : 'секунд'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.Russian
+ */
 export const aliases = ['ru', 'ru-ru', 'russian'];

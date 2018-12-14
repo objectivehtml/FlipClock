@@ -1,3 +1,6 @@
+/**
+ * @namespace Languages
+ */
 import * as Arabic from './ar-ar';
 import * as Catalan from './ca-es';
 import * as Czech from './cs-cz';

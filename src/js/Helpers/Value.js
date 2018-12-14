@@ -1,11 +1,14 @@
-/**  @namespace Helpers */
+/**
+ * @namespace Helpers.Value
+ */
 
 /**
  * An array of objects with min/max ranges.
- * @type {Array}
- * @memberof Helpers
+ *
+ * @private
+ * @type {array}
  */
-export const RANGES = [{
+const RANGES = [{
     // 0-9
     min: 48,
     max: 57
@@ -88,7 +91,7 @@ function stringFromCharCodeBy(char, fn) {
  * @function next
  * @param  {(string|number)} value - The string or number to convert.
  * @return {string} - The formatted string
- * @memberof Helpers
+ * @memberof Helpers.Value
  */
 export function next(value) {
     const converted = (value)
@@ -110,7 +113,7 @@ export function next(value) {
  * @function prev
  * @param  {(string|number)} value - The string or number to convert.
  * @return {string} - The formatted string
- * @memberof Helpers
+ * @memberof Helpers.Value
  */
 export function prev(value) {
     const converted = (value)

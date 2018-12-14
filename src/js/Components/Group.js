@@ -7,9 +7,8 @@ export default class Group extends DomComponent {
      * This class is used to group values within a clock face. How the groups
      * are displayed is determined by the theme.
      *
-     * @memberof Components
      * @class Group
-     * @extends Components.DomComponent
+     * @extends DomComponent
      * @param {Array|Object} items - An array `List` instances or an object of
      *     attributes. If not an array, assumed to be the attributes.
      * @param {object|undefined} [attributes] - The instance attributes.

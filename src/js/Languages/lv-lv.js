@@ -1,7 +1,13 @@
 /**
- * FlipClock Latvian Language Pack
- *
- * This class will used to translate tokens into the Latvian language.
+ * @classdesc Latvian Language Pack
+ * @desc This class will used to translate tokens into the Latvian language.
+ * @namespace Languages.Latvian
+ */
+
+/**
+ * @constant dictionary
+ * @type {object}
+ * @memberof Languages.Latvian
  */
 export const dictionary = {
     'years'   : 'Gadi',
@@ -12,4 +18,9 @@ export const dictionary = {
     'seconds' : 'Sekundes'
 };
 
+/**
+ * @constant aliases
+ * @type {array}
+ * @memberof Languages.Latvian
+ */
 export const aliases = ['lv', 'lv-lv', 'latvian'];

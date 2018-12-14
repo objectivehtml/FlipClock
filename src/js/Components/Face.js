@@ -10,9 +10,8 @@ export default class Face extends Component {
      * This class is meant to be provide an interface for all other faces to
      * extend.
      *
-     * @memberof Components
      * @class Face
-     * @extends Components.Component
+     * @extends Component
      * @param {(FaceValue|object)} value - The `Face` value. If not an instance
      *     of FaceValue, this argument is assumed to be the instance attributes.
      * @param {(object|undefined)} [attributes] - The instance attributes.
@@ -39,7 +38,6 @@ export default class Face extends Component {
     /**
      * Get the `dataType` attribute.
      *
-     * @memberof Components.Face
      * @return {*} - The `dataType` attribute.
      */
     get dataType() {
@@ -49,7 +47,6 @@ export default class Face extends Component {
     /**
      * Get the `value` attribute.
      *
-     * @memberof Components.Face
      * @return {*} - The `value` attribute.
      */
     get value() {
@@ -59,7 +56,6 @@ export default class Face extends Component {
     /**
      * Set the `value` attribute.
      *
-     * @memberof Components.Face
      * @param  {*} value - Any value that is not an instance of `FaceValue` will
      *     be cast into one.
      * @return {void}
@@ -75,7 +71,6 @@ export default class Face extends Component {
     /**
      * Get the `stopAt` attribute.
      *
-     * @memberof Components.Face
      * @return {*} - The `stopAt` attribute.
      */
     get stopAt() {
@@ -85,7 +80,6 @@ export default class Face extends Component {
     /**
      * Set the `stopAt` attribute.
      *
-     * @memberof Components.Face
      * @param  {*} value - Any value that is used to match against the face to
      *     determine when the clock should stop.
      * @return {void}
@@ -97,7 +91,6 @@ export default class Face extends Component {
     /**
      * Get the `originalValue` attribute.
      *
-     * @memberof Components.Face
      * @return {*} - The `originalValue` attribute.
      */
     get originalValue() {
@@ -107,7 +100,6 @@ export default class Face extends Component {
     /**
      * Set the `originalValue` attribute.
      *
-     * @memberof Components.Face
      * @param  {*} value - The `originalValue` attribute.
      * @return {void}
      */
@@ -120,7 +112,6 @@ export default class Face extends Component {
      * should change, and handles the actual incrementing and decrementing the
      * clock's `FaceValue`.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @param  {Function} fn - The interval callback.
      * @return {Face} - This `Face` instance.
@@ -145,7 +136,6 @@ export default class Face extends Component {
     /**
      * Determines if the clock should stop or not.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @return {boolean} - Returns `true` if the clock should stop.
      */
@@ -156,7 +146,6 @@ export default class Face extends Component {
     /**
      * By default this just returns the value unformatted.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @param  {*} value - The value to format.
      * @return {*} - The formatted value.
@@ -168,7 +157,6 @@ export default class Face extends Component {
     /**
      * The default value for the `Face`.
      *
-     * @memberof Components.Face
      * @return {*} - The default value.
      */
     defaultValue() {
@@ -178,7 +166,6 @@ export default class Face extends Component {
     /**
      * The default attributes for the `Face`.
      *
-     * @memberof Components.Face
      * @return {(Object|undefined)} - The default attributes.
      */
     defaultAttributes() {
@@ -188,7 +175,6 @@ export default class Face extends Component {
     /**
      * The default data type for the `Face` value.
      *
-     * @memberof Components.Face
      * @return {(Object|undefined)} - The default data type.
      */
     defaultDataType() {
@@ -198,7 +184,6 @@ export default class Face extends Component {
     /**
      * Increment the clock.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @param  {Number} [amount] - The amount to increment. If the amount is not
      *     defined, it is left up to the `Face` to determine the default value.
@@ -211,7 +196,6 @@ export default class Face extends Component {
     /**
      * Decrement the clock.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @param  {Number} [amount] - The amount to decrement. If the amount is not
      *     defined, it is left up to the `Face` to determine the default value.
@@ -224,7 +208,6 @@ export default class Face extends Component {
     /**
      * This method is called right after clock has started.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @return {void}
      */
@@ -235,7 +218,6 @@ export default class Face extends Component {
     /**
      * This method is called right after clock has stopped.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @return {void}
      */
@@ -246,7 +228,6 @@ export default class Face extends Component {
     /**
      * This method is called right after clock has reset.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @return {void}
      */
@@ -257,7 +238,6 @@ export default class Face extends Component {
     /**
      * This method is called right after `Face` has initialized.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @return {void}
      */
@@ -268,7 +248,6 @@ export default class Face extends Component {
     /**
      * This method is called right after `Face` has rendered.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @return {void}
      */
@@ -279,7 +258,6 @@ export default class Face extends Component {
     /**
      * This method is called right after `Face` has mounted.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @return {void}
      */
@@ -292,7 +270,6 @@ export default class Face extends Component {
     /**
      * Helper method to instantiate a new `FaceValue`.
      *
-     * @memberof Components.Face
      * @param  {FlipClock} instance - The `FlipClock` instance.
      * @param  {object|undefined} [attributes] - The attributes passed to the
      *     `FaceValue` instance.

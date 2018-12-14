@@ -12,9 +12,8 @@ export default class DomComponent extends Component {
     /**
      * An abstract class that all other DOM components can extend.
      *
-     * @memberof Components
      * @class DomComponent
-     * @extends Components.Component
+     * @extends Component
      * @param {(object|undefined)} [attributes] - The instance attributes.
      */
     constructor(attributes) {
@@ -40,7 +39,6 @@ export default class DomComponent extends Component {
     /**
      * Get the component's top level DOM node.
      *
-     * @memberof Components.DomComponent
      * @return {HTMLElement} - The `el` attribute.
      */
     get el() {
@@ -50,7 +48,6 @@ export default class DomComponent extends Component {
     /**
      * Set the component's top level DOM node.
      *
-     * @memberof Components.DomComponent
      * @param  {(null|HTMLElement)} value - The `el` attribute.
      * @return {void}
      */
@@ -66,7 +63,6 @@ export default class DomComponent extends Component {
      * Get the `parent` attribute. Parent is set when `DomComponent` instances are
      * mounted.
      *
-     * @memberof Components.DomComponent
      * @return {DomComponent} - The `parent` attribute.
      */
     get parent() {
@@ -76,7 +72,6 @@ export default class DomComponent extends Component {
     /**
      * Set the parent attribute.
      *
-     * @memberof Components.DomComponent
      * @param  {DomComponent} parent - The `parent` attribute value.
      * @return {DomComponent} - The `parent` attribute.
      */
@@ -87,7 +82,6 @@ export default class DomComponent extends Component {
     /**
      * Get the `theme` attribute.
      *
-     * @memberof Components.DomComponent
      * @return {DomComponent} - The `theme` attribute.
      */
     get theme() {
@@ -97,7 +91,6 @@ export default class DomComponent extends Component {
     /**
      * Set the `theme` attribute.
      *
-     * @memberof Components.DomComponent
      * @param  {object} value - The `theme` attribute.
      * @return {void}
      */
@@ -112,7 +105,6 @@ export default class DomComponent extends Component {
     /**
      * Get the language attribute.
      *
-     * @memberof Components.DomComponent
      * @return {object} - The `language` attribute.
      */
     get language() {
@@ -122,7 +114,6 @@ export default class DomComponent extends Component {
     /**
      * Set the language attribute.
      *
-     * @memberof Components.DomComponent
      * @param  {object} value - The `language` attribute.
      * @return {object} - The `language` attribute.
      */
@@ -141,7 +132,6 @@ export default class DomComponent extends Component {
     /**
      * Translate a string.
      *
-     * @memberof Components.DomComponent
      * @param  {string} string - The string to translate.
      * @return {string} - The translated string. If no tranlation found, the
      *     untranslated string is returned.
@@ -153,7 +143,6 @@ export default class DomComponent extends Component {
     /**
      * Alias to translate(string);
      *
-     * @memberof Components.DomComponent
      * @alias DomComponent.translate
      */
     t(string) {
@@ -163,7 +152,6 @@ export default class DomComponent extends Component {
     /**
      * Render the DOM component.
      *
-     * @memberof Components.DomComponent
      * @return {HTMLElement} - The `el` attribute.
      */
 	render() {
@@ -186,7 +174,6 @@ export default class DomComponent extends Component {
     /**
      * Mount a DOM component to a parent node.
      *
-     * @memberof Components.DomComponent
      * @param  {HTMLElement} parent - The parent DOM node.
      * @param  {(false|HTMLElement)} [before=false] - If `false`, element is
      *     appended to the parent node. If an instance of an `HTMLElement`,
