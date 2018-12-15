@@ -10,7 +10,7 @@ import DomComponent from './DomComponent';
 import validate from '../Helpers/Validate';
 import DefaultValues from '../Config/DefaultValues';
 import ConsoleMessages from '../Config/ConsoleMessages';
-import { flatten, isString, isObject, isUndefined, isFunction, error } from '../Helpers/Functions';
+import { flatten, isNull, isString, isObject, isUndefined, isFunction, error } from '../Helpers/Functions';
 
 export default class FlipClock extends DomComponent {
 
@@ -30,9 +30,9 @@ export default class FlipClock extends DomComponent {
 
         if(isObject(value) && !attributes) {
             attributes = value;
-            value = null;
+            value = undefined;
         }
-        
+
         const face = attributes.face || DefaultValues.face;
 
         delete attributes.face;
@@ -168,9 +168,15 @@ export default class FlipClock extends DomComponent {
      * @return {*} - The `originalValue` attribute.
      */
     get originalValue() {
-        return (
-            isFunction(this.$originalValue) && !this.$originalValue.name
-        ) ? this.$originalValue() : (this.$originalValue || (this.face ? this.face.defaultValue() : null));
+        if(isFunction(this.$originalValue) && !this.$originalValue.name) {
+            return this.$originalValue();
+        }
+
+        if(!isUndefined(this.$originalValue) && !isNull(this.$originalValue)) {
+            return this.$originalValue;
+        }
+
+        return this.face ? this.face.defaultValue() : undefined;
     }
 
     /**

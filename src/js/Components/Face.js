@@ -19,7 +19,7 @@ export default class Face extends Component {
     constructor(value, attributes) {
         if(!(value instanceof FaceValue) && isObject(value)) {
             attributes = value;
-            value = null;
+            value = undefined;
         }
 
         super();
@@ -30,8 +30,12 @@ export default class Face extends Component {
             animationRate: 500
         }, this.defaultAttributes(), attributes || {}));
 
-        if(value || this.defaultValue()) {
-            this.value = !isNull(value) && !isUndefined(value) ? value : this.defaultValue();
+        if(isNull(value) || isUndefined(value)) {
+            value = this.defaultValue();
+        }
+
+        if(value) {
+            this.value = value;
         }
     }
 
