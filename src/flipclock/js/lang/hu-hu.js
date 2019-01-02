@@ -7,21 +7,21 @@
 	 *	
 	 */
 	 
-	FlipClock.Lang.German = {
+	FlipClock.Lang.Hungarian = {
 		
 		'years'   : 'év',
-    'months'  : 'hónap',
-    'days'    : 'nap',
-    'hours'   : 'óra',
-    'minutes' : 'perc',
-    'seconds' : 'másodperc'	
+		'months'  : 'hónap',
+		'days'    : 'nap',
+		'hours'   : 'óra',
+		'minutes' : 'perc',
+		'seconds' : 'másodperc'	
  
 	};
 	
 	/* Create various aliases for convenience */
  
-	FlipClock.Lang['hu']     = FlipClock.Lang.German;
-	FlipClock.Lang['hu-hu]  = FlipClock.Lang.German;
-	FlipClock.Lang['hungarian'] = FlipClock.Lang.German;
+	FlipClock.Lang['hu']     = FlipClock.Lang.Hungarian;
+	FlipClock.Lang['hu-hu]  = FlipClock.Lang.Hungarian;
+	FlipClock.Lang['hungarian'] = FlipClock.Lang.Hungarian;
  
 }(jQuery));
