@@ -14,7 +14,7 @@
 		'days'    : 'Gün',
 		'hours'   : 'Saat',
 		'minutes' : 'Dakika',
-		'seconds' : 'Saniye'	
+		'seconds' : 'Saniye'
 
 	};
 	

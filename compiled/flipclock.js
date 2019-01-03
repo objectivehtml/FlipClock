@@ -153,7 +153,7 @@ var FlipClock;
  *
  * @author     Justin Kimbrell
  * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
+ * @license   http://www.opensource.org/licenses/mit-license.php
  */
 	
 (function($) {
@@ -2397,6 +2397,61 @@ var FlipClock;
 
 }(jQuery));
 (function($) {
+
+    /**
+     * FlipClock Czech Language Pack
+     *
+     * This class will used to translate tokens into the Czech language.
+     *
+     */
+
+    FlipClock.Lang.Czech = {
+
+        'years'   : 'Roky',
+        'months'  : 'Měsíce',
+        'days'    : 'Dny',
+        'hours'   : 'Hodiny',
+        'minutes' : 'Minuty',
+        'seconds' : 'Sekundy'
+
+    };
+
+    /* Create various aliases for convenience */
+
+    FlipClock.Lang['cs']      = FlipClock.Lang.Czech;
+    FlipClock.Lang['cs-cz']   = FlipClock.Lang.Czech;
+    FlipClock.Lang['czech'] = FlipClock.Lang.Czech;
+
+}(jQuery));
+(function($) {
+
+	/**
+	 * FlipClock Czech Language Pack
+	 *
+	 * This class will used to translate tokens into the Czech language.
+	 *
+	 */
+
+	FlipClock.Lang.Czech = {
+
+		'years'   : 'Roky',
+		'months'  : 'Měsíce',
+		'days'    : 'Dny',
+		'hours'   : 'Hodiny',
+		'minutes' : 'Minuty',
+		'seconds' : 'Sekundy'
+
+	};
+
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['cz']      = FlipClock.Lang.Czech;
+	FlipClock.Lang['cz-cs']   = FlipClock.Lang.Czech;
+	FlipClock.Lang['czech'] = FlipClock.Lang.Czech;
+
+}(jQuery));
+
+(function($) {
 		
 	/**
 	 * FlipClock Danish Language Pack
@@ -2507,6 +2562,34 @@ var FlipClock;
 (function($) {
 		
 	/**
+	 * FlipClock English Language Pack
+	 *
+	 * This class will used to translate tokens into the English language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Persian = {
+		
+		'years'   : 'سال',
+		'months'  : 'ماه',
+		'days'    : 'روز',
+		'hours'   : 'ساعت',
+		'minutes' : 'دقیقه',
+		'seconds' : 'ثانیه'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['fa']      = FlipClock.Lang.Persian;
+	FlipClock.Lang['fa-ir']   = FlipClock.Lang.Persian;
+	FlipClock.Lang['persian'] = FlipClock.Lang.Persian;
+
+}(jQuery));
+
+(function($) {
+		
+	/**
 	 * FlipClock Finnish Language Pack
 	 *
 	 * This class will used to translate tokens into the Finnish language.
@@ -2561,6 +2644,34 @@ var FlipClock;
 }(jQuery));
 
 (function($) {
+	
+	/**
+	 * FlipClock Hungarian Language Pack
+	 *
+	 * This class will used to translate tokens into the Hungarian language.
+	 *	
+	 */
+	 
+	 FlipClock.Lang.Hungarian = {
+	 	
+	 	'years'   : 'év',
+	 	'months'  : 'hónap',
+	 	'days'    : 'nap',
+	 	'hours'   : 'óra',
+	 	'minutes' : 'perc',
+	 	'seconds' : 'másodperc'
+	 	
+	 };
+	 
+	 /* Create various aliases for convenience */
+	 
+	 FlipClock.Lang['hu']        = FlipClock.Lang.Hungarian;
+	 FlipClock.Lang['hu-hu']     = FlipClock.Lang.Hungarian;
+	 FlipClock.Lang['hungarian'] = FlipClock.Lang.Hungarian;
+	 
+	}(jQuery));
+
+(function($) {
 		
 	/**
 	 * FlipClock Italian Language Pack
@@ -2586,6 +2697,61 @@ var FlipClock;
 	FlipClock.Lang['it-it']   = FlipClock.Lang.Italian;
 	FlipClock.Lang['italian'] = FlipClock.Lang.Italian;
 	
+}(jQuery));
+
+(function($) {
+		
+	/**
+	 * FlipClock Japanese Language Pack
+	 *
+	 * This class will used to translate tokens into the Japanese language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Japanese = {
+		
+		'years'   : '年',
+		'months'  : '月',
+		'days'    : '日',
+		'hours'   : '時',
+		'minutes' : '分',
+		'seconds' : '秒'
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['jp']       = FlipClock.Lang.Japanese;
+	FlipClock.Lang['ja-jp']    = FlipClock.Lang.Japanese;
+	FlipClock.Lang['japanese'] = FlipClock.Lang.Japanese;
+
+}(jQuery));
+
+(function($) {
+		
+	/**
+	 * FlipClock Korean Language Pack
+	 *
+	 * This class will used to translate tokens into the Korean language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Korean = {
+		
+		'years'   : '년',
+		'months'  : '월',
+		'days'    : '일',
+		'hours'   : '시',
+		'minutes' : '분',
+		'seconds' : '초'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['ko']      = FlipClock.Lang.Korean;
+	FlipClock.Lang['ko-kr']   = FlipClock.Lang.Korean;
+	FlipClock.Lang['korean']  = FlipClock.Lang.Korean;
+
 }(jQuery));
 
 (function($) {
@@ -2699,6 +2865,34 @@ var FlipClock;
 
 }(jQuery));
 (function($) {
+	
+	/**
+	 * FlipClock Romanian Language Pack
+	 *
+	 * This class will used to translate tokens into the Romanian language.
+	 *
+	 */
+	
+	FlipClock.Lang.Romanian = {
+		
+		'years'   : 'ani',
+		'months'  : 'luni',
+		'days'    : 'zile',
+		'hours'   : 'ore',
+		'minutes' : 'minute',
+		'seconds' : 'secunde'
+		
+	};
+	
+	/* Create various aliases for convenience */
+	
+	FlipClock.Lang['ro']       = FlipClock.Lang.Romanian;
+	FlipClock.Lang['ro-ro']    = FlipClock.Lang.Romanian;
+	FlipClock.Lang['romanian'] = FlipClock.Lang.Romanian;
+	
+}(jQuery));
+
+(function($) {
 
   /**
    * FlipClock Russian Language Pack
@@ -2725,6 +2919,34 @@ var FlipClock;
   FlipClock.Lang['russian']  = FlipClock.Lang.Russian;
 
 }(jQuery));
+(function($) {
+
+	/**
+	 * FlipClock Slovak Language Pack
+	 *
+	 * This class will used to translate tokens into the Slovak language.
+	 *
+	 */
+
+	FlipClock.Lang.Slovak = {
+
+		'years'   : 'Roky',
+		'months'  : 'Mesiace',
+		'days'    : 'Dni',
+		'hours'   : 'Hodiny',
+		'minutes' : 'Minúty',
+		'seconds' : 'Sekundy'
+
+	};
+
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['sk']      = FlipClock.Lang.Slovak;
+	FlipClock.Lang['sk-sk']   = FlipClock.Lang.Slovak;
+	FlipClock.Lang['slovak'] = FlipClock.Lang.Slovak;
+
+}(jQuery));
+
 (function($) {
 		
 	/**
@@ -2756,6 +2978,61 @@ var FlipClock;
 (function($) {
 		
 	/**
+	 * FlipClock Thai Language Pack
+	 *
+	 * This class will used to translate tokens into the Thai language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Thai = {
+		
+		'years'   : 'ปี',
+		'months'  : 'เดือน',
+		'days'    : 'วัน',
+		'hours'   : 'ชั่วโมง',
+		'minutes' : 'นาที',
+		'seconds' : 'วินาที'	
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['th']      = FlipClock.Lang.Thai;
+	FlipClock.Lang['th-th']   = FlipClock.Lang.Thai;
+	FlipClock.Lang['thai'] = FlipClock.Lang.Thai;
+
+}(jQuery));
+(function($) {
+		
+	/**
+	 * FlipClock Turkish Language Pack
+	 *
+	 * This class will used to translate tokens into the Turkish language.
+	 *	
+	 */
+	 
+	FlipClock.Lang.Turkish = {
+		
+		'years'   : 'Yıl',
+		'months'  : 'Ay',
+		'days'    : 'Gün',
+		'hours'   : 'Saat',
+		'minutes' : 'Dakika',
+		'seconds' : 'Saniye'
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['tr']      = FlipClock.Lang.Turkish;
+	FlipClock.Lang['tr-tr']   = FlipClock.Lang.Turkish;
+	FlipClock.Lang['turkish'] = FlipClock.Lang.Turkish;
+
+}(jQuery));
+
+(function($) {
+		
+	/**
 	 * FlipClock Chinese Language Pack
 	 *
 	 * This class will used to translate tokens into the Chinese language.
@@ -2778,5 +3055,30 @@ var FlipClock;
 	FlipClock.Lang['zh']      = FlipClock.Lang.Chinese;
 	FlipClock.Lang['zh-cn']   = FlipClock.Lang.Chinese;
 	FlipClock.Lang['chinese'] = FlipClock.Lang.Chinese;
+
+}(jQuery));
+(function($) {
+		
+	/**
+	 * FlipClock Traditional Chinese Language Pack
+	 *
+	 * This class will used to translate tokens into the Traditional Chinese.
+	 *	
+	 */
+	 
+	FlipClock.Lang.TraditionalChinese = {
+		
+		'years'   : '年',
+		'months'  : '月',
+		'days'    : '日',
+		'hours'   : '時',
+		'minutes' : '分',
+		'seconds' : '秒'
+
+	};
+	
+	/* Create various aliases for convenience */
+
+	FlipClock.Lang['zh-tw']   = FlipClock.Lang.TraditionalChinese;
 
 }(jQuery));

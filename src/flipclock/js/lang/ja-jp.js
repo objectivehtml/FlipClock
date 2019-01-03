@@ -15,13 +15,12 @@
 		'hours'   : '時',
 		'minutes' : '分',
 		'seconds' : '秒'
-
 	};
 	
 	/* Create various aliases for convenience */
 
-	FlipClock.Lang['jp']      = FlipClock.Lang.Japanese;
-	FlipClock.Lang['ja-jp']   = FlipClock.Lang.Japanese;
+	FlipClock.Lang['jp']       = FlipClock.Lang.Japanese;
+	FlipClock.Lang['ja-jp']    = FlipClock.Lang.Japanese;
 	FlipClock.Lang['japanese'] = FlipClock.Lang.Japanese;
 
 }(jQuery));
