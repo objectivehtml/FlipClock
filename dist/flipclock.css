@@ -185,11 +185,11 @@
   0% {
     transform: rotateX(90deg); }
   100% {
-    transform: rotateX(0.0001deg); } }
+    transform: rotateX(0); } }
 
 @keyframes flip-top {
   0% {
-    transform: rotateX(0deg); }
+    transform: rotateX(0); }
   100% {
     transform: rotateX(-90deg); } }
 

@@ -294,14 +294,14 @@
         transform: rotateX(90deg);
     }
     100% {
-        // value should be .0001 because of rendering bug in WebKit.
-        transform: rotateX(.0001deg);
+        // value should be .0000001 because of rendering bug in WebKit.
+        transform: rotateX(0);
     }
 }
 
 @keyframes flip-top {
     0% {
-        transform: rotateX(0deg);
+        transform: rotateX(0);
     }
     100% {
         transform: rotateX(-90deg);

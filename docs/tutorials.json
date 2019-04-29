@@ -8,15 +8,14 @@
     "3-examples":  {
         "title": "Examples",
         "children": [
-            "countdown-start-stop-buttons",
-            "daily-counter-countdown"
+            "daily-counter-countdown",
+            "minute-counter-start-stop-buttons"
         ]
     },
-    "countdown-start-stop-buttons": {
-        "title": "Countdown with Start & Stop Buttons"
-    },
     "daily-counter-countdown": {
-        "title": "Daily Counter (Countdown)",
-        "description": "test"
+        "title": "Daily Counter (Countdown)"
+    },
+    "minute-counter-start-stop-buttons": {
+        "title": "Minute Counter with Start & Stop Buttons"
     }
 }

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FlipClock.js :: Tutorial: Countdown with Start & Stop Buttons</title>
+    <title>FlipClock.js :: Tutorial: Minute Counter with Start & Stop Buttons</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flipclock@0.10.4/dist/flipclock.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flipclock@0.10.5/dist/flipclock.js"></script>
 
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipclock@0.10.4/dist/flipclock.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipclock@0.10.5/dist/flipclock.css" />
 </head>
 
 <body>
@@ -32,8 +32,13 @@
 
             <section>
     <article>
-        <div class="clock mt-5"></div>
-<div class="message"></div>
+        <h1>Minute Counter with Start & Stop Buttons</h1>
+
+<p>This is an example of the MinuteCounter face that counts up 5 seconds and stops.</p>
+
+<div class="clock mt-5 mb-3"></div>
+
+<p class="message"></p>
 
 <button class="btn btn-primary start">Start Clock</button>
 <button class="btn btn-danger stop">Stop Clock</button>
@@ -44,7 +49,7 @@
 	function date(offset = 0) {
 		return new Date(new Date().setSeconds(new Date().getSeconds() + offset));
 	}
-	
+
 	var clock = new FlipClock(el, () => date(), {
 		face: 'MinuteCounter',
 		autoStart: false,
@@ -77,7 +82,7 @@
     </div>
 
     <footer class="text-center p-4 pt-3">
-        &copy; 2019 Justin Kimbrell - Version 0.10.4
+        &copy; 2019 Justin Kimbrell - Version 0.10.5
     </footer>
 
 </div>
