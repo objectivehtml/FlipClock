@@ -294,7 +294,6 @@
         transform: rotateX(90deg);
     }
     100% {
-        // value should be .0000001 because of rendering bug in WebKit.
         transform: rotateX(0);
     }
 }
