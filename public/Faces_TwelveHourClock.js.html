@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FlipClock.js :: Source: Faces/TwelveHourClock.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.css" />
+</head>
+
+<body>
+
+<div id="app" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <nav>
+                <h2><a href="index.html">Home</a></h2><ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+            </nav>
+        </div>
+        <div class="col-md-9">
+            
+                <h1 class="display-4">Source: Faces/TwelveHourClock.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import TwentyFourHourClock from './TwentyFourHourClock';
+
+/**
+ * @classdesc This face shows the current time in twelve hour format, with AM
+ *     and PM.
+ * @extends Face
+ * @param {(FaceValue|object)} value - The `Face` value. If not an instance
+ *     of FaceValue, this argument is assumed to be the instance attributes.
+ * @param {(object|undefined)} [attributes] - The instance attributes.
+ * @memberof Faces
+ */
+export default class TwelveHourClock extends TwentyFourHourClock {
+
+    defaultAttributes() {
+        return {
+            showLabels: false,
+            showSeconds: true,
+            showMeridium: true
+        };
+    }
+
+    format(instance, value) {
+        if(!value) {
+            value = new Date;
+        }
+
+        const hours = value.getHours();
+		const groups = [
+			hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours),
+			value.getMinutes()
+		];
+
+        this.meridium = hours > 12 ? 'pm' : 'am';
+
+		if(this.showSeconds) {
+			groups.push(value.getSeconds());
+		}
+
+		return groups;
+    }
+
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+    </div>
+
+    <footer class="text-center p-4 pt-3">
+        &copy; 2019 Justin Kimbrell - Version 0.10.3
+    </footer>
+
+</div>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FlipClock.js :: Source: Components/Component.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.css" />
+</head>
+
+<body>
+
+<div id="app" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <nav>
+                <h2><a href="index.html">Home</a></h2><ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+            </nav>
+        </div>
+        <div class="col-md-9">
+            
+                <h1 class="display-4">Source: Components/Component.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { chain, callback, isObject, kebabCase } from '../Helpers/Functions';
+
+export default class Component {
+
+    /**
+     * Abstract base class.
+     *
+     * @class Component
+     * @param {(object|undefined)} [attributes] - The instance attributes.
+     */
+    constructor(attributes) {
+        this.setAttribute(Object.assign({
+            events: {}
+        }, attributes));
+    }
+
+    /**
+     * Get the `name` attribute. Uses the `this.constructor.name` by default.
+     *
+     * @return {string} - The `name` attribute.
+     */
+    get name() {
+        return this.constructor.name;
+    }
+
+    /**
+     * Get the `className` attribute. Used for CSS. Kebab cases the `name`
+     * property by default.
+     *
+     * @return {string} - The `className` attribute.
+     */
+    get className() {
+        return kebabCase(this.name);
+    }
+
+    /**
+     * Get the `events` attribute.
+     *
+     * @return {array} - The `events` attribute.
+     */
+    get events() {
+        return this.$events || [];
+    }
+
+    /**
+     * Set the registered events for this class.
+     *
+     * @param  {array} value - The new events array.
+     * @return {void}
+     */
+    set events(value) {
+        this.$events = value;
+    }
+
+    /**
+     * Emit an event.
+     *
+     * @param  {string} key - The event id/key.
+     * @return {Component} - Returns `this` instance.
+     */
+    emit(key, ...args) {
+        if(this.events[key]) {
+            this.events[key].forEach(event => {
+                event.apply(this, args);
+            });
+        }
+
+        return this;
+    }
+
+    /**
+     * Start listening to an event.
+     *
+     * @param  {string} key - The event id/key.
+     * @param  {Function} fn - The listener callback function.
+     * @param  {boolean} [once=false] - Should the event handler be fired a
+     *     single time.
+     * @return {Component} - Returns `this` instance.
+     */
+    on(key, fn, once = false) {
+        if(!this.events[key]) {
+            this.events[key] = [];
+        }
+
+        this.events[key].push(fn);
+
+        return this;
+    }
+
+    /**
+     * Stop listening to an event.
+     *
+     * @param {string} key - The event id/key.
+     * @param {(Function|undefined)} fn - The listener callback function. If no
+     *     function is defined, all events with the specified id/key will be
+     *     removed. Otherwise, only the event listeners matching the id/key AND
+     *     callback will be removed.
+     * @return {Component} - Returns `this` instance.
+     */
+    off(key, fn) {
+        if(this.events[key] &amp;&amp; fn) {
+            this.events[key] = this.events[key].filter(event => {
+                return event !== fn;
+            });
+        }
+        else {
+            this.events[key] = [];
+        }
+
+        return this;
+    }
+
+    /**
+     * Listen to an event only one time.
+     *
+     * @param  {string} key - The event id/key.
+     * @param  {Function} fn - The listener callback function.
+     * @return {Component} - Returns `this` instance.
+     */
+    once(key, fn) {
+        fn = chain(fn, () => this.off(key, fn));
+
+        return this.on(key, fn, true);
+    }
+
+    /**
+     * Get an attribute. Returns null if no attribute is defined.
+     *
+     * @param  {string} key - The attribute name.
+     * @return {*} - The attribute value.
+     */
+    getAttribute(key) {
+        return this.hasOwnProperty(key) ? this[key] : null;
+    }
+
+    /**
+     * Get all the atttributes for this instance.
+     *
+     * @return {object} - The attribute dictionary.
+     */
+    getAttributes() {
+        const attributes = {};
+
+        Object.getOwnPropertyNames(this).forEach(key => {
+            attributes[key] = this.getAttribute(key);
+        });
+
+        return attributes;
+    }
+
+    /**
+     * Get only public the atttributes for this instance. Omits any attribute
+     * that starts with `$`, which is used internally.
+     *
+     * @return {object} - The attribute dictionary.
+     */
+    getPublicAttributes() {
+        return Object.keys(this.getAttributes())
+            .filter(key => {
+                return !key.match(/^\$/);
+            })
+            .reduce((obj, key) => {
+                obj[key] = this.getAttribute(key);
+                return obj;
+            }, {});
+    }
+
+    /**
+     * Set an attribute key and value.
+     *
+     * @param  {string} key - The attribute name.
+     * @param  {*} value - The attribute value.
+     * @return {void}
+     */
+    setAttribute(key, value) {
+        if(isObject(key)) {
+            this.setAttributes(key)
+        }
+        else {
+            this[key] = value;
+        }
+    }
+
+    /**
+     * Set an attributes by object of key/value pairs.
+     *
+     * @param  {object} values - The object dictionary.
+     * @return {void}
+     */
+    setAttributes(values) {
+        for(const i in values) {
+            this.setAttribute(i, values[i]);
+        }
+    }
+
+    /**
+     * Helper method to execute the `callback()` function.
+     *
+     * @param  {Function} fn - The callback function.
+     * @return {*} - Returns the executed callback function.
+     */
+    callback(fn) {
+        return callback.call(this, fn);
+    }
+
+    /**
+     * Factor method to static instantiate new instances. Useful for writing
+     * clean expressive syntax with chained methods.
+     *
+     * @param  {...*} args - The callback arguments.
+     * @return {*} - The new component instance.
+     */
+    static make(...args) {
+        return new this(...args);
+    }
+
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+    </div>
+
+    <footer class="text-center p-4 pt-3">
+        &copy; 2019 Justin Kimbrell - Version 0.10.3
+    </footer>
+
+</div>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

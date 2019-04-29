@@ -37,18 +37,22 @@
     .flip-clock .flip-clock-group .flip-clock-list {
       width: 4em;
       height: 6em;
-      background: #333;
       position: relative;
       border-radius: .75rem;
-      margin: 0 .125em;
       box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.24), 0 3px 8px rgba(0, 0, 0, 0.05);
       font-weight: bold;
       color: #ccc; }
+      .flip-clock .flip-clock-group .flip-clock-list:not(:last-child) {
+        margin-right: .333em; }
       .flip-clock .flip-clock-group .flip-clock-list:not(.flip) .active .flip-clock-list-item-inner {
         z-index: 4; }
       .flip-clock .flip-clock-group .flip-clock-list:not(.flip) .flip-clock-list-item-inner .top:after,
       .flip-clock .flip-clock-group .flip-clock-list:not(.flip) .flip-clock-list-item-inner .bottom:after {
         display: none; }
+      .flip-clock .flip-clock-group .flip-clock-list .flip-clock-list-item-inner {
+        position: absolute;
+        width: 100%;
+        height: 100%; }
       .flip-clock .flip-clock-group .flip-clock-list.flip {
         animation-delay: 500ms;
         animation-duration: 500ms; }
@@ -82,19 +86,15 @@
           animation-name: indexing; }
         .flip-clock .flip-clock-group .flip-clock-list.flip .active .top:after,
         .flip-clock .flip-clock-group .flip-clock-list.flip .active .bottom:after {
-          animation-delay: calc(inherit * .15);
+          animation-delay: calc(500ms * .15);
           animation-name: hide-shadow; }
         .flip-clock .flip-clock-group .flip-clock-list.flip .active .bottom {
           animation-name: flip-bottom; }
       .flip-clock .flip-clock-group .flip-clock-list .active {
         z-index: 2; }
-        .flip-clock .flip-clock-group .flip-clock-list .active .top:after {
-          background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, black 100%); }
         .flip-clock .flip-clock-group .flip-clock-list .active .bottom {
           z-index: 2;
           transform-origin: top center; }
-          .flip-clock .flip-clock-group .flip-clock-list .active .bottom:after {
-            background: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.1) 100%); }
       .flip-clock .flip-clock-group .flip-clock-list .before {
         z-index: 3; }
         .flip-clock .flip-clock-group .flip-clock-list .before .top {
@@ -177,7 +177,7 @@
   0% {
     z-index: 2; }
   1% {
-    z-index: 4; }
+    z-index: 3; }
   100% {
     z-index: 4; } }
 
@@ -185,7 +185,7 @@
   0% {
     transform: rotateX(90deg); }
   100% {
-    transform: rotateX(0deg); } }
+    transform: rotateX(0.0001deg); } }
 
 @keyframes flip-top {
   0% {

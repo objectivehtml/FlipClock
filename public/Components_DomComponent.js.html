@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FlipClock.js :: Source: Components/DomComponent.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.css" />
+</head>
+
+<body>
+
+<div id="app" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <nav>
+                <h2><a href="index.html">Home</a></h2><ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+            </nav>
+        </div>
+        <div class="col-md-9">
+            
+                <h1 class="display-4">Source: Components/DomComponent.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Component from './Component';
+import language from '../Helpers/Language';
+import validate from '../Helpers/Validate';
+import translate from '../Helpers/Translate';
+import { error } from '../Helpers/Functions';
+import { isString } from '../Helpers/Functions';
+import ConsoleMessages from '../Config/ConsoleMessages';
+import { swap, createElement } from '../Helpers/Template';
+
+export default class DomComponent extends Component {
+
+    /**
+     * An abstract class that all other DOM components can extend.
+     *
+     * @class DomComponent
+     * @extends Component
+     * @param {(object|undefined)} [attributes] - The instance attributes.
+     */
+    constructor(attributes) {
+        super(Object.assign({
+            parent: null
+        }, attributes));
+
+        if(!this.theme) {
+            error(`${this.name} does not have a theme defined.`);
+        }
+
+        if(!this.language) {
+            error(`${this.name} does not have a language defined.`);
+        }
+
+		if(!this.theme[this.name]) {
+            throw new Error(
+                `${this.name} cannot be rendered because it has no template.`
+            );
+        }
+    }
+
+    /**
+     * Get the component's top level DOM node.
+     *
+     * @return {HTMLElement} - The `el` attribute.
+     */
+    get el() {
+        return this.$el;
+    }
+
+    /**
+     * Set the component's top level DOM node.
+     *
+     * @param  {(null|HTMLElement)} value - The `el` attribute.
+     * @return {void}
+     */
+    set el(value) {
+        if(!validate(value, null, HTMLElement)) {
+            error(ConsoleMessages.element);
+        }
+
+        this.$el = value;
+    }
+
+    /**
+     * Get the `parent` attribute. Parent is set when `DomComponent` instances are
+     * mounted.
+     *
+     * @return {DomComponent} - The `parent` attribute.
+     */
+    get parent() {
+        return this.$parent;
+    }
+
+    /**
+     * Set the parent attribute.
+     *
+     * @param  {DomComponent} parent - The `parent` attribute value.
+     * @return {DomComponent} - The `parent` attribute.
+     */
+    set parent(parent) {
+        this.$parent = parent;
+    }
+
+    /**
+     * Get the `theme` attribute.
+     *
+     * @return {DomComponent} - The `theme` attribute.
+     */
+    get theme() {
+        return this.$theme;
+    }
+
+    /**
+     * Set the `theme` attribute.
+     *
+     * @param  {object} value - The `theme` attribute.
+     * @return {void}
+     */
+    set theme(value) {
+        if(!validate(value, 'object')) {
+            error(ConsoleMessages.value);
+        }
+
+        this.$theme = value;
+    }
+
+    /**
+     * Get the language attribute.
+     *
+     * @return {object} - The `language` attribute.
+     */
+    get language() {
+        return this.$language;
+    }
+
+    /**
+     * Set the language attribute.
+     *
+     * @param  {object} value - The `language` attribute.
+     * @return {object} - The `language` attribute.
+     */
+    set language(value) {
+        if(isString(value)) {
+            value = language(value);
+        }
+
+        if(!validate(value, 'object')) {
+            error(ConsoleMessages.language);
+        }
+
+        this.$language = value;
+    }
+
+    /**
+     * Translate a string.
+     *
+     * @param  {string} string - The string to translate.
+     * @return {string} - The translated string. If no tranlation found, the
+     *     untranslated string is returned.
+     */
+    translate(string) {
+        return translate(string, this.language);
+    }
+
+    /**
+     * Alias to translate(string);
+     *
+     * @alias DomComponent.translate
+     */
+    t(string) {
+        return this.translate(string);
+    }
+
+    /**
+     * Render the DOM component.
+     *
+     * @return {HTMLElement} - The `el` attribute.
+     */
+	render() {
+        const el = createElement('div', {
+            class: this.className === 'flip-clock' ? this.className : 'flip-clock-' + this.className
+        });
+
+        this.theme[this.name](el, this);
+
+        if(!this.el) {
+            this.el = el;
+        }
+        else if(this.el.innerHTML !== el.innerHTML) {
+            this.el = swap(el, this.el);
+        }
+
+        return this.el;
+	}
+
+    /**
+     * Mount a DOM component to a parent node.
+     *
+     * @param  {HTMLElement} parent - The parent DOM node.
+     * @param  {(false|HTMLElement)} [before=false] - If `false`, element is
+     *     appended to the parent node. If an instance of an `HTMLElement`,
+     *     the component will be inserted before the specified element.
+     * @return {HTMLElement} - The `el` attribute.
+     */
+    mount(parent, before = false) {
+        this.render();
+        this.parent = parent;
+
+        if(!before) {
+            this.parent.appendChild(this.el);
+        }
+        else {
+            this.parent.insertBefore(this.el, before);
+        }
+
+        return this.el;
+    }
+
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+    </div>
+
+    <footer class="text-center p-4 pt-3">
+        &copy; 2019 Justin Kimbrell - Version 0.10.3
+    </footer>
+
+</div>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

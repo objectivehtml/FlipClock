@@ -781,9 +781,9 @@
      */
 
 
-    function findRange(char) {
+    function findRange(_char) {
       for (var i in RANGES) {
-        var code = char.toString().charCodeAt(0);
+        var code = _char.toString().charCodeAt(0);
 
         if (RANGES[i].min <= code && RANGES[i].max >= code) {
           return RANGES[i];
@@ -805,8 +805,8 @@
      */
 
 
-    function stringFromCharCodeBy(char, fn) {
-      return String.fromCharCode(fn(findRange(char), char.charCodeAt(0)));
+    function stringFromCharCodeBy(_char2, fn) {
+      return String.fromCharCode(fn(findRange(_char2), _char2.charCodeAt(0)));
     }
     /**
      * Calculate the next value for a string. 'a' becomes 'b'. 'A' becomes 'B'. 1
@@ -821,8 +821,8 @@
 
 
     function next(value) {
-      var converted = value.toString().split('').map(function (char) {
-        return stringFromCharCodeBy(char, function (range, code) {
+      var converted = value.toString().split('').map(function (_char3) {
+        return stringFromCharCodeBy(_char3, function (range, code) {
           return !range || code < range.max ? code + 1 : range.min;
         });
       }).join('');
@@ -840,8 +840,8 @@
      */
 
     function prev(value) {
-      var converted = value.toString().split('').map(function (char) {
-        return stringFromCharCodeBy(char, function (range, code) {
+      var converted = value.toString().split('').map(function (_char4) {
+        return stringFromCharCodeBy(_char4, function (range, code) {
           return !range || code > range.min ? code - 1 : range.max;
         });
       }).join('');
@@ -2560,7 +2560,7 @@
         key: "render",
         value: function render() {
           var el = createElement('div', {
-            class: this.className === 'flip-clock' ? this.className : 'flip-clock-' + this.className
+            "class": this.className === 'flip-clock' ? this.className : 'flip-clock-' + this.className
           });
           this.theme[this.name](el, this);
 
@@ -3506,9 +3506,9 @@
 
     function Divider$1 (el, instance) {
       appendChildren(el, [createElement('div', {
-        class: 'flip-clock-dot top'
+        "class": 'flip-clock-dot top'
       }), createElement('div', {
-        class: 'flip-clock-dot bottom'
+        "class": 'flip-clock-dot bottom'
       })]);
     }
 
@@ -3516,7 +3516,7 @@
       return el ? el.childNodes ? el.childNodes[index] : el[index] : null;
     }
 
-    function char(el) {
+    function _char(el) {
       return el ? el.querySelector('.flip-clock-list-item:first-child .top').innerHTML : null;
     }
 
@@ -3525,7 +3525,9 @@
         var groupEl = child(instance.el ? instance.el.querySelectorAll('.flip-clock-group') : null, x);
         var lists = group.map(function (value, y) {
           var listEl = child(groupEl ? groupEl.querySelectorAll('.flip-clock-list') : null, y);
-          var listValue = char(listEl);
+
+          var listValue = _char(listEl);
+
           return instance.createList(value, {
             domValue: listValue,
             countdown: instance.countdown,
@@ -3574,11 +3576,11 @@
       var className = instance.active === true ? 'active' : instance.active === false ? 'before' : null;
       el.classList.add(className);
       appendChildren(el, [createElement('div', [createElement('div', instance.value, {
-        class: 'top'
+        "class": 'top'
       }), createElement('div', instance.value, {
-        class: 'bottom'
+        "class": 'bottom'
       })], {
-        class: 'flip-clock-list-item-inner'
+        "class": 'flip-clock-list-item-inner'
       })]);
     }
 

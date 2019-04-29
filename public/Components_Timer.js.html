@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FlipClock.js :: Source: Components/Timer.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.css" />
+</head>
+
+<body>
+
+<div id="app" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <nav>
+                <h2><a href="index.html">Home</a></h2><ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+            </nav>
+        </div>
+        <div class="col-md-9">
+            
+                <h1 class="display-4">Source: Components/Timer.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Component from './Component';
+import { isObject, isNumber, callback } from '../Helpers/Functions';
+
+export default class Timer extends Component {
+
+    /**
+     * Create a new `Timer` instance.
+     *
+     * @class Timer
+     * @extends Component
+     * @param {(Object|Number)} interval - The interval passed as a `Number`,
+     *     or can set the attribute of the class with an object.
+     */
+    constructor(interval) {
+        super(Object.assign({
+            count: 0,
+            handle: null,
+            started: null,
+            running: false,
+            interval: isNumber(interval) ? interval : null,
+        }, isObject(interval) ? interval : null));
+    }
+
+    /**
+     * Gets the elapsed the time as an interger.
+     *
+     * @return {Number} The `elapsed` attribute.
+     */
+    get elapsed() {
+        return !this.lastLoop ? 0 : this.lastLoop - (
+            this.started ? this.started.getTime() : new Date().getTime()
+        );
+    }
+
+    /**
+     * Returns true is the timer is running.
+     *
+     * @return {boolean} - Returns `true` the `running` property is `true`
+     */
+    get isRunning() {
+        return this.running === true;
+    }
+
+    /**
+     * Returns true is the timer is not running.
+     *
+     * @return {boolean} - Returns `true` the `running` property is `false`
+     */
+    get isStopped() {
+        return this.running === false;
+    }
+
+    /**
+     * Resets the timer.
+     *
+     * @param  {(Function|undefined)} fn - The interval callback.
+     * @return {Timer} - The `Timer` instance.
+     */
+    reset(fn) {
+        this.stop(() => {
+            this.count = 0;
+            this.start(() => callback.call(this, fn));
+            this.emit('reset');
+        });
+
+        return this;
+    }
+
+    /**
+     * Starts the timer.
+     *
+     * @param  {Function} fn - The interval callback.
+     * @return {Timer} - The `Timer` instance.
+     */
+    start(fn) {
+        this.started = new Date;
+        this.lastLoop = Date.now();
+        this.running = true;
+        this.emit('start');
+
+        const loop = () => {
+            if(Date.now() - this.lastLoop >= this.interval) {
+                callback.call(this, fn);
+                this.lastLoop = Date.now();
+                this.emit('interval');
+                this.count++;
+            }
+
+            this.handle = window.requestAnimationFrame(loop);
+
+            return this;
+        };
+
+        return loop();
+    }
+
+    /**
+     * Stops the timer.
+     *
+     * @param  {Function} fn - The stop callback.
+     * @return {Timer} - The `Timer` instance.
+     */
+    stop(fn) {
+        if(this.isRunning) {
+            setTimeout(() => {
+                window.cancelAnimationFrame(this.handle);
+
+                this.running = false;
+
+                callback.call(this, fn);
+
+                this.emit('stop');
+            });
+        }
+
+        return this;
+    }
+
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+    </div>
+
+    <footer class="text-center p-4 pt-3">
+        &copy; 2019 Justin Kimbrell - Version 0.10.3
+    </footer>
+
+</div>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -53,13 +53,15 @@
         .flip-clock-list {
             width: $fc-face-width;
             height: $fc-face-height;
-            background: $fc-face-background;
             position: relative;
             border-radius: .75rem;
-            margin: 0 .125em;
             @include material-shadow(1);
             font-weight: bold;
             color: $fc-face-color;
+
+            &:not(:last-child) {
+                margin-right: .333em;
+            }
 
             &:not(.flip) {
                 .active .flip-clock-list-item-inner {
@@ -74,6 +76,12 @@
                         }
                     }
                 }
+            }
+
+            .flip-clock-list-item-inner {
+                position: absolute;
+                width: 100%;
+                height: 100%;
             }
 
             &.flip {
@@ -118,7 +126,7 @@
 
                     .top:after,
                     .bottom:after {
-                        animation-delay: calc(inherit * .15);
+                        animation-delay: calc(500ms * .15);
                         animation-name: hide-shadow;
                     }
 
@@ -134,7 +142,7 @@
 
                 .top {
                     &:after {
-                        background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,.1) 0%, rgba($fc-flip-shadow-color,1) 100%);
+                        // background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,.1) 0%, rgba($fc-flip-shadow-color,1) 100%);
                     }
                 }
 
@@ -143,7 +151,7 @@
                     transform-origin: top center;
 
                     &:after {
-                        background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,1) 0%, rgba($fc-flip-shadow-color,.1) 100%);
+                        // background: linear-gradient(to bottom, rgba($fc-flip-shadow-color,1) 0%, rgba($fc-flip-shadow-color,.1) 100%);
                     }
                 }
             }
@@ -183,7 +191,6 @@
                     height: 50%;
                     overflow: hidden;
                     position: relative;
-                    //backface-visibility: hidden;
                     font-size: $fc-face-font-size;
                     background: $fc-face-background;
                     box-shadow: inset 0 0 .2em rgba(#000,.5);
@@ -275,7 +282,7 @@
         z-index: 2;
     }
     1% {
-        z-index: 4;
+        z-index: 3;
     }
     100% {
         z-index: 4;
@@ -287,7 +294,8 @@
         transform: rotateX(90deg);
     }
     100% {
-        transform: rotateX(0deg);
+        // value should be .0001 because of rendering bug in WebKit.
+        transform: rotateX(.0001deg);
     }
 }
 

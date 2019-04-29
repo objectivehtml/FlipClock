@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FlipClock.js :: Source: Helpers/Functions.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.css" />
+</head>
+
+<body>
+
+<div id="app" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <nav>
+                <h2><a href="index.html">Home</a></h2><ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+            </nav>
+        </div>
+        <div class="col-md-9">
+            
+                <h1 class="display-4">Source: Helpers/Functions.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * These are a collection of helper functions, some borrowed from Lodash,
+ * Underscore, etc, to provide common functionality without the need for using
+ * a dependency. All of this is an attempt to reduce the file size of the
+ * library.
+ *
+ * @namespace Helpers.Functions
+ */
+
+/**
+ * Throw a string as an Error exception.
+ *
+ * @function error
+ * @param  {string} string - The error message.
+ * @return {void}
+ * @memberof Helpers.Functions
+ */
+export function error(string) {
+    throw Error(string);
+}
+
+/**
+ * Check if `fn` is a function, and call it with `this` context and pass the
+ * arguments.
+ *
+ * @function callback
+ * @param  {string} string - The callback fn.
+ * @param  {...*} args - The arguments to pass.
+ * @return {void}
+ * @memberof Helpers.Functions
+ */
+export function callback(fn, ...args) {
+    if(isFunction(fn)) {
+        return fn.call(this, ...args);
+    }
+}
+
+/**
+ * Round the value to the correct value. Takes into account negative numbers.
+ *
+ * @function round
+ * @param  {value} string - The value to round.
+ * @return {string} - The rounded value.
+ * @memberof Helpers.Functions
+ */
+export function round(value) {
+    return isNegativeZero(
+        value = isNegative(value) ? Math.ceil(value) : Math.floor(value)
+    ) ? ('-' + value).toString() : value;
+}
+
+/**
+ * Returns `true` if `undefined or `null`.
+ *
+ * @function noop
+ * @param  {value} string - The value to check.
+ * @return {boolean} - `true` if `undefined or `null`.
+ * @memberof Helpers.Functions
+ */
+export function noop(value) {
+    return !isUndefined(value) &amp;&amp; !isNull(value);
+}
+
+/**
+ * Returns a function that executes the `before` attribute and passes that value
+ * to `after` and the subsequent value is returned.
+ *
+ * @function chain
+ * @param  {function} before - The first function to execute.
+ * @param  {function} after - The subsequent function to execute.
+ * @return {function} - A function that executes the chain.
+ * @memberof Helpers.Functions
+ */
+export function chain(before, after) {
+    return () => after(before());
+}
+
+/**
+ * Returns a function that returns maps the values before concatenating them.
+ *
+ * @function concatMap
+ * @param  {function} fn - The map callback function.
+ * @return {function} - A function that executes the map and concatenation.
+ * @memberof Helpers.Functions
+ */
+export function concatMap(fn) {
+    return x => {
+        return x.map(fn).reduce((x, y) => x.concat(y), []);
+    }
+}
+
+/**
+ * Flatten an array.
+ *
+ * @function flatten
+ * @param  {array} value - The array to flatten.
+ * @return {array} - The flattened array.
+ * @memberof Helpers.Functions
+ */
+export function flatten(value) {
+    return concatMap(value => value)(value)
+}
+
+/**
+ * Deep flatten an array.
+ *
+ * @function deepFlatten
+ * @param  {array} value - The array to flatten.
+ * @return {array} - The flattened array.
+ * @memberof Helpers.Functions
+ */
+export function deepFlatten(x) {
+    return concatMap(x => Array.isArray(x) ? deepFlatten (x) : x)(x);
+}
+
+/**
+ * Capitalize the first letter in a string.
+ *
+ * @function ucfirst
+ * @param  {string} string - The string to capitalize.
+ * @return {string} - The capitalized string.
+ * @memberof Helpers.Functions
+ */
+export function ucfirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**
+ * Returns the length of a deep flatten array.
+ *
+ * @function length
+ * @param  {array} value - The array to count.
+ * @return {number} - The length of the deep flattened array.
+ * @memberof Helpers.Functions
+ */
+export function length(value) {
+    return deepFlatten(value).length;
+}
+
+/**
+ * Determines if a value is a negative zero.
+ *
+ * @function isNegativeZero
+ * @param  {number} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a negative zero (`-0`).
+ * @memberof Helpers.Functions
+ */
+export function isNegativeZero(value) {
+    return 1 / Math.round(value) === -Infinity;
+}
+
+/**
+ * Determines if a value is a negative.
+ *
+ * @function isNegative
+ * @param  {number} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a negative.
+ * @memberof Helpers.Functions
+ */
+export function isNegative(value) {
+    return isNegativeZero(value) || value &lt; 0;
+}
+
+/**
+ * Determines if a value is `null`.
+ *
+ * @function isNull
+ * @param  {*} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a `null`.
+ * @memberof Helpers.Functions
+ */
+export function isNull(value) {
+    return value === null;// || typeof value === 'null';
+}
+
+/**
+ * Determines if a value is `undefined`.
+ *
+ * @function isNull
+ * @param  {*} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a `undefined`.
+ * @memberof Helpers.Functions
+ */
+export function isUndefined(value) {
+    return typeof value === 'undefined';
+}
+
+/**
+ * Determines if a value is a constructor.
+ *
+ * @function isConstructor
+ * @param  {*} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a constructor.
+ * @memberof Helpers.Functions
+ */
+export function isConstructor(value) {
+    return (value instanceof Function) &amp;&amp; !!value.name;
+}
+
+/**
+ * Determines if a value is a string.
+ *
+ * @function isString
+ * @param  {*} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a string.
+ * @memberof Helpers.Functions
+ */
+export function isString(value) {
+    return typeof value === 'string';
+}
+
+/**
+ * Determines if a value is a array.
+ *
+ * @function isString
+ * @param  {*} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a string.
+ * @memberof Helpers.Functions
+ */
+export function isArray(value) {
+    return value instanceof Array;
+}
+
+/**
+ * Determines if a value is an object.
+ *
+ * @function isObject
+ * @param  {*} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is an object.
+ * @memberof Helpers.Functions
+ */
+export function isObject(value) {
+    const type = typeof value;
+    return value != null &amp;&amp; !isArray(value) &amp;&amp; (
+        type == 'object' || type == 'function'
+    );
+}
+
+/**
+ * Determines if a value is a function.
+ *
+ * @function isObject
+ * @param  {*} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a function.
+ * @memberof Helpers.Functions
+ */
+export function isFunction(value) {
+    return value instanceof Function;
+}
+
+/**
+ * Determines if a value is a number.
+ *
+ * @function isObject
+ * @param  {*} value - The value to check.
+ * @return {boolean} - Returns `true` if the value is a number.
+ * @memberof Helpers.Functions
+ */
+export function isNumber(value) {
+    return !isNaN(value);
+}
+
+/**
+ * Converts a string into kebab case.
+ *
+ * @function kebabCase
+ * @param  {string} string - The string to convert.
+ * @return {string} - The converted string.
+ * @memberof Helpers.Functions
+ */
+export function kebabCase(string) {
+    return string.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase();
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+    </div>
+
+    <footer class="text-center p-4 pt-3">
+        &copy; 2019 Justin Kimbrell - Version 0.10.3
+    </footer>
+
+</div>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

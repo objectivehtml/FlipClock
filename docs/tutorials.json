@@ -1,0 +1,22 @@
+{
+    "1-installation":  {
+        "title": "Installation"
+    },
+    "2-getting-started":  {
+        "title": "Getting Started"
+    },
+    "3-examples":  {
+        "title": "Examples",
+        "children": [
+            "countdown-start-stop-buttons",
+            "daily-counter-countdown"
+        ]
+    },
+    "countdown-start-stop-buttons": {
+        "title": "Countdown with Start & Stop Buttons"
+    },
+    "daily-counter-countdown": {
+        "title": "Daily Counter (Countdown)",
+        "description": "test"
+    }
+}

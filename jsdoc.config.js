@@ -16,13 +16,18 @@ module.exports = {
         ]
     },
     opts: {
-        destination: './docs/'
+        destination: './public/'
     },
     templates: {
         cleverLinks: false,
         monospaceLinks: false,
         default: {
-            outputSourceFiles: true
+            useLongnameInNav: false,
+            staticFiles: {
+                include: [
+                    './docs/pages'
+                ]
+            }
         }
     }
 };
