@@ -12,13 +12,66 @@
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+    <link href="http://fonts.googleapis.com/css?family=Oleo+Script|Ubuntu:300" rel="stylesheet" type="text/css" data-noprefix="">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.css">
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/flipclock@<?js= pkg.version ?>/dist/flipclock.css">
 </head>
 
-<body>
+<body class="<?js= obj.title.toLowerCase().replace(/[\s_]/g, '') ?>">
+
+<?js if (obj.title === 'Home') { ?>
+<header class="hero mb-5">
+    <div class="container">
+        <h1><a href="./index.html">FlipClock.js</a></h1>
+        <div class="version">v<?js= pkg.version ?></div>    
+        <div class="clock d-inline-block my-5 py-5 mx-auto"></div>
+
+        <script>
+        const el = document.querySelector('.clock');
+
+        const clock = new FlipClock(el, new Date, {
+            face: 'HourCounter'
+        });
+        </script>
+
+        <div class="buttons">
+            <a href="https://github.com/objectivehtml/FlipClock/archive/master.zip" class="grand-button hide-for-small">
+                <i class="fa fa-download"></i> Download
+            </a>
+            <a href="https://github.com/objectivehtml/FlipClock" class="grand-button">
+                <i class="fab fa-github"></i> Fork
+            </a>
+            <a href="https://twitter.com/objectivehtml" class="grand-button">
+                <i class="fab fa-twitter"></i> Follow
+            </a>
+        </div>
+    </div>
+</header>
+<?js } else { ?>
+<header class="nav mb-5 py-2">
+    <div class="container">
+        <div class="d-flex justify-content-between">
+            <h1 class="mb-0"><a class="navbar-brand" href="./index.html">FlipClock.js</a></h1>
+            <div class="buttons"> 
+                <a href="https://github.com/objectivehtml/FlipClock/archive/master.zip">
+                    <i class="fa fa-download"></i> Download
+                </a>
+                <a href="https://github.com/objectivehtml/FlipClock">
+                    <i class="fab fa-github"></i> Fork
+                </a>
+                <a href="https://twitter.com/objectivehtml">
+                    <i class="fab fa-twitter"></i> Follow
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+<?js } ?>
 
 <div id="app" class="container">
     <div class="row">
@@ -35,7 +88,6 @@
     <footer class="text-center p-4 pt-3">
         &copy; <?js= new Date().getFullYear() ?> Justin Kimbrell - Version <?js= pkg.version ?>
     </footer>
-
 </div>
 
 <script> prettyPrint(); </script>

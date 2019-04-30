@@ -2,8 +2,6 @@ import rollup from 'rollup';
 import { exec } from 'child_process';
 import pkg from './package.json';
 import { kebabCase } from 'lodash';
-import { camelCase } from 'lodash';
-import { upperFirst } from 'lodash';
 import scss from 'rollup-plugin-scss';
 import json from 'rollup-plugin-json';
 import babel from 'rollup-plugin-babel';
@@ -145,7 +143,6 @@ const config = [{
     plugins: plugins
 } : null)].filter(value => value !== null);
 
-/*
 const watcher = rollup.watch(config);
 
 watcher.on('event', event => {
@@ -157,6 +154,5 @@ watcher.on('event', event => {
         });
     }
 });
-*/
 
 export default config;

@@ -6,7 +6,7 @@ instance and pass a DOM node, the starting value, and some options.
 ```
 const el = document.querySelector('.clock');
 
-const clock = new FlipClock(el, new Date('2014-01-01 05:02:12 pm'), {
+const clock = new FlipClock(el, {
     face: 'TwentyFourHourClock'
 });
 ```
@@ -16,7 +16,7 @@ const clock = new FlipClock(el, new Date('2014-01-01 05:02:12 pm'), {
 <script>
 const el = document.querySelector('.clock');
 
-const clock = new FlipClock(el, new Date('2014-01-01 05:02:12 pm'), {
+const clock = new FlipClock(el, {
     face: 'TwentyFourHourClock'
 });
 </script>

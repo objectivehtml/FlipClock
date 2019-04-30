@@ -1,26 +1,28 @@
 # FlipClock.js
 
-### Installation
+## Installation
 
-FlipClock.js can be installed in the following ways:
+FlipClock is designed to be used a UMD or ES6 module that can be required and
+imported. NPM is the primary package manager. The CDN exposes `FlipClock` as a
+global variable.
 
-#### Bower
+### NPM
 
-	bower install FlipClock
+```npm install flipclock --save```
 
-#### Node (NPM)
+### CDN
 
-	npm install flipclock
+**Specific version**
 
-#### Download .zip
+`https://cdn.jsdelivr.net/npm/flipclock@<?js= pkg.version ?>/dist/flipclock.min.js`
 
-[Download .ZIP](https://github.com/objectivehtml/FlipClock/releases)
+**Always use latest version**
 
----
+`https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.min.js`
 
-### Full Documentation
-
-http://flipclockjs.com/
+<a href="https://github.com/objectivehtml/FlipClock/archive/master.zip" class="btn btn-primary">
+	<i class="fa fa-download"></i> Download .ZIP
+</a>
 
 ---
 
@@ -51,6 +53,8 @@ FlipClock originally was developed an example library for a computer science cla
 		face: 'HourCounter'
 	});
 
+---
+
 ### License
 
-Copyright (c) 2018 Justin Kimbrell shared under MIT LICENSE
+&copy; 2013-2019 Objective HTML, LLC [Licensed under MIT](./license.txt)

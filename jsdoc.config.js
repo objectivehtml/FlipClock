@@ -25,7 +25,8 @@ module.exports = {
             useLongnameInNav: false,
             staticFiles: {
                 include: [
-                    './docs/pages'
+                    './docs/pages',
+                    'license.txt'
                 ]
             }
         }

@@ -360,9 +360,9 @@ function linktoExternal(longName, name) {
  * @param {array<object>} members.interfaces
  * @return {string} The HTML for the navigation sidebar.
  */
-function buildNav(members) {
+function buildNav(members) {    
     let globalNav;
-    let nav = '<h2><a href="index.html">Home</a></h2>';
+    let nav = '';
     const seen = {};
     const seenTutorials = {};
 
@@ -673,8 +673,6 @@ exports.publish = (taffyData, opts, tutorials) => {
 
     // TODO: move the tutorial functions to templateHelper.js
     function generateTutorial(title, tutorial, filename) {
-       // console.log(title, tutorial);
-
         const tutorialTemplate = _.template(tutorial.content, view.settings);
         
         tutorial.content = tutorialTemplate({

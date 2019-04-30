@@ -83,7 +83,7 @@
         "release-major": "npm version major --no-git-tag-version; npm run release;",
         "release": "npm run build; npm run uglify; npm run docs; npm run commit; npm publish;",
         "uglify": "rollup -c rollup.uglify.js",
-        "docs": "rm -r ./public; ./node_modules/.bin/jsdoc -c jsdoc.config.js -u ./docs -t ./.jsdoc/flipclock"
+        "docs": "rm -r ./public; ./node_modules/.bin/jsdoc -c jsdoc.config.js -u ./docs -t ./.jsdoc/flipclock --readme ./README.md"
     },
     "jest": {
         "transform": {
