@@ -1,3 +1,7 @@
+body, h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Ubuntu', sans-serif;
+}
+
 .hero, .nav {
     text-align: center;
     background: url(../img/binding_dark.png) repeat;
@@ -24,11 +28,9 @@
     font-size: 8rem;
 }
 
-.hero h1, .hero a, .hero a:hover,
-.nav h1, .nav h1 a, .nav a:hover {
+.hero h1, .hero a, .hero a:hover, .nav h1, .nav h1 a, .nav a:hover {
     color: rgb(203, 14, 112);
 }
-
 
 .hero .version {
     display: block;
@@ -38,13 +40,11 @@
     text-shadow: none;
 }
 
-.nav .buttons a:not(:last-child),
-.hero .buttons a:not(:last-child) {
+.nav .buttons a:not(:last-child), .hero .buttons a:not(:last-child) {
     margin-right: 1rem;
 }
 
-.nav .buttons a,
-.hero .buttons a {
+.nav .buttons a, .hero .buttons a {
     font-size: 1.8rem;
     color: white;
     background: rgb(203, 13, 112);
@@ -57,13 +57,11 @@
     width: 100%;
 }
 
-.nav .buttons a:hover,
-.hero a:hover {
+.nav .buttons a:hover, .hero a:hover {
     text-decoration: none;
 }
 
-.nav .buttons a:active,
-.hero .buttons a:active {
+.nav .buttons a:active, .hero .buttons a:active {
     box-shadow: none;
     position: relative;
     top: 1px;
@@ -75,6 +73,41 @@
 
 .nav .buttons {
     padding: 1rem;
+}
+
+#app nav ul {
+    margin: 0 0 2rem;
+    padding: 0;
+}
+
+#app nav li {
+    list-style: none;
+}
+
+#app nav a {
+    color: black;
+    display: block;
+    padding: .5rem 0;
+}
+
+#app nav a:hover {
+    text-decoration: none;
+}
+
+#app nav a:after {
+    float: right;
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    color: black;
+}
+
+#app nav li:not(:last-child) a {
+    border-bottom: 1px solid rgb(230, 230, 230);
 }
 
 .hero .flip-clock-label {
