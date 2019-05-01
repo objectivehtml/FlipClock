@@ -1,21 +1,18 @@
 {
-    "1-installation":  {
-        "title": "Installation"
+    "installation":  {
+        "title": "Installation",
+        "order": 1
     },
-    "2-getting-started":  {
-        "title": "Getting Started"
+    "getting-started":  {
+        "title": "Getting Started",
+        "order": 2
     },
-    "3-examples":  {
+    "examples":  {
         "title": "Examples",
-        "children": [
-            "daily-counter-countdown",
-            "minute-counter-start-stop-buttons"
-        ]
+        "order": 3
     },
-    "daily-counter-countdown": {
-        "title": "Daily Counter (Countdown)"
-    },
-    "minute-counter-start-stop-buttons": {
-        "title": "Minute Counter with Start & Stop Buttons"
+    "creating-examples":  {
+        "title": "Creating Examples",
+        "order": 4
     }
 }

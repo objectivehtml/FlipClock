@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FlipClock.js :: Tutorial: Daily Counter (Countdown)</title>
+    <title>FlipClock.js :: Tutorial: 24hr Clock Without Seconds</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -22,7 +22,7 @@
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/flipclock@0.10.5/dist/flipclock.css">
 </head>
 
-<body class="tutorial:dailycounter(countdown)">
+<body class="tutorial:24hrclockwithoutseconds">
 
 
 <header class="nav mb-5 py-2">
@@ -49,31 +49,26 @@
     <div class="row">
         <div class="col-md-3">
             <nav>
-                <ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+                <ul><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
             </nav>
         </div>
         <div class="col-md-9 pl-4">
             <section>
     <article>
-        <h1>Daily Counter (Countdown)</h1>
+        
+            <h1>24hr Clock Without Seconds</h1>
+        
 
-<p>This is an example of the DailyCounter face that counts down to the next New Year.</p>
-
-<div class="clock mt-5"></div>
+        <p>This examples shows a <a href="Faces.TwentyFourHourClock.html"><code>Faces.TwentyFourHourClock</code></a> without seconds.</p>
+<div class="mt-5 clock"></div>
 
 <script type="text/javascript">
-	var el = document.querySelector('.clock');
+    const el = document.querySelector('.clock');
 
-	// Grab the current date
-	var currentDate = new Date();
-
-	// Set some date in the past. In this case, it's always been since Jan 1
-	var date  = new Date(currentDate.getFullYear() + 1, 0, 1);
-
-	var clock = new FlipClock(el, date, {
-		face: 'DayCounter',
-		countdown: true
-	});
+    const clock = new FlipClock(el, {
+        face: 'TwentyFourHourClock',
+        showSeconds: false
+    });
 </script>
     </article>
 

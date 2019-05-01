@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FlipClock.js :: Tutorial: Examples</title>
+    <title>FlipClock.js :: Tutorial: Event Binding</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -22,7 +22,7 @@
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/flipclock@0.10.5/dist/flipclock.css">
 </head>
 
-<body class="tutorial:examples">
+<body class="tutorial:eventbinding">
 
 
 <header class="nav mb-5 py-2">
@@ -49,22 +49,40 @@
     <div class="row">
         <div class="col-md-3">
             <nav>
-                <ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+                <ul><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
             </nav>
         </div>
         <div class="col-md-9 pl-4">
             <section>
     <article>
-        <h1>Examples</h1>
+        
+            <h1>Event Binding</h1>
+        
+
+        <p>This example show how to bind and unbind events.</p>
+<div class="clock mt-5"></div>
+
+<script type="text/javascript">
+    var el = document.querySelector('.clock');
+
+    var clock = new FlipClock(el, new Date, {
+        face: 'HourCounter'
+    });
+
+    var count = 0;
+
+    clock.on('interval', () => {
+        if(++count === 10) {
+            clock.off('interval');
+        }
+    });
+
+    clock.once('interval', () => {
+        console.log('this gets called one time');
+    });
+</script>
     </article>
 
-    
-        <!-- <h2>Examples</h2> -->
-        <ul>
-            <li><a href="tutorial-daily-counter-countdown.html">Daily Counter (Countdown)</a></li>
-        
-            <li><a href="tutorial-minute-counter-start-stop-buttons.html">Minute Counter with Start & Stop Buttons</a></li>
-        </ul>
     
 </section>
 

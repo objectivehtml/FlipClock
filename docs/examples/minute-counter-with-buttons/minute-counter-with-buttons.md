@@ -1,6 +1,4 @@
-<h1>Minute Counter with Start & Stop Buttons</h1>
-
-<p>This is an example of the MinuteCounter face that counts up 5 seconds and stops.</p>
+This is an example of the {@link Faces.MinuteCounter} that counts up 5 seconds and stops.
 
 <div class="clock mt-5 mb-3"></div>
 
@@ -8,8 +6,6 @@
 
 <button class="btn btn-primary start">Start Clock</button>
 <button class="btn btn-danger stop">Stop Clock</button>
-
-asd
 
 <script type="text/javascript">
 	var el = document.querySelector('.clock');

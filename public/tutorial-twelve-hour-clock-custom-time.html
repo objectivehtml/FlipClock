@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FlipClock.js :: Tutorial: Minute Counter with Start & Stop Buttons</title>
+    <title>FlipClock.js :: Tutorial: 12hr Clock with Custom Time</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -22,7 +22,7 @@
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/flipclock@0.10.5/dist/flipclock.css">
 </head>
 
-<body class="tutorial:minutecounterwithstart&stopbuttons">
+<body class="tutorial:12hrclockwithcustomtime">
 
 
 <header class="nav mb-5 py-2">
@@ -49,55 +49,26 @@
     <div class="row">
         <div class="col-md-3">
             <nav>
-                <ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+                <ul><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
             </nav>
         </div>
         <div class="col-md-9 pl-4">
             <section>
     <article>
-        <h1>Minute Counter with Start & Stop Buttons</h1>
+        
+            <h1>12hr Clock with Custom Time</h1>
+        
 
-<p>This is an example of the MinuteCounter face that counts up 5 seconds and stops.</p>
-
-<div class="clock mt-5 mb-3"></div>
-
-<p class="message"></p>
-
-<button class="btn btn-primary start">Start Clock</button>
-<button class="btn btn-danger stop">Stop Clock</button>
-
-asd
+        <p>This examples shows a <a href="Faces.TwelveHourClock.html"><code>Faces.TwelveHourClock</code></a> with a custom time.</p>
+<div class="mt-5 clock"></div>
 
 <script type="text/javascript">
-	var el = document.querySelector('.clock');
+    const el = document.querySelector('.clock');
 
-	function date(offset = 0) {
-		return new Date(new Date().setSeconds(new Date().getSeconds() + offset));
-	}
-
-	var clock = new FlipClock(el, () => date(), {
-		face: 'MinuteCounter',
-		autoStart: false,
-		stopAt: 5
-	});
-
-	clock.on('start', () => {
-		document.querySelector('.message').innerHTML = 'Clock started!';
-	});
-
-	clock.on('stop', () => {
-		document.querySelector('.message').innerHTML = 'Clock stopped!';
-	});
-
-	document.querySelector('.start').addEventListener('click', event => {
-		clock.timer.isStopped && clock.start();
-	});
-
-	document.querySelector('.stop').addEventListener('click', event => {
-		clock.timer.isRunning && clock.stop();
-	});
+    const clock = new FlipClock(el, new Date('2014-01-01 05:02:12 pm'), {
+        face: 'TwelveHourClock'
+    });
 </script>
-
     </article>
 
     

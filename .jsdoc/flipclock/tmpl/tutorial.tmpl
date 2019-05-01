@@ -1,13 +1,16 @@
 <section>
     <article>
+        <?js if (tutorial.meta && tutorial.meta.header) { ?>
+            <h1><?js= tutorial.meta.header === true ? tutorial.title : tutorial.meta.header ?></h1>
+        <?js } ?>
+
         <?js= content ?>
     </article>
 
-    <?js if (children.length > 0) { ?>
-        <!-- <h2><?js= header ?></h2> -->
+    <?js if (tutorial.children.length > 0) { ?>
         <ul><?js
             var self = this;
-            children.forEach(function(t) { ?>
+            tutorial.children.forEach(function(t) { ?>
             <li><?js= self.tutoriallink(t.name) ?></li>
         <?js }); ?></ul>
     <?js } ?>

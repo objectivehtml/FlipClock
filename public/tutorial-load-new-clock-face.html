@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FlipClock.js :: Tutorial: Installation</title>
+    <title>FlipClock.js :: Tutorial: Load New Clock Face</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -22,7 +22,7 @@
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/flipclock@0.10.5/dist/flipclock.css">
 </head>
 
-<body class="tutorial:installation">
+<body class="tutorial:loadnewclockface">
 
 
 <header class="nav mb-5 py-2">
@@ -49,32 +49,35 @@
     <div class="row">
         <div class="col-md-3">
             <nav>
-                <ul><li><a href="tutorial-1-installation.html">Installation</a></li><li><a href="tutorial-2-getting-started.html">Getting Started</a></li><li><a href="tutorial-3-examples.html">Examples</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+                <ul><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
             </nav>
         </div>
         <div class="col-md-9 pl-4">
             <section>
     <article>
-        <h1>Installation</h1><p>FlipClock is designed to be used a UMD or ES6 module that can be required and
-imported. NPM is the primary package manager. The CDN exposes <code>FlipClock</code> as a
-global variable.</p>
-<h3>NPM</h3><div class="card mb-3">
-    <div class="card-body">
-        <code>npm install flipclock --save</code>
-    </div>
-</div>
+        
+            <h1>Load New Clock Face</h1>
+        
 
-<h3>CDN</h3><div class="card mb-3">
-    <div class="card-body">
-        <b>Specific version</b><br>
+        <p>This examples show how to change a clock the <a href="Faces.HourCounter.html"><code>Faces.HourCounter</code></a> to the <a href="Faces.MinuteCounter.html"><code>Faces.MinuteCounter</code></a> during runtime.</p>
+<div class="clock mt-5"></div>
 
-        <p><code>https://cdn.jsdelivr.net/npm/flipclock@0.10.5/dist/flipclock.min.js</code></p>
+<script type="text/javascript">
+    var el = document.querySelector('.clock');
 
-        <b>Always use latest version</b><br>
+    var clock = new FlipClock(el, new Date, {
+        face: 'HourCounter',
+        showSeconds: false
+    });
 
-        <p><code>https://cdn.jsdelivr.net/npm/flipclock/dist/flipclock.min.js</code></p>
-    </div>
-</div>
+    setTimeout(function() {
+        // Set the options before you set the face. Setting the face triggers
+        // a the render functions. If you set the option after face, you have
+        // to re-render twice.
+        clock.showSeconds = true;
+        clock.face = 'MinuteCounter';
+    }, 3000);
+</script>
     </article>
 
     

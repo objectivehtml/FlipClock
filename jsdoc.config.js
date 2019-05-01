@@ -19,8 +19,8 @@ module.exports = {
         destination: './public/'
     },
     templates: {
-        cleverLinks: false,
-        monospaceLinks: false,
+        cleverLinks: true,
+        monospaceLinks: true,
         default: {
             useLongnameInNav: false,
             staticFiles: {

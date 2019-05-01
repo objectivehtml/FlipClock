@@ -1,6 +1,4 @@
-<h1>Daily Counter (Countdown)</h1>
-
-<p>This is an example of the DailyCounter face that counts down to the next New Year.</p>
+This is an example of the {@link Faces.DayCounter} that counts down to the next New Year with the seconds showing.
 
 <div class="clock mt-5"></div>
 

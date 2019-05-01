@@ -4,6 +4,7 @@ const fs = require('jsdoc/fs');
 const helper = require('jsdoc/util/templateHelper');
 const logger = require('jsdoc/util/logger');
 const path = require('jsdoc/path');
+const stripBom = require('jsdoc/util/stripbom');
 const taffy = require('taffydb').taffy;
 const template = require('jsdoc/template');
 const util = require('util');
@@ -397,6 +398,81 @@ function buildNav(members) {
     return nav;
 }
 
+function extractAndApplyToParent(filepath, tutorials, parent) {
+    const extracted = [];
+
+    ls(filepath, ['html', 'md'], name => {
+        const index = tutorials.children.findIndex(child => child.name === name);
+
+        tutorials._tutorials[name].parent = parent;
+
+        const tutorial = tutorials.children.splice(index, 1).pop();
+
+        parent.children.push(tutorial);
+
+        extracted.push(tutorial);
+    });
+
+    return extracted;
+}
+
+function ls(filepath, types, fn) {
+    if(typeof types === 'function') {
+        fn = types;
+        types = null;
+    }
+    
+    if(types && !(types instanceof Array)) {
+        types = [types];
+    }
+
+    if(!(types instanceof Array)) {
+        types = [];
+    }
+
+    const finder = /^(.*)\.(x(?:ht)?ml|html?|md|markdown|json)$/i;
+    const files = fs.ls(filepath, env.opts.recurse ? env.conf.recurseDepth : undefined);
+
+    files.forEach(file => {
+        const match = file.match(finder);
+        const name = path.basename(match[1]);
+
+        let content = fs.readFileSync(file, env.opts.encoding);
+        
+        switch (match[2].toLowerCase()) {
+            // configuration file
+            case 'json':
+                content = JSON.parse(stripBom.strip(content));
+                
+                break;
+        }
+
+        if((fn instanceof Function) && (!types.length || types.indexOf(match[2]) !== -1)) {
+            fn(name, content, match[2]);
+        }
+    });
+}
+
+function isTutorialJSON(json) {
+    // if conf.title exists or conf.children exists, it is metadata for a tutorial
+    return (hasOwnProp.call(json, 'title') || hasOwnProp.call(json, 'children'));
+}
+
+function extractAndApplyMeta(filepath, tutorials) {
+    ls(filepath, ['json'], (name, json) => {
+        if(isTutorialJSON(json) && tutorials._tutorials[name]) {
+            Object.assign(tutorials._tutorials[name], json || {});
+        }
+        else {
+            for(let [key, value] of Object.entries(json)) {
+                if(tutorials._tutorials[key]) {
+                    Object.assign(tutorials._tutorials[key], json[key] || {});
+                }
+            }
+        }
+    });
+}
+
 /**
     @param {TAFFY} taffyData See <http://taffydb.com/>.
     @param {object} opts
@@ -447,6 +523,18 @@ exports.publish = (taffyData, opts, tutorials) => {
         path.getResourcePath(path.dirname(conf.default.layoutFile),
             path.basename(conf.default.layoutFile) ) :
         'layout.tmpl';
+
+    // Since JSDoc doesn't support meta data in .json files out of the box
+    // extract it and apply it to the tutorials object.
+      
+    extractAndApplyMeta('./docs', tutorials);
+    extractAndApplyToParent('./docs/examples', tutorials, tutorials._tutorials['examples']).forEach(tutorial => {
+        if(!tutorial.meta) {
+            tutorial.meta = {};
+        }
+
+        tutorial.meta.header = true;
+    });
 
     // set up tutorials for helper
     helper.setTutorials(tutorials);
@@ -677,16 +765,15 @@ exports.publish = (taffyData, opts, tutorials) => {
         
         tutorial.content = tutorialTemplate({
             pkg,
-            title: tutorial.title
+            title,
+            tutorial
         });
 
         const tutorialData = {
-            pkg: pkg,
-            title: title,
-            pageTitle: false,
-            header: tutorial.title,
+            pkg,
+            title,
+            tutorial,
             content: tutorial.parse(),
-            children: tutorial.children
         };
 
         const tutorialPath = path.join(outdir, filename);
