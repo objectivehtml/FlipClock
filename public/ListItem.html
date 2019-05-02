@@ -25,8 +25,8 @@
 <body class="class:listitem">
 
 
-<header class="nav mb-5 py-2">
-    <div class="container">
+<header class="nav mb-4 py-2">
+    <div class="container-fluid">
         <div class="d-flex justify-content-between">
             <h1 class="mb-0"><a class="navbar-brand" href="./index.html">FlipClock.js</a></h1>
             <div class="buttons"> 
@@ -45,14 +45,14 @@
 </header>
 
 
-<div id="app" class="container">
+<div id="app" class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div id="sidebar" class="col-md-4 col-lg-3">
             <nav>
-                <ul><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+                <ul><li><a href="tutorial-contributors.html">Contributors</a></li><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li><li><a href="tutorial-options.html">Options</a></li><li><a href="Faces.html">Faces</a></li><li><a href="Helpers.html">Helpers</a></li><li><a href="Languages.html">Languages</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
             </nav>
         </div>
-        <div class="col-md-9 pl-4">
+        <div id="content" class="col-md-8 col-lg-9 pl-3">
             
 
 
@@ -97,100 +97,101 @@
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">Number</span>
 |
 
 <span class="param-type">String</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
                 
                 </td>
-            
 
-            
-
-            <td class="description last"><p>The value of the <code>ListItem</code>.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>attributes</code></td>
-            
-
-            <td class="type">
-            
                 
+                    <td class="attributes">
+                    
+
+                    
+
+                    
+                    </td>
+                
+
+                
+
+                <td class="description last"><p>The value of the <code>ListItem</code>.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>attributes</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">object</span>
 |
 
 <span class="param-type">undefined</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
                 
                 </td>
-            
 
-            
+                
+                    <td class="attributes">
+                    
+                        &lt;optional><br>
+                    
 
-            <td class="description last"><p>The instance attributes.</p></td>
-        </tr>
+                    
 
-    
-    </tbody>
-</table>
+                    
+                    </td>
+                
 
+                
+
+                <td class="description last"><p>The instance attributes.</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -259,6 +260,7 @@
     </div>
 
     
+    <div class="my-5">      
         <h3 class="subsection-title">Extends</h3>
 
         
@@ -269,9 +271,11 @@
     </ul>
 
 
+    </div>
+    
+    
     
 
-    
 
     
 
@@ -285,18 +289,28 @@
         <h3 class="subsection-title">Members</h3>
 
         
+        <div class="mb-5">
             
-<h4 class="name" id="className"><span class="type-signature"></span>className<span class="type-signature"></span></h4>
+<h4 class="name" id="className"><span class="type-signature"></span>className<span class="type-signature"> :string</span></h4>
 
 
 
 
 <div class="description">
-    <p>Get the <code>className</code> attribute. Used for CSS. Kebab cases the <code>name</code>
-property by default.</p>
+    <p>The <code>className</code> attribute. Used for CSS.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -336,7 +350,7 @@ property by default.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line32">line 32</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -352,18 +366,30 @@ property by default.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="el"><span class="type-signature"></span>el<span class="type-signature"></span></h4>
+<h4 class="name" id="el"><span class="type-signature"></span>el<span class="type-signature"> :HTMLElement</span></h4>
 
 
 
 
 <div class="description">
-    <p>Get the component's top level DOM node.</p>
+    <p>The <code>el</code> attribute.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">HTMLElement</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -376,12 +402,12 @@ property by default.</p>
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="DomComponent.html#el">DomComponent#el</a>
     </li></ul></dd>
+    
+
     
 
     
@@ -419,18 +445,30 @@ property by default.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="events"><span class="type-signature"></span>events<span class="type-signature"></span></h4>
+<h4 class="name" id="events"><span class="type-signature"></span>events<span class="type-signature"> :object</span></h4>
 
 
 
 
 <div class="description">
-    <p>Get the <code>events</code> attribute.</p>
+    <p>The <code>events</code> attribute.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -470,7 +508,7 @@ property by default.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line41">line 41</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line40">line 40</a>
     </li></ul></dd>
     
 
@@ -486,9 +524,11 @@ property by default.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="language"><span class="type-signature"></span>language<span class="type-signature"></span></h4>
+<h4 class="name" id="language"><span class="type-signature"></span>language<span class="type-signature"> :object</span></h4>
 
 
 
@@ -498,6 +538,16 @@ property by default.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -510,10 +560,8 @@ property by default.</p>
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="DomComponent.html#language">DomComponent#language</a>
     </li></ul></dd>
     
@@ -535,9 +583,11 @@ property by default.</p>
     
 
     
+
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line110">line 110</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -553,9 +603,11 @@ property by default.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"></span></h4>
+<h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"> :string</span></h4>
 
 
 
@@ -565,6 +617,16 @@ property by default.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -620,19 +682,31 @@ property by default.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="parent"><span class="type-signature"></span>parent<span class="type-signature"></span></h4>
+<h4 class="name" id="parent"><span class="type-signature"></span>parent<span class="type-signature"> :<a href="DomComponent.html">DomComponent</a></span></h4>
 
 
 
 
 <div class="description">
-    <p>Get the <code>parent</code> attribute. Parent is set when <code>DomComponent</code> instances are
+    <p>The <code>parent</code> attribute. Parent is set when <code>DomComponent</code> instances are
 mounted.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="DomComponent.html">DomComponent</a></span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -645,10 +719,8 @@ mounted.</p>
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="DomComponent.html#parent">DomComponent#parent</a>
     </li></ul></dd>
     
@@ -670,9 +742,11 @@ mounted.</p>
     
 
     
+
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line68">line 68</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -688,18 +762,30 @@ mounted.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="theme"><span class="type-signature"></span>theme<span class="type-signature"></span></h4>
+<h4 class="name" id="theme"><span class="type-signature"></span>theme<span class="type-signature"> :object</span></h4>
 
 
 
 
 <div class="description">
-    <p>Get the <code>theme</code> attribute.</p>
+    <p>The <code>theme</code> attribute.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -712,10 +798,8 @@ mounted.</p>
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="DomComponent.html#theme">DomComponent#theme</a>
     </li></ul></dd>
     
@@ -737,9 +821,11 @@ mounted.</p>
     
 
     
+
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line87">line 87</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -755,13 +841,17 @@ mounted.</p>
 
 
 
+        </div>
         
     
 
-    
+       
+
+
         <h3 class="subsection-title">Methods</h3>
 
         
+        <div class="mb-5">
             
 
     
@@ -789,51 +879,52 @@ mounted.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>fn</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>fn</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">function</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The callback function.</p></td>
-        </tr>
+                <td class="description last"><p>The callback function.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -873,7 +964,7 @@ mounted.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line202">line 202</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line195">line 195</a>
     </li></ul></dd>
     
 
@@ -927,7 +1018,9 @@ mounted.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -955,51 +1048,52 @@ mounted.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>key</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>key</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The event id/key.</p></td>
-        </tr>
+                <td class="description last"><p>The event id/key.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1039,7 +1133,7 @@ mounted.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line61">line 61</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line54">line 54</a>
     </li></ul></dd>
     
 
@@ -1093,7 +1187,9 @@ mounted.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1121,51 +1217,52 @@ mounted.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>key</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>key</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The attribute name.</p></td>
-        </tr>
+                <td class="description last"><p>The attribute name.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1205,7 +1302,7 @@ mounted.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line132">line 132</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -1259,7 +1356,9 @@ mounted.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1322,7 +1421,7 @@ mounted.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line141">line 141</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line134">line 134</a>
     </li></ul></dd>
     
 
@@ -1376,7 +1475,9 @@ mounted.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1440,7 +1541,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line157">line 157</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line150">line 150</a>
     </li></ul></dd>
     
 
@@ -1494,7 +1595,9 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1522,111 +1625,112 @@ that starts with <code>$</code>, which is used internally.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>parent</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+            <th>Attributes</th>
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>parent</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">HTMLElement</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
                 
                 </td>
-            
 
-            
-                <td class="default">
                 
-                </td>
-            
+                    <td class="attributes">
+                    
 
-            <td class="description last"><p>The parent DOM node.</p></td>
-        </tr>
+                    
 
-    
-
-        <tr>
-            
-                <td class="name"><code>before</code></td>
-            
-
-            <td class="type">
-            
+                    
+                    </td>
                 
+
+                
+                    <td class="default">
+                    
+                    </td>
+                
+
+                <td class="description last"><p>The parent DOM node.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>before</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">false</span>
 |
 
 <span class="param-type">HTMLElement</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
                 
                 </td>
-            
 
-            
-                <td class="default">
                 
-                    false
-                
-                </td>
-            
+                    <td class="attributes">
+                    
+                        &lt;optional><br>
+                    
 
-            <td class="description last"><p>If <code>false</code>, element is
+                    
+
+                    
+                    </td>
+                
+
+                
+                    <td class="default">
+                    
+                        false
+                    
+                    </td>
+                
+
+                <td class="description last"><p>If <code>false</code>, element is
     appended to the parent node. If an instance of an <code>HTMLElement</code>,
     the component will be inserted before the specified element.</p></td>
-        </tr>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1666,7 +1770,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line183">line 183</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -1720,7 +1824,9 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1748,80 +1854,81 @@ that starts with <code>$</code>, which is used internally.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>key</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>key</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The event id/key.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fn</code></td>
-            
-
-            <td class="type">
-            
                 
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>The event id/key.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>fn</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">function</span>
 |
 
 <span class="param-type">undefined</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The listener callback function. If no
+                <td class="description last"><p>The listener callback function. If no
     function is defined, all events with the specified id/key will be
     removed. Otherwise, only the event listeners matching the id/key AND
     callback will be removed.</p></td>
-        </tr>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1861,7 +1968,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line100">line 100</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line93">line 93</a>
     </li></ul></dd>
     
 
@@ -1915,7 +2022,9 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1943,142 +2052,143 @@ that starts with <code>$</code>, which is used internally.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>key</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+            <th>Attributes</th>
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>key</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
                 
                 </td>
-            
 
-            
-                <td class="default">
                 
-                </td>
-            
+                    <td class="attributes">
+                    
 
-            <td class="description last"><p>The event id/key.</p></td>
-        </tr>
+                    
 
-    
-
-        <tr>
-            
-                <td class="name"><code>fn</code></td>
-            
-
-            <td class="type">
-            
+                    
+                    </td>
                 
+
+                
+                    <td class="default">
+                    
+                    </td>
+                
+
+                <td class="description last"><p>The event id/key.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>fn</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">function</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
                 
                 </td>
-            
 
-            
-                <td class="default">
                 
-                </td>
-            
+                    <td class="attributes">
+                    
 
-            <td class="description last"><p>The listener callback function.</p></td>
-        </tr>
+                    
 
-    
-
-        <tr>
-            
-                <td class="name"><code>once</code></td>
-            
-
-            <td class="type">
-            
+                    
+                    </td>
                 
+
+                
+                    <td class="default">
+                    
+                    </td>
+                
+
+                <td class="description last"><p>The listener callback function.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>once</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">boolean</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
                 
                 </td>
-            
 
-            
-                <td class="default">
                 
-                    false
-                
-                </td>
-            
+                    <td class="attributes">
+                    
+                        &lt;optional><br>
+                    
 
-            <td class="description last"><p>Should the event handler be fired a
+                    
+
+                    
+                    </td>
+                
+
+                
+                    <td class="default">
+                    
+                        false
+                    
+                    </td>
+                
+
+                <td class="description last"><p>Should the event handler be fired a
     single time.</p></td>
-        </tr>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2118,7 +2228,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line80">line 80</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -2172,7 +2282,9 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2200,74 +2312,75 @@ that starts with <code>$</code>, which is used internally.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>key</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>key</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The event id/key.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fn</code></td>
-            
-
-            <td class="type">
-            
                 
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>The event id/key.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>fn</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">function</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The listener callback function.</p></td>
-        </tr>
+                <td class="description last"><p>The listener callback function.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2307,7 +2420,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line120">line 120</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line113">line 113</a>
     </li></ul></dd>
     
 
@@ -2361,7 +2474,9 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2424,7 +2539,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line157">line 157</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line133">line 133</a>
     </li></ul></dd>
     
 
@@ -2478,7 +2593,9 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2506,74 +2623,75 @@ that starts with <code>$</code>, which is used internally.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>key</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>key</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The attribute name.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
                 
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>The attribute name.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The attribute value.</p></td>
-        </tr>
+                <td class="description last"><p>The attribute value.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2613,7 +2731,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line175">line 175</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line168">line 168</a>
     </li></ul></dd>
     
 
@@ -2661,7 +2779,9 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2689,51 +2809,52 @@ that starts with <code>$</code>, which is used internally.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>values</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>values</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">object</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The object dictionary.</p></td>
-        </tr>
+                <td class="description last"><p>The object dictionary.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2773,7 +2894,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line190">line 190</a>
+        <a href="Components_Component.js.html">Components/Component.js</a>, <a href="Components_Component.js.html#line183">line 183</a>
     </li></ul></dd>
     
 
@@ -2821,7 +2942,9 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2849,51 +2972,52 @@ that starts with <code>$</code>, which is used internally.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>string</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>string</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The string to translate.</p></td>
-        </tr>
+                <td class="description last"><p>The string to translate.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2933,7 +3057,7 @@ that starts with <code>$</code>, which is used internally.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line139">line 139</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line115">line 115</a>
     </li></ul></dd>
     
 
@@ -2988,6 +3112,7 @@ that starts with <code>$</code>, which is used internally.</p>
 
 
 
+        </div>
         
     
 

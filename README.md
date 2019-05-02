@@ -55,6 +55,19 @@ FlipClock originally was developed an example library for a computer science cla
 
 ---
 
+### Collaborators
+
+- [Justin Kimbrell](https://github.com/objectivehtml)
+- [Brian Espinosa](https://github.com/brianespinosa)
+
+---
+
+### Special Credit
+
+Big thanks to all the examples on the Internet. But in particular, a huge thanks goes out to Adem Ilter who built [this example](http://codepen.io/ademilter/pen/czIGo), which provided the best animation and least amount of code to prove the concept.
+
+---
+
 ### License
 
-&copy; 2013-2019 Objective HTML, LLC [Licensed under MIT](./license.txt)
+[Licensed under MIT](./license.txt)

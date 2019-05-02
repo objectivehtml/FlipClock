@@ -7,12 +7,20 @@
         "title": "Getting Started",
         "order": 2
     },
+    "options":  {
+        "title": "Options",
+        "order": 3
+    },
+    "contributors":  {
+        "title": "Contributors",
+        "order": 4
+    },
     "examples":  {
         "title": "Examples",
-        "order": 3
+        "order": 4
     },
     "creating-examples":  {
         "title": "Creating Examples",
-        "order": 4
+        "order": 5
     }
 }

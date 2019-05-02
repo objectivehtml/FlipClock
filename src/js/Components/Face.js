@@ -40,30 +40,23 @@ export default class Face extends Component {
     }
 
     /**
-     * Get the `dataType` attribute.
+     * The `dataType` attribute.
      *
-     * @return {*} - The `dataType` attribute.
+     * @type {*}
      */
     get dataType() {
         return this.defaultDataType();
     }
 
     /**
-     * Get the `value` attribute.
+     * The `value` attribute.
      *
-     * @return {*} - The `value` attribute.
+     * @type {*}
      */
     get value() {
         return this.$value;
     }
 
-    /**
-     * Set the `value` attribute.
-     *
-     * @param  {*} value - Any value that is not an instance of `FaceValue` will
-     *     be cast into one.
-     * @return {void}
-     */
     set value(value) {
         if(!(value instanceof FaceValue)) {
             value = this.createFaceValue(value);
@@ -73,40 +66,27 @@ export default class Face extends Component {
     }
 
     /**
-     * Get the `stopAt` attribute.
+     * The `stopAt` attribute.
      *
-     * @return {*} - The `stopAt` attribute.
+     * @type {*}
      */
     get stopAt() {
         return this.$stopAt;
     }
 
-    /**
-     * Set the `stopAt` attribute.
-     *
-     * @param  {*} value - Any value that is used to match against the face to
-     *     determine when the clock should stop.
-     * @return {void}
-     */
     set stopAt(value) {
         this.$stopAt = value;
     }
 
     /**
-     * Get the `originalValue` attribute.
+     * The `originalValue` attribute.
      *
-     * @return {*} - The `originalValue` attribute.
+     * @type {*}
      */
     get originalValue() {
         return this.$originalValue;
     }
 
-    /**
-     * Set the `originalValue` attribute.
-     *
-     * @param  {*} value - The `originalValue` attribute.
-     * @return {void}
-     */
     set originalValue(value) {
         this.$originalValue = value;
     }

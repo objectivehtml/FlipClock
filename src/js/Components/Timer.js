@@ -22,9 +22,9 @@ export default class Timer extends Component {
     }
 
     /**
-     * Gets the elapsed the time as an interger.
+     * The `elapsed` attribute.
      *
-     * @return {Number} The `elapsed` attribute.
+     * @type {Number}
      */
     get elapsed() {
         return !this.lastLoop ? 0 : this.lastLoop - (
@@ -33,18 +33,18 @@ export default class Timer extends Component {
     }
 
     /**
-     * Returns true is the timer is running.
+     * The `isRunning` attribute.
      *
-     * @return {boolean} - Returns `true` the `running` property is `true`
+     * @type {boolean}
      */
     get isRunning() {
         return this.running === true;
     }
 
     /**
-     * Returns true is the timer is not running.
+     * The `isStopped` attribute.
      *
-     * @return {boolean} - Returns `true` the `running` property is `false`
+     * @type {boolean}
      */
     get isStopped() {
         return this.running === false;

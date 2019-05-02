@@ -303,7 +303,7 @@ function attachModuleSymbols(doclets, modules) {
     });
 }
 
-function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
+function buildMemberNav(items, itemHeading, itemsSeen, linktoFn, itemsOnly = false) {
     let nav = '';
 
     if (items.length) {
@@ -326,6 +326,10 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
                 itemsSeen[item.longname] = true;
             }
         });
+
+        if (itemsOnly) {
+            return itemsNav;
+        }
 
         if (itemsNav !== '') {
             if(itemHeading) {
@@ -367,11 +371,15 @@ function buildNav(members) {
     const seen = {};
     const seenTutorials = {};
 
-    nav += buildMemberNav(members.tutorials, null, seenTutorials, linktoTutorial);
+    nav += '<ul>';
+    nav += buildMemberNav(members.tutorials, null, seenTutorials, linktoTutorial, true);
+    nav += buildMemberNav(members.namespaces.filter(member => member.scope === 'global'), null, seen, linkto, true);
+    nav += '</ul>';
+
+    nav += buildMemberNav(members.classes.filter(member => member.scope === 'global'), 'Classes', seen, linkto);
+
     nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
     nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
-    // nav += buildMemberNav(members.namespaces, 'Namespaces', seen, linkto);
-    nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
     nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
     nav += buildMemberNav(members.events, 'Events', seen, linkto);
     nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
@@ -760,12 +768,13 @@ exports.publish = (taffyData, opts, tutorials) => {
     });
 
     // TODO: move the tutorial functions to templateHelper.js
-    function generateTutorial(title, tutorial, filename) {
+    function generateTutorial(title, tutorial, filename, members) {
         const tutorialTemplate = _.template(tutorial.content, view.settings);
         
         tutorial.content = tutorialTemplate({
             pkg,
             title,
+            members,
             tutorial
         });
 
@@ -789,7 +798,7 @@ exports.publish = (taffyData, opts, tutorials) => {
     // tutorials can have only one parent so there is no risk for loops
     function saveChildren({children}) {
         children.forEach(child => {
-            generateTutorial(`Tutorial: ${child.title}`, child, helper.tutorialToUrl(child.name));
+            generateTutorial(`Tutorial: ${child.title}`, child, helper.tutorialToUrl(child.name), members);
             saveChildren(child);
         });
     }

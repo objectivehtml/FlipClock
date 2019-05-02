@@ -25,8 +25,8 @@
 <body class="<?js= obj.title.toLowerCase().replace(/[\s_]/g, '') ?>">
 
 <?js if (obj.title === 'Home') { ?>
-<header class="hero mb-5">
-    <div class="container">
+<header class="hero mb-4">
+    <div class="container-fluid">
         <h1><a href="./index.html">FlipClock.js</a></h1>
         <div class="version">v<?js= pkg.version ?></div>    
         <div class="clock d-inline-block my-5 py-5 mx-auto"></div>
@@ -53,8 +53,8 @@
     </div>
 </header>
 <?js } else { ?>
-<header class="nav mb-5 py-2">
-    <div class="container">
+<header class="nav mb-4 py-2">
+    <div class="container-fluid">
         <div class="d-flex justify-content-between">
             <h1 class="mb-0"><a class="navbar-brand" href="./index.html">FlipClock.js</a></h1>
             <div class="buttons"> 
@@ -73,14 +73,14 @@
 </header>
 <?js } ?>
 
-<div id="app" class="container">
+<div id="app" class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div id="sidebar" class="col-md-4 col-lg-3">
             <nav>
                 <?js= this.nav ?>
             </nav>
         </div>
-        <div class="col-md-9 pl-4">
+        <div id="content" class="col-md-8 col-lg-9 pl-3">
             <?js= content ?>
         </div>
     </div>

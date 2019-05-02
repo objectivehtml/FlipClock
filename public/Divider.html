@@ -25,8 +25,8 @@
 <body class="class:divider">
 
 
-<header class="nav mb-5 py-2">
-    <div class="container">
+<header class="nav mb-4 py-2">
+    <div class="container-fluid">
         <div class="d-flex justify-content-between">
             <h1 class="mb-0"><a class="navbar-brand" href="./index.html">FlipClock.js</a></h1>
             <div class="buttons"> 
@@ -45,14 +45,14 @@
 </header>
 
 
-<div id="app" class="container">
+<div id="app" class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div id="sidebar" class="col-md-4 col-lg-3">
             <nav>
-                <ul><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+                <ul><li><a href="tutorial-contributors.html">Contributors</a></li><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li><li><a href="tutorial-options.html">Options</a></li><li><a href="Faces.html">Faces</a></li><li><a href="Helpers.html">Helpers</a></li><li><a href="Languages.html">Languages</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
             </nav>
         </div>
-        <div class="col-md-9 pl-4">
+        <div id="content" class="col-md-8 col-lg-9 pl-3">
             
 
 
@@ -100,66 +100,67 @@ from the theme.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>attributes</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>attributes</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">object</span>
 |
 
 <span class="param-type">undefined</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
                 
                 </td>
-            
 
-            
+                
+                    <td class="attributes">
+                    
+                        &lt;optional><br>
+                    
 
-            <td class="description last"><p>The instance attributes.</p></td>
-        </tr>
+                    
 
-    
-    </tbody>
-</table>
+                    
+                    </td>
+                
 
+                
+
+                <td class="description last"><p>The instance attributes.</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -228,6 +229,7 @@ from the theme.</p>
     </div>
 
     
+    <div class="my-5">      
         <h3 class="subsection-title">Extends</h3>
 
         
@@ -238,9 +240,11 @@ from the theme.</p>
     </ul>
 
 
+    </div>
+    
+    
     
 
-    
 
     
 
@@ -254,17 +258,28 @@ from the theme.</p>
         <h3 class="subsection-title">Members</h3>
 
         
+        <div class="mb-5">
             
-<h4 class="name" id="el"><span class="type-signature"></span>el<span class="type-signature"></span></h4>
+<h4 class="name" id="el"><span class="type-signature"></span>el<span class="type-signature"> :HTMLElement</span></h4>
 
 
 
 
 <div class="description">
-    <p>Get the component's top level DOM node.</p>
+    <p>The <code>el</code> attribute.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">HTMLElement</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -277,12 +292,12 @@ from the theme.</p>
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="DomComponent.html#el">DomComponent#el</a>
     </li></ul></dd>
+    
+
     
 
     
@@ -320,9 +335,11 @@ from the theme.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="language"><span class="type-signature"></span>language<span class="type-signature"></span></h4>
+<h4 class="name" id="language"><span class="type-signature"></span>language<span class="type-signature"> :object</span></h4>
 
 
 
@@ -332,6 +349,16 @@ from the theme.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -344,10 +371,8 @@ from the theme.</p>
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="DomComponent.html#language">DomComponent#language</a>
     </li></ul></dd>
     
@@ -369,9 +394,11 @@ from the theme.</p>
     
 
     
+
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line110">line 110</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -387,19 +414,31 @@ from the theme.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="parent"><span class="type-signature"></span>parent<span class="type-signature"></span></h4>
+<h4 class="name" id="parent"><span class="type-signature"></span>parent<span class="type-signature"> :<a href="DomComponent.html">DomComponent</a></span></h4>
 
 
 
 
 <div class="description">
-    <p>Get the <code>parent</code> attribute. Parent is set when <code>DomComponent</code> instances are
+    <p>The <code>parent</code> attribute. Parent is set when <code>DomComponent</code> instances are
 mounted.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="DomComponent.html">DomComponent</a></span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -412,10 +451,8 @@ mounted.</p>
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="DomComponent.html#parent">DomComponent#parent</a>
     </li></ul></dd>
     
@@ -437,9 +474,11 @@ mounted.</p>
     
 
     
+
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line68">line 68</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -455,18 +494,30 @@ mounted.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
-<h4 class="name" id="theme"><span class="type-signature"></span>theme<span class="type-signature"></span></h4>
+<h4 class="name" id="theme"><span class="type-signature"></span>theme<span class="type-signature"> :object</span></h4>
 
 
 
 
 <div class="description">
-    <p>Get the <code>theme</code> attribute.</p>
+    <p>The <code>theme</code> attribute.</p>
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -479,10 +530,8 @@ mounted.</p>
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="DomComponent.html#theme">DomComponent#theme</a>
     </li></ul></dd>
     
@@ -504,9 +553,11 @@ mounted.</p>
     
 
     
+
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line87">line 87</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -522,13 +573,17 @@ mounted.</p>
 
 
 
+        </div>
         
     
 
-    
+       
+
+
         <h3 class="subsection-title">Methods</h3>
 
         
+        <div class="mb-5">
             
 
     
@@ -556,111 +611,112 @@ mounted.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>parent</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+            <th>Attributes</th>
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>parent</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">HTMLElement</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
                 
                 </td>
-            
 
-            
-                <td class="default">
                 
-                </td>
-            
+                    <td class="attributes">
+                    
 
-            <td class="description last"><p>The parent DOM node.</p></td>
-        </tr>
+                    
 
-    
-
-        <tr>
-            
-                <td class="name"><code>before</code></td>
-            
-
-            <td class="type">
-            
+                    
+                    </td>
                 
+
+                
+                    <td class="default">
+                    
+                    </td>
+                
+
+                <td class="description last"><p>The parent DOM node.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>before</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">false</span>
 |
 
 <span class="param-type">HTMLElement</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
                 
                 </td>
-            
 
-            
-                <td class="default">
                 
-                    false
-                
-                </td>
-            
+                    <td class="attributes">
+                    
+                        &lt;optional><br>
+                    
 
-            <td class="description last"><p>If <code>false</code>, element is
+                    
+
+                    
+                    </td>
+                
+
+                
+                    <td class="default">
+                    
+                        false
+                    
+                    </td>
+                
+
+                <td class="description last"><p>If <code>false</code>, element is
     appended to the parent node. If an instance of an <code>HTMLElement</code>,
     the component will be inserted before the specified element.</p></td>
-        </tr>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -700,7 +756,7 @@ mounted.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line183">line 183</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -754,7 +810,9 @@ mounted.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -817,7 +875,7 @@ mounted.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line157">line 157</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line133">line 133</a>
     </li></ul></dd>
     
 
@@ -871,7 +929,9 @@ mounted.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -899,51 +959,52 @@ mounted.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>string</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>string</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The string to translate.</p></td>
-        </tr>
+                <td class="description last"><p>The string to translate.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -983,7 +1044,7 @@ mounted.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line139">line 139</a>
+        <a href="Components_DomComponent.js.html">Components/DomComponent.js</a>, <a href="Components_DomComponent.js.html#line115">line 115</a>
     </li></ul></dd>
     
 
@@ -1038,6 +1099,7 @@ mounted.</p>
 
 
 
+        </div>
         
     
 

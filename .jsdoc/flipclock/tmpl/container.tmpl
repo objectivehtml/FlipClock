@@ -68,11 +68,13 @@
     </div>
 
     <?js if (doc.augments && doc.augments.length) { ?>
+    <div class="my-5">      
         <h3 class="subsection-title">Extends</h3>
 
         <?js= self.partial('augments.tmpl', doc) ?>
+    </div>
     <?js } ?>
-
+    
     <?js if (doc.requires && doc.requires.length) { ?>
         <h3 class="subsection-title">Requires</h3>
 
@@ -81,16 +83,19 @@
         <?js }); ?></ul>
     <?js } ?>
 
+
     <?js
         var classes = self.find({kind: 'class', memberof: doc.longname});
         if (!isGlobalPage && classes && classes.length) {
     ?>
-        <h3 class="subsection-title">Classes</h3>
+        <div class="my-5">
+            <h3 class="subsection-title">Classes</h3>
 
-        <dl><?js classes.forEach(function(c) { ?>
-            <dt><?js= self.linkto(c.longname, c.name) ?></dt>
-            <dd><?js if (c.summary) { ?><?js= c.summary ?><?js } ?></dd>
-        <?js }); ?></dl>
+            <dl><?js classes.forEach(function(c) { ?>
+                <dt><?js= self.linkto(c.longname, c.name) ?></dt>
+                <dd><?js if (c.summary) { ?><?js= c.summary ?><?js } ?></dd>
+            <?js }); ?></dl>
+        </div>
     <?js } ?>
 
     <?js
@@ -121,12 +126,14 @@
         var namespaces = self.find({kind: 'namespace', memberof: doc.longname});
         if (!isGlobalPage && namespaces && namespaces.length) {
     ?>
-        <h3 class="subsection-title">Namespaces</h3>
+        <div class="my-5">
+            <h3 class="subsection-title">Namespaces</h3>
 
-        <dl><?js namespaces.forEach(function(n) { ?>
-            <dt><?js= self.linkto(n.longname, n.name) ?></dt>
-            <dd><?js if (n.summary) { ?><?js= n.summary ?><?js } ?></dd>
-        <?js }); ?></dl>
+            <dl><?js namespaces.forEach(function(n) { ?>
+                <dt><?js= self.linkto(n.longname, n.name) ?></dt>
+                <dd><?js if (n.summary) { ?><?js= n.summary ?><?js } ?></dd>
+            <?js }); ?></dl>
+        </div>
     <?js } ?>
 
     <?js
@@ -143,18 +150,24 @@
         <h3 class="subsection-title">Members</h3>
 
         <?js members.forEach(function(p) { ?>
+        <div class="mb-5">
             <?js= self.partial('members.tmpl', p) ?>
+        </div>
         <?js }); ?>
     <?js } ?>
 
     <?js
         var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
         if (methods && methods.length && methods.forEach) {
-    ?>
+    ?>   
+
+
         <h3 class="subsection-title">Methods</h3>
 
         <?js methods.forEach(function(m) { ?>
+        <div class="mb-5">
             <?js= self.partial('method.tmpl', m) ?>
+        </div>
         <?js }); ?>
     <?js } ?>
 
@@ -167,12 +180,12 @@
         <?js typedefs.forEach(function(e) {
                 if (e.signature) {
             ?>
-                <?js= self.partial('method.tmpl', e) ?>
+                <div class="mb-5"><?js= self.partial('method.tmpl', e) ?></div>
             <?js
                 }
                 else {
             ?>
-                <?js= self.partial('members.tmpl', e) ?>
+                <div class="mb-5"><?js= self.partial('members.tmpl', e) ?></div>
             <?js
                 }
             }); ?>

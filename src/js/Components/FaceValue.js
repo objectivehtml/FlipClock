@@ -28,41 +28,28 @@ export default class FaceValue extends Component {
     }
 
     /**
-     * Get the `digits` attribute.
+     * The `digits` attribute.
      *
-     * @return {(Array|undefined)} - The `digits` attribute.
+     * @type {(Array|undefined)}
      */
     get digits() {
         return this.$digits;
     }
 
-    /**
-     * Set `digits` attribute.
-     *
-     * @param  {array} value - An array of digits/characters.
-     * @return {void}
-     */
     set digits(value) {
         this.$digits = value;
         this.minimumDigits = Math.max(this.minimumDigits, length(value));
     }
 
     /**
-     * Get the `value` attribute.
+     * The `value` attribute.
      *
-     * @return {*} - The `value` attribute.
+     * @type {*}
      */
     get value() {
         return this.$value;
     }
 
-    /**
-     * Set `value` attribute. Also digitizes the new value, and sets the
-     * `digits` attributes
-     *
-     * @param  {*} value - The `value` attribute.
-     * @return {void}
-     */
     set value(value) {
         this.$value = value;
         this.digits = digitize(this.format(value), {

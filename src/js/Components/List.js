@@ -28,18 +28,11 @@ export default class List extends DomComponent {
     /**
      * Get the `value` attribute.
      *
-     * @return {(Number|String)} - The `value` attribute.
+     * @type {(Number|String)}
      */
     get value() {
         return this.$value;
     }
-
-    /**
-     * Set the `value` attribute.
-     *
-     * @param  {array} value - The `value` attribute.
-     * @return {(Number|String)} - The `value` attribute.
-     */
     set value(value) {
         this.$value = value;
     }
@@ -47,18 +40,12 @@ export default class List extends DomComponent {
     /**
      * Get the `items` attribute.
      *
-     * @return {(Number|String)} - The `items` attribute.
+     * @type {(Number|String)}
      */
     get items() {
         return this.$items;
     }
 
-    /**
-     * Set the `items` attribute.
-     *
-     * @param  {array} value - The `items` attribute.
-     * @return {(Number|String)} - The `items` attribute.
-     */
     set items(value) {
         this.$items = value;
     }

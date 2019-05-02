@@ -17,37 +17,30 @@ export default class Component {
     /**
      * Get the `name` attribute. Uses the `this.constructor.name` by default.
      *
-     * @return {string} - The `name` attribute.
+     * @type {string}
      */
     get name() {
         return this.constructor.name;
     }
 
     /**
-     * Get the `className` attribute. Used for CSS. Kebab cases the `name`
-     * property by default.
+     * The `className` attribute. Used for CSS.
      *
-     * @return {string} - The `className` attribute.
+     * @type {string}
      */
     get className() {
         return kebabCase(this.name);
     }
 
     /**
-     * Get the `events` attribute.
+     * The `events` attribute.
      *
-     * @return {array} - The `events` attribute.
+     * @type {object}
      */
     get events() {
-        return this.$events || [];
+        return this.$events || {};
     }
 
-    /**
-     * Set the registered events for this class.
-     *
-     * @param  {array} value - The new events array.
-     * @return {void}
-     */
     set events(value) {
         this.$events = value;
     }

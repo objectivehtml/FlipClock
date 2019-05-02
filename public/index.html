@@ -25,8 +25,8 @@
 <body class="home">
 
 
-<header class="hero mb-5">
-    <div class="container">
+<header class="hero mb-4">
+    <div class="container-fluid">
         <h1><a href="./index.html">FlipClock.js</a></h1>
         <div class="version">v0.10.5</div>    
         <div class="clock d-inline-block my-5 py-5 mx-auto"></div>
@@ -54,14 +54,14 @@
 </header>
 
 
-<div id="app" class="container">
+<div id="app" class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div id="sidebar" class="col-md-4 col-lg-3">
             <nav>
-                <ul><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+                <ul><li><a href="tutorial-contributors.html">Contributors</a></li><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li><li><a href="tutorial-options.html">Options</a></li><li><a href="Faces.html">Faces</a></li><li><a href="Helpers.html">Helpers</a></li><li><a href="Languages.html">Languages</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
             </nav>
         </div>
-        <div class="col-md-9 pl-4">
+        <div id="content" class="col-md-8 col-lg-9 pl-3">
             
 
 
@@ -119,7 +119,14 @@ const el = document.querySelector('.clock');
 const clock = new FlipClock(el, new Date, {
     face: 'HourCounter'
 });</code></pre><hr>
-<h3>License</h3><p>&copy; 2013-2019 Objective HTML, LLC <a href="./license.txt">Licensed under MIT</a></p></article>
+<h3>Collaborators</h3><ul>
+<li><a href="https://github.com/objectivehtml">Justin Kimbrell</a></li>
+<li><a href="https://github.com/brianespinosa">Brian Espinosa</a></li>
+</ul>
+<hr>
+<h3>Special Credit</h3><p>Big thanks to all the examples on the Internet. But in particular, a huge thanks goes out to Adem Ilter who built <a href="http://codepen.io/ademilter/pen/czIGo">this example</a>, which provided the best animation and least amount of code to prove the concept.</p>
+<hr>
+<h3>License</h3><p><a href="./license.txt">Licensed under MIT</a></p></article>
     </section>
 
 

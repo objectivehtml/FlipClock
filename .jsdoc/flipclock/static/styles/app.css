@@ -2,6 +2,17 @@ body, h1, h2, h3, h4, h5, h6, p {
     font-family: 'Ubuntu', sans-serif;
 }
 
+.container-fluid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 300px;
+    }
+}
+
 .hero, .nav {
     text-align: center;
     background: url(../img/binding_dark.png) repeat;
@@ -119,6 +130,10 @@ body, h1, h2, h3, h4, h5, h6, p {
     font-size: 2.5rem;
 }
 
+.container-overview .table td:not(.description) {
+    white-space: nowrap;
+}
+
 .class-description {
     font-size: 130%;
     line-height: 140%;
@@ -145,7 +160,7 @@ body, h1, h2, h3, h4, h5, h6, p {
     font-size: 30px;
     font-weight: 700;
     letter-spacing: -1px;
-    margin-bottom: 12px;
+    margin-bottom: 1rem;
 }
 
 .ancestors, .attribs {
@@ -174,12 +189,17 @@ body, h1, h2, h3, h4, h5, h6, p {
     color: #aaa;
 }
 
+h2 .signature,
+h4 .signature {
+    font-size: .66em;
+}
+
 .name, .signature {
     font-family: Consolas, Monaco, 'Andale Mono', monospace;
 }
 
 .details {
-    margin-top: 14px;
+    margin-top: 1.5rem;
     border-left: 2px solid #DDD;
 }
 
@@ -295,4 +315,49 @@ body, h1, h2, h3, h4, h5, h6, p {
 
 .disabled {
     color: #454545;
+}
+
+.contributor {
+    display: flex;
+    width: 100%;
+    padding: 1em;
+}
+
+.contributor .rounded-circle {
+    width: 5rem;
+    height: 5rem;
+    margin-right: 1em;
+}
+
+.contributor .name {
+    font-size: 1.3em;
+}
+
+.card .table {
+    border-right: 0;
+    border-left: 0;
+    margin-bottom: 0;
+}
+
+.card .table:last-child {
+    border-bottom: 0;
+}
+
+.card .table td:last-child,
+.card .table th:last-child {
+    border-right: 0;
+}
+
+.card .table td:first-child,
+.card .table th:first-child {
+    border-left: 0;
+}
+
+.card .table tr:first-child td,
+.card .table tr:first-child th {
+    border-top: 0;
+}
+
+.card .table tr:last-child td {
+    border-bottom: 0;
 }

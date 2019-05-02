@@ -25,8 +25,8 @@
 <body class="namespace:functions">
 
 
-<header class="nav mb-5 py-2">
-    <div class="container">
+<header class="nav mb-4 py-2">
+    <div class="container-fluid">
         <div class="d-flex justify-content-between">
             <h1 class="mb-0"><a class="navbar-brand" href="./index.html">FlipClock.js</a></h1>
             <div class="buttons"> 
@@ -45,14 +45,14 @@
 </header>
 
 
-<div id="app" class="container">
+<div id="app" class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div id="sidebar" class="col-md-4 col-lg-3">
             <nav>
-                <ul><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="Faces.Counter.html">Counter</a></li><li><a href="Faces.DayCounter.html">DayCounter</a></li><li><a href="Faces.HourCounter.html">HourCounter</a></li><li><a href="Faces.MinuteCounter.html">MinuteCounter</a></li><li><a href="Faces.TwelveHourClock.html">TwelveHourClock</a></li><li><a href="Faces.TwentyFourHourClock.html">TwentyFourHourClock</a></li><li><a href="Faces.WeekCounter.html">WeekCounter</a></li><li><a href="Faces.YearCounter.html">YearCounter</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
+                <ul><li><a href="tutorial-contributors.html">Contributors</a></li><li><a href="tutorial-creating-examples.html">Creating Examples</a></li><li><a href="tutorial-examples.html">Examples</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-installation.html">Installation</a></li><li><a href="tutorial-options.html">Options</a></li><li><a href="Faces.html">Faces</a></li><li><a href="Helpers.html">Helpers</a></li><li><a href="Languages.html">Languages</a></li></ul><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Divider.html">Divider</a></li><li><a href="DomComponent.html">DomComponent</a></li><li><a href="Face.html">Face</a></li><li><a href="FaceValue.html">FaceValue</a></li><li><a href="FlipClock.html">FlipClock</a></li><li><a href="Group.html">Group</a></li><li><a href="Label.html">Label</a></li><li><a href="List.html">List</a></li><li><a href="ListItem.html">ListItem</a></li><li><a href="Timer.html">Timer</a></li></ul>
             </nav>
         </div>
-        <div class="col-md-9 pl-4">
+        <div id="content" class="col-md-8 col-lg-9 pl-3">
             
 
 
@@ -127,6 +127,9 @@ library.</p></div>
     </div>
 
     
+    
+    
+
 
     
 
@@ -138,12 +141,13 @@ library.</p></div>
 
     
 
-    
+       
 
-    
+
         <h3 class="subsection-title">Methods</h3>
 
         
+        <div class="mb-5">
             
 
     
@@ -172,94 +176,95 @@ arguments.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>string</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>string</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
                 
                 </td>
-            
 
-            
-
-            <td class="description last"><p>The callback fn.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
                 
+                    <td class="attributes">
+                    
+
+                    
+
+                    
+                    </td>
+                
+
+                
+
+                <td class="description last"><p>The callback fn.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>args</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
                 
                 </td>
-            
 
-            
+                
+                    <td class="attributes">
+                    
 
-            <td class="description last"><p>The arguments to pass.</p></td>
-        </tr>
+                    
 
-    
-    </tbody>
-</table>
+                    
+                        &lt;repeatable><br>
+                    
+                    </td>
+                
 
+                
+
+                <td class="description last"><p>The arguments to pass.</p></td>
+            </tr>
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -342,7 +347,9 @@ arguments.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -371,74 +378,75 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>before</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>before</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">function</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The first function to execute.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>after</code></td>
-            
-
-            <td class="type">
-            
                 
+                </td>
+
+                
+
+                
+
+                <td class="description last"><p>The first function to execute.</p></td>
+            </tr>
+
+        
+
+            <tr>
+                
+                    <td class="name"><code>after</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">function</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The subsequent function to execute.</p></td>
-        </tr>
+                <td class="description last"><p>The subsequent function to execute.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -527,7 +535,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -555,51 +565,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>fn</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>fn</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">function</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The map callback function.</p></td>
-        </tr>
+                <td class="description last"><p>The map callback function.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -688,7 +699,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -716,51 +729,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">array</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The array to flatten.</p></td>
-        </tr>
+                <td class="description last"><p>The array to flatten.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -849,7 +863,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -877,51 +893,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>string</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>string</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The error message.</p></td>
-        </tr>
+                <td class="description last"><p>The error message.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1004,7 +1021,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1032,51 +1051,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">array</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The array to flatten.</p></td>
-        </tr>
+                <td class="description last"><p>The array to flatten.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1165,7 +1185,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1193,51 +1215,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1326,7 +1349,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1354,51 +1379,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">number</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1487,7 +1513,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1515,51 +1543,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">number</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1648,7 +1677,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1676,51 +1707,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1809,7 +1841,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1837,51 +1871,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1970,7 +2005,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -1998,51 +2035,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2131,7 +2169,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2159,51 +2199,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2292,7 +2333,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2320,51 +2363,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2453,7 +2497,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2481,51 +2527,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2614,7 +2661,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2642,51 +2691,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">*</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2775,7 +2825,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2803,51 +2855,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>string</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>string</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The string to convert.</p></td>
-        </tr>
+                <td class="description last"><p>The string to convert.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2936,7 +2989,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -2964,51 +3019,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>value</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>value</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">array</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The array to count.</p></td>
-        </tr>
+                <td class="description last"><p>The array to count.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -3097,7 +3153,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -3125,51 +3183,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>string</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>string</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">value</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to check.</p></td>
-        </tr>
+                <td class="description last"><p>The value to check.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -3258,7 +3317,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -3286,51 +3347,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>string</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>string</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">value</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The value to round.</p></td>
-        </tr>
+                <td class="description last"><p>The value to round.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -3419,7 +3481,9 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
+        <div class="mb-5">
             
 
     
@@ -3447,51 +3511,52 @@ to <code>after</code> and the subsequent value is returned.</p>
     <h5>Parameters:</h5>
     
 
-<table class="table">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="card">
+    <table class="table">
+        <thead>
         <tr>
             
-                <td class="name"><code>string</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
+            <th>Type</th>
+
             
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            <tr>
                 
+                    <td class="name"><code>string</code></td>
+                
+
+                <td class="type">
+                
+                    
 <span class="param-type">string</span>
 
 
-            
-            </td>
+                
+                </td>
 
-            
+                
 
-            
+                
 
-            <td class="description last"><p>The string to capitalize.</p></td>
-        </tr>
+                <td class="description last"><p>The string to capitalize.</p></td>
+            </tr>
 
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -3580,6 +3645,7 @@ to <code>after</code> and the subsequent value is returned.</p>
 
 
 
+        </div>
         
     
 

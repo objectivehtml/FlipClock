@@ -37,20 +37,14 @@ export default class DomComponent extends Component {
     }
 
     /**
-     * Get the component's top level DOM node.
+     * The `el` attribute.
      *
-     * @return {HTMLElement} - The `el` attribute.
+     * @type {HTMLElement}
      */
     get el() {
         return this.$el;
     }
 
-    /**
-     * Set the component's top level DOM node.
-     *
-     * @param  {(null|HTMLElement)} value - The `el` attribute.
-     * @return {void}
-     */
     set el(value) {
         if(!validate(value, null, HTMLElement)) {
             error(ConsoleMessages.element);
@@ -60,40 +54,28 @@ export default class DomComponent extends Component {
     }
 
     /**
-     * Get the `parent` attribute. Parent is set when `DomComponent` instances are
+     * The `parent` attribute. Parent is set when `DomComponent` instances are
      * mounted.
      *
-     * @return {DomComponent} - The `parent` attribute.
+     * @type {DomComponent}
      */
     get parent() {
         return this.$parent;
     }
 
-    /**
-     * Set the parent attribute.
-     *
-     * @param  {DomComponent} parent - The `parent` attribute value.
-     * @return {DomComponent} - The `parent` attribute.
-     */
     set parent(parent) {
         this.$parent = parent;
     }
 
     /**
-     * Get the `theme` attribute.
+     * The `theme` attribute.
      *
-     * @return {DomComponent} - The `theme` attribute.
+     * @type {object}
      */
     get theme() {
         return this.$theme;
     }
 
-    /**
-     * Set the `theme` attribute.
-     *
-     * @param  {object} value - The `theme` attribute.
-     * @return {void}
-     */
     set theme(value) {
         if(!validate(value, 'object')) {
             error(ConsoleMessages.value);
@@ -105,18 +87,12 @@ export default class DomComponent extends Component {
     /**
      * Get the language attribute.
      *
-     * @return {object} - The `language` attribute.
+     * @type {object}
      */
     get language() {
         return this.$language;
     }
 
-    /**
-     * Set the language attribute.
-     *
-     * @param  {object} value - The `language` attribute.
-     * @return {object} - The `language` attribute.
-     */
     set language(value) {
         if(isString(value)) {
             value = language(value);
