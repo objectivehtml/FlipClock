@@ -56,6 +56,8 @@
       .flip-clock .flip-clock-group .flip-clock-list.flip {
         animation-delay: 500ms;
         animation-duration: 500ms; }
+        .flip-clock .flip-clock-group .flip-clock-list.flip .flip-clock-list-item-inner {
+          perspective: 15em; }
         .flip-clock .flip-clock-group .flip-clock-list.flip .top,
         .flip-clock .flip-clock-group .flip-clock-list.flip .bottom,
         .flip-clock .flip-clock-group .flip-clock-list.flip .active,
@@ -63,9 +65,9 @@
         .flip-clock .flip-clock-group .flip-clock-list.flip .before,
         .flip-clock .flip-clock-group .flip-clock-list.flip .before > div {
           animation-delay: inherit;
+          animation-fill-mode: forwards;
           animation-duration: inherit;
-          animation-fill-mode: both;
-          animation-timing-function: linear; }
+          animation-timing-function: ease-in; }
           .flip-clock .flip-clock-group .flip-clock-list.flip .top:after,
           .flip-clock .flip-clock-group .flip-clock-list.flip .bottom:after,
           .flip-clock .flip-clock-group .flip-clock-list.flip .active:after,
@@ -108,7 +110,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        perspective: 15em; }
+        transform: rotateX(0.0001deg); }
         .flip-clock .flip-clock-group .flip-clock-list .flip-clock-list-item-inner:first-child {
           z-index: 2; }
         .flip-clock .flip-clock-group .flip-clock-list .flip-clock-list-item-inner > .top,
