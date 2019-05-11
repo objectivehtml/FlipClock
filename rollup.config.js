@@ -143,6 +143,7 @@ const config = [{
     plugins: plugins
 } : null)].filter(value => value !== null);
 
+/*
 const watcher = rollup.watch(config);
 
 watcher.on('event', event => {
@@ -154,5 +155,6 @@ watcher.on('event', event => {
         });
     }
 });
+*/
 
 export default config;
