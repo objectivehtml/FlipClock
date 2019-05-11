@@ -116,4 +116,12 @@ export default class Timer extends Component {
         return this;
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'Timer';
+    }
 }

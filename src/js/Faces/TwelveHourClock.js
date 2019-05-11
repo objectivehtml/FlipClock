@@ -39,4 +39,12 @@ export default class TwelveHourClock extends TwentyFourHourClock {
 		return groups;
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'TwelveHourClock';
+    }
 }

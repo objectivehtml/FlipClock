@@ -2,9 +2,9 @@ import Component from './Component';
 import language from '../Helpers/Language';
 import validate from '../Helpers/Validate';
 import translate from '../Helpers/Translate';
-import { error } from '../Helpers/Functions';
 import { isString } from '../Helpers/Functions';
 import ConsoleMessages from '../Config/ConsoleMessages';
+import { error, kebabCase } from '../Helpers/Functions';
 import { swap, createElement } from '../Helpers/Template';
 
 export default class DomComponent extends Component {
@@ -34,6 +34,15 @@ export default class DomComponent extends Component {
                 `${this.name} cannot be rendered because it has no template.`
             );
         }
+    }
+
+    /**
+     * The `className` attribute. Used for CSS.
+     *
+     * @type {string}
+     */
+    get className() {
+        return kebabCase(this.constructor.defineName());
     }
 
     /**

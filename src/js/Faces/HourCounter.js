@@ -23,7 +23,7 @@ export default class HourCounter extends MinuteCounter {
         ];
 
         if(this.showSeconds) {
-            data.push([this.getSeconds(a, b)])
+            data.push([this.getSeconds(a, b)]);
         }
 
         return data;
@@ -37,4 +37,12 @@ export default class HourCounter extends MinuteCounter {
         return Math.floor(this.getTotalSeconds(a, b) / 60 / 60);
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'HourCounter';
+    }
 }

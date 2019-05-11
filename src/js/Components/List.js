@@ -68,4 +68,13 @@ export default class List extends DomComponent {
         return item;
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'List';
+    }
+
 }

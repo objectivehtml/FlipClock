@@ -75,4 +75,12 @@ export default class MinuteCounter extends Face {
         return a.getTime() === b.getTime() ? 0 : Math.round((a.getTime() - b.getTime()) / 1000);
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'MinuteCounter';
+    }
 }

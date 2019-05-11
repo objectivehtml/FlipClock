@@ -25,7 +25,7 @@ export default class WeekCounter extends DayCounter {
         ];
 
         if(this.showSeconds) {
-            data.push([this.getSeconds(a, b)])
+            data.push([this.getSeconds(a, b)]);
         }
 
         return data;
@@ -39,4 +39,12 @@ export default class WeekCounter extends DayCounter {
         return Math.abs(super.getDays(a, b) % 7);
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'WeekCounter';
+    }
 }

@@ -51,4 +51,12 @@ export default class TwentyFourHourClock extends Face {
         instance.value = new Date(this.value.value.getTime() - offset - (new Date().getTime() - instance.timer.lastLoop));
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'TwentyFourHourClock';
+    }
 }

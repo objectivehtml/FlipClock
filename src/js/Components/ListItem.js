@@ -17,4 +17,13 @@ export default class ListItem extends DomComponent {
         }, isObject(value) ? value : null, attributes));
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'ListItem';
+    }
+
 }

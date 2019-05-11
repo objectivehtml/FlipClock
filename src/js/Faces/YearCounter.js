@@ -26,7 +26,7 @@ export default class YearCounter extends WeekCounter {
         ];
 
         if(this.showSeconds) {
-            data.push([this.getSeconds(a, b)])
+            data.push([this.getSeconds(a, b)]);
         }
 
         return data;
@@ -40,4 +40,12 @@ export default class YearCounter extends WeekCounter {
         return Math.abs(super.getWeeks(a, b) % 52);
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'YearCounter';
+    }
 }

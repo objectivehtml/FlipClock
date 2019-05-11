@@ -13,4 +13,13 @@ import DomComponent from './DomComponent';
  */
 export default class Divider extends DomComponent {
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'Divider';
+    }
+
 }

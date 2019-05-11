@@ -73,7 +73,7 @@ export default class FaceValue extends Component {
      * @return {boolean} - `true` is the value is a number.
      */
     isNumber() {
-        return isNumber()
+        return isNumber();
     }
 
     /**
@@ -89,6 +89,15 @@ export default class FaceValue extends Component {
         return new this.constructor(value, Object.assign(
             this.getPublicAttributes(), attributes
         ));
+    }
+
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'FaceValue';
     }
 
 }

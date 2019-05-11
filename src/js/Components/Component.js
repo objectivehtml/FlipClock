@@ -1,4 +1,4 @@
-import { chain, callback, isObject, kebabCase } from '../Helpers/Functions';
+import { chain, error, callback, isObject, kebabCase } from '../Helpers/Functions';
 
 export default class Component {
 
@@ -15,21 +15,16 @@ export default class Component {
     }
 
     /**
-     * Get the `name` attribute. Uses the `this.constructor.name` by default.
+     * Get the `name` attribute.
      *
      * @type {string}
      */
     get name() {
-        return this.constructor.name;
-    }
+        if(!(this.constructor.defineName instanceof Function)) {
+            error('Every class must define its name.');
+        }
 
-    /**
-     * The `className` attribute. Used for CSS.
-     *
-     * @type {string}
-     */
-    get className() {
-        return kebabCase(this.name);
+        return this.constructor.defineName();
     }
 
     /**
@@ -167,7 +162,7 @@ export default class Component {
      */
     setAttribute(key, value) {
         if(isObject(key)) {
-            this.setAttributes(key)
+            this.setAttributes(key);
         }
         else {
             this[key] = value;

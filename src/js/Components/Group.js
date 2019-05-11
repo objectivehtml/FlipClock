@@ -19,4 +19,13 @@ export default class Group extends DomComponent {
         }, (isObject(items) ? items : null), attributes));
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'Group';
+    }
+
 }

@@ -18,4 +18,13 @@ export default class Label extends DomComponent {
         }, (isObject(label) ? label : null), attributes));
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'Label';
+    }
+
 }

@@ -24,7 +24,7 @@ export default class DayCounter extends HourCounter {
         ];
 
         if(this.showSeconds) {
-            data.push([this.getSeconds(a, b)])
+            data.push([this.getSeconds(a, b)]);
         }
 
         return data;
@@ -38,4 +38,12 @@ export default class DayCounter extends HourCounter {
         return Math.abs(super.getHours(a, b) % 24);
     }
 
+    /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'DayCounter';
+    }
 }

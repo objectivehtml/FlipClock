@@ -142,7 +142,7 @@ export default class FlipClock extends DomComponent {
 
     set value(value) {
         if(!this.face) {
-            throw new Error('A face must be set before setting a value.')
+            throw new Error('A face must be set before setting a value.');
         }
 
         if(value instanceof FaceValue) {
@@ -233,7 +233,7 @@ export default class FlipClock extends DomComponent {
         isUndefined(this.face.originalValue) && (this.face.originalValue = this.originalValue);
 
         this.timer.start(() => {
-            this.face.interval(this, fn)
+            this.face.interval(this, fn);
         });
 
         this.face.started(this);
@@ -365,6 +365,15 @@ export default class FlipClock extends DomComponent {
     }
 
     /**
+     * Define the name of the class.
+     *
+     * @return {string}
+     */
+    static defineName() {
+        return 'FlipClock';
+    }
+
+    /**
      * Helper method to set the default `Face` value.
      *
      * @param  {Face} value - The default `Face` class.This should be a
@@ -390,7 +399,7 @@ export default class FlipClock extends DomComponent {
             error(ConsoleMessages.theme);
         }
 
-        DefaultValues.theme = value
+        DefaultValues.theme = value;
     }
 
     /**

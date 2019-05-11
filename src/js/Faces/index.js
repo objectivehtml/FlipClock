@@ -24,4 +24,4 @@ export {
     TwentyFourHourClock,
     WeekCounter,
     YearCounter
-}
+};
