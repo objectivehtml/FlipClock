@@ -637,6 +637,12 @@ var FlipClock;
 		 */	
 		 
 		countdown: false,
+
+		/**
+		 * Scale the clock responsively. This value is the scale preffered on a screen 1920*1080. -1 to disable
+		 */
+
+		responsiveScale: -1,
 		 
 		/**
 		 * The name of the default clock face class to use if the defined
@@ -746,6 +752,8 @@ var FlipClock;
 			this.loadLanguage(this.language);
 			
 			this.loadClockFace(this.clockFace, options);
+
+			this.setResponsiveScale();
 
 			if(this.autoStart) {
 				this.start();
@@ -929,6 +937,18 @@ var FlipClock;
 		 */
 		flip: function(doNotAddPlayClass) {	
 			this.face.flip(false, doNotAddPlayClass);
+		},
+
+		/**
+		 * Sets the wrappers scaling responsively
+		 */
+		setResponsiveScale: function() {
+			if (this.responsiveScale != -1) {
+				var c = document.getElementsByClassName(this.classes.wrapper);
+				var perpx = this.responsiveScale / 1920;
+				var s = perpx * window.screen.width;
+				c[0].style.transform = "scale(" + s + ")";
+			}
 		}
 		
 	});
