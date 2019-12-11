@@ -1,5 +1,5 @@
 import Face from '../Components/Face';
-import { noop, round, isNull, isUndefined, isNumber, callback } from '../Helpers/Functions';
+import {isNull, isNumber, isUndefined, noop, round} from '../Helpers/Functions';
 
 /**
  * @classdesc This face is meant to display a clock that shows minutes, and
@@ -53,7 +53,7 @@ export default class MinuteCounter extends Face {
     }
 
     format(instance, value) {
-        const started = instance.timer.isRunning ? instance.timer.started : new Date(Date.now() - 50);
+        const started = instance.timer.isRunning ? instance.timer.started : new Date;
 
         return [
             [this.getMinutes(value, started)],
