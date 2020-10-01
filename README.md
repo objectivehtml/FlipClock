@@ -1,5 +1,6 @@
 # FlipClock.js
 
+An awesome application - One  must Try
 ### Installation
 
 FlipClock.js can be installed in the following ways:
