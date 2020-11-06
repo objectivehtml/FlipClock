@@ -1075,13 +1075,13 @@
             this.increment(instance);
           }
 
-          callback.call(this, fn);
+          callback.call(instance, fn);
 
           if (this.shouldStop(instance)) {
             instance.stop();
           }
 
-          return this.emit('interval');
+          return instance.emit('interval');
         }
         /**
          * Determines if the clock should stop or not.
@@ -3148,7 +3148,7 @@
       }, {
         key: "format",
         value: function format(instance, value) {
-          var started = instance.timer.isRunning ? instance.timer.started : new Date(Date.now() - 50);
+          var started = instance.timer.isRunning ? instance.timer.started : new Date();
           return [[this.getMinutes(value, started)], this.showSeconds ? [this.getSeconds(value, started)] : null].filter(noop);
         }
       }, {
@@ -3207,8 +3207,8 @@
       _createClass(HourCounter, [{
         key: "format",
         value: function format(instance, value) {
-          var now = !instance.timer.started ? new Date() : value;
-          var originalValue = instance.originalValue || value;
+          var now = !instance.timer.started ? new Date() : instance.timer.started;
+          var originalValue = value || instance.originalValue;
           var a = !this.countdown ? now : originalValue;
           var b = !this.countdown ? originalValue : now;
           var data = [[this.getHours(a, b)], [this.getMinutes(a, b)]];
@@ -3270,7 +3270,7 @@
         key: "format",
         value: function format(instance, value) {
           var now = !instance.started ? new Date() : value;
-          var originalValue = instance.originalValue || value;
+          var originalValue = value || instance.originalValue;
           var a = !this.countdown ? now : originalValue;
           var b = !this.countdown ? originalValue : now;
           var data = [[this.getDays(a, b)], [this.getHours(a, b)], [this.getMinutes(a, b)]];
@@ -3476,7 +3476,7 @@
         key: "format",
         value: function format(instance, value) {
           var now = !instance.timer.started ? new Date() : value;
-          var originalValue = instance.originalValue || value;
+          var originalValue = value || instance.originalValue;
           var a = !this.countdown ? now : originalValue;
           var b = !this.countdown ? originalValue : now;
           var data = [[this.getWeeks(a, b)], [this.getDays(a, b)], [this.getHours(a, b)], [this.getMinutes(a, b)]];
@@ -3538,7 +3538,7 @@
         key: "format",
         value: function format(instance, value) {
           var now = !instance.timer.started ? new Date() : value;
-          var originalValue = instance.originalValue || value;
+          var originalValue = value || instance.originalValue;
           var a = !this.countdown ? now : originalValue;
           var b = !this.countdown ? originalValue : now;
           var data = [[this.getYears(a, b)], [this.getWeeks(a, b)], [this.getDays(a, b)], [this.getHours(a, b)], [this.getMinutes(a, b)]];

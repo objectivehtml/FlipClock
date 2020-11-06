@@ -108,13 +108,13 @@ export default class Face extends Component {
             this.increment(instance);
         }
 
-        callback.call(this, fn);
+        callback.call(instance, fn);
 
         if(this.shouldStop(instance)) {
             instance.stop();
         }
 
-        return this.emit('interval');
+        return instance.emit('interval');
     }
 
     /**

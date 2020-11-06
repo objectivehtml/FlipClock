@@ -12,8 +12,8 @@ import MinuteCounter from './MinuteCounter';
 export default class HourCounter extends MinuteCounter {
 
     format(instance, value) {
-        const now = !instance.timer.started ? new Date : value;
-        const originalValue = instance.originalValue || value;
+        const now = !instance.timer.started ? new Date : instance.timer.started;
+        const originalValue = value || instance.originalValue;
         const a = !this.countdown ? now : originalValue;
         const b = !this.countdown ? originalValue : now;
 

@@ -13,7 +13,7 @@ export default class YearCounter extends WeekCounter {
 
     format(instance, value) {
         const now = !instance.timer.started ? new Date : value;
-        const originalValue = instance.originalValue || value;
+        const originalValue = value || instance.originalValue;
         const a = !this.countdown ? now : originalValue;
         const b = !this.countdown ? originalValue : now;
 
