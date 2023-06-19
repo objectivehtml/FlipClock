@@ -1,66 +1,52 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="../compiled/flipclock.css">
-
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
 		<script src="../compiled/flipclock.js"></script>		
 	</head>
 	<body>
 		<div class="clock" style="margin:2em;"></div>
 
 		<button type="button" class="increment" style="margin: 25px; font-size: 20px; padding: 15px;">+1</button>
-		
 		<button type="button" class="decrement" style="margin: 25px; font-size: 20px; padding: 15px;">-1</button>
-		
 		<button type="button" class="reset" style="margin: 25px; font-size: 20px; padding: 15px;">Reset</button>
+		
+		<div style="margin-top: 25px;">
+			<label for="incrementValue">Increment Value:</label>
+			<input type="number" id="incrementValue" value="1" min="1" step="1">
+			<button type="button" class="updateIncrement" style="margin-left: 10px;">Update</button>
+		</div>
 		
 		<script type="text/javascript">
 			var clock;
+			var incrementValue = 1;
 
 			$(document).ready(function() {
-
 				// Instantiate a counter
 				clock = new FlipClock($('.clock'), 101, {
 					clockFace: 'Counter'
 				});
 
-				// Attach a click event to a button a increment the clock
+				// Attach a click event to increment button
 				$('.increment').click(function() {
-					//clock.setValue(10);
-
-					// Or you could decrease the clock
-					// clock.decrement();
-
-					clock.increment();
-
-					// Or set it to a specific value
-					// clock.setValue(x);
+					clock.increment(incrementValue);
 				});
 
-				// Attach a click event to a button a decrement the clock
+				// Attach a click event to decrement button
 				$('.decrement').click(function() {
 					clock.decrement();
 				});
 
+				// Attach a click event to reset button
 				$('.reset').click(function() {
 					clock.reset();
 				});
 
-				/*
-				// Use this code if you want to autoincrement the counter.
-				var timer = new FlipClock.Timer(clock, {
-					callbacks: {
-						interval: function() {
-							clock.increment();
-						}
-					}
+				// Attach a click event to update increment button
+				$('.updateIncrement').click(function() {
+					incrementValue = parseInt($('#incrementValue').val());
 				});
-
-				timer.start();
-				*/
 			});
 		</script>
-		
 	</body>
-</html> 
+</html>
