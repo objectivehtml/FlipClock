@@ -1,3 +1,5 @@
+Hi there
+
 # FlipClock.js
 
 ### Installation
