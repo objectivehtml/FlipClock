@@ -99,11 +99,11 @@ export default defineConfig({
         },
 
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/objectivehtml/flipclock' }
+            { icon: 'github', link: 'https://github.com/objectivehtml/FlipClock' }
         ],
 
         editLink: {
-            pattern: 'https://github.com/objectivehtml/flipclock/edit/master/docs/:path'
+            pattern: 'https://github.com/objectivehtml/FlipClock/edit/master/docs/:path'
         }
     },
     markdown: {
