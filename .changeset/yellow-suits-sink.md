@@ -2,4 +2,4 @@
 "flipclock": patch
 ---
 
-Bump to beta.1
+Updated README.md

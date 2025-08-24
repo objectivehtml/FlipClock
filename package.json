@@ -1,6 +1,6 @@
 {
   "name": "flipclock",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "A full featured, themeable, type safe, and well tested library for clocks, timers, counters, and flipboards.",
   "license": "MIT",
   "author": "objectivehtml",
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/objectivehtml/flipflock.git"
   },
-  "homepage": "https://github.com/objectivehtml/flipflock#readme",
+  "homepage": "https://flipclockjs.com",
   "bugs": {
     "url": "https://github.com/objectivehtml/flipflock/issues"
   },

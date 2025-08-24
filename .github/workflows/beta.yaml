@@ -52,7 +52,6 @@ jobs:
         run: |
           pnpm changeset pre enter beta
           
-          # Check if pre.json was created/modified
           if [ -f .changeset/pre.json ]; then
             git add .changeset/pre.json
             git commit -m "ci: enter prerelease mode for ${{ github.ref_name }}" || echo "No changes to commit"
@@ -62,9 +61,9 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: pnpm changeset publish
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   # Deployment job
   deploy:
