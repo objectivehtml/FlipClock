@@ -1,5 +1,11 @@
 # flipclock
 
+## 1.0.1
+
+### Patch Changes
+
+- [`561580a`](https://github.com/objectivehtml/FlipClock/commit/561580a70baf2f6c89791f54f34792ef15e93acc) - Fixed package.json and README.md
+
 ## 1.0.0
 
 ### Major Changes
