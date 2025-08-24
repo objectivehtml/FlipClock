@@ -13,6 +13,11 @@ export default defineConfig({
             provider: 'local'
         },
 
+        footer: {
+            message: 'Released under the MIT License.',
+            copyright: 'Copyright © 2013-present Justin Kimbrell'
+        },
+
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Guide', link: '/guide/what-is-flipclock', activeMatch: '/guide/' },
