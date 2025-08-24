@@ -7,11 +7,11 @@
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/objectivehtml/flipflock.git"
+    "url": "git+https://github.com/objectivehtml/flipclock.git"
   },
   "homepage": "https://flipclockjs.com",
   "bugs": {
-    "url": "https://github.com/objectivehtml/flipflock/issues"
+    "url": "https://github.com/objectivehtml/flipclock/issues"
   },
   "files": [
     "dist"
