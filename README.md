@@ -5,15 +5,15 @@ A full featured, themeable, type safe, and well tested library for clocks, timer
 ## Install
 
 ```bash
-pnpm add flipclock@beta
+pnpm add flipclock
 ```
 
 ```bash
-npm i flipclock@beta
+npm i flipclock
 ```
 
 ```bash
-yarn add flipclock@beta
+yarn add flipclock
 ```
 
 ## Documentation
