@@ -48,6 +48,23 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
+      - name: Enter Prerelease Mode
+        run: |
+          pnpm changeset pre enter beta
+          
+          # Check if pre.json was created/modified
+          if [ -f .changeset/pre.json ]; then
+            git add .changeset/pre.json
+            git commit -m "ci: enter prerelease mode for ${{ github.ref_name }}" || echo "No changes to commit"
+          fi
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm changeset publish
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   # Deployment job
   deploy:
@@ -61,32 +78,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    name: Publish
-    steps:
-      - name: Enter Prerelease Mode
-        run: |
-          if [ "${{ github.ref }}" = "refs/heads/beta" ]; then
-            pnpm changeset pre enter beta
-          elif [ "${{ github.ref }}" = "refs/heads/alpha" ]; then
-            pnpm changeset pre enter alpha
-          elif [ "${{ github.ref }}" = "refs/heads/rc" ]; then
-            pnpm changeset pre enter rc
-          fi
-          
-          # Check if pre.json was created/modified
-          if [ -f .changeset/pre.json ]; then
-            git add .changeset/pre.json
-            git commit -m "Enter prerelease mode for ${{ github.ref_name }}" || echo "No changes to commit"
-          fi
-      - name: Create Release Pull Request or Publish
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: pnpm changeset publish
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
