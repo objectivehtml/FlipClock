@@ -52,6 +52,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
+          commit: "ci: version bump from changesets"
           publish: pnpm changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
