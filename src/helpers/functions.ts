@@ -1,11 +1,12 @@
 export function parseDuration(duration: string | null | undefined): number {
-    const match = duration?.trim().split(',')[0]?.match(/^([+-]?(?:\d+\.?\d*|\.\d+))\s*(ms|s|m|h)$/i);
+    // const match = duration?.trim().split(',')[0]?.match(/^([+-]?(?:\d+\.?\d*|\.\d+))\s*(ms|s|m|h)$/i);
+    const match = duration?.trim().split(',')[0]?.match(/^([+-]?)(\d+(?:\.\d+)?|\.\d+)\s*(ms|s|m|h)$/i);
     
     if (!match) {
         return 0;
     }
 
-    const [, val, unit] = match;
+    const [,, val, unit] = match;
 
     return parseFloat(val!) * {
         ms: 1,

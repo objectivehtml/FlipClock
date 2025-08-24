@@ -24,6 +24,11 @@ export function mergeCss<TSource extends CSSProperties, TTarget extends CSSPrope
     target: TTarget
 ): TSource {
     for (const key in target) {
+        if (!Object.prototype.hasOwnProperty.call(target, key) || 
+            key === '__proto__' || key === 'constructor' || key === 'prototype') {
+            continue;
+        }
+        
         const targetVal = target[key];
         const sourceVal = source[key];
 
