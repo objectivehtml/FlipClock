@@ -5,7 +5,7 @@ Create a [Definition](./definition.md) of terms used for translations.
 ## Instantiate
 
 <<< @/types/useDictionary.function.ts{TS}
-<<< @/types/translator.type.ts{TS}
+<<< @/types/Translator.type.ts{TS}
 
 ## Returns
 

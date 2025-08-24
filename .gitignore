@@ -1,5 +1,6 @@
 dist
 coverage
+.vitepress/cache
 .wrangler
 .output
 .vercel
