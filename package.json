@@ -1,6 +1,6 @@
 {
   "name": "flipclock",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "description": "A full featured, themeable, type safe, and well tested library for clocks, timers, counters, and flipboards.",
   "license": "MIT",
   "author": "objectivehtml",
@@ -36,13 +36,18 @@
     }
   },
   "typesVersions": {},
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
   "scripts": {
     "dev": "vite serve dev",
     "build": "vite build",
     "prebuild": "pnpm vitest --coverage",
     "postbuild": "pnpm tsup && pnpm extract-types && pnpm docs:build",
     "tsup": "tsup --dts-only",
-    "test": "vitetest",
+    "test": "vitest",
     "peg": "npx peggy -o ./src/helpers/parser.js format.peg --dts --format es",
     "test:coverage": "vitest --coverage",
     "prepublishOnly": "pnpm build",
@@ -54,7 +59,11 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "extract-types": "node bin/extractTypes.ts"
+    "extract-types": "node bin/extractTypes.ts",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "pnpm build && changeset publish",
+    "prepare": "husky"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
@@ -62,6 +71,10 @@
     "solid-js": "^1.9.9"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.6",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@types/fs-extra": "^11.0.4",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^20.19.11",
@@ -80,7 +93,9 @@
     "eslint-plugin-no-only-tests": "^3.3.0",
     "fs-extra": "^11.3.1",
     "goober": "^2.1.16",
+    "husky": "^9.1.7",
     "jsdom": "^24.1.3",
+    "lint-staged": "^16.1.5",
     "markdown-it": "^14.1.0",
     "markdown-it-async": "^2.2.0",
     "peggy": "^5.0.6",
