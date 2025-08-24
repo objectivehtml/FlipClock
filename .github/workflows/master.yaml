@@ -1,6 +1,6 @@
 # Sample workflow for building and deploying a VitePress site to GitHub Pages
 #
-name: Master
+name: Release
 
 on:
   # Runs on pushes targeting the `main` branch. Change this to `master` if you're
@@ -41,13 +41,22 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          commit: "ci: version bump from changesets"
+          publish: pnpm changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   # Deployment job
   deploy:
