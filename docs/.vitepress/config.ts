@@ -9,6 +9,10 @@ export default defineConfig({
     description: "A full featured, themeable, type safe, and well tested library for clocks, counters, and flipboards.",
     lastUpdated: true,
     themeConfig: {
+        search: {
+            provider: 'local'
+        },
+
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Guide', link: '/guide/what-is-flipclock', activeMatch: '/guide/' },

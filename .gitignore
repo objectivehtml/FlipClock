@@ -1,6 +1,6 @@
 dist
 coverage
-.vitepress/cache
+docs/.vitepress/cache
 .wrangler
 .output
 .vercel
