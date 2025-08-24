@@ -1,5 +1,5 @@
-[![codecov](https://codecov.io/gh/objectivehtml/flipclock/branch/main/graph/badge.svg)](https://codecov.io/gh/objectivehtml/flipclock)
-[![Tests](https://github.com/objectivehtml/flipclock/actions/workflows/master.yaml/badge.svg)](https://github.com/objectivehtml/flipclock/actions/workflows/master.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/objectivehtml/FlipClock/branch/master/graph/badge.svg)](https://codecov.io/gh/objectivehtml/FlipClock)
+[![Tests](https://github.com/objectivehtml/FlipClock/actions/workflows/master.yaml/badge.svg)](https://github.com/objectivehtml/FlipClock/actions/workflows/master.yaml/badge.svg)
 [![npm version](https://badge.fury.io/js/flipclock.svg)](https://badge.fury.io/js/flipclock)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -27,7 +27,7 @@ To check out docs, visit [https://flipclockjs.com/](https://flipclockjs.com/).
 
 ## Changelog
 
-Detailed changes for each release are documented in the [CHANGELOG](https://github.com/objectivehtml/flipclock/blob/master/CHANGELOG.md).
+Detailed changes for each release are documented in the [CHANGELOG](https://github.com/objectivehtml/FlipClock/blob/master/CHANGELOG.md).
 
 ## License
 
