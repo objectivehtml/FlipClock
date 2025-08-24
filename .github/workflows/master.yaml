@@ -44,6 +44,8 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Run tests
+        run: pnpm vitest run --coverage
       - name: Build
         run: pnpm build
       - name: Upload coverage reports to Codecov

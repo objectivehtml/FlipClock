@@ -1,6 +1,6 @@
 {
   "name": "flipclock",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "A full featured, themeable, type safe, and well tested library for clocks, timers, counters, and flipboards.",
   "license": "MIT",
   "author": "objectivehtml",
@@ -44,7 +44,6 @@
   "scripts": {
     "dev": "vite serve dev",
     "build": "vite build",
-    "prebuild": "pnpm vitest --coverage",
     "postbuild": "pnpm tsup && pnpm extract-types && pnpm docs:build",
     "tsup": "tsup --dts-only",
     "test": "vitest",
@@ -105,9 +104,6 @@
     "ts-morph": "^26.0.0",
     "tsup": "^8.5.0",
     "tsup-preset-solid": "^2.2.0",
-    "typedoc": "^0.28.10",
-    "typedoc-plugin-markdown": "^4.8.1",
-    "typedoc-vitepress-theme": "^1.1.2",
     "typescript": "^5.9.2",
     "vite": "^7.1.3",
     "vite-plugin-dts": "^4.5.4",
