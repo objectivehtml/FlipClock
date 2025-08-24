@@ -4,10 +4,6 @@ import Clock from '/components/Clock.vue';
 
 # Getting Started
 
-::: warning
-FlipClock.js v1 is currently in beta. The library has been entirely re-written and designed from the ground up. It's ready to be used in production, but API's may be subject to minor breaking changes while it is tested across broad use cases.
-:::
-
 ## Installation
 
 ### Package Manager
@@ -35,12 +31,12 @@ bun i flipclock
 ### CDN
 
 ::: code-group
-```bash [JSDelivr]
-# @todo - Insert link here
+```html [JSDelivr]
+<script src="https://cdn.jsdelivr.net/npm/flipclock@^1/dist/FlipClock.umd.js"></script>
 ```
 
-```bash [Unpkg]
-# @todo - Insert link here
+```html [Unpkg]
+<script src="https://unpkg.com/flipclock@^1/dist/FlipClock.umd.js"></script>
 ```
 :::
 
