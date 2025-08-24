@@ -16,10 +16,12 @@ describe('ElapsedTime', () => {
     });
 
     it('creates an elapsed time to a given date', () => {
+        const date = new Date;
+
         const instance = flipClock({
             parent: document.createElement('div'),
             face: elapsedTime({
-                to: add(new Date, { seconds: 3 }),
+                to: add(date, { seconds: 3 }),
                 format: '[mm]:[ss]'
             }),
             theme: theme()
@@ -46,10 +48,12 @@ describe('ElapsedTime', () => {
     });
 
     it('creates an elapsed time from a date in the past', () => {
+        const date = new Date;
+
         const instance = flipClock({
             parent: document.createElement('div'),
             face: elapsedTime({
-                from: sub(new Date, { minutes: 60 }),
+                from: sub(date, { minutes: 60 }),
                 format: '[mm]:[ss]'
             }),
             theme: theme()
@@ -67,10 +71,12 @@ describe('ElapsedTime', () => {
     });
 
     it('creates an elapsed time from a date in the future', () => {
+        const date = new Date;
+
         const instance = flipClock({
             parent: document.createElement('div'),
             face: elapsedTime({
-                from: add(new Date, { minutes: 60 }),
+                from: add(date, { minutes: 60 }),
                 format: '[mm]:[ss]'
             }),
             theme: theme()
