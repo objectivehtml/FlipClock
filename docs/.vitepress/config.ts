@@ -106,5 +106,19 @@ export default defineConfig({
             md.disable('snippet');
             md.use(snippetPlugin as any, path.resolve(__dirname, '../'));
         }
-    }
+    },
+    head: [
+        [
+            'script',
+            {async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-L1GWWG8KPL'}
+        ],
+        [
+            'script',
+            {},
+            `window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-L1GWWG8KPL');`
+        ]
+    ]
 });
