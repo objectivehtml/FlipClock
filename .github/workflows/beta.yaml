@@ -48,14 +48,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
-      - name: Enter Prerelease Mode
-        run: |
-          pnpm changeset pre enter beta
-          
-          if [ -f .changeset/pre.json ]; then
-            git add .changeset/pre.json
-            git commit -m "ci: enter prerelease mode for ${{ github.ref_name }}" || echo "No changes to commit"
-          fi
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
