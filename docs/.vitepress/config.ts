@@ -125,5 +125,8 @@ export default defineConfig({
             gtag('js', new Date());
             gtag('config', 'G-L1GWWG8KPL');`
         ]
-    ]
+    ],
+    sitemap: {
+        hostname: 'https://flipclockjs.com'
+    }
 });
