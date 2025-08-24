@@ -4,6 +4,7 @@ import { snippetPlugin } from './plugins/snippet';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+    lang: 'en-US',
     title: "FlipClock.js",
     description: "A full featured, themeable, type safe, and well tested library for clocks, counters, and flipboards.",
     lastUpdated: true,
