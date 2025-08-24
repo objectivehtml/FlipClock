@@ -1,0 +1,1 @@
+type DurationFlagFormatter = (duration: Duration, length: number) => string;

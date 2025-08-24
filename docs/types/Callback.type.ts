@@ -1,0 +1,1 @@
+type Callback<P extends CallbackParams<any[]>, R = undefined> = (...args: P) => R;

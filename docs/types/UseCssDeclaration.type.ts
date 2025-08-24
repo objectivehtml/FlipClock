@@ -1,0 +1,1 @@
+type UseCssDeclaration<T extends readonly unknown[], V extends CSSProperties> = (...args: T) => V;

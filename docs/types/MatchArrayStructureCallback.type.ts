@@ -1,0 +1,1 @@
+type MatchArrayStructureCallback = Callback<[value?: DigitizedValue, target?: DigitizedValue | DigitizedValues], DigitizedValue | undefined>;

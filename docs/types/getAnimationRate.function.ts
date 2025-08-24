@@ -1,0 +1,1 @@
+function getAnimationRate(el: Element): number;

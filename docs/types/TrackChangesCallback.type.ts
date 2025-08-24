@@ -1,0 +1,1 @@
+type TrackChangesCallback<P extends any[], R, C = P[0] | undefined> = (changes: Change<C>[], ...args: P) => R | Stop;

@@ -1,0 +1,1 @@
+function range(startAt: number | undefined, size: number): number[];

@@ -1,0 +1,1 @@
+function castDigitizedString(value?: DigitizedValue | DigitizedValues): DigitizedValue | undefined;

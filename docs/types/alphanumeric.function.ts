@@ -1,0 +1,1 @@
+function alphanumeric(props: AlphanumericProps): Alphanumeric;

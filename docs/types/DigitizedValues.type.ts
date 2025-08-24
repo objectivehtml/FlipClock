@@ -1,0 +1,1 @@
+type DigitizedValues = (DigitizedValue | DigitizedValues)[];

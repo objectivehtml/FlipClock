@@ -1,0 +1,1 @@
+function timer(interval?: number): Timer;

@@ -1,0 +1,1 @@
+type CallbackParams<T> = T extends any[] ? T : never;

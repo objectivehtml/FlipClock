@@ -1,0 +1,2 @@
+function matchArrayStructure(current: DigitizedValues, target: DigitizedValues, fn?: MatchArrayStructureCallback): DigitizedValues;
+function matchArrayStructure(current: DigitizedValues, target: DigitizedValues, options: MatchArrayStructureOptions | undefined, fn?: MatchArrayStructureCallback): DigitizedValues;

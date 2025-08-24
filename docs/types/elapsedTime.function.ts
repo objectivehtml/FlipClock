@@ -1,0 +1,1 @@
+function elapsedTime(props?: ElapsedTimeProps): ElapsedTime;

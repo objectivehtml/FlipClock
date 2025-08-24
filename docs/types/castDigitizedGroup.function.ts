@@ -1,0 +1,1 @@
+function castDigitizedGroup(value?: DigitizedValue | DigitizedValues): DigitizedValues;

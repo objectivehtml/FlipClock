@@ -1,0 +1,1 @@
+function isDigitizedGroup(value: DigitizedValues | DigitizedValue | undefined): boolean;

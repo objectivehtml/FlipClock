@@ -1,0 +1,1 @@
+type DateFlagFormatFunction = (date: Date) => string;

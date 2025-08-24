@@ -1,0 +1,20 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "src/index.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "out": "docs/api",
+  "plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
+  "readme": "none",
+  "excludePrivate": true,
+  "hidePageHeader": true,
+  "disableSources": true,
+  "sort": [
+    "kind",
+    "instance-first",
+    "alphabetical-ignoring-documents"
+  ],
+  "sortEntryPoints": true
+}

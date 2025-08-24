@@ -1,0 +1,1 @@
+function mergeCss<TSource extends CSSProperties, TTarget extends CSSProperties>(source: TSource, target: TTarget): TSource;

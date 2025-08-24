@@ -1,0 +1,1 @@
+function castDigitizedValues(value?: DigitizedValue | DigitizedValues): DigitizedValue[];

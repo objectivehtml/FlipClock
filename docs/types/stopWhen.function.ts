@@ -1,0 +1,1 @@
+function stopWhen<P extends CallbackParams<any[]>, R>(predicate: StopPredicateFunction<P>, fn: Callback<P, R>): Callback<P, R>;

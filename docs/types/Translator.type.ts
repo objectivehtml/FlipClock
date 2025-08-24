@@ -1,0 +1,1 @@
+type Translator<T, K = string> = (value: K) => T;

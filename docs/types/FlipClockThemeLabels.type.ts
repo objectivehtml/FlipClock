@@ -1,0 +1,1 @@
+type FlipClockThemeLabels = (string | FlipClockThemeLabels)[];

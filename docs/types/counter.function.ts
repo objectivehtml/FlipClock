@@ -1,0 +1,1 @@
+function counter(props?: CounterProps): Counter;
