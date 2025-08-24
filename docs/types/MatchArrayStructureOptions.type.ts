@@ -1,0 +1,3 @@
+type MatchArrayStructureOptions = {
+    backwards?: boolean;
+};

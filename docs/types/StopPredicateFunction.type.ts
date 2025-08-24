@@ -1,0 +1,1 @@
+type StopPredicateFunction<T extends CallbackParams<any[]> = any[]> = TrackChangesCallback<T, boolean>;

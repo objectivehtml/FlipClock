@@ -1,0 +1,1 @@
+function characterRange(startChar: string, endChar: string): string[];

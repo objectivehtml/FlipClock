@@ -1,0 +1,1 @@
+type EventEmitterCallback<T, K extends keyof Required<T>> = (...args: Required<T>[K][]) => void;

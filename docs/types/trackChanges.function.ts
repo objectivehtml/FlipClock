@@ -1,0 +1,1 @@
+function trackChanges<P extends any[], R>(fn: TrackChangesCallback<P, R>): Callback<P, R>;

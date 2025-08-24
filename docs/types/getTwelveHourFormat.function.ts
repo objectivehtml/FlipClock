@@ -1,0 +1,1 @@
+function getTwelveHourFormat(date: Date): string;

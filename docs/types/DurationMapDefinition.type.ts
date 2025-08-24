@@ -1,0 +1,1 @@
+type DurationMapDefinition = [keyof Duration, DurationFlagFormatter];

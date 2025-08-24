@@ -1,0 +1,13 @@
+array = value: (value: string { return () => value } / "[" value: array "]" { return value })* {
+	for(const item of value) {
+    	if(typeof item === 'function') {
+        	value.splice(value.indexOf(item), 1, ...item());
+        }
+    }
+    
+    return value;
+}
+
+string = value: char+ { return value.flat(1).filter(Boolean) }
+
+char = !([\[\]]).

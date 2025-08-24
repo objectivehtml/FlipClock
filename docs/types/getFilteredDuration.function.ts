@@ -1,0 +1,1 @@
+function getFilteredDuration<T extends keyof Duration>(start: Date | number, end: Date | number, keys: T[]): Pick<Duration, T>;

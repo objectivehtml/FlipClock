@@ -1,0 +1,1 @@
+function useCss<T extends readonly unknown[], V extends CSSProperties>(fn: UseCssDeclaration<T, V>): UseCss<T, V>;

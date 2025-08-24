@@ -1,0 +1,1 @@
+function eventEmitter<T>(): EventEmitter<T>;

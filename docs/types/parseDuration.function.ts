@@ -1,0 +1,1 @@
+function parseDuration(duration: string | null | undefined): number;

@@ -1,29 +1,29 @@
 # FlipClock.js
 
-### Installation
+A full featured, themeable, type safe, and well tested library for clocks, timers, counters, and flipboards.
 
-FlipClock.js can be installed in the following ways:
+## Install
 
-#### Bower
+```bash
+pnpm add flipclock@beta
+```
 
-	bower install FlipClock
+```bash
+npm i flipclock@beta
+```
 
-#### Node (NPM)
+```bash
+yarn add flipclock@beta
+```
 
-	npm install flipclock
+## Documentation
 
-#### Download .zip
+To check out docs, visit [https://flipclockjs.com/](https://flipclockjs.com/).
 
-[Download .ZIP](https://github.com/objectivehtml/FlipClock/releases)
+## Changelog
 
----
+Detailed changes for each release are documented in the [CHANGELOG](https://github.com/objectivehtml/flipclock/blob/master/CHANGELOG.md).
 
-### Demo & Documentation
+## License
 
-Website and documentation at http://flipclockjs.com/
-
----
-
-### License
-
-Copyright (c) 2013 Objective HTML, LCC shared under MIT LICENSE
+FlipClock.js is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

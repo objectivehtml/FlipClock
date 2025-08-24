@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "types": ["solid-js"],
+    "baseUrl": ".",
+    "paths": {
+      "flipclock": ["./dist/index.d.ts"]
+    },
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/index.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "docs/**/*.vue",
+    "docs/.vitepress/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist"],
+  "typescript": {
+    "preferences": {
+      "relative": true
+    }
+  }
+}
