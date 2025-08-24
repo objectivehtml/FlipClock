@@ -1,6 +1,6 @@
 {
   "name": "flipclock",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0",
   "description": "A full featured, themeable, type safe, and well tested library for clocks, timers, counters, and flipboards.",
   "license": "MIT",
   "author": "objectivehtml",
