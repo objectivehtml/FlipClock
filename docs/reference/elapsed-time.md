@@ -12,7 +12,7 @@ import ElapsedTime from '../components/ElapsedTime.vue';
 
 ## Instantiate
 
-<<< @/types/elapsedtime.function.ts{ts}
+<<< @/types/elapsedTime.function.ts{ts}
 
 ## Props
 
