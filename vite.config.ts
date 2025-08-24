@@ -1,4 +1,3 @@
-import { codecovVitePlugin } from "@codecov/vite-plugin";
 import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { extractCss } from 'goober';
@@ -12,13 +11,7 @@ export default ({ command }: any) => defineConfig({
         solid(),
         writeCss({
             'flipclock.css': [css, 'flip-clock'] 
-        }),
-        // Put the Codecov vite plugin after all other plugins
-        codecovVitePlugin({
-            enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
-            bundleName: "FlipClock",
-            uploadToken: process.env.CODECOV_TOKEN,
-        }),
+        })
     ],
     build: {
         target: 'esnext',
